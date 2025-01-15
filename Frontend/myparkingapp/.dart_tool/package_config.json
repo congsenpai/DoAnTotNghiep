@@ -56,10 +56,22 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///D:/flutter_3_27_1_2025/flutter_windows_3.27.1-stable/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///D:/flutter_3_27_1_2025/flutter_windows_3.27.1-stable/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -170,7 +182,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-01-14T09:31:38.008312Z",
+  "generated": "2025-01-15T07:56:26.951916Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///D:/flutter_3_27_1_2025/flutter_windows_3.27.1-stable/flutter",
