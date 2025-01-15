@@ -1,4 +1,15 @@
 {
-    "hello": "Hello",
-    "welcome": "Welcome to our app"
-  }
+  "hello": "Hello",
+  "welcome": "Welcome to our app",
+  "Setting": "Setting",
+  "Edit Profile": "Edit Profile",
+  "App Language": "App Language",
+  "My wallet": "My wallet",
+  "Notifications": "Notifications",
+  "Contact & Help": "Contact & Help",
+  "Choose Language": "Choose Language",
+  "English":"English",
+  "en": "en",
+  "Vietnamese": "Vietnamese",
+  "vi": "vi"
+}

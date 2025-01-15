@@ -1,4 +1,15 @@
 {
-    "hello": "Xin chào",
-    "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi"
-  }
+  "hello": "Xin chào",
+  "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi",
+  "Setting": "Cài đặt",
+  "Edit Profile": "Chỉnh sửa hồ sơ",
+  "App Language": "Ngôn ngữ ứng dụng",
+  "My wallet": "Ví của tôi",
+  "Notifications": "Thông báo",
+  "Contact & Help": "Liên hệ & Trợ giúp",
+  "Choose Language": "Chọn ngôn ngữ",
+  "English": "Tiếng Anh",
+  "en": "en",
+  "Vietnamese": "Tiếng Việt",
+  "vi": "vi"
+}
