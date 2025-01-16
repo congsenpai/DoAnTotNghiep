@@ -1,12 +1,12 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/presentation/screens/SettingScreens/SettingScreen.dart';
 
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
-import 'trash/Trash.dart';
 
 void main() {
   runApp(const MyApp());
