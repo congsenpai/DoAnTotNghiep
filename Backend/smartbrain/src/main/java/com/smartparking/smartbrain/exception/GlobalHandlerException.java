@@ -21,8 +21,8 @@ public class GlobalHandlerException {
                 return handleAppException((AppException) e); // Delegate
             }
             ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setCode(ErrorCode.USER_ALREADY_EXISTS.getCode());
-            apiRequest.setMessage(ErrorCode.USER_ALREADY_EXISTS.getMessage());
+            apiRequest.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
+            apiRequest.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
             return ResponseEntity.badRequest().body(apiRequest);
         }
 
