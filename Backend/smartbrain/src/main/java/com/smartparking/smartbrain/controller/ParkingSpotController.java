@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/myparkingapp/parkingspot")
+@RequestMapping("/myparkingapp/parkingspots")
 public class ParkingSpotController {
     @Autowired
     private ParkingSpotSevice parkingSpotSevice;

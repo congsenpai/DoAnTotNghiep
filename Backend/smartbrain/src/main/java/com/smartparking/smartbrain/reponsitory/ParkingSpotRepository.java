@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, String> {
     boolean existsByParkingSpotName( String parkingSpotName);
     Optional<ParkingSpot> findByParkingSpotName(String parkingSpotName);
-
 }

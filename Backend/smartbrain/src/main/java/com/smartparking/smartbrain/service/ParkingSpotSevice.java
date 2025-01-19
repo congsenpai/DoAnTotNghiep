@@ -42,7 +42,6 @@ public class ParkingSpotSevice {
         parkingSpot.setPriceEachHourOfMotor(request.getPriceEachHourOfMotor());
         parkingSpot.setNote(request.getNote());
         // Xử lý userId
-        System.err.println(request.getUserID());
         Optional<User> user = userRepository.findById(request.getUserID());
         if (user.isEmpty()) {
             System.err.println("a");
