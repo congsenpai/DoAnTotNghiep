@@ -16,15 +16,20 @@ import com.smartparking.smartbrain.dto.request.ApiRequest;
 public class GlobalHandlerException {
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(RuntimeException.class)
-        ResponseEntity<ApiRequest> handleRuntimeException(RuntimeException e) {
-            if (e instanceof AppException) {
-                return handleAppException((AppException) e); // Delegate
-            }
-            ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setCode(ErrorCode.USER_ALREADY_EXISTS.getCode());
-            apiRequest.setMessage(ErrorCode.USER_ALREADY_EXISTS.getMessage());
-            return ResponseEntity.badRequest().body(apiRequest);
+    ResponseEntity<ApiRequest> handleRuntimeException(RuntimeException e) {
+        if (e instanceof AppException) {
+            return handleAppException((AppException) e); // Delegate
         }
+        if(e instanceof IllegalArgumentException){
+            return handleIllegalArgumentException((IllegalArgumentException) e);
+        }
+        
+        System.err.println("a");
+        ApiRequest apiRequest = new ApiRequest();
+        apiRequest.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
+        apiRequest.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
+        return ResponseEntity.badRequest().body(apiRequest);
+    }
 
 
     @SuppressWarnings("rawtypes")

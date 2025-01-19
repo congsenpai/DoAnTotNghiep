@@ -63,12 +63,12 @@ public class UserController {
         return apiRequest;
     }
 
-    @PatchMapping("/{id}/state")
+    @PatchMapping("/{id}/status")
     ApiRequest<User> updateStateUser(@PathVariable String id, @RequestBody UserRequest request){
         ApiRequest<User> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
         apiRequest.setMessage("User updated successfully");
-        apiRequest.setResult(userService.updatedStateUser(id, request));
+        apiRequest.setResult(userService.updatedStatusUser(id, request));
         return apiRequest;
     }
 

@@ -58,7 +58,7 @@ public class UserService {
         user.setRole(request.getRole());
         return userReponsitory.save(user);
     }
-    public User updatedStateUser(String id,UserRequest request){
+    public User updatedStatusUser(String id,UserRequest request){
         User user = userReponsitory.findById(id).get();
         if(user.getStatus()==true){
             user.setStatus(false
