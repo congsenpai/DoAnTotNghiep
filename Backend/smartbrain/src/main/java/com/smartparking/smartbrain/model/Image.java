@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Images {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String imagesID;

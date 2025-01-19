@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.ImageRequest;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
-import com.smartparking.smartbrain.model.Images;
+import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.model.ParkingSpot;
 import com.smartparking.smartbrain.reponsitory.ImagesRepository;
 import com.smartparking.smartbrain.reponsitory.ParkingSpotRepository;
@@ -19,8 +19,8 @@ public class ImageSevice {
     private ImagesRepository imagesRepository;
     @Autowired
     private ParkingSpotRepository parkingSpotRepository;
-    public Images createImages(ImageRequest request){
-        Images images = new Images();
+    public Image createImages(ImageRequest request){
+        Image images = new Image();
         images.setNoteString(request.getNoteString());
         images.setStatus(request.isStatus());
         images.setCreatedDate(Timestamp.from(Instant.now()));
@@ -41,12 +41,12 @@ public class ImageSevice {
         imagesRepository.deleteById(id);   
     }
 
-    public List<Images> getImage(){
+    public List<Image> getImage(){
         return imagesRepository.findAll();
     }
 
-    public Images updatedStatusImageParkingSpot(String id, ImageRequest request){
-        Images images = imagesRepository.findById(id).get();
+    public Image updatedStatusImageParkingSpot(String id, ImageRequest request){
+        Image images = imagesRepository.findById(id).get();
         images.setStatus(request.isStatus());
         images.setUpdatedDate(Timestamp.from(Instant.now()));
         return imagesRepository.save(images);

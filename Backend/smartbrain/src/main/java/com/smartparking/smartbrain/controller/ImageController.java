@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smartparking.smartbrain.dto.request.ApiRequest;
 import com.smartparking.smartbrain.dto.request.ImageRequest;
-import com.smartparking.smartbrain.model.Images;
+import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.service.ImageSevice;
 
 import jakarta.validation.Valid;
@@ -26,8 +26,8 @@ public class ImageController {
     private ImageSevice imageSevice;
 
     @PostMapping
-    ApiRequest<Images> createRequestImage(@RequestBody @Valid ImageRequest request){
-        ApiRequest<Images> apiRequest = new ApiRequest<Images>();
+    ApiRequest<Image> createRequestImage(@RequestBody @Valid ImageRequest request){
+        ApiRequest<Image> apiRequest = new ApiRequest<Image>();
         apiRequest.setCode(200);
         apiRequest.setMessage("parking spot created sucessfully");
         apiRequest.setResult(imageSevice.createImages(request));
@@ -35,8 +35,8 @@ public class ImageController {
     }
 
     @GetMapping
-    ApiRequest<List<Images>> getImage(){
-        ApiRequest<List<Images>> apiRequest = new ApiRequest<List<Images>>();
+    ApiRequest<List<Image>> getImage(){
+        ApiRequest<List<Image>> apiRequest = new ApiRequest<List<Image>>();
         apiRequest.setCode(200);
         apiRequest.setMessage("Image fetched successfully");
         apiRequest.setResult(imageSevice.getImage());
@@ -53,8 +53,8 @@ public class ImageController {
     }
 
     @PatchMapping("/{id}/status")
-    ApiRequest<Images> updateStateImage(@PathVariable String id, @RequestBody ImageRequest request){
-        ApiRequest<Images> apiRequest = new ApiRequest<>();
+    ApiRequest<Image> updateStateImage(@PathVariable String id, @RequestBody ImageRequest request){
+        ApiRequest<Image> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
         apiRequest.setMessage("Image Status update successfully");
         apiRequest.setResult(imageSevice.updatedStatusImageParkingSpot(id, request));
