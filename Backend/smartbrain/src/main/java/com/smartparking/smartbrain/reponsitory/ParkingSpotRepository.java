@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, String> {
     boolean existsByParkingSpotName( String parkingSpotName);
+    boolean existsByParkingSpotID(String parkingSpotID);
     Optional<ParkingSpot> findByParkingSpotName(String parkingSpotName);
 }

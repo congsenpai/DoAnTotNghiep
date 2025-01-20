@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartparking.smartbrain.dto.request.ApiRequest;
-import com.smartparking.smartbrain.dto.request.ImageRequest;
+import com.smartparking.smartbrain.dto.request.ImageSpot.CreatedImageRequest;
+import com.smartparking.smartbrain.dto.request.ImageSpot.UpdateStatusImageRequest;
 import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.service.ImageSevice;
 
@@ -26,7 +27,7 @@ public class ImageController {
     private ImageSevice imageSevice;
 
     @PostMapping
-    ApiRequest<Image> createRequestImage(@RequestBody @Valid ImageRequest request){
+    ApiRequest<Image> createRequestImage(@RequestBody @Valid CreatedImageRequest request){
         ApiRequest<Image> apiRequest = new ApiRequest<Image>();
         apiRequest.setCode(200);
         apiRequest.setMessage("parking spot created sucessfully");
@@ -43,7 +44,7 @@ public class ImageController {
         return apiRequest;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     ApiRequest<String> deleteImage(@PathVariable String id){
         ApiRequest<String> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
@@ -53,7 +54,7 @@ public class ImageController {
     }
 
     @PatchMapping("/{id}/status")
-    ApiRequest<Image> updateStateImage(@PathVariable String id, @RequestBody ImageRequest request){
+    ApiRequest<Image> updateStateImage(@PathVariable String id, @RequestBody UpdateStatusImageRequest request){
         ApiRequest<Image> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
         apiRequest.setMessage("Image Status update successfully");

@@ -71,6 +71,9 @@ public class UserService {
     }
     public User updateUser(String id, UserRequest request){
         User user = userReponsitory.findById(id).get();
+        if (userReponsitory.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
+        }
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());

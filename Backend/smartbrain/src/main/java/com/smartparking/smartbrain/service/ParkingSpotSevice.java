@@ -7,7 +7,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.smartparking.smartbrain.dto.request.ParkingSpotRequest;
+
+import com.smartparking.smartbrain.dto.request.ParkingSpot.CreatedParkingSpotRequest;
+import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedParkingSpotRequest;
+import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedStatusParkingSpotRequest;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.ParkingSpot;
@@ -21,7 +24,7 @@ public class ParkingSpotSevice {
     private ParkingSpotRepository parkingSpotRepository;
     @Autowired
     private UserReponsitory userRepository;
-    public ParkingSpot createParkingSpot(ParkingSpotRequest request) {
+    public ParkingSpot createParkingSpot(CreatedParkingSpotRequest request) {
         ParkingSpot parkingSpot = new ParkingSpot();
     
         // Kiểm tra nếu tên bãi đỗ đã tồn tại
@@ -63,19 +66,22 @@ public class ParkingSpotSevice {
 
     public void deleteParkingSpot(String id){
         if(!parkingSpotRepository.existsById(id)){
-            throw new RuntimeException("Parking spot not found");
+            throw new RuntimeException("ErrorCode.PARKINGSPOT_NOT_EXISTS");
         }
         parkingSpotRepository.deleteById(id);   
     }
 
-    public ParkingSpot updatedStatusParkingSpot(String id, ParkingSpotRequest request){
+    public ParkingSpot updatedStatusParkingSpot(String id, UpdatedStatusParkingSpotRequest request){
         ParkingSpot parkingSpot = parkingSpotRepository.findById(id).get();
         parkingSpot.setStatus(request.isStatus());
         return parkingSpotRepository.save(parkingSpot);
         };
     
-    public ParkingSpot updateParkingSpot(String id, ParkingSpotRequest request){
+    public ParkingSpot updateParkingSpot(String id, UpdatedParkingSpotRequest request){
         ParkingSpot parkingSpot = parkingSpotRepository.findById(id).get();
+        if (parkingSpotRepository.existsByParkingSpotName(request.getParkingSpotName())) {
+            throw new AppException(ErrorCode.PARKINGSPOT_ALREADY_EXISTS);    
+        }
         parkingSpot.setParkingSpotName(request.getParkingSpotName());
         parkingSpot.setPhone(request.getPhone());
         parkingSpot.setAddress(request.getAddress());

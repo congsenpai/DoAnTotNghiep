@@ -1,21 +1,17 @@
-package com.smartparking.smartbrain.dto.request;
+package com.smartparking.smartbrain.dto.request.Slot;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.AccessLevel;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ImageRequest {
-    private String urlString;
-    private String noteString;
-    private boolean status;
-    private String parkingSpotID;
+public class UpdatedStateParkingSlotRequest {
+    private int state;
 }
-

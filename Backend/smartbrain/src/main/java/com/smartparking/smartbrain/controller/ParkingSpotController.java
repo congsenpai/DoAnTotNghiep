@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.smartparking.smartbrain.dto.request.ApiRequest;
-import com.smartparking.smartbrain.dto.request.ParkingSpotRequest;
+import com.smartparking.smartbrain.dto.request.ParkingSpot.CreatedParkingSpotRequest;
+import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedParkingSpotRequest;
+import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedStatusParkingSpotRequest;
 import com.smartparking.smartbrain.model.ParkingSpot;
 import com.smartparking.smartbrain.service.ParkingSpotSevice;
 import jakarta.validation.Valid;
@@ -26,7 +28,7 @@ public class ParkingSpotController {
     private ParkingSpotSevice parkingSpotSevice;
 
     @PostMapping
-    ApiRequest<ParkingSpot> createRequestParkingSpot(@RequestBody @Valid ParkingSpotRequest request){
+    ApiRequest<ParkingSpot> createRequestParkingSpot(@RequestBody @Valid CreatedParkingSpotRequest request){
         ApiRequest<ParkingSpot> apiRequest = new ApiRequest<ParkingSpot>();
         apiRequest.setCode(200);
         apiRequest.setMessage("parking spot created sucessfully");
@@ -52,7 +54,7 @@ public class ParkingSpotController {
         return apiRequest;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     ApiRequest<String> deleteParkingSpot(@PathVariable String id){
         ApiRequest<String> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
@@ -61,7 +63,7 @@ public class ParkingSpotController {
         return apiRequest;
     }
     @PatchMapping("/{id}/status")
-    ApiRequest<ParkingSpot> updateStateParkingSpot(@PathVariable String id, @RequestBody ParkingSpotRequest request){
+    ApiRequest<ParkingSpot> updateStateParkingSpot(@PathVariable String id, @RequestBody UpdatedStatusParkingSpotRequest request){
         ApiRequest<ParkingSpot> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
         apiRequest.setMessage("ParkingSpot Status update successfully");
@@ -69,7 +71,7 @@ public class ParkingSpotController {
         return apiRequest;
     }
     @PutMapping("/{id}")
-    ApiRequest<ParkingSpot> updateParkingSpot(@PathVariable String id, @RequestBody ParkingSpotRequest request){
+    ApiRequest<ParkingSpot> updateParkingSpot(@PathVariable String id, @RequestBody UpdatedParkingSpotRequest request){
         ApiRequest<ParkingSpot> apiRequest = new ApiRequest<>();
         apiRequest.setCode(200);
         apiRequest.setMessage("Parking spot update successfully");
