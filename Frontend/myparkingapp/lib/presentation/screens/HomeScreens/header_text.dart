@@ -1,7 +1,7 @@
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+
 
 
 
@@ -42,7 +42,7 @@ class _HeaderTextState extends State<HeaderText> {
                 ),
                 TextSpan(
                   text: "   ${widget.textInSpan2}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,

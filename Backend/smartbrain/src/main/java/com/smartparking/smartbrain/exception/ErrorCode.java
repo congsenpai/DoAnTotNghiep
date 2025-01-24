@@ -3,7 +3,6 @@ package com.smartparking.smartbrain.exception;
 public enum ErrorCode {
     // System errors
     ERROR_NOT_FOUND(0001,"error special"),
-
     // User errors
     USER_NOT_FOUND(1001, "User not found"),
     USER_ALREADY_EXISTS(1002, "User already exists"),
