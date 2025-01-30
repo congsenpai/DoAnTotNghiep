@@ -8,16 +8,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.UserRequest;
+import com.smartparking.smartbrain.exception.AppException;
+import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.reponsitory.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserRepository;
 
 @Service
 public class UserService {
     @Autowired
-    private UserReponsitory userReponsitory;
+    private UserRepository userRepository;
     public User createReqUser(UserRequest request){
             User user = new User();
-                if (userReponsitory.existsByUsername(request.getUsername())) {
+                if (userRepository.existsByUsername(request.getUsername())) {
                     throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
                 }
             user.setUsername(request.getUsername());
@@ -38,28 +40,28 @@ public class UserService {
             user.setCreatedDate(Timestamp.from(Instant.now()));
             user.setUpdatedDate(Timestamp.from(Instant.now()));
 
-            return userReponsitory.save(user);
+            return userRepository.save(user);
     }
     public List<User> getUser(){
-        return userReponsitory.findAll();
+        return userRepository.findAll();
     }
     public User getUserById(String id){
-        return userReponsitory.findById(id).orElseThrow(
-            () -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(
+            () -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
     public void deleteUser(String id){
-        if(!userReponsitory.existsById(id)){
-            throw new RuntimeException("User not found");
+        if(!userRepository.existsById(id)){
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
-        userReponsitory.deleteById(id);   
+        userRepository.deleteById(id);
     }
     public User updatedRoleUser(String id,UserRequest request){
-        User user = userReponsitory.findById(id).get();
+        User user = userRepository.findById(id).get();
         user.setRole(request.getRole());
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
     public User updatedStateUser(String id,UserRequest request){
-        User user = userReponsitory.findById(id).get();
+        User user = userRepository.findById(id).get();
         if(user.getStatus()==true){
             user.setStatus(false
             );
@@ -67,10 +69,10 @@ public class UserService {
         else{
             user.setStatus(true);
         }
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
     public User updateUser(String id, UserRequest request){
-        User user = userReponsitory.findById(id).get();
+        User user = userRepository.findById(id).get();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
@@ -78,6 +80,7 @@ public class UserService {
         user.setAddress(request.getAddress());
         user.setAvatar(request.getAvatar());
         user.setUpdatedDate(Timestamp.from(Instant.now()));
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
+    
 }

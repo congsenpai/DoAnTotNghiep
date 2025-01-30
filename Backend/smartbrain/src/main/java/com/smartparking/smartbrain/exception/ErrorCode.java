@@ -11,8 +11,11 @@ public enum ErrorCode {
     INVALID_CREDENTIALS(1005, "Invalid credentials"),
     UNAUTHORIZED(1006, "Unauthorized"),
     INVALID_REQUEST(1007, "Invalid request"),
-    INTERNAL_SERVER_ERROR(1008, "Internal server error"),   
-    USER_NOT_EXISTS(1009, "User not exists");
+    INTERNAL_SERVER_ERROR(1008, "Internal server error"),
+    USER_NOT_EXISTS(1009, "User not exists"),
+    // Wallet errors
+    WALLET_NOT_FOUND(2001, "Wallet not found"),
+    ;
 
     ErrorCode(int code, String message) {
         this.code = code;

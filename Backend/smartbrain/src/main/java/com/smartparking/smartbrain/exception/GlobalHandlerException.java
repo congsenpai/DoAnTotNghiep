@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.smartparking.smartbrain.dto.request.ApiRequest;
 
+
 @ControllerAdvice
 public class GlobalHandlerException {
+
+
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(RuntimeException.class)
         ResponseEntity<ApiRequest> handleRuntimeException(RuntimeException e) {
@@ -46,6 +49,7 @@ public class GlobalHandlerException {
         apiRequest.setMessage(ErrorCode.PASSWORD_NOT_VALID.getMessage());
         return ResponseEntity.badRequest().body(apiRequest);
     }
+
 
     
    // Cải tiến phương thức này để xử lý chi tiết từng lỗi

@@ -79,7 +79,7 @@ public class UserController {
         apiRequest.setMessage("Role User updated successfully");
         apiRequest.setResult(userService.updatedRoleUser(id, request));
         return apiRequest;
-    } 
+    }
 
     @PutMapping("/{id}")
     ApiRequest<User> updateUser(@PathVariable String id, @RequestBody UserRequest request){
