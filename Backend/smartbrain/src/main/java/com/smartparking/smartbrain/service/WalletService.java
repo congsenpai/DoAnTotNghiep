@@ -1,5 +1,13 @@
 package com.smartparking.smartbrain.service;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.smartparking.smartbrain.dto.request.wallet.CreateWalletRequest;
 import com.smartparking.smartbrain.dto.request.wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.request.wallet.TopUpRequest;
@@ -8,22 +16,12 @@ import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Transaction;
-import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Transaction.TransactionType;
+import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Wallet;
 import com.smartparking.smartbrain.repository.TransactionRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
 import com.smartparking.smartbrain.repository.WalletRepository;
-
-import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.List;
 
 @Service
 public class WalletService {
@@ -108,7 +106,7 @@ public class WalletService {
         wallet.setBalance(request.getBalance() != null ? request.getBalance() : BigDecimal.ZERO);
         wallet.setName(request.getName());
 
-       return wallet = walletRepository.save(wallet);
+       return walletRepository.save(wallet);
 
     }
 
@@ -121,14 +119,14 @@ public class WalletService {
 
     public Wallet getWalletById(String walletId) {
         Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new EntityNotFoundException("Wallet not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
         return wallet;
     }
 
     @Transactional
     public Wallet updateWallet(String walletId, UpdateWalletRequest request) {
         Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new EntityNotFoundException("Wallet not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
 
         if (request.getName() != null) {
             wallet.setName(request.getName());
@@ -137,7 +135,7 @@ public class WalletService {
             wallet.setCurrency(request.getCurrency());
         }
 
-        return wallet = walletRepository.save(wallet);
+        return walletRepository.save(wallet);
     }
 
     @Transactional

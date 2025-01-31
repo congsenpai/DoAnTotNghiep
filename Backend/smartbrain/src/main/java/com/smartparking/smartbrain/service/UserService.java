@@ -20,12 +20,12 @@ public class UserService {
     public User createReqUser(UserRequest request){
             User user = new User();
                 if (userRepository.existsByUsername(request.getUsername())) {
-                    throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
+                    throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
                 }
             user.setUsername(request.getUsername());
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
                 if (request.getPassword() == null || request.getPassword().length() < 6) {
-                    throw new IllegalArgumentException("ErrorCode.PASSWORD_NOT_VALID");
+                    throw new AppException(ErrorCode.PASSWORD_NOT_VALID);
                 }
             // Mã hóa mật khẩu
             user.setPassword(passwordEncoder.encode(request.getPassword()));

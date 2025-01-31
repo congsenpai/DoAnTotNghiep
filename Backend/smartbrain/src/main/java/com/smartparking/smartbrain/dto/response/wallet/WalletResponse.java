@@ -1,9 +1,5 @@
 package com.smartparking.smartbrain.dto.response.wallet;
-
 import java.math.BigDecimal;
-
-import com.smartparking.smartbrain.model.Wallet;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
