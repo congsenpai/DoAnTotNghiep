@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smartparking.smartbrain.dto.request.ApiRequest;
+import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.request.UserRequest;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.service.UserService;
@@ -27,66 +27,66 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    ApiRequest<User> createRequestUser(@RequestBody @Valid UserRequest request){
+    ApiResponse<User> createRequestUser(@RequestBody @Valid UserRequest request){
         @SuppressWarnings({ "rawtypes", "unchecked" })
-        ApiRequest<User> apiRequest = new ApiRequest();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("user created successfully");
-        apiRequest.setResult(userService.createReqUser(request));
-        return apiRequest;
+        ApiResponse<User> ApiResponse = new ApiResponse();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("user created successfully");
+        ApiResponse.setResult(userService.createReqUser(request));
+        return ApiResponse;
     }
 
     @GetMapping
-    ApiRequest<List<User>> getUser(){
+    ApiResponse<List<User>> getUser(){
         @SuppressWarnings({ "rawtypes", "unchecked" })
-        ApiRequest<List<User>> apiRequest = new ApiRequest();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("User fetched successfully");
-        apiRequest.setResult(userService.getUser());
-        return apiRequest;
+        ApiResponse<List<User>> ApiResponse = new ApiResponse();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("User fetched successfully");
+        ApiResponse.setResult(userService.getUser());
+        return ApiResponse;
     }
 
     @GetMapping("/{id}")
-    ApiRequest<User> getUserById(@PathVariable String id){
-        ApiRequest<User> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setResult(userService.getUserById(id));
-        apiRequest.setMessage("User fetched successfully");
-        return apiRequest;
+    ApiResponse<User> getUserById(@PathVariable String id){
+        ApiResponse<User> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setResult(userService.getUserById(id));
+        ApiResponse.setMessage("User fetched successfully");
+        return ApiResponse;
     }
     @DeleteMapping("/{id}")
-    ApiRequest<String> deleteUser(@PathVariable String id) {
-        ApiRequest<String> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
+    ApiResponse<String> deleteUser(@PathVariable String id) {
+        ApiResponse<String> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
         userService.deleteUser(id);
-        apiRequest.setMessage("User deleted successfully");
-        return apiRequest;
+        ApiResponse.setMessage("User deleted successfully");
+        return ApiResponse;
     }
 
     @PatchMapping("/{id}/state")
-    ApiRequest<User> updateStateUser(@PathVariable String id, @RequestBody UserRequest request){
-        ApiRequest<User> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("User updated successfully");
-        apiRequest.setResult(userService.updatedStateUser(id, request));
-        return apiRequest;
+    ApiResponse<User> updateStateUser(@PathVariable String id, @RequestBody UserRequest request){
+        ApiResponse<User> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("User updated successfully");
+        ApiResponse.setResult(userService.updatedStateUser(id, request));
+        return ApiResponse;
     }
 
     @PatchMapping("/{id}/role")
-    ApiRequest<User> updateRoleUser(@PathVariable String id, @RequestBody UserRequest request){
-        ApiRequest<User> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Role User updated successfully");
-        apiRequest.setResult(userService.updatedRoleUser(id, request));
-        return apiRequest;
+    ApiResponse<User> updateRoleUser(@PathVariable String id, @RequestBody UserRequest request){
+        ApiResponse<User> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Role User updated successfully");
+        ApiResponse.setResult(userService.updatedRoleUser(id, request));
+        return ApiResponse;
     }
 
     @PutMapping("/{id}")
-    ApiRequest<User> updateUser(@PathVariable String id, @RequestBody UserRequest request){
-        ApiRequest<User> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("User updated successfully");
-        apiRequest.setResult(userService.updateUser(id, request));
-        return apiRequest;
+    ApiResponse<User> updateUser(@PathVariable String id, @RequestBody UserRequest request){
+        ApiResponse<User> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("User updated successfully");
+        ApiResponse.setResult(userService.updateUser(id, request));
+        return ApiResponse;
     }
 }

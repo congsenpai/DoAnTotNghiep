@@ -3,8 +3,8 @@ package com.smartparking.smartbrain.service;
 import com.smartparking.smartbrain.dto.request.wallet.CreateWalletRequest;
 import com.smartparking.smartbrain.dto.request.wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.request.wallet.TopUpRequest;
+import com.smartparking.smartbrain.dto.request.wallet.UpdateWalletRequest;
 import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
-import com.smartparking.smartbrain.dto.response.wallet.WalletResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Transaction;
@@ -24,7 +24,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class WalletService {
@@ -101,7 +100,7 @@ public class WalletService {
     }
 
     @Transactional
-    public WalletResponse createWallet(CreateWalletRequest request) {
+    public Wallet createWallet(CreateWalletRequest request) {
         Wallet wallet = new Wallet();
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         wallet.setUser(user);
@@ -109,43 +108,37 @@ public class WalletService {
         wallet.setBalance(request.getBalance() != null ? request.getBalance() : BigDecimal.ZERO);
         wallet.setName(request.getName());
 
-        wallet = walletRepository.save(wallet);
+       return wallet = walletRepository.save(wallet);
 
-        return new WalletResponse(wallet);
     }
 
-    public List<WalletResponse> getWalletsByUser(String userId) {
+    public List<Wallet> getWalletsByUser(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-    
-        return walletRepository.findByUser(user)
-                .stream()
-                .map(WalletResponse::new)
-                .collect(Collectors.toList());
+        return walletRepository.findByUser(user);
     }
     
 
-    public WalletResponse getWalletById(String walletId) {
+    public Wallet getWalletById(String walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new EntityNotFoundException("Wallet not found"));
-        return new WalletResponse(wallet);
+        return wallet;
     }
 
-    // @Transactional
-    // public WalletResponse updateWallet(String walletId, UpdateWalletRequest request) {
-    //     Wallet wallet = walletRepository.findById(walletId)
-    //             .orElseThrow(() -> new EntityNotFoundException("Wallet not found"));
+    @Transactional
+    public Wallet updateWallet(String walletId, UpdateWalletRequest request) {
+        Wallet wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new EntityNotFoundException("Wallet not found"));
 
-    //     if (request.getName() != null) {
-    //         wallet.setName(request.getName());
-    //     }
-    //     if (request.getCurrency() != null) {
-    //         wallet.setCurrency(request.getCurrency());
-    //     }
+        if (request.getName() != null) {
+            wallet.setName(request.getName());
+        }
+        if (request.getCurrency() != null) {
+            wallet.setCurrency(request.getCurrency());
+        }
 
-    //     wallet = walletRepository.save(wallet);
-    //     return new WalletResponse(wallet);
-    // }
+        return wallet = walletRepository.save(wallet);
+    }
 
     @Transactional
     public void deleteWallet(String walletId) {

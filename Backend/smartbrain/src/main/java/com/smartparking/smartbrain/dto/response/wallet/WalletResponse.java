@@ -22,12 +22,4 @@ public class WalletResponse {
     private String currency;
     private BigDecimal balance;
     private String name;
-
-    public WalletResponse(Wallet wallet) {
-        this.walletId = wallet.getWalletId();
-        this.userId = wallet.getUser().getUserId();
-        this.currency = wallet.getCurrency();
-        this.balance = wallet.getBalance();
-        this.name = wallet.getName();
-    }
 }

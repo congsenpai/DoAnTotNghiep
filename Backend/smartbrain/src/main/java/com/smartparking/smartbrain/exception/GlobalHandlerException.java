@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.smartparking.smartbrain.dto.request.ApiRequest;
+import com.smartparking.smartbrain.dto.response.*;;
 
 
 @ControllerAdvice
@@ -19,35 +19,35 @@ public class GlobalHandlerException {
 
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(RuntimeException.class)
-        ResponseEntity<ApiRequest> handleRuntimeException(RuntimeException e) {
+        ResponseEntity<ApiResponse> handleRuntimeException(RuntimeException e) {
             if (e instanceof AppException) {
                 return handleAppException((AppException) e); // Delegate
             }
-            ApiRequest apiRequest = new ApiRequest();
-            apiRequest.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
-            apiRequest.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
-            return ResponseEntity.badRequest().body(apiRequest);
+            ApiResponse ApiResponse = new ApiResponse();
+            ApiResponse.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
+            ApiResponse.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
+            return ResponseEntity.badRequest().body(ApiResponse);
         }
 
 
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(AppException.class)
-    ResponseEntity<ApiRequest> handleAppException(AppException e) {
+    ResponseEntity<ApiResponse> handleAppException(AppException e) {
         System.err.println(e.getErrorCode().getCode());
-        ApiRequest apiRequest = new ApiRequest();
-        apiRequest.setCode(e.getErrorCode().getCode());
-        apiRequest.setMessage(e.getMessage());
-        return ResponseEntity.badRequest().body(apiRequest);
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(e.getErrorCode().getCode());
+        ApiResponse.setMessage(e.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
 
     @SuppressWarnings("rawtypes")
     @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<ApiRequest> handleIllegalArgumentException(IllegalArgumentException e) {
-        ApiRequest apiRequest = new ApiRequest();
-        apiRequest.setCode(ErrorCode.PASSWORD_NOT_VALID.getCode());
-        apiRequest.setMessage(ErrorCode.PASSWORD_NOT_VALID.getMessage());
-        return ResponseEntity.badRequest().body(apiRequest);
+    ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        ApiResponse ApiResponse = new ApiResponse();
+        ApiResponse.setCode(ErrorCode.PASSWORD_NOT_VALID.getCode());
+        ApiResponse.setMessage(ErrorCode.PASSWORD_NOT_VALID.getMessage());
+        return ResponseEntity.badRequest().body(ApiResponse);
     }
 
 
