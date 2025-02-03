@@ -24,10 +24,10 @@ public class GlobalHandlerException {
             return handleIllegalArgumentException((IllegalArgumentException) e);
         }
         
-        // System.err.println("a");
-        // ApiRequest apiRequest = new ApiRequest();
-        // apiRequest.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
-        // apiRequest.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
+        System.err.println("a");
+        ApiRequest apiRequest = new ApiRequest();
+        apiRequest.setCode(ErrorCode.ERROR_NOT_FOUND.getCode());
+        apiRequest.setMessage(ErrorCode.ERROR_NOT_FOUND.getMessage());
         return handleAppException((AppException) e);
     }
 

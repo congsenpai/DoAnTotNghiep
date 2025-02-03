@@ -1,6 +1,7 @@
 package com.smartparking.smartbrain.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,7 +38,7 @@ public class User {
     String email;
     String phone;
     String address;
-    String role;
+    Set<String> role;
     Boolean status;
     String avatar;
     Timestamp createdDate;
