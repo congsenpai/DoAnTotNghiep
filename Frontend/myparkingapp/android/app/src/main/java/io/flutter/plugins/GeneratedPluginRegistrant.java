@@ -36,11 +36,6 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin flutter_secure_storage, com.it_nomads.fluttersecurestorage.FlutterSecureStoragePlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new com.flutter_webview_plugin.FlutterWebviewPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_webview_plugin_ios_android, com.flutter_webview_plugin.FlutterWebviewPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.baseflow.geolocator.GeolocatorPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin geolocator_android, com.baseflow.geolocator.GeolocatorPlugin", e);

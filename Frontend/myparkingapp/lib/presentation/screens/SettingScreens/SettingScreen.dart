@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingapp/presentation/screens/SettingScreens/UpdateInforScreen.dart';
 
 import '../../../app/locallization/app_localizations.dart';
 
@@ -71,8 +72,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: buildListTile(Icons.edit,
                         AppLocalizations.of(context).translate("Edit Profile")
                         , onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context)=>UpdateUserProfile(UserID: widget.userID,)));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>const UpdateUserProfile(UserID: "02231d85-4a92-4a34-81fa-d78aa3ea771b",bearerToken: "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbWFydHBhcmtpbmdhcHAiLCJzdWIiOiJhZG1pbjEiLCJleHAiOjE3Mzg2NjAyNDcsImlhdCI6MTczODY1NDI0Nywic2NvcGUiOiJBRE1JTiJ9.3ne7V9p0dauwPb3vO_fj2ZIuq2fpJmWP0PhgwGDApfI",)));
                     }),
                   ),
                   SizedBox(

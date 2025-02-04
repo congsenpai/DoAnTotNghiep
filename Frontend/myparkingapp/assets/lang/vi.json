@@ -11,5 +11,15 @@
   "English": "Tiếng Anh",
   "en": "en",
   "Vietnamese": "Tiếng Việt",
-  "vi": "vi"
+  "vi": "vi",
+  "My Profile": "Hồ sơ của tôi",
+  "UserName": "Tên người dùng",
+  "FirstName": "Họ",
+  "LastName": "Tên",
+  "Email": "Email",
+  "Phone": "Số điện thoại",
+  "Avatar": "Ảnh đại diện",
+  "Address": "Địa chỉ"
+
+  
 }

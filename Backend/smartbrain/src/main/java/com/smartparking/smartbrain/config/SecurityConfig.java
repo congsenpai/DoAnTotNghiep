@@ -41,8 +41,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request -> 
         request.requestMatchers(HttpMethod.POST, "myparkingapp/users").permitAll().
         requestMatchers(HttpMethod.POST, PostList_public).permitAll().
-        requestMatchers(HttpMethod.GET,"myparkingapp/users")
-        .hasRole(Roles.ADMIN.name())
+        requestMatchers(HttpMethod.GET,"myparkingapp/users").hasRole(Roles.ADMIN.name())
         
 
         .anyRequest().authenticated());

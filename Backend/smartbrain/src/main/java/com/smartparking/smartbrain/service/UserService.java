@@ -14,7 +14,7 @@ import com.smartparking.smartbrain.dto.request.User.UpdatedRoleUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UpdatedStatusUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
 import com.smartparking.smartbrain.enums.Roles;
-import com.smartparking.smartbrain.exception.AppException;
+
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.reponsitory.UserReponsitory;
 
@@ -22,6 +22,7 @@ import com.smartparking.smartbrain.reponsitory.UserReponsitory;
 public class UserService {
     @Autowired
     private UserReponsitory userReponsitory;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     public User createReqUser(CreatedUserRequest request){
             User user = new User();
