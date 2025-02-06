@@ -3,20 +3,21 @@ package com.smartparking.smartbrain.service;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Currency;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.smartparking.smartbrain.dto.request.wallet.CreateWalletRequest;
-import com.smartparking.smartbrain.dto.request.wallet.PaymentRequest;
-import com.smartparking.smartbrain.dto.request.wallet.TopUpRequest;
-import com.smartparking.smartbrain.dto.request.wallet.UpdateWalletRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.CreateWalletRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
 import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
+import com.smartparking.smartbrain.enums.Transactions;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Transaction;
-import com.smartparking.smartbrain.model.Transaction.TransactionType;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Wallet;
 import com.smartparking.smartbrain.repository.TransactionRepository;
@@ -48,7 +49,7 @@ public class WalletService {
         transaction.setWallet(wallet);
         transaction.setUser(wallet.getUser());
         transaction.setAmount(request.getAmount());
-        transaction.setType(Transaction.TransactionType.TOP_UP);
+        transaction.setType(Transactions.TOP_UP);
         transaction.setCreatedDate(Timestamp.from(Instant.now()));
         transaction.setDescription(request.getDescription() != null ? request.getDescription() : "Top-up wallet");
         transactionRepository.save(transaction);
@@ -81,7 +82,7 @@ public class WalletService {
         transaction.setWallet(wallet);
         transaction.setUser(wallet.getUser());
         transaction.setAmount(request.getAmount().negate());
-        transaction.setType(TransactionType.PAYMENT);
+        transaction.setType(Transactions.PAYMENT);
         transaction.setCreatedDate(Timestamp.from(Instant.now()));
         transaction.setDescription(request.getDescription());
         transactionRepository.save(transaction);
@@ -102,7 +103,13 @@ public class WalletService {
         Wallet wallet = new Wallet();
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         wallet.setUser(user);
-        wallet.setCurrency(request.getCurrency());
+        try {
+            Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
+            wallet.setCurrency(currency);
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_CURRENCY);
+        }
+        
         wallet.setBalance(request.getBalance() != null ? request.getBalance() : BigDecimal.ZERO);
         wallet.setName(request.getName());
 
@@ -132,7 +139,13 @@ public class WalletService {
             wallet.setName(request.getName());
         }
         if (request.getCurrency() != null) {
-            wallet.setCurrency(request.getCurrency());
+            try {
+                Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
+                wallet.setCurrency(currency);
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
+            }
+            
         }
 
         return walletRepository.save(wallet);

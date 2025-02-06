@@ -2,7 +2,9 @@ package com.smartparking.smartbrain.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -34,8 +36,9 @@ public class Wallet {
 
     @Column(nullable = false)
     @NotNull(message = "Currency cannot be null")
-    private String currency;
+    private Currency currency;
 
+    // Relationship
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     @NotNull(message = "User cannot be null")

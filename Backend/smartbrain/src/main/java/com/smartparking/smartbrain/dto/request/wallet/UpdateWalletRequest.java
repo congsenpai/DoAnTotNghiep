@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.request.wallet;
+package com.smartparking.smartbrain.dto.request.Wallet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

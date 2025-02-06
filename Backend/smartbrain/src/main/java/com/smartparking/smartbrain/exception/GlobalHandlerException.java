@@ -23,7 +23,12 @@ public class GlobalHandlerException {
         if (e instanceof AppException appException) {
             return handleAppException(appException); // Delegate
         }
-        return buildResponse(ErrorCode.ERROR_NOT_FOUND.getCode(), ErrorCode.ERROR_NOT_FOUND.getMessage());
+        return buildResponse(ErrorCode.ERROR_NOT_FOUND.getCode(), e.getMessage());
+    }
+    @SuppressWarnings("rawtypes")
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        return buildResponse(ErrorCode.ERROR_NOT_FOUND.getCode(), e.getMessage());
     }
     
     @SuppressWarnings("rawtypes")

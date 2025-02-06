@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.request.wallet;
+package com.smartparking.smartbrain.dto.request.Wallet;
 import java.math.BigDecimal;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;

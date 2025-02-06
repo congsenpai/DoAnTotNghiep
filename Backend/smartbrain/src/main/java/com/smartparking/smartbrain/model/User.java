@@ -3,27 +3,29 @@ package com.smartparking.smartbrain.model;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Getter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @Entity
 @Table(name = "users")
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -58,9 +60,10 @@ public class User {
 
     @Column(nullable = false)
     @NotNull(message = "Role cannot be null")
-    private String role;
+    private Set<String> role;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean status = true;
 
     private String avatar;
@@ -71,9 +74,13 @@ public class User {
     private Timestamp updatedDate;
 
     // Relationship with Wallet
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Wallet> wallets = new ArrayList<>();
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Transaction> transactions = new ArrayList<>();
     // Lifecycle Hooks for Timestamps
     @PrePersist

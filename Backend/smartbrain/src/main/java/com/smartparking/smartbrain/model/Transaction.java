@@ -3,6 +3,8 @@ package com.smartparking.smartbrain.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import com.smartparking.smartbrain.enums.Transactions;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -37,12 +39,8 @@ public class Transaction {
     @NotNull(message = "Amount cannot be null")
     private BigDecimal amount;
     private String description;
-    public enum TransactionType {
-        TOP_UP,
-        PAYMENT
-    }
     @Enumerated(EnumType.STRING)
-    private TransactionType type;
+    private Transactions type;
     
     @Column(nullable = false, updatable = false)
     private Timestamp createdDate;

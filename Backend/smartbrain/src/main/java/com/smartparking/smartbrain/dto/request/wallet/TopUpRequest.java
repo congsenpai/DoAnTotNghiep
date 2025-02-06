@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.request.wallet;
+package com.smartparking.smartbrain.dto.request.Wallet;
 import java.math.BigDecimal;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +19,7 @@ public class TopUpRequest {
     @NotNull(message = "Amount is required")
     @DecimalMin(value = "0.01", inclusive = true, message = "Amount must be greater than 0")
     private BigDecimal amount;
+    private String currency; // Optional
 
     private String description; // Optional
 }

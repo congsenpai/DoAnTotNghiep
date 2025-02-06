@@ -1,8 +1,8 @@
 package com.smartparking.smartbrain.controller;
-import com.smartparking.smartbrain.dto.request.wallet.CreateWalletRequest;
-import com.smartparking.smartbrain.dto.request.wallet.PaymentRequest;
-import com.smartparking.smartbrain.dto.request.wallet.TopUpRequest;
-import com.smartparking.smartbrain.dto.request.wallet.UpdateWalletRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.CreateWalletRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
 import com.smartparking.smartbrain.dto.response.wallet.WalletResponse;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/myparkingapp/wallets")
 public class WalletController {
 
-    private final WalletService walletService;
+    private WalletService walletService;
 
     public WalletController(WalletService walletService) {
         this.walletService = walletService;
@@ -30,7 +30,7 @@ public class WalletController {
         WalletResponse walletResponse = new WalletResponse();
         walletResponse.setWalletId(walletService.createWallet(request).getWalletId());
         walletResponse.setUserId(walletService.createWallet(request).getUser().getUserId());
-        walletResponse.setCurrency(walletService.createWallet(request).getCurrency());
+        walletResponse.setCurrency(walletService.createWallet(request).getCurrency().toString());
         walletResponse.setBalance(walletService.createWallet(request).getBalance());
         walletResponse.setName(walletService.createWallet(request).getName());
         ApiResponse.setResult(walletResponse);
@@ -45,7 +45,7 @@ public class WalletController {
         WalletResponse walletResponse = new WalletResponse();
         walletResponse.setWalletId(walletService.getWalletById(walletId).getWalletId());
         walletResponse.setUserId(walletService.getWalletById(walletId).getUser().getUserId());
-        walletResponse.setCurrency(walletService.getWalletById(walletId).getCurrency());
+        walletResponse.setCurrency(walletService.getWalletById(walletId).getCurrency().toString());
         walletResponse.setBalance(walletService.getWalletById(walletId).getBalance());
         walletResponse.setName(walletService.getWalletById(walletId).getName());
         ApiResponse.setResult(walletResponse);
@@ -65,7 +65,7 @@ public class WalletController {
             WalletResponse walletResponse = new WalletResponse();
             walletResponse.setWalletId(wallet.getWalletId());
             walletResponse.setUserId(wallet.getUser().getUserId());
-            walletResponse.setCurrency(wallet.getCurrency());
+            walletResponse.setCurrency(wallet.getCurrency().toString());
             walletResponse.setBalance(wallet.getBalance());
             walletResponse.setName(wallet.getName());
             return walletResponse;
@@ -88,7 +88,7 @@ public class WalletController {
         WalletResponse walletResponse = new WalletResponse();
         walletResponse.setWalletId(walletService.updateWallet(walletId, request).getWalletId());
         walletResponse.setUserId(walletService.updateWallet(walletId, request).getUser().getUserId());
-        walletResponse.setCurrency(walletService.updateWallet(walletId, request).getCurrency());
+        walletResponse.setCurrency(walletService.updateWallet(walletId, request).getCurrency().toString());
         walletResponse.setBalance(walletService.updateWallet(walletId, request).getBalance());
         walletResponse.setName(walletService.updateWallet(walletId, request).getName());
         ApiResponse.setResult(walletResponse);
