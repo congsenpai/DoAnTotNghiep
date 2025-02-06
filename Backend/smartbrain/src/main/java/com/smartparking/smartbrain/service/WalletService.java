@@ -42,6 +42,17 @@ public class WalletService {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
         BigDecimal previousBalance = wallet.getBalance();
+        if (request.getCurrency() != null) {
+            try {
+                Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
+                if (!currency.equals(wallet.getCurrency())) {
+                    throw new AppException(ErrorCode.CURRENCY_MISMATCH);
+                }
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
+            }
+            
+        }
         wallet.setBalance(wallet.getBalance().add(request.getAmount()));
         walletRepository.save(wallet);
 
@@ -72,6 +83,17 @@ public class WalletService {
 
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
             throw new IllegalArgumentException("Insufficient balance");
+        }
+        if (request.getCurrency() != null) {
+            try {
+                Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
+                if (!currency.equals(wallet.getCurrency())) {
+                    throw new AppException(ErrorCode.CURRENCY_MISMATCH);
+                }
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
+            }
+            
         }
 
         BigDecimal previousBalance = wallet.getBalance();

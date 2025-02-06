@@ -19,6 +19,7 @@ public class TopUpRequest {
     @NotNull(message = "Amount is required")
     @DecimalMin(value = "0.01", inclusive = true, message = "Amount must be greater than 0")
     private BigDecimal amount;
+    @NotNull(message = "Currency is required")
     private String currency; // Optional
 
     private String description; // Optional

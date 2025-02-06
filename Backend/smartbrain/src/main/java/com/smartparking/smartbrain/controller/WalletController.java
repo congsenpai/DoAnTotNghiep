@@ -7,6 +7,9 @@ import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
 import com.smartparking.smartbrain.dto.response.wallet.WalletResponse;
 import com.smartparking.smartbrain.service.WalletService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +26,7 @@ public class WalletController {
     }
     // create wallet
     @PostMapping
-    public ApiResponse<WalletResponse> createWallet(@RequestBody CreateWalletRequest request) {
+    public ApiResponse<WalletResponse> createWallet(@RequestBody @Valid CreateWalletRequest request) {
         ApiResponse<WalletResponse> ApiResponse = new ApiResponse<>();
         ApiResponse.setCode(200);
         ApiResponse.setMessage("Wallet created successfully");
@@ -80,7 +83,7 @@ public class WalletController {
 @PutMapping("/{walletId}")
     public ApiResponse<WalletResponse> updateWallet(
             @PathVariable String walletId,
-            @RequestBody UpdateWalletRequest request
+            @RequestBody @Valid UpdateWalletRequest request
     ) {
         ApiResponse<WalletResponse> ApiResponse = new ApiResponse<>();
         ApiResponse.setCode(200);
@@ -109,7 +112,7 @@ public class WalletController {
     @PostMapping("/{walletId}/top-up")
     public ApiResponse<TransactionResponse> topUp(
             @PathVariable String walletId,
-            @RequestBody TopUpRequest request
+            @RequestBody @Valid TopUpRequest request
     ) {
         ApiResponse<TransactionResponse> ApiResponse = new ApiResponse<>();
         ApiResponse.setCode(200);
@@ -121,7 +124,7 @@ public class WalletController {
     @PostMapping("/{walletId}/payment")
     public ApiResponse<TransactionResponse> makePayment(
             @PathVariable String walletId,
-            @RequestBody PaymentRequest request
+            @RequestBody @Valid PaymentRequest request
     ) {
         ApiResponse<TransactionResponse> ApiResponse = new ApiResponse<>();
         ApiResponse.setCode(200);

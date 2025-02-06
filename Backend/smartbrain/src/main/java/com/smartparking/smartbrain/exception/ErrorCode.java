@@ -33,6 +33,7 @@ public enum ErrorCode {
     // Wallet errors
     WALLET_NOT_FOUND(2001, "Wallet not found"),
     INVALID_CURRENCY(2002, "Invalid currency"),
+    CURRENCY_MISMATCH(2003, "Currency mismatch"),
     ;
 
     ErrorCode(int code, String message) {
