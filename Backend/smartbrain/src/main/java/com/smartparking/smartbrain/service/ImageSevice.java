@@ -1,12 +1,9 @@
 package com.smartparking.smartbrain.service;
-
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.smartparking.smartbrain.dto.request.ImageSpot.CreatedImageRequest;
 import com.smartparking.smartbrain.dto.request.ImageSpot.UpdateStatusImageRequest;
 import com.smartparking.smartbrain.exception.AppException;
@@ -17,9 +14,7 @@ import com.smartparking.smartbrain.repository.ImagesRepository;
 import com.smartparking.smartbrain.repository.ParkingSpotRepository;
 @Service
 public class ImageSevice {
-    @Autowired
     private ImagesRepository imagesRepository;
-    @Autowired
     private ParkingSpotRepository parkingSpotRepository;
     public Image createImages(CreatedImageRequest request){
         Image images = new Image();
@@ -40,7 +35,7 @@ public class ImageSevice {
         if(!imagesRepository.existsById(id)){
             throw new RuntimeException("Image found");
         }
-        imagesRepository.deleteById(id);   
+        imagesRepository.deleteById(id);
     }
 
     public List<Image> getImage(){

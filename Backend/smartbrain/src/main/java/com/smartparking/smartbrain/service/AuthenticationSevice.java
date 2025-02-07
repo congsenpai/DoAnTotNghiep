@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.StringJoiner;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +25,7 @@ import com.smartparking.smartbrain.dto.response.IntrospectResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.repository.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserRepository;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +35,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationSevice {
-    @Autowired
-    UserReponsitory userReponsitory;
+    UserRepository userReponsitory;
     PasswordEncoder passwordEncoder;
 
     protected static final String SECRET_KEY = "1g588fp61K3ru1mWsoT900vsoqykoJs63qAzM2917QKkIAf1ff0WwGHvNu3+vmJ7";

@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smartparking.smartbrain.dto.request.ParkingSpot.CreatedParkingSpotRequest;
@@ -16,20 +15,18 @@ import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.ParkingSpot;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.repository.ParkingSpotRepository;
-import com.smartparking.smartbrain.repository.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserRepository;
 
 @Service
 public class ParkingSpotSevice {
-    @Autowired
     private ParkingSpotRepository parkingSpotRepository;
-    @Autowired
-    private UserReponsitory userRepository;
+    private UserRepository userRepository;
     public ParkingSpot createParkingSpot(CreatedParkingSpotRequest request) {
         ParkingSpot parkingSpot = new ParkingSpot();
     
         // Kiểm tra nếu tên bãi đỗ đã tồn tại
         if (parkingSpotRepository.existsByParkingSpotName(request.getParkingSpotName())) {
-            throw new AppException(ErrorCode.PARKINGSPOT_ALREADY_EXISTS);    
+            throw new AppException(ErrorCode.PARKINGSPOT_ALREADY_EXISTS);
         }
         // Ánh xạ dữ liệu từ request sang entity
         parkingSpot.setParkingSpotName(request.getParkingSpotName());

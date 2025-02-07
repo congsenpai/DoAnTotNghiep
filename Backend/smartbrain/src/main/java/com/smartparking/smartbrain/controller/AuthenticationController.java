@@ -1,16 +1,13 @@
 package com.smartparking.smartbrain.controller;
-
 import java.text.ParseException;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.nimbusds.jose.JOSEException;
-import com.smartparking.smartbrain.dto.request.ApiRequest;
 import com.smartparking.smartbrain.dto.request.Login.AuthenticationRequest;
 import com.smartparking.smartbrain.dto.request.Login.IntrospectRequest;
+import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
 import com.smartparking.smartbrain.service.AuthenticationSevice;
@@ -26,20 +23,20 @@ public class AuthenticationController {
         this.authenticationSevice = authenticationSevice;
     }
     @PostMapping("/login")
-    ApiRequest<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
+    ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         var result = authenticationSevice.authenticate(request);
         System.err.println("result"+result);
-        return ApiRequest.<AuthenticationResponse>builder()
+        return ApiResponse.<AuthenticationResponse>builder()
         .result(result)
         .build();
     }
 
     @PostMapping("/introspect")
-    ApiRequest<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
+    ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
      throws JOSEException, ParseException {
         var result = authenticationSevice.introspectResponse(request);
         System.err.println(result);
-        return ApiRequest.<IntrospectResponse>builder()
+        return ApiResponse.<IntrospectResponse>builder()
         .result(result)
         .build();
     }

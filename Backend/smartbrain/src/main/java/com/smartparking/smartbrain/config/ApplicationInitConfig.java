@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.smartparking.smartbrain.enums.Roles;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.repository.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserRepository;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
     
-    @Bean 
-        ApplicationRunner applicationRunner(UserReponsitory userReponsitory) {
+    @Bean
+        ApplicationRunner applicationRunner(UserRepository userReponsitory) {
             return args -> {
                 log.info("Checking if user exists...");
                 boolean checking = userReponsitory.existsByUsername("admin1");
@@ -39,8 +39,8 @@ public class ApplicationInitConfig {
                         .username("admin1")
                         .password(passwordEncoder.encode("admin1"))
                         .role(roles)
-                        .FirstName("Admin")
-                        .LastName("User")
+                        .firstName("Admin")
+                        .lastName("User")
                         .email("admin@example.com")
                         .phone("1234567890")
                         .address("123 Admin St.")

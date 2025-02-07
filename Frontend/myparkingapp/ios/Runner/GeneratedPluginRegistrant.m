@@ -30,6 +30,12 @@
 @import flutter_secure_storage;
 #endif
 
+#if __has_include(<flutter_webview_plugin_ios_android/FlutterWebviewPlugin.h>)
+#import <flutter_webview_plugin_ios_android/FlutterWebviewPlugin.h>
+#else
+@import flutter_webview_plugin_ios_android;
+#endif
+
 #if __has_include(<geolocator_apple/GeolocatorPlugin.h>)
 #import <geolocator_apple/GeolocatorPlugin.h>
 #else
@@ -79,6 +85,7 @@
   [FLTFirebaseDatabasePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseDatabasePlugin"]];
   [FlutterKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterKeyboardVisibilityPlugin"]];
   [FlutterSecureStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSecureStoragePlugin"]];
+  [FlutterWebviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebviewPlugin"]];
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];

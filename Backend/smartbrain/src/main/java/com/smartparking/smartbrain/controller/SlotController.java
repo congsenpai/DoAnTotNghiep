@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smartparking.smartbrain.dto.request.ApiRequest;
 import com.smartparking.smartbrain.dto.request.Slot.CreatedSlotRequest;
 import com.smartparking.smartbrain.dto.request.Slot.UpdatedParkingSlotRequest;
 import com.smartparking.smartbrain.dto.request.Slot.UpdatedStateParkingSlotRequest;
 import com.smartparking.smartbrain.dto.request.Slot.UpdatedStatusParkingSlotRequest;
+import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.model.ParkingSlot;
 import com.smartparking.smartbrain.service.SlotService;
 
@@ -30,72 +30,72 @@ public class SlotController {
     private SlotService slotService;
 
      @PostMapping
-    ApiRequest<ParkingSlot> createRequestParkingSlot(@RequestBody @Valid CreatedSlotRequest request){
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<ParkingSlot>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("parking spot created sucessfully");
-        apiRequest.setResult(slotService.createParkingSlot(request));
-        return apiRequest;
+    ApiResponse<ParkingSlot> createRequestParkingSlot(@RequestBody @Valid CreatedSlotRequest request){
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<ParkingSlot>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("parking spot created sucessfully");
+        ApiResponse.setResult(slotService.createParkingSlot(request));
+        return ApiResponse;
     }
 
     @GetMapping
-    ApiRequest<List<ParkingSlot>> getParkingSlot(){
-        ApiRequest<List<ParkingSlot>> apiRequest = new ApiRequest<List<ParkingSlot>>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("ParkingSlot fetched successfully");
-        apiRequest.setResult(slotService.getParkingSlot());
-        return apiRequest;
+    ApiResponse<List<ParkingSlot>> getParkingSlot(){
+        ApiResponse<List<ParkingSlot>> ApiResponse = new ApiResponse<List<ParkingSlot>>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("ParkingSlot fetched successfully");
+        ApiResponse.setResult(slotService.getParkingSlot());
+        return ApiResponse;
     }
 
     @GetMapping("/{id}")
-    ApiRequest<ParkingSlot> getParkingSlotByID(@PathVariable String id){
+    ApiResponse<ParkingSlot> getParkingSlotByID(@PathVariable String id){
         System.err.println("error"+id);
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Parking spot fetched successfully");
-        apiRequest.setResult(slotService.getParkingSlotByID(id));
-        return apiRequest;
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Parking spot fetched successfully");
+        ApiResponse.setResult(slotService.getParkingSlotByID(id));
+        return ApiResponse;
     }
 
     @GetMapping("/{slotName}/slotName")
-    ApiRequest<ParkingSlot> getParkingSlotByName(@PathVariable String slotName){
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Parking spot fetched successfully");
-        apiRequest.setResult(slotService.getParkingSlotByName(slotName));
-        return apiRequest;
+    ApiResponse<ParkingSlot> getParkingSlotByName(@PathVariable String slotName){
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Parking spot fetched successfully");
+        ApiResponse.setResult(slotService.getParkingSlotByName(slotName));
+        return ApiResponse;
     }
 
     @DeleteMapping("{id}")
-    ApiRequest<String> deleteParkingSlot(@PathVariable String id){
-        ApiRequest<String> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
+    ApiResponse<String> deleteParkingSlot(@PathVariable String id){
+        ApiResponse<String> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
         slotService.deleteParkingSlot(id);
-        apiRequest.setMessage("Parking spot deleted successfully");
-        return apiRequest;
+        ApiResponse.setMessage("Parking spot deleted successfully");
+        return ApiResponse;
     }
     @PatchMapping("/{id}/status")
-    ApiRequest<ParkingSlot> updateStatusParkingSlot(@PathVariable String id, @RequestBody UpdatedStatusParkingSlotRequest request){
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("ParkingSlot Status update successfully");
-        apiRequest.setResult(slotService.updatedStatusParkingSlot(id, request));
-        return apiRequest;
+    ApiResponse<ParkingSlot> updateStatusParkingSlot(@PathVariable String id, @RequestBody UpdatedStatusParkingSlotRequest request){
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("ParkingSlot Status update successfully");
+        ApiResponse.setResult(slotService.updatedStatusParkingSlot(id, request));
+        return ApiResponse;
     }
     @PatchMapping("/{id}/state")
-    ApiRequest<ParkingSlot> updateStateParkingSlot(@PathVariable String id, @RequestBody UpdatedStateParkingSlotRequest request){
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("ParkingSlot Status update successfully");
-        apiRequest.setResult(slotService.updatedStateParkingSlot(id, request));
-        return apiRequest;
+    ApiResponse<ParkingSlot> updateStateParkingSlot(@PathVariable String id, @RequestBody UpdatedStateParkingSlotRequest request){
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("ParkingSlot Status update successfully");
+        ApiResponse.setResult(slotService.updatedStateParkingSlot(id, request));
+        return ApiResponse;
     }
     @PutMapping("/{id}")
-    ApiRequest<ParkingSlot> updateParkingSlot(@PathVariable String id, @RequestBody UpdatedParkingSlotRequest request){
-        ApiRequest<ParkingSlot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Parking spot update successfully");
-        apiRequest.setResult(slotService.updateParkingSlot(id, request));
-        return apiRequest;
+    ApiResponse<ParkingSlot> updateParkingSlot(@PathVariable String id, @RequestBody UpdatedParkingSlotRequest request){
+        ApiResponse<ParkingSlot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Parking spot update successfully");
+        ApiResponse.setResult(slotService.updateParkingSlot(id, request));
+        return ApiResponse;
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.sql.Timestamp;
 import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,18 +18,18 @@ import com.smartparking.smartbrain.enums.Roles;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.repository.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserRepository;
 
 @Service
 public class UserService {
     @Autowired
-    private UserReponsitory userReponsitory;
+    private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     public User createReqUser(CreatedUserRequest request){
             User user = new User();
-                if (userReponsitory.existsByUsername(request.getUsername())) {
-                    throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+                if (userRepository.existsByUsername(request.getUsername())) {
+                    throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
                 }
             user.setUsername(request.getUsername());
             
@@ -51,37 +52,37 @@ public class UserService {
             user.setCreatedDate(Timestamp.from(Instant.now()));
             user.setUpdatedDate(Timestamp.from(Instant.now()));
 
-            return userReponsitory.save(user);
+            return userRepository.save(user);
     }
     public List<User> getUser(){
-        return userReponsitory.findAll();
+        return userRepository.findAll();
     }
     public User getUserById(String id){
-        return userReponsitory.findById(id).orElseThrow(
+        return userRepository.findById(id).orElseThrow(
             () -> new RuntimeException("User not found"));
     }
     public User getUserByName(String name){
-        return userReponsitory.findByUsername(name).orElseThrow(
+        return userRepository.findByUsername(name).orElseThrow(
             ()-> new RuntimeException("User not found"));
     }
     public void deleteUser(String id){
-        if(!userReponsitory.existsById(id)){
+        if(!userRepository.existsById(id)){
             throw new RuntimeException("User not found");
         }
-        userReponsitory.deleteById(id);   
+        userRepository.deleteById(id);   
     }
     public User updatedRoleUser(String id,UpdatedRoleUserRequest request){
-        User user = userReponsitory.findById(id).get();
+        User user = userRepository.findById(id).get();
         Set<String> roles = user.getRole();
         switch (request.getRole()) {
             case 0 -> roles.add(Roles.ADMIN.name());
             case 1 -> roles.add(Roles.SPOT_OWNER.name());
         }
         user.setRole(roles);
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
     public User updatedStatusUser(String id,UpdatedStatusUserRequest request){
-        User user = userReponsitory.findById(id).get();
+        User user = userRepository.findById(id).get();
         if(user.getStatus()==true){
             user.setStatus(false
             );
@@ -89,11 +90,11 @@ public class UserService {
         else{
             user.setStatus(true);
         }
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
     public User updateUser(String id, UpdatedUserRequest request){
-        User user = userReponsitory.findById(id).get();
-        if (userReponsitory.existsByUsername(request.getUsername())) {
+        User user = userRepository.findById(id).get();
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
         }
         user.setFirstName(request.getFirstName());
@@ -103,6 +104,6 @@ public class UserService {
         user.setAddress(request.getAddress());
         user.setAvatar(request.getAvatar());
         user.setUpdatedDate(Timestamp.from(Instant.now()));
-        return userReponsitory.save(user);
+        return userRepository.save(user);
     }
 }

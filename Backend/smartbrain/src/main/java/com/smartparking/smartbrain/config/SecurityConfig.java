@@ -24,7 +24,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    // user : 
+    // user :
 
     // login :
     private final String[] PostList_public= {"/auth/login", "/auth/introspect"};
@@ -33,17 +33,12 @@ public class SecurityConfig {
 
     private String signerKey;
 
-
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> 
+        http.authorizeHttpRequests(request ->
         request.requestMatchers(HttpMethod.POST, "myparkingapp/users").permitAll().
         requestMatchers(HttpMethod.POST, PostList_public).permitAll().
         requestMatchers(HttpMethod.GET,"myparkingapp/users").hasRole(Roles.ADMIN.name())
-        
-
         .anyRequest().authenticated());
 
         http.oauth2ResourceServer(
@@ -51,10 +46,7 @@ public class SecurityConfig {
             )
 
         );
-        
         http.csrf(AbstractHttpConfigurer::disable);
-        // Disable HTTP Basic Authentication (optional)
-
         return http.build();
     }
 
@@ -79,7 +71,7 @@ public class SecurityConfig {
         
     }
 
-    @Bean 
+    @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.smartparking.smartbrain.dto.request.ApiRequest;
 import com.smartparking.smartbrain.dto.request.ParkingSpot.CreatedParkingSpotRequest;
 import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedParkingSpotRequest;
 import com.smartparking.smartbrain.dto.request.ParkingSpot.UpdatedStatusParkingSpotRequest;
+import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.model.ParkingSpot;
 import com.smartparking.smartbrain.service.ParkingSpotSevice;
 import jakarta.validation.Valid;
@@ -28,54 +28,54 @@ public class ParkingSpotController {
     private ParkingSpotSevice parkingSpotSevice;
 
     @PostMapping
-    ApiRequest<ParkingSpot> createRequestParkingSpot(@RequestBody @Valid CreatedParkingSpotRequest request){
-        ApiRequest<ParkingSpot> apiRequest = new ApiRequest<ParkingSpot>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("parking spot created sucessfully");
-        apiRequest.setResult(parkingSpotSevice.createParkingSpot(request));
-        return apiRequest;
+    ApiResponse<ParkingSpot> createRequestParkingSpot(@RequestBody @Valid CreatedParkingSpotRequest request){
+        ApiResponse<ParkingSpot> ApiResponse = new ApiResponse<ParkingSpot>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("parking spot created sucessfully");
+        ApiResponse.setResult(parkingSpotSevice.createParkingSpot(request));
+        return ApiResponse;
     }
 
     @GetMapping
-    ApiRequest<List<ParkingSpot>> getParkingSpot(){
-        ApiRequest<List<ParkingSpot>> apiRequest = new ApiRequest<List<ParkingSpot>>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("ParkingSpot fetched successfully");
-        apiRequest.setResult(parkingSpotSevice.getParkingSpot());
-        return apiRequest;
+    ApiResponse<List<ParkingSpot>> getParkingSpot(){
+        ApiResponse<List<ParkingSpot>> ApiResponse = new ApiResponse<List<ParkingSpot>>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("ParkingSpot fetched successfully");
+        ApiResponse.setResult(parkingSpotSevice.getParkingSpot());
+        return ApiResponse;
     }
 
     @GetMapping("/{id}")
-    ApiRequest<ParkingSpot> getParkingSpotByID(@PathVariable String id){
-        ApiRequest<ParkingSpot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Parking spot fetched successfully");
-        apiRequest.setResult(parkingSpotSevice.getParkingSpotByID(id));
-        return apiRequest;
+    ApiResponse<ParkingSpot> getParkingSpotByID(@PathVariable String id){
+        ApiResponse<ParkingSpot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Parking spot fetched successfully");
+        ApiResponse.setResult(parkingSpotSevice.getParkingSpotByID(id));
+        return ApiResponse;
     }
 
     @DeleteMapping("/{id}")
-    ApiRequest<String> deleteParkingSpot(@PathVariable String id){
-        ApiRequest<String> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
+    ApiResponse<String> deleteParkingSpot(@PathVariable String id){
+        ApiResponse<String> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
         parkingSpotSevice.deleteParkingSpot(id);;
-        apiRequest.setMessage("Parking spot deleted successfully");
-        return apiRequest;
+        ApiResponse.setMessage("Parking spot deleted successfully");
+        return ApiResponse;
     }
     @PatchMapping("/{id}/status")
-    ApiRequest<ParkingSpot> updateStateParkingSpot(@PathVariable String id, @RequestBody UpdatedStatusParkingSpotRequest request){
-        ApiRequest<ParkingSpot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("ParkingSpot Status update successfully");
-        apiRequest.setResult(parkingSpotSevice.updatedStatusParkingSpot(id, request));
-        return apiRequest;
+    ApiResponse<ParkingSpot> updateStateParkingSpot(@PathVariable String id, @RequestBody UpdatedStatusParkingSpotRequest request){
+        ApiResponse<ParkingSpot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("ParkingSpot Status update successfully");
+        ApiResponse.setResult(parkingSpotSevice.updatedStatusParkingSpot(id, request));
+        return ApiResponse;
     }
     @PutMapping("/{id}")
-    ApiRequest<ParkingSpot> updateParkingSpot(@PathVariable String id, @RequestBody UpdatedParkingSpotRequest request){
-        ApiRequest<ParkingSpot> apiRequest = new ApiRequest<>();
-        apiRequest.setCode(200);
-        apiRequest.setMessage("Parking spot update successfully");
-        apiRequest.setResult(parkingSpotSevice.updateParkingSpot(id, request));
-        return apiRequest;
+    ApiResponse<ParkingSpot> updateParkingSpot(@PathVariable String id, @RequestBody UpdatedParkingSpotRequest request){
+        ApiResponse<ParkingSpot> ApiResponse = new ApiResponse<>();
+        ApiResponse.setCode(200);
+        ApiResponse.setMessage("Parking spot update successfully");
+        ApiResponse.setResult(parkingSpotSevice.updateParkingSpot(id, request));
+        return ApiResponse;
     }
 }

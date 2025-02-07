@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.Slot.CreatedSlotRequest;
 import com.smartparking.smartbrain.dto.request.Slot.UpdatedParkingSlotRequest;
@@ -21,9 +20,7 @@ import com.smartparking.smartbrain.repository.SlotRepository;
 
 @Service
 public class SlotService {
-    @Autowired
     private SlotRepository slotRepository;
-    @Autowired
     private ParkingSpotRepository parkingSpotRepository;
     public ParkingSlot createParkingSlot(CreatedSlotRequest request){
         ParkingSlot parkingSlot = new ParkingSlot();
@@ -67,7 +64,7 @@ public class SlotService {
         if(!slotRepository.existsById(id)){
             throw new RuntimeException("ErrorCode.SLOT_NOT_EXISTS");
         }
-        slotRepository.deleteById(id);   
+        slotRepository.deleteById(id);
     }
 
     public ParkingSlot updatedStatusParkingSlot(String id, UpdatedStatusParkingSlotRequest request){

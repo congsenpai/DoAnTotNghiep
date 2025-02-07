@@ -1,28 +1,15 @@
-// ignore_for_file: unused_element, prefer_const_constructors
+// ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:myparkingapp/blocs/user/user_bloc.dart';
 import 'package:myparkingapp/presentation/screens/SettingScreens/SettingScreen.dart';
-import 'package:provider/provider.dart';
 
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
 
 void main() {
-  runApp(
-      MultiProvider(
-        providers: [
-        
-          BlocProvider(
-              create: (context) => UserBloc()
-          )
-        ],
-        child:MyApp(),
-      )
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
