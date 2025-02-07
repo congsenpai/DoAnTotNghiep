@@ -26,7 +26,7 @@ import com.smartparking.smartbrain.dto.response.IntrospectResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.reponsitory.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserReponsitory;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

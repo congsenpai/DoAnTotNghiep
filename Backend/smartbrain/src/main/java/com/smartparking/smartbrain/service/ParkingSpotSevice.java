@@ -15,8 +15,8 @@ import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.ParkingSpot;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.reponsitory.ParkingSpotRepository;
-import com.smartparking.smartbrain.reponsitory.UserReponsitory;
+import com.smartparking.smartbrain.repository.ParkingSpotRepository;
+import com.smartparking.smartbrain.repository.UserReponsitory;
 
 @Service
 public class ParkingSpotSevice {

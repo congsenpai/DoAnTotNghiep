@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.smartparking.smartbrain.enums.Roles;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.reponsitory.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserReponsitory;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -13,8 +13,8 @@ import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.model.ParkingSpot;
-import com.smartparking.smartbrain.reponsitory.ImagesRepository;
-import com.smartparking.smartbrain.reponsitory.ParkingSpotRepository;
+import com.smartparking.smartbrain.repository.ImagesRepository;
+import com.smartparking.smartbrain.repository.ParkingSpotRepository;
 @Service
 public class ImageSevice {
     @Autowired

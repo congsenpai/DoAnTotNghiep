@@ -16,8 +16,8 @@ import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.ParkingSlot;
 import com.smartparking.smartbrain.model.ParkingSpot;
-import com.smartparking.smartbrain.reponsitory.ParkingSpotRepository;
-import com.smartparking.smartbrain.reponsitory.SlotRepository;
+import com.smartparking.smartbrain.repository.ParkingSpotRepository;
+import com.smartparking.smartbrain.repository.SlotRepository;
 
 @Service
 public class SlotService {

@@ -14,9 +14,10 @@ import com.smartparking.smartbrain.dto.request.User.UpdatedRoleUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UpdatedStatusUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
 import com.smartparking.smartbrain.enums.Roles;
-
+import com.smartparking.smartbrain.exception.AppException;
+import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.User;
-import com.smartparking.smartbrain.reponsitory.UserReponsitory;
+import com.smartparking.smartbrain.repository.UserReponsitory;
 
 @Service
 public class UserService {
@@ -27,7 +28,7 @@ public class UserService {
     public User createReqUser(CreatedUserRequest request){
             User user = new User();
                 if (userReponsitory.existsByUsername(request.getUsername())) {
-                    throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
+                    throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
                 }
             user.setUsername(request.getUsername());
             

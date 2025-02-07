@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.reponsitory;
+package com.smartparking.smartbrain.repository;
 
 import org.springframework.stereotype.Repository;
 
