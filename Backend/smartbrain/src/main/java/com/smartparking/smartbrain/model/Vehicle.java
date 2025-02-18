@@ -1,10 +1,8 @@
 package com.smartparking.smartbrain.model;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
 
-import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.enums.VehicleType;
 
 import jakarta.persistence.Entity;
@@ -16,11 +14,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,37 +25,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "parkingSlots")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class ParkingSlot {
+@Table(name = "vehicles")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Vehicle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String slotId;
-    String slotName;
+    String vehicleId;
 
     @Enumerated(EnumType.STRING)
     VehicleType vehicleType;
 
-    @Enumerated(EnumType.STRING)
-    SlotStatus slotStatus;
+    String licensePlate;
 
-    BigDecimal pricePerHour;
-    BigDecimal pricePerMonth;
-    
+    String description;
+
     // Relationship
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id",nullable = false)
-    ParkingLot parkingLot;
-    @OneToMany(mappedBy = "parkingSlot")
-    Set<Invoice> invoice;
-    @OneToOne(mappedBy = "parkingSlot")
-    MonthlyTicket monthlyTicket;
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
+    @OneToMany(mappedBy = "vehicle")
+    Set<Invoice> invoices;
 
     // Timestamp
     Timestamp createdAt;
@@ -73,6 +65,6 @@ public class ParkingSlot {
     protected void onUpdate() {
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
-
+    
 
 }

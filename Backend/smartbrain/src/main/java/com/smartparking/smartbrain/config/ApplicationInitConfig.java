@@ -1,14 +1,16 @@
 package com.smartparking.smartbrain.config;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.smartparking.smartbrain.enums.Roles;
+import com.smartparking.smartbrain.model.Role;
 import com.smartparking.smartbrain.model.User;
+import com.smartparking.smartbrain.repository.RoleRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
 
 import lombok.AccessLevel;
@@ -24,7 +26,7 @@ public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
     
     @Bean
-        ApplicationRunner applicationRunner(UserRepository userReponsitory) {
+        ApplicationRunner applicationRunner(UserRepository userReponsitory, RoleRepository roleRepository) {
             return args -> {
                 log.info("Checking if user exists...");
                 boolean checking = userReponsitory.existsByUsername("admin1");
@@ -32,18 +34,23 @@ public class ApplicationInitConfig {
                 log.warn("checking");
                 if (checking == false) {
                     log.info("No user found with username: admin1. Creating default user.");
-                    var roles = new HashSet<String>();
-                    roles.add(Roles.ADMIN.name());
-
+                    Role role = Role.builder()
+                        .roleName("ADMIN")
+                        .description("ADMIN ROLE")
+                        .build();
+                    Set<Role> roles = new HashSet<>();
+                    roles.add(role);
+                    roleRepository.save(role);
                     User user = User.builder()
                         .username("admin1")
                         .password(passwordEncoder.encode("admin1"))
-                        .role(roles)
+                        .roles(roles)
                         .firstName("Admin")
                         .lastName("User")
                         .email("admin@example.com")
                         .phone("1234567890")
-                        .address("123 Admin St.")
+                        .homeAddress("123 Admin St.")
+                        .companyAddress("123 Admin St.")
                         .avatar("default-avatar.png")
                         .createdDate(new Timestamp(System.currentTimeMillis()))  // Thời gian tạo
                         .updatedDate(new Timestamp(System.currentTimeMillis()))  // Thời gian cập nhật

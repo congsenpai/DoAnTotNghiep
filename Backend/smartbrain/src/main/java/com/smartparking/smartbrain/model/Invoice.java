@@ -2,10 +2,8 @@ package com.smartparking.smartbrain.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Set;
 
-import com.smartparking.smartbrain.enums.SlotStatus;
-import com.smartparking.smartbrain.enums.VehicleType;
+import com.smartparking.smartbrain.enums.InvoiceStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,12 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,49 +25,60 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "parkingSlots")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class ParkingSlot {
+@Table(name = "invoices")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Invoice {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String slotId;
-    String slotName;
-
-    @Enumerated(EnumType.STRING)
-    VehicleType vehicleType;
-
-    @Enumerated(EnumType.STRING)
-    SlotStatus slotStatus;
-
-    BigDecimal pricePerHour;
-    BigDecimal pricePerMonth;
+    String invoiceId;
     
+    BigDecimal total_amount;
+    @Enumerated(EnumType.STRING)
+    InvoiceStatus status;
+    String description;
+
     // Relationship
+    @OneToOne
+    @JoinColumn(name = "transaction_id", nullable = false)
+    Transaction transaction;
+
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id",nullable = false)
-    ParkingLot parkingLot;
-    @OneToMany(mappedBy = "parkingSlot")
-    Set<Invoice> invoice;
-    @OneToOne(mappedBy = "parkingSlot")
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
+
+    @OneToOne
+    @JoinColumn(name = "discount_id", nullable = true)
+    Discount discount;
+
+    @ManyToOne
+    @JoinColumn(name = "parking_slot_id", nullable = false)
+    ParkingSlot parkingSlot;
+
+    @ManyToOne
+    @JoinColumn(name="vehicle_id", nullable = false)
+    Vehicle vehicle;
+
+    @OneToOne
+    @JoinColumn(name = "monthly_ticket_id", nullable = true)
     MonthlyTicket monthlyTicket;
 
     // Timestamp
-    Timestamp createdAt;
-    Timestamp updatedAt;
-        @PrePersist
+    Timestamp createAt;
+    Timestamp updateAt;
+    @PrePersist
     protected void onCreate() {
-        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.createAt = new Timestamp(System.currentTimeMillis());
     }
-
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = new Timestamp(System.currentTimeMillis());
+        this.updateAt = new Timestamp(System.currentTimeMillis());
     }
 
 

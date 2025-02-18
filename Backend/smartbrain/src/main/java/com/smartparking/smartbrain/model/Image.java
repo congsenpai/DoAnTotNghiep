@@ -7,28 +7,48 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Table(name = "images")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String imagesID;
-    private String urlString;
-    private String noteString;
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
-    private boolean status;
+    String imagesID;
+    String url;
+
+    // Relationship
+    @ManyToOne
+    @JoinColumn(name = "parking_lot_id",nullable = true)
+    ParkingLot parkingLot;
 
     @ManyToOne
-    @JoinColumn(name = "parkingSpotID",nullable = false)
-    private ParkingSpot parkingSpot;
+    @JoinColumn(name = "user_id",nullable = true)
+    User user;
+    // Timestamp
+    Timestamp createAt;
+    Timestamp updateAt;
+
+        @PrePersist
+    protected void onCreate() {
+        this.createAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = new Timestamp(System.currentTimeMillis());
+    }
 }

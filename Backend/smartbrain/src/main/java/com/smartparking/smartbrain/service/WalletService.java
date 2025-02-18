@@ -13,10 +13,12 @@ import com.smartparking.smartbrain.dto.request.Wallet.CreateWalletRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
-import com.smartparking.smartbrain.dto.response.wallet.TransactionResponse;
+import com.smartparking.smartbrain.dto.response.Wallet.TransactionResponse;
+import com.smartparking.smartbrain.dto.response.Wallet.WalletResponse;
 import com.smartparking.smartbrain.enums.Transactions;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
+import com.smartparking.smartbrain.mapper.WalletMapper;
 import com.smartparking.smartbrain.model.Transaction;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Wallet;
@@ -24,18 +26,21 @@ import com.smartparking.smartbrain.repository.TransactionRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
 import com.smartparking.smartbrain.repository.WalletRepository;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WalletService {
 
-    private final WalletRepository walletRepository;
-    private final UserRepository userRepository;
-    private final TransactionRepository transactionRepository;
-
-    public WalletService(WalletRepository walletRepository, UserRepository userRepository, TransactionRepository transactionRepository) {
-        this.walletRepository = walletRepository;
-        this.userRepository = userRepository;
-        this.transactionRepository = transactionRepository;
-    }
+    final WalletRepository walletRepository;
+    final UserRepository userRepository;
+    final TransactionRepository transactionRepository;
+    final WalletMapper walletMapper;
 
     @Transactional
     public TransactionResponse topUp(String walletId, TopUpRequest request) {
@@ -53,7 +58,9 @@ public class WalletService {
             }
             
         }
+        // add amount to old balanced
         wallet.setBalance(wallet.getBalance().add(request.getAmount()));
+        
         walletRepository.save(wallet);
 
         Transaction transaction = new Transaction();
@@ -121,45 +128,49 @@ public class WalletService {
     }
 
     @Transactional
-    public Wallet createWallet(CreateWalletRequest request) {
-        Wallet wallet = new Wallet();
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        wallet.setUser(user);
+    public WalletResponse createWallet(CreateWalletRequest request) {
+        Currency currency;
         try {
-            Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
-            wallet.setCurrency(currency);
+            currency = Currency.getInstance(request.getCurrency().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new AppException(ErrorCode.INVALID_CURRENCY);
         }
-        
-        wallet.setBalance(request.getBalance() != null ? request.getBalance() : BigDecimal.ZERO);
-        wallet.setName(request.getName());
-
-       return walletRepository.save(wallet);
-
-    }
-
-    public List<Wallet> getWalletsByUser(String userId) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return walletRepository.findByUser(user);
+        // Sử dụng mapper để chuyển request thành wallet
+        Wallet wallet = walletMapper.toWallet(request);
+        // Set lại các giá trị cần thiết
+        wallet.setCurrency(currency);
+        wallet.setUser(user);
+        walletRepository.save(wallet);
+        WalletResponse walletResponse = walletMapper.toWalletResponse(wallet);
+        walletResponse.setWalletId(wallet.getWalletId());
+        walletResponse.setCurrency(wallet.getCurrency().toString());
+        return walletResponse;
     }
     
 
-    public Wallet getWalletById(String walletId) {
+    public List<WalletResponse> getWalletsByUser(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return walletRepository.findByUser(user)
+        .stream()
+        .map(walletMapper::toWalletResponse)
+        .toList();
+    }
+    
+
+    public WalletResponse getWalletById(String walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
-        return wallet;
+        return walletMapper.toWalletResponse(wallet);
     }
 
     @Transactional
-    public Wallet updateWallet(String walletId, UpdateWalletRequest request) {
+    public WalletResponse updateWallet(String walletId, UpdateWalletRequest request) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
-
-        if (request.getName() != null) {
-            wallet.setName(request.getName());
-        }
+        walletMapper.updateWalletFromRequest(request, wallet);
         if (request.getCurrency() != null) {
             try {
                 Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
@@ -169,8 +180,8 @@ public class WalletService {
             }
             
         }
-
-        return walletRepository.save(wallet);
+        walletRepository.save(wallet);
+        return walletMapper.toWalletResponse(wallet);
     }
 
     @Transactional

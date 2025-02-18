@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.StringJoiner;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -30,15 +31,19 @@ import com.smartparking.smartbrain.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationSevice {
-    UserRepository userReponsitory;
-    PasswordEncoder passwordEncoder;
+    final UserRepository userReponsitory;
+    final PasswordEncoder passwordEncoder;
 
-    protected static final String SECRET_KEY = "1g588fp61K3ru1mWsoT900vsoqykoJs63qAzM2917QKkIAf1ff0WwGHvNu3+vmJ7";
+    @Value("${jwt.signerKey}")
+    protected String SECRET_KEY;
+
 
     public IntrospectResponse introspectResponse(IntrospectRequest request)
     throws JOSEException, ParseException{
@@ -57,7 +62,6 @@ public class AuthenticationSevice {
         User user = userReponsitory.findByUsername(request.getUsername()).orElseThrow(
             () -> new AppException(ErrorCode.USER_NOT_FOUND)
         );
-        System.err.println(request.getPassword());
     
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if(!authenticated)
@@ -84,7 +88,7 @@ public class AuthenticationSevice {
             JWSObject.sign(new MACSigner(SECRET_KEY));
             return JWSObject.serialize();
         } catch (Exception e) {
-        
+            System.err.println(e);
             e.printStackTrace();
             throw new AppException(ErrorCode.INTERNAL_SERVER_ERROR); // Trả lỗi chung nếu tạo token thất bại
         }
@@ -92,9 +96,9 @@ public class AuthenticationSevice {
 
     private String buildString(User user){
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if (!CollectionUtils.isEmpty(user.getRole())) {
-            user.getRole().forEach(stringJoiner::add);
+        if (!CollectionUtils.isEmpty(user.getRoles())) {
+            user.getRoles().forEach(role -> stringJoiner.add(role.getRoleName()));
         }
         return stringJoiner.toString();
-    } 
+    }
 }

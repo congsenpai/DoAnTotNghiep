@@ -1,14 +1,13 @@
 package com.smartparking.smartbrain.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -16,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Setter
 @Getter
@@ -26,62 +26,79 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String userId;
+    String userId;
 
     @Column(unique = true, nullable = false)
     @NotNull(message = "Username cannot be null")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    private String username;
+    String username;
 
     @Column(nullable = false)
     @NotNull(message = "Password cannot be null")
     @Size(min = 8, message = "Password must be at least 8 characters long")
-    private String password;
+    String password;
 
     @Column(nullable = false)
     @NotNull(message = "First name cannot be null")
-    private String firstName;
+    String firstName;
 
     @Column(nullable = false)
     @NotNull(message = "Last name cannot be null")
-    private String lastName;
+    String lastName;
 
     @Column(unique = true, nullable = false)
     @Email(message = "Email should be valid")
     @NotNull(message = "Email cannot be null")
-    private String email;
+    String email;
 
-    private String phone;
-    private String address;
-
-    @Column(nullable = false)
-    @NotNull(message = "Role cannot be null")
-    private Set<String> role;
+    String phone;
+    String homeAddress;
+    String companyAddress;
 
     @Column(nullable = false)
     @Builder.Default
-    private Boolean status = true;
+    Boolean status = true;
 
-    private String avatar;
+    String avatar;
 
     @Column(nullable = false, updatable = false)
-    private Timestamp createdDate;
+    Timestamp createdDate;
 
-    private Timestamp updatedDate;
+    Timestamp updatedDate;
 
-    // Relationship with Wallet
+    // Relationship
+    @Column(nullable = false)
+    @NotNull(message = "Role cannot be null")
+
+    // Relationship with Role Many to Many - User can have multiple roles
+    @ManyToMany
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
+    Set<Role> roles;
+    // Relationship One to Many
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Wallet> wallets;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Transaction> transactions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Invoice> invoices;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Vehicle> vehicles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<MonthlyTicket> monthlyTickets;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<Wallet> wallets = new ArrayList<>();
+    Set<ParkingLot> parkingLots;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<Transaction> transactions = new ArrayList<>();
+
     // Lifecycle Hooks for Timestamps
     @PrePersist
     protected void onCreate() {

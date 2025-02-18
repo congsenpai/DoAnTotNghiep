@@ -2,14 +2,13 @@ package com.smartparking.smartbrain.model;
 
 import java.sql.Timestamp;
 
-import com.smartparking.smartbrain.enums.DiscountType;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -28,27 +27,29 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "discounts")
+@Table(name = "monthly_tickets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Discount {
-    
+public class MonthlyTicket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String discountId;
-    String discountCode;
-    @Enumerated(EnumType.STRING)
-    DiscountType discountType;
-    double discountValue;
-    String description;
+    String monthlyTicketId;
 
     // Relationship
-    @OneToOne(mappedBy="discount")
+    @OneToOne
+    @JoinColumn(name = "parking_slot_id", nullable = false)
+    ParkingSlot parkingSlot;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
+    @OneToOne
+    @JoinColumn(name = "invoice_id", nullable = false)
     Invoice invoice;
-    
     // Timestamp
     Timestamp createAt;
     Timestamp expireAt;
-    @PrePersist
+    
+        @PrePersist
     protected void onCreate() {
         this.createAt = new Timestamp(System.currentTimeMillis());
     }
@@ -57,7 +58,4 @@ public class Discount {
     protected void onUpdate() {
         this.expireAt = new Timestamp(System.currentTimeMillis());
     }
-
-
-
 }

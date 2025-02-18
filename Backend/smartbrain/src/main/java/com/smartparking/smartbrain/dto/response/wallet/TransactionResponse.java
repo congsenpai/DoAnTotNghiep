@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.response.wallet;
+package com.smartparking.smartbrain.dto.response.Wallet;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
