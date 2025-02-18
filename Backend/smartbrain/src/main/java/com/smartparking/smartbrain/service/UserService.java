@@ -2,107 +2,92 @@ package com.smartparking.smartbrain.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.smartparking.smartbrain.dto.request.User.CreatedUserRequest;
-import com.smartparking.smartbrain.dto.request.User.UpdatedRoleUserRequest;
-import com.smartparking.smartbrain.dto.request.User.UpdatedStatusUserRequest;
+import com.smartparking.smartbrain.dto.request.User.UserRequest;
+import com.smartparking.smartbrain.dto.response.User.UserResponse;
+import com.smartparking.smartbrain.exception.AppException;
+import com.smartparking.smartbrain.exception.ErrorCode;
+import com.smartparking.smartbrain.mapper.UserMapper;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
-import com.smartparking.smartbrain.enums.Roles;
-
+import com.smartparking.smartbrain.model.Role;
 import com.smartparking.smartbrain.model.User;
+import com.smartparking.smartbrain.repository.RoleRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    public User createReqUser(CreatedUserRequest request){
-            User user = new User();
-                if (userRepository.existsByUsername(request.getUsername())) {
-                    throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
-                }
-            user.setUsername(request.getUsername());
-            
-            if (request.getPassword() == null || request.getPassword().length() < 6) {
-                throw new IllegalArgumentException("ErrorCode.PASSWORD_NOT_VALID");
-            }
-            // Mã hóa mật khẩu
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-            user.setFirstName(request.getFirstName());
-            user.setLastName(request.getLastName());
-            user.setEmail(request.getEmail());
-            user.setPhone(request.getPhone());
-            user.setAddress(request.getAddress());
+    final UserRepository userRepository;
+    final RoleRepository roleRepository;
+    final PasswordEncoder passwordEncoder;
+    final UserMapper userMapper;
+        
+    public UserResponse createReqUser(UserRequest request){
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+        }
+        if (request.getPassword() == null || request.getPassword().length() < 6) {
+            throw new AppException(ErrorCode.PASSWORD_NOT_VALID);
+        }
+        User user=userMapper.fromCreateToUser(request);
+        // Encoded Password
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Set roles for user
+        var roles= roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
+        userRepository.save(user);
+        UserResponse userResponse=userMapper.toUserResponse(user);
+        Set<String> roleNames = user.getRoles().stream()
+                            .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
+                            .collect(Collectors.toSet());
+        userResponse.setRoles(roleNames);
+        return userResponse;
+    }
 
-            HashSet<String> roles = new HashSet<>();
-            roles.add(Roles.CUSTOMER.name());
-            user.setRole(roles);
-            user.setStatus(true);
-            user.setAvatar(request.getAvatar());
-            user.setCreatedDate(Timestamp.from(Instant.now()));
-            user.setUpdatedDate(Timestamp.from(Instant.now()));
+    public List<UserResponse> getAllUser(){
+        return userRepository.findAll()
+        .stream()
+        .map(userMapper::toUserResponse)
+        .toList();
+    }
+    public UserResponse getUserById(String id){
+        User user=userRepository.findById(id).orElseThrow(
+            () -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userMapper.toUserResponse(user);
+    }
+    public UserResponse getUserByName(String name){
+        User user=userRepository.findByUsername(name).orElseThrow(
+            ()-> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userMapper.toUserResponse(user);
+    }
 
-            return userRepository.save(user);
-    }
-    public List<User> getUser(){
-        return userRepository.findAll();
-    }
-    public User getUserById(String id){
-        return userRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("User not found"));
-    }
-    public User getUserByName(String name){
-        return userRepository.findByUsername(name).orElseThrow(
-            ()-> new RuntimeException("User not found"));
-    }
     public void deleteUser(String id){
         if(!userRepository.existsById(id)){
-            throw new RuntimeException("User not found");
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
-        userRepository.deleteById(id);   
+        userRepository.deleteById(id);
     }
-    public User updatedRoleUser(String id,UpdatedRoleUserRequest request){
-        User user = userRepository.findById(id).get();
-        Set<String> roles = user.getRole();
-        switch (request.getRole()) {
-            case 0 -> roles.add(Roles.ADMIN.name());
-            case 1 -> roles.add(Roles.SPOT_OWNER.name());
-        }
-        user.setRole(roles);
-        return userRepository.save(user);
+
+    public UserResponse updateInfoUser(String id, UpdatedUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        userMapper.updateUserFromRequest(request,user);
+        // get roles
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
+        userRepository.save(user);
+        return userMapper.toUserResponse(user);
     }
-    public User updatedStatusUser(String id,UpdatedStatusUserRequest request){
-        User user = userRepository.findById(id).get();
-        if(user.getStatus()==true){
-            user.setStatus(false
-            );
-        }
-        else{
-            user.setStatus(true);
-        }
-        return userRepository.save(user);
-    }
-    public User updateUser(String id, UpdatedUserRequest request){
-        User user = userRepository.findById(id).get();
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("ErrorCode.USER_ALREADY_EXISTS");
-        }
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setPhone(request.getPhone());
-        user.setAddress(request.getAddress());
-        user.setAvatar(request.getAvatar());
-        user.setUpdatedDate(Timestamp.from(Instant.now()));
-        return userRepository.save(user);
-    }
+    
 }

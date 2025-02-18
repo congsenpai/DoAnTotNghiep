@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.response.wallet;
+package com.smartparking.smartbrain.dto.response.Wallet;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +12,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class WalletResponse {
-
     private String walletId;
-    private String userId;
     private String currency;
     private BigDecimal balance;
     private String name;

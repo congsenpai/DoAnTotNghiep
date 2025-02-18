@@ -1,8 +1,10 @@
 package com.smartparking.smartbrain.exception;
 
 public enum ErrorCode {
+
     // System errors
     ERROR_NOT_FOUND(0001,"error special"),
+
     // User errors
     USER_NOT_FOUND(1001, "User not found"),
     USER_ALREADY_EXISTS(1002, "User already exists"),
@@ -13,11 +15,13 @@ public enum ErrorCode {
     INVALID_REQUEST(1007, "Invalid request"),
     INTERNAL_SERVER_ERROR(1008, "Internal server error"),
     USER_NOT_EXISTS(1009, "User not exists"),
+
      // ParkingSpot errors
     PARKINGSPOT_NOT_FOUND(2001, "parking spot not found"),
     PARKINGSPOT_ALREADY_EXISTS(2002,"parking spot alrealy exitst"),
     PARKINGSPOT_NOT_EXISTS(2003,"parking spot not exists"),
     FALSE_UPDATE_STATUS_SPOT(2004,"updating spot status false"),
+
      // Image errors
     IMAGE_NOT_FOUND(3001, "image not found"),
     IMAGE_ALREADY_EXISTS(3002,"image alrealy exitst"),
@@ -31,10 +35,22 @@ public enum ErrorCode {
     FALSE_UPDATE_STATUS_SLOT(4004,"updating slot status false"),
 
     // Wallet errors
-    WALLET_NOT_FOUND(2001, "Wallet not found"),
-    INVALID_CURRENCY(2002, "Invalid currency"),
-    CURRENCY_MISMATCH(2003, "Currency mismatch"),
+    WALLET_NOT_FOUND(5001, "Wallet not found"),
+    INVALID_CURRENCY(5002, "Invalid currency"),
+    CURRENCY_MISMATCH(5003, "Currency mismatch"),
+    
+    // Permission errors
+    PERMISSION_NOT_FOUND(6001,"Permission not found"),
+    PERMISSION_ALREADY_EXISTS(6002,"Permission already exists"),
+    PERMISSION_NOT_EXISTS(6003,"Permission not exists")
+
+
+
+
+
+
     ;
+
 
     ErrorCode(int code, String message) {
         this.code = code;

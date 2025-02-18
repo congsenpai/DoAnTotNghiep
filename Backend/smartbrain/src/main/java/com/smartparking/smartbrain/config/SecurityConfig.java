@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.smartparking.smartbrain.enums.Roles;
 
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -37,8 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request ->
         request.requestMatchers(HttpMethod.POST, "myparkingapp/users").permitAll().
-        requestMatchers(HttpMethod.POST, PostList_public).permitAll().
-        requestMatchers(HttpMethod.GET,"myparkingapp/users").hasRole(Roles.ADMIN.name())
+        requestMatchers(HttpMethod.POST, PostList_public).permitAll()
         .anyRequest().authenticated());
 
         http.oauth2ResourceServer(
