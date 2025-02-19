@@ -53,39 +53,67 @@ public class UserService {
         return userResponse;
     }
 
-    public List<UserResponse> getAllUser(){
+    public List<UserResponse> getAllUser() {
         return userRepository.findAll()
-        .stream()
-        .map(userMapper::toUserResponse)
-        .toList();
+            .stream()
+            .map(user -> {
+                UserResponse userResponse = userMapper.toUserResponse(user);
+                Set<String> roleNames = user.getRoles().stream()
+                    .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
+                    .collect(Collectors.toSet());
+                userResponse.setRoles(roleNames);
+                return userResponse;
+            })
+            .toList();
     }
-    public UserResponse getUserById(String id){
-        User user=userRepository.findById(id).orElseThrow(
-            () -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return userMapper.toUserResponse(user);
+    
+    public UserResponse getUserById(String id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        UserResponse userResponse = userMapper.toUserResponse(user);
+        Set<String> roleNames = user.getRoles().stream()
+            .map(Role::getRoleName)
+            .collect(Collectors.toSet());
+        userResponse.setRoles(roleNames);
+        return userResponse;
     }
-    public UserResponse getUserByName(String name){
-        User user=userRepository.findByUsername(name).orElseThrow(
-            ()-> new AppException(ErrorCode.USER_NOT_FOUND));
-        return userMapper.toUserResponse(user);
+    
+    public UserResponse getUserByName(String name) {
+        User user = userRepository.findByUsername(name)
+            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        UserResponse userResponse = userMapper.toUserResponse(user);
+        Set<String> roleNames = user.getRoles().stream()
+            .map(Role::getRoleName)
+            .collect(Collectors.toSet());
+        userResponse.setRoles(roleNames);
+        return userResponse;
     }
-
-    public void deleteUser(String id){
-        if(!userRepository.existsById(id)){
+    
+    public void deleteUser(String id) {
+        if (!userRepository.existsById(id)) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
         userRepository.deleteById(id);
     }
-
+    
     public UserResponse updateInfoUser(String id, UpdatedUserRequest request) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        userMapper.updateUserFromRequest(request,user);
-        // get roles
+            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        userMapper.updateUserFromRequest(request, user);
+        
+        // Lấy danh sách roles từ repository theo id roles được truyền vào request
         var roles = roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(roles));
+        
         userRepository.save(user);
-        return userMapper.toUserResponse(user);
+        
+        UserResponse userResponse = userMapper.toUserResponse(user);
+        Set<String> roleNames = user.getRoles().stream()
+            .map(Role::getRoleName)
+            .collect(Collectors.toSet());
+        userResponse.setRoles(roleNames);
+        return userResponse;
     }
+    
     
 }
