@@ -2,23 +2,14 @@ package com.smartparking.smartbrain.service;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.StringJoiner;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.Payload;
-import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import com.smartparking.smartbrain.config.JwtTokenProvider;
 import com.smartparking.smartbrain.dto.request.Login.AuthenticationRequest;
 import com.smartparking.smartbrain.dto.request.Login.IntrospectRequest;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
@@ -40,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthenticationSevice {
     final UserRepository userReponsitory;
     final PasswordEncoder passwordEncoder;
+    final JwtTokenProvider jwtTokenProvider;
 
     @Value("${jwt.signerKey}")
     protected String SECRET_KEY;
@@ -66,39 +58,11 @@ public class AuthenticationSevice {
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if(!authenticated)
             throw new AppException(ErrorCode.UNAUTHORIZED);
-        String token = generalToken(user);
+        String token = jwtTokenProvider.generateToken(user);
         return AuthenticationResponse.builder()
             .token(token)
             .authenticated(true)
             .build();
     }
 
-    private String generalToken(User user){
-        JWSHeader JWSHead =  new JWSHeader(JWSAlgorithm.HS256);
-        JWTClaimsSet JWTClaimsSet = new JWTClaimsSet.Builder()
-            .subject(user.getUsername())
-            .issuer("smartparkingapp")
-            .issueTime(new Date())
-            .expirationTime(new Date(System.currentTimeMillis() + 60 * 100000)).
-            claim("scope", buildString(user)).
-            build();
-        Payload payload = new Payload(JWTClaimsSet.toJSONObject());
-        JWSObject JWSObject = new JWSObject(JWSHead, payload);
-        try {
-            JWSObject.sign(new MACSigner(SECRET_KEY));
-            return JWSObject.serialize();
-        } catch (Exception e) {
-            System.err.println(e);
-            e.printStackTrace();
-            throw new AppException(ErrorCode.INTERNAL_SERVER_ERROR); // Trả lỗi chung nếu tạo token thất bại
-        }
-    }
-
-    private String buildString(User user){
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        if (!CollectionUtils.isEmpty(user.getRoles())) {
-            user.getRoles().forEach(role -> stringJoiner.add(role.getRoleName()));
-        }
-        return stringJoiner.toString();
-    }
 }
