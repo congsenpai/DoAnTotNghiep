@@ -2,11 +2,13 @@ package com.smartparking.smartbrain.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
+import com.smartparking.smartbrain.dto.response.User.UserResponseUser_Slot;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.UserMapper;
@@ -15,7 +17,8 @@ import com.smartparking.smartbrain.model.Role;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.repository.RoleRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -52,7 +55,6 @@ public class UserService {
         userResponse.setRoles(roleNames);
         return userResponse;
     }
-
     public List<UserResponse> getAllUser() {
         return userRepository.findAll()
             .stream()
@@ -66,7 +68,44 @@ public class UserService {
             })
             .toList();
     }
+    public List<UserResponseUser_Slot> getAllUser_And_ParkingLot() {
+        return userRepository.findAll()
+            .stream()
+            .map(user -> {
+                UserResponseUser_Slot userResponseUser_Slot = userMapper.toResponseUser_Slot(user);
+                Set<String> roleNames = user.getRoles().stream()
+                    .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
+                    .collect(Collectors.toSet());
+                userResponseUser_Slot.setRoles(roleNames);
+                return userResponseUser_Slot;
+            })
+            .toList();
+    }
+    public Page<UserResponseUser_Slot> getAllUser_And_ParkingLots(int page) {
+        Pageable pageable = PageRequest.of(page, 8);
+        Page<User> userPage = userRepository.findAll(pageable);
+        return userPage.map(user -> {
+            UserResponseUser_Slot userResponseUser_Slot = userMapper.toResponseUser_Slot(user);
+            Set<String> roleNames = user.getRoles().stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.toSet());
+            userResponseUser_Slot.setRoles(roleNames);
+            return userResponseUser_Slot; 
+        });
+    }
+    public Page<UserResponse> getUserPage(int page) {
+        Pageable pageable = PageRequest.of(page, 8);
+        Page<User> userPage = userRepository.findAll(pageable);
     
+        return userPage.map(user -> {
+            UserResponse userResponse = userMapper.toUserResponse(user);
+            Set<String> roleNames = user.getRoles().stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.toSet());
+            userResponse.setRoles(roleNames);
+            return userResponse;
+        });
+    }
     public UserResponse getUserById(String id) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -77,7 +116,6 @@ public class UserService {
         userResponse.setRoles(roleNames);
         return userResponse;
     }
-    
     public UserResponse getUserByName(String name) {
         User user = userRepository.findByUsername(name)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -88,25 +126,20 @@ public class UserService {
         userResponse.setRoles(roleNames);
         return userResponse;
     }
-    
     public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
         userRepository.deleteById(id);
     }
-    
     public UserResponse updateInfoUser(String id, UpdatedUserRequest request) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userMapper.updateUserFromRequest(request, user);
-        
         // Lấy danh sách roles từ repository theo id roles được truyền vào request
         var roles = roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(roles));
-        
         userRepository.save(user);
-        
         UserResponse userResponse = userMapper.toUserResponse(user);
         Set<String> roleNames = user.getRoles().stream()
             .map(Role::getRoleName)

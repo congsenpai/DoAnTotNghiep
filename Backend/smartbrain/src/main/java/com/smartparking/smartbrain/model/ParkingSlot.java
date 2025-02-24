@@ -72,6 +72,4 @@ public class ParkingSlot {
     protected void onUpdate() {
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
-
-
 }

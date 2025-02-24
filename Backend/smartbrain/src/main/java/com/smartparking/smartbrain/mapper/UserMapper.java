@@ -7,6 +7,7 @@ import org.mapstruct.MappingTarget;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
+import com.smartparking.smartbrain.dto.response.User.UserResponseUser_Slot;
 import com.smartparking.smartbrain.model.User;
 
 @Mapper(componentModel = "spring")
@@ -28,6 +29,9 @@ public interface UserMapper {
 
     @Mapping(target = "roles",ignore = true)// need custom
     UserResponse toUserResponse(User user);
+
+    @Mapping(target = "roles",ignore = true)// need custom
+    UserResponseUser_Slot toResponseUser_Slot(User user);
     
     @Mapping(target = "roles", ignore = true)// need custom
     @Mapping(target = "password", ignore = true)// need custom
@@ -42,5 +46,8 @@ public interface UserMapper {
     @Mapping(target = "vehicles", ignore = true)
     @Mapping(target = "wallets", ignore = true)
     void updateUserFromRequest(UpdatedUserRequest request, @MappingTarget User user);
+
+
+
     
 }
