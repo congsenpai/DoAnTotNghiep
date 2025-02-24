@@ -1,7 +1,9 @@
 package com.smartparking.smartbrain.service;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +15,7 @@ import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.UserMapper;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
-import com.smartparking.smartbrain.model.Role;
+
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.repository.RoleRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
@@ -33,7 +35,8 @@ public class UserService {
     final RoleRepository roleRepository;
     final PasswordEncoder passwordEncoder;
     final UserMapper userMapper;
-        
+    
+    
     public UserResponse createReqUser(UserRequest request){
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
@@ -48,90 +51,39 @@ public class UserService {
         var roles= roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
-        UserResponse userResponse=userMapper.toUserResponse(user);
-        Set<String> roleNames = user.getRoles().stream()
-                            .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
-                            .collect(Collectors.toSet());
-        userResponse.setRoles(roleNames);
-        return userResponse;
+        return userMapper.toUserResponse(user);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUser() {
-        return userRepository.findAll()
-            .stream()
-            .map(user -> {
-                UserResponse userResponse = userMapper.toUserResponse(user);
-                Set<String> roleNames = user.getRoles().stream()
-                    .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
-                    .collect(Collectors.toSet());
-                userResponse.setRoles(roleNames);
-                return userResponse;
-            })
-            .toList();
+        return userRepository.findAll().stream()
+        .map(userMapper::toUserResponse)
+        .toList();
     }
-    public List<UserResponseUser_Slot> getAllUser_And_ParkingLot() {
-        return userRepository.findAll()
-            .stream()
-            .map(user -> {
-                UserResponseUser_Slot userResponseUser_Slot = userMapper.toResponseUser_Slot(user);
-                Set<String> roleNames = user.getRoles().stream()
-                    .map(Role::getRoleName) // Giả sử thuộc tính tên role là 'roleName'
-                    .collect(Collectors.toSet());
-                userResponseUser_Slot.setRoles(roleNames);
-                return userResponseUser_Slot;
-            })
-            .toList();
-    }
-    public Page<UserResponseUser_Slot> getAllUser_And_ParkingLots(int page) {
-        Pageable pageable = PageRequest.of(page, 8);
-        Page<User> userPage = userRepository.findAll(pageable);
-        return userPage.map(user -> {
-            UserResponseUser_Slot userResponseUser_Slot = userMapper.toResponseUser_Slot(user);
-            Set<String> roleNames = user.getRoles().stream()
-                .map(Role::getRoleName)
-                .collect(Collectors.toSet());
-            userResponseUser_Slot.setRoles(roleNames);
-            return userResponseUser_Slot; 
-        });
-    }
-    public Page<UserResponse> getUserPage(int page) {
-        Pageable pageable = PageRequest.of(page, 8);
-        Page<User> userPage = userRepository.findAll(pageable);
-    
-        return userPage.map(user -> {
-            UserResponse userResponse = userMapper.toUserResponse(user);
-            Set<String> roleNames = user.getRoles().stream()
-                .map(Role::getRoleName)
-                .collect(Collectors.toSet());
-            userResponse.setRoles(roleNames);
-            return userResponse;
-        });
-    }
+
+    @PreAuthorize("#id == authentication.token.claims['userId'] or hasRole('ADMIN')")
     public UserResponse getUserById(String id) {
         User user = userRepository.findById(id)
-            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        UserResponse userResponse = userMapper.toUserResponse(user);
-        Set<String> roleNames = user.getRoles().stream()
-            .map(Role::getRoleName)
-            .collect(Collectors.toSet());
-        userResponse.setRoles(roleNames);
-        return userResponse;
+        .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userMapper.toUserResponse(user);
     }
+
+    @PreAuthorize("#name == authentication.name or hasRole('ADMIN')")
     public UserResponse getUserByName(String name) {
         User user = userRepository.findByUsername(name)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        UserResponse userResponse = userMapper.toUserResponse(user);
-        Set<String> roleNames = user.getRoles().stream()
-            .map(Role::getRoleName)
-            .collect(Collectors.toSet());
-        userResponse.setRoles(roleNames);
-        return userResponse;
+        return userMapper.toUserResponse(user);
     }
+
+    @PreAuthorize("#id == authentication.token.claims['userId'] or hasRole('ADMIN')")
     public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
         userRepository.deleteById(id);
     }
+    
+    @PreAuthorize("#id == authentication.token.claims['userId'] or hasRole('ADMIN')")
     public UserResponse updateInfoUser(String id, UpdatedUserRequest request) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -140,12 +92,7 @@ public class UserService {
         var roles = roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
-        UserResponse userResponse = userMapper.toUserResponse(user);
-        Set<String> roleNames = user.getRoles().stream()
-            .map(Role::getRoleName)
-            .collect(Collectors.toSet());
-        userResponse.setRoles(roleNames);
-        return userResponse;
+        return userMapper.toUserResponse(user);
     }
     
     

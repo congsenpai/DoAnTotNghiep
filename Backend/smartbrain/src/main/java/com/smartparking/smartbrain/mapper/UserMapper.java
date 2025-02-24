@@ -27,7 +27,6 @@ public interface UserMapper {
     User fromCreateToUser(UserRequest userRequest);
 
 
-    @Mapping(target = "roles",ignore = true)// need custom
     UserResponse toUserResponse(User user);
 
     @Mapping(target = "roles",ignore = true)// need custom
