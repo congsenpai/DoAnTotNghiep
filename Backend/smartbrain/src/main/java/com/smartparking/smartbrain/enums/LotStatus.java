@@ -1,5 +1,5 @@
 package com.smartparking.smartbrain.enums;
 
 public enum LotStatus {
-    ON, OFF
+    ON, OFF, FULL_SLOT
 }

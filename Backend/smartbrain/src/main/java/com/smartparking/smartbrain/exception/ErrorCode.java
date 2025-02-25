@@ -17,10 +17,10 @@ public enum ErrorCode {
     USER_NOT_EXISTS(1009, "User not exists"),
 
      // ParkingSpot errors
-    PARKINGSPOT_NOT_FOUND(2001, "parking spot not found"),
-    PARKINGSPOT_ALREADY_EXISTS(2002,"parking spot alrealy exitst"),
-    PARKINGSPOT_NOT_EXISTS(2003,"parking spot not exists"),
-    FALSE_UPDATE_STATUS_SPOT(2004,"updating spot status false"),
+    PARKING_LOT_NOT_FOUND(2001, "parking spot not found"),
+    PARKING_LOT_ALREADY_EXISTS(2002,"parking spot alrealy exitst"),
+    PARKING_LOT_NOT_EXISTS(2003,"parking spot not exists"),
+    FALSE_UPDATE_STATUS_LOT(2004,"updating spot status false"),
 
      // Image errors
     IMAGE_NOT_FOUND(3001, "image not found"),
@@ -29,10 +29,11 @@ public enum ErrorCode {
     IMAGE_UPDATE_STATUS_SLOT(3004,"updating image status false"),
 
      // ParkingSlot errors
-    SLOT_NOT_FOUND(4001, "slot not found"),
-    SLOT_ALREADY_EXISTS(4002,"slot alrealy exitst"),
-    SLOT_NOT_EXISTS(4003,"slot not exists"),
+    PARKING_SLOT_NOT_FOUND(4001, "slot not found"),
+    PARKING_SLOT_ALREADY_EXISTS(4002,"slot alrealy exitst"),
+    PARKING_SLOT_NOT_EXISTS(4003,"slot not exists"),
     FALSE_UPDATE_STATUS_SLOT(4004,"updating slot status false"),
+    TOTAL_SLOT_EXCEED(4005,"total slot exceed, can't use auto create slot, please create slot manually"),
 
     // Wallet errors
     WALLET_NOT_FOUND(5001, "Wallet not found"),
@@ -42,8 +43,7 @@ public enum ErrorCode {
     // Permission errors
     PERMISSION_NOT_FOUND(6001,"Permission not found"),
     PERMISSION_ALREADY_EXISTS(6002,"Permission already exists"),
-    PERMISSION_NOT_EXISTS(6003,"Permission not exists")
-
+    PERMISSION_NOT_EXISTS(6003,"Permission not exists"),
 
 
 

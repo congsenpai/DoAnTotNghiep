@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import com.smartparking.smartbrain.enums.InvoiceStatus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,6 +38,7 @@ public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "invoice_id", nullable = false, updatable = false)
     String invoiceId;
     
     BigDecimal total_amount;

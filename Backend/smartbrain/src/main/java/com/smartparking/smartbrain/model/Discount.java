@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import com.smartparking.smartbrain.enums.DiscountType;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,6 +35,7 @@ public class Discount {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "discount_id", nullable = false, updatable = false)
     String discountId;
     String discountCode;
     @Enumerated(EnumType.STRING)

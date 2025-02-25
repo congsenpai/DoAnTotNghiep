@@ -30,6 +30,7 @@ public class Transaction {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "transaction_id", nullable = false, updatable = false)
     String transactionId;
     @NotNull(message = "Amount cannot be null")
     BigDecimal amount;

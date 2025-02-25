@@ -29,6 +29,7 @@ public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "wallet_id", nullable = false, updatable = false)
     String walletId;
 
     @Column(nullable = false)
