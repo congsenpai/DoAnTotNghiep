@@ -5,6 +5,7 @@ public enum ErrorCode {
     // System errors
     ERROR_NOT_FOUND(0001,"error special"),
 
+
     // User errors
     USER_NOT_FOUND(1001, "User not found"),
     USER_ALREADY_EXISTS(1002, "User already exists"),
@@ -15,6 +16,7 @@ public enum ErrorCode {
     INVALID_REQUEST(1007, "Invalid request"),
     INTERNAL_SERVER_ERROR(1008, "Internal server error"),
     USER_NOT_EXISTS(1009, "User not exists"),
+    TOKEN_EXPIRED(1010, "Token expired"),
 
      // ParkingSpot errors
     PARKING_LOT_NOT_FOUND(2001, "parking spot not found"),

@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.nimbusds.jose.JOSEException;
-import com.smartparking.smartbrain.dto.request.Login.AuthenticationRequest;
-import com.smartparking.smartbrain.dto.request.Login.IntrospectRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.TokenRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
@@ -33,10 +34,16 @@ public class AuthenticationController {
     @PostMapping("/introspect")
     ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
     throws JOSEException, ParseException {
-        var result = authenticationSevice.introspectResponse(request);
-        System.err.println(result);
+        var result = authenticationSevice.introspect(request);
         return ApiResponse.<IntrospectResponse>builder()
         .result(result)
+        .build();
+    }
+    @PostMapping("/logout")
+    ApiResponse<Void> logout(@RequestBody TokenRequest request) throws JOSEException, ParseException {
+        authenticationSevice.logout(request);
+        return ApiResponse.<Void>builder()
+        .message("Logout successfully")
         .build();
     }
 }

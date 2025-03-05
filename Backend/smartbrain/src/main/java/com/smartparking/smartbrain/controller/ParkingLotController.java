@@ -39,7 +39,7 @@ public class ParkingLotController {
         .build();
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ApiResponse<List<ParkingLotResponse>> getAllParkingLot() {
         return ApiResponse.<List<ParkingLotResponse>>builder()
         .result(parkingLotService.getAllParkingLot())

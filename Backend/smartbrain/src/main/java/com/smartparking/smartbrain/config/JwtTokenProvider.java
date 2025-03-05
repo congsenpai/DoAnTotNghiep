@@ -3,6 +3,7 @@ package com.smartparking.smartbrain.config;
 
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,7 @@ public class JwtTokenProvider {
             .issueTime(new Date())
             .expirationTime(new Date(System.currentTimeMillis() + 7L * 24 * 60 * 60 * 1000))
             .claim("scope", buildString(user))
+            .jwtID(UUID.randomUUID().toString())
             .claim("userId", user.getUserId())
             .build();
         Payload payload = new Payload(JWTClaimsSet.toJSONObject());

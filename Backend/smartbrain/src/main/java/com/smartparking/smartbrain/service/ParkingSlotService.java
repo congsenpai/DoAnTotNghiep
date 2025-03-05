@@ -53,50 +53,5 @@ public class ParkingSlotService {
         return parkingSlots.stream().map(parkingSlotMapper::toParkingSlotResponse).toList();
     }
     
-    public List<ParkingSlotResponse> autoCreateParkingSlot(CreatedParkingSlotRequest request){
-        ParkingLot parkingLot = parkingLotRepository.findById(request.getParkingLotID())
-        .orElseThrow(() -> new AppException(ErrorCode.PARKING_LOT_NOT_FOUND));
-
-        int totalSlot = parkingLot.getTotalSlot();
-        if(totalSlot>2500){
-            throw new AppException(ErrorCode.TOTAL_SLOT_EXCEED);
-        }
-        char section = 'A';
-        int startNumber = 0;
-        int endNumber=0;
-        int numberOfSlot=0;
-    
-        if (request.getVehicleType()==VehicleType.MOTORCYCLE.toString()) {
-            startNumber=20;
-            endNumber=89;
-            numberOfSlot=parkingLot.getTotalSlot()*70/100;
-        } else if (request.getVehicleType()==VehicleType.CAR.toString()) {
-            startNumber=0;
-            endNumber=19;
-            numberOfSlot=parkingLot.getTotalSlot()*20/100;
-        } else if (request.getVehicleType()==VehicleType.BICYCLE.toString()) {
-            startNumber=90;
-            endNumber=99;
-            numberOfSlot=parkingLot.getTotalSlot()*10/100;
-        }
-        int curr=startNumber;
-        for (int i = 0; i < numberOfSlot; i++) {
-            
-            ParkingSlot parkingSlot = parkingSlotMapper.toParkingSlot(request);
-            parkingSlot.setParkingLot(parkingLot);
-            
-            // Định dạng tên slot theo dạng A00, A01, ..., A99, B00,...
-            String slotName = String.format("%c%02d", section, curr);
-            parkingSlot.setSlotName(slotName);
-            parkingSlotRepository.save(parkingSlot);
-            
-            curr++;
-            if (curr > endNumber) {
-                curr=startNumber;
-                section++;
-            }
-        }
-        return getAllParkingSlot(request.getParkingLotID());
-    }
 
 }

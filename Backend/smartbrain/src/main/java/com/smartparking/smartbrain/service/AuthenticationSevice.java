@@ -10,13 +10,16 @@ import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.SignedJWT;
 import com.smartparking.smartbrain.config.JwtTokenProvider;
-import com.smartparking.smartbrain.dto.request.Login.AuthenticationRequest;
-import com.smartparking.smartbrain.dto.request.Login.IntrospectRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.TokenRequest;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
+import com.smartparking.smartbrain.model.InvalidToken;
 import com.smartparking.smartbrain.model.User;
+import com.smartparking.smartbrain.repository.InvalidatedRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
 
 import lombok.AccessLevel;
@@ -32,25 +35,27 @@ public class AuthenticationSevice {
     final UserRepository userReponsitory;
     final PasswordEncoder passwordEncoder;
     final JwtTokenProvider jwtTokenProvider;
+    final InvalidatedRepository invalidatedRepository;
 
     @Value("${jwt.signerKey}")
     protected String SECRET_KEY;
 
 
-    public IntrospectResponse introspectResponse(IntrospectRequest request)
+    public IntrospectResponse introspect(IntrospectRequest request)
     throws JOSEException, ParseException{
-        var token = request.getToken();
-        JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
-        SignedJWT signedJWT = SignedJWT.parse(token);
-        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        boolean isVerified = signedJWT.verify(verifier);
+        verifyToken(request.getToken());
+        boolean isValid = true;
+        try {
+            verifyToken(request.getToken());
+        } catch (AppException e) {
+            isValid = false;
+        }
         return IntrospectResponse.builder()
-            .valid(isVerified && expirationTime.after(new Date()))
+            .valid(isValid)
             .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        System.err.println(request.getUsername());
         User user = userReponsitory.findByUsername(request.getUsername()).orElseThrow(
             () -> new AppException(ErrorCode.USER_NOT_FOUND)
         );
@@ -63,6 +68,28 @@ public class AuthenticationSevice {
             .token(token)
             .authenticated(true)
             .build();
+    }
+    private SignedJWT verifyToken(String token) throws ParseException, JOSEException {
+        JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
+        SignedJWT signedJWT = SignedJWT.parse(token);
+        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+        boolean isVerified = signedJWT.verify(verifier);
+        if(!isVerified || !expirationTime.after(new Date()))
+            throw new AppException(ErrorCode.UNAUTHORIZED);
+        if (invalidatedRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
+            throw new AppException(ErrorCode.TOKEN_EXPIRED);
+        }
+        return signedJWT;
+    }
+    public void logout(TokenRequest request) throws JOSEException, ParseException {
+        var signedJWT=verifyToken(request.getToken());
+        String id=signedJWT.getJWTClaimsSet().getJWTID();
+        Date expiryTime=signedJWT.getJWTClaimsSet().getExpirationTime();
+        InvalidToken invalidToken = InvalidToken.builder()
+            .id(id)
+            .expiryTime(expiryTime)
+            .build();
+        invalidatedRepository.save(invalidToken);
     }
 
 }
