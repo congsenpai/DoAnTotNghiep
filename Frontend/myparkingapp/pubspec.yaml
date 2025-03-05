@@ -96,6 +96,9 @@ flutter:
     - assets/images/
     - assets/lang/en.json
     - assets/lang/vi.json
+    - assets/icons/icon_vip/
+    - assets/icons/
+    - assets/images/detail/
 
 
   # fonts:

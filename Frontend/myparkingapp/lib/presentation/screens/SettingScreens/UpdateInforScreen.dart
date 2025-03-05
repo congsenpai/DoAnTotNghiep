@@ -1,20 +1,22 @@
 
-// ignore_for_file: non_constant_identifier_names, file_names
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/blocs/user/user_bloc.dart';
-import 'package:myparkingapp/blocs/user/user_event.dart';
-import 'package:myparkingapp/blocs/user/user_state.dart';
-import 'package:myparkingapp/data/models/User.dart';
+import 'package:myparkingapp/blocs/user/userEvent.dart';
+import 'package:myparkingapp/blocs/user/userState.dart';
+
+
+import '../../../blocs/user/userBloc.dart';
+import '../../../data/model/user.dart';
 
 
 class UpdateUserProfile extends StatefulWidget {
-  final String UserID;
-  final String bearerToken;
-  const UpdateUserProfile({super.key, required this.UserID, required this.bearerToken});
+  final String token;
+  final User user;
+  const UpdateUserProfile({super.key, required this.user, required this.token});
 
   @override
   State<UpdateUserProfile> createState() => _UpdateUserProfileState();
@@ -25,23 +27,12 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
   late TextEditingController _email;
   late TextEditingController _phone;
   late TextEditingController _avatar;
-  late TextEditingController _address;
+  late TextEditingController _homeAddress;
+  late TextEditingController _companyAddress;
   late TextEditingController _firstName;
   late TextEditingController _lastName;
 
-  late User user = User(
-    username: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-    roles: {"ADMIN"},
-    status: true,
-    avatar: "",
-    createdDate: DateTime.now(),
-    updatedDate: DateTime.now());
+  late User user = widget.user;
   @override
   void initState() {
 
@@ -51,10 +42,10 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
     _email = TextEditingController();
     _phone = TextEditingController();
     _avatar = TextEditingController();
-    _address = TextEditingController();
+    _homeAddress = TextEditingController();
+    _companyAddress = TextEditingController();
     _firstName = TextEditingController();
     _lastName = TextEditingController();
-    context.read<UserBloc>().add(InitstateEvent(widget.UserID,widget.bearerToken));
   }
   @override
   Widget build(BuildContext context) {
@@ -64,18 +55,19 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
       ),
       body: BlocConsumer<UserBloc, UserState>(
         builder: (context, state) {
-          if (state is UserLoaded) {
+          if (state is UserLoadedState) {
             user = state.userModel;
             // Gán dữ liệu cho TextEditingController
             _userName.text = user.username;
             _lastName.text = user.lastName;
             _firstName.text = user.firstName;
             _email.text = user.email;
-            _phone.text = user.phone;
+            _phone.text = user.phoneNumber;
             _avatar.text = user.avatar;
-            _address.text = user.address;
+            _homeAddress.text = user.companyAddress;
+            _companyAddress.text = user.companyAddress;
 
-          } else if (state is UserLoading) {
+          } else if (state is UserLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -145,7 +137,16 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
 // 7. address
                     SizedBox(height: Get.width / 30),
                     TextField(
-                      controller: _address,
+                      controller: _homeAddress,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context).translate('Avatar'),
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+
+                    SizedBox(height: Get.width / 30),
+                    TextField(
+                      controller: _companyAddress,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).translate('Avatar'),
                         border: const OutlineInputBorder(),
@@ -155,15 +156,21 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
                     SizedBox(height: Get.width / 30),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<UserBloc>().add(ChangeProfileEvent(
-                          widget.UserID,
-                          _userName.text,
-                          _lastName.text,
-                          _firstName.text,
-                          _email.text,
-                          _phone.text,
-                          _avatar.text,
-                          _address.text,
+                        User user = User(
+                            userId: '',
+                            username: _userName.text,
+                            password: '',
+                            phoneNumber: _phone.text,
+                            homeAddress: _homeAddress.text,
+                            companyAddress: _companyAddress.text,
+                            lastName: _lastName.text,
+                            firstName: _firstName.text,
+                            avatar: _avatar.text,
+                            email: _email.text,
+                            status: UserStatus.ACTIVE,
+                            roles: []);
+                        context.read<UserBloc>().add(UpdateUser(
+                          user,widget.token
                         ));
                       },
                       child: const Center(
@@ -177,8 +184,8 @@ class _UpdateUserProfileState extends State<UpdateUserProfile> {
           );
         },
         listener: (context, state) {
-          if (state is UserError) {
-            UserError('Loading Data was false');
+          if (state is UserErrorState) {
+            UserErrorState('Loading Data was false');
           }
         },
       ),

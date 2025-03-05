@@ -133,7 +133,7 @@ class UserRepository {
   // mockup version
   Future<APIResult> giveAllUserByPage_BySearch_ByOWNER_ROLE(int page, String token, String ROLE, String searchText) async {
     try {
-      print("user ${searchText}");
+      print("user $searchText");
       String searchKey = searchText.toLowerCase().trim();
       List<User> user = demoCustomersList.where((user) =>
       user.roles.contains("OWNER") && // Sửa lỗi "ONWER" thành "OWNER"

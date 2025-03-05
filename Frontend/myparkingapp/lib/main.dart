@@ -1,15 +1,29 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:myparkingapp/presentation/screens/SettingScreens/SettingScreen.dart';
+import 'package:myparkingapp/blocs/Lot/LotBloc.dart';
+import 'package:myparkingapp/blocs/home/HomeBloc.dart';
+import 'package:myparkingapp/presentation/screens/HomeScreens/home_screen.dart';
+import 'package:myparkingapp/presentation/widgets/classInitial.dart';
+import 'package:provider/provider.dart';
 
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      BlocProvider(
+        create: (context) => HomeBloc()),
+      BlocProvider(create: (context) => LotBloc()
+      ),
+    ],
+      child:const MyApp(),),
+
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -46,14 +60,19 @@ class _MyAppState extends State<MyApp> {
         Locale('en', ''), // English
         Locale('vi', ''), // Vietnamese
       ],
-      home:SettingsScreen(
-      userID: '12345',
-      userName: 'John Doe',
-      onLanguageChange: (Locale newLocale) {
+      home: HomeScreen(user: selectedUserInitial, token: '', onLanguageChange: (Locale newLocale) {
         // Thay đổi ngôn ngữ trong toàn ứng dụng
         Get.updateLocale(newLocale);
-      },
-    ), // Truyền hàm đổi ngôn ngữ
+      },)
+
+    //   SettingsScreen(
+    //   user: selectedUserInitial,
+    //   token: '',
+    //   onLanguageChange: (Locale newLocale) {
+    //     // Thay đổi ngôn ngữ trong toàn ứng dụng
+    //     Get.updateLocale(newLocale);
+    //   },
+    // ), // Truyền hàm đổi ngôn ngữ
     );
   }
 }

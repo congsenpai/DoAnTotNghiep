@@ -1,7 +1,7 @@
-import 'package:get/get.dart';
+
 import 'package:flutter/material.dart';
 
-
+import 'package:get/get.dart';
 
 
 
@@ -27,6 +27,9 @@ class _HeaderTextState extends State<HeaderText> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+
+
+
         Padding(
           padding: EdgeInsets.only(left: Get.width / 25),
           child: RichText(

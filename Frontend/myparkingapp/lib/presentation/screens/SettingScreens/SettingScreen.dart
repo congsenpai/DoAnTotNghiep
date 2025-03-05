@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/locallization/app_localizations.dart';
+import '../../../data/model/user.dart';
+import 'UpdateInforScreen.dart';
 
 
 
 class SettingsScreen extends StatefulWidget {
   @override
-  const SettingsScreen({super.key, required this.userID, required this.userName, required this.onLanguageChange});
-  final String userID;
-  final String userName;
+  const SettingsScreen({super.key, required this.user, required this.token, required this.onLanguageChange});
+  final User user;
+  final String token;
   final Function(Locale) onLanguageChange;
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -35,14 +37,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children:  [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 40,
                   backgroundColor: Colors.blueAccent,
-                  child: Icon(Icons.person, size: 40, color: Colors.white),
+                  child: Image.asset(widget.user.avatar),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  widget.userName,
+                  widget.user.username,
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -71,8 +73,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: buildListTile(Icons.edit,
                         AppLocalizations.of(context).translate("Edit Profile")
                         , onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context)=>UpdateUserProfile(UserID: widget.userID,)));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>
+                              UpdateUserProfile(user: widget.user,token: widget.token,)));
                     }),
                   ),
                   SizedBox(
