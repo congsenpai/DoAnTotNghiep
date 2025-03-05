@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.smartparking.smartbrain.enums.VehicleType;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,6 +38,7 @@ public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "vehicle_id", nullable = false, updatable = false)
     String vehicleId;
 
     @Enumerated(EnumType.STRING)

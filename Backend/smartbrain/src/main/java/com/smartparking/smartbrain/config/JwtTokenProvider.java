@@ -33,7 +33,7 @@ public class JwtTokenProvider {
             .subject(user.getUsername())
             .issuer("smartparkingapp")
             .issueTime(new Date())
-            .expirationTime(new Date(System.currentTimeMillis() + 60 * 100000))
+            .expirationTime(new Date(System.currentTimeMillis() + 7L * 24 * 60 * 60 * 1000))
             .claim("scope", buildString(user))
             .claim("userId", user.getUserId())
             .build();

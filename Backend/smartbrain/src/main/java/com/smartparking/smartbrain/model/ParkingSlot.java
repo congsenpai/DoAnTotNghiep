@@ -7,6 +7,7 @@ import java.util.Set;
 import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.enums.VehicleType;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,12 +34,13 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "parkingSlots")
+@Table(name = "parking_slots")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class ParkingSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "parking_slot_id", nullable = false, updatable = false)
     String slotId;
     String slotName;
 
@@ -46,9 +48,12 @@ public class ParkingSlot {
     VehicleType vehicleType;
 
     @Enumerated(EnumType.STRING)
-    SlotStatus slotStatus;
-
+    @Builder.Default
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'AVAILABLE'")
+    SlotStatus slotStatus= SlotStatus.AVAILABLE;
+    @Column(nullable = false)
     BigDecimal pricePerHour;
+    @Column(nullable = false)
     BigDecimal pricePerMonth;
     
     // Relationship

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.smartparking.smartbrain.enums.LotStatus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,7 +27,7 @@ import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
-@Table(name = "parkingLots")
+@Table(name = "parking_lots")
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +35,7 @@ import lombok.experimental.FieldDefaults;
 public class ParkingLot {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "parking_lot_id", nullable = false, updatable = false)
     String parkingLotID;
 
     String parkingLotName;
@@ -44,8 +46,9 @@ public class ParkingLot {
     int totalSlot;
     
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false,columnDefinition = "varchar(255) default 'ON'")
     LotStatus status;
-
+    @Column(columnDefinition = "double precision default 5",nullable = false)
     Double rate;
     String description;
 
