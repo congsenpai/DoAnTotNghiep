@@ -22,6 +22,7 @@ public class SecurityConfig {
     private final String[] PostList_public= {"/auth/login","auth/logout", "/auth/introspect"};
     private CustomJwtDecoder customJwtDecoder;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request ->
@@ -34,6 +35,10 @@ public class SecurityConfig {
             )
 
         );
+            // Thêm cấu hình exception handling với JwtAuthenticationEntryPoint
+        http.exceptionHandling(exception ->exception.authenticationEntryPoint(jwtAuthenticationEntryPoint())
+        );
+
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
@@ -55,5 +60,9 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
+    }
+    @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+        return new JwtAuthenticationEntryPoint();
     }
 }

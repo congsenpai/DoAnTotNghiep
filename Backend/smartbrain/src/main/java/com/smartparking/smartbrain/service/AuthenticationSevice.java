@@ -12,7 +12,8 @@ import com.nimbusds.jwt.SignedJWT;
 import com.smartparking.smartbrain.config.JwtTokenProvider;
 import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
-import com.smartparking.smartbrain.dto.request.Authentication.TokenRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.LogoutRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.RefreshRequest;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
 import com.smartparking.smartbrain.exception.AppException;
@@ -81,7 +82,7 @@ public class AuthenticationSevice {
         }
         return signedJWT;
     }
-    public void logout(TokenRequest request) throws JOSEException, ParseException {
+    public void logout(LogoutRequest request) throws JOSEException, ParseException {
         var signedJWT=verifyToken(request.getToken());
         String id=signedJWT.getJWTClaimsSet().getJWTID();
         Date expiryTime=signedJWT.getJWTClaimsSet().getExpirationTime();
@@ -90,6 +91,9 @@ public class AuthenticationSevice {
             .expiryTime(expiryTime)
             .build();
         invalidatedRepository.save(invalidToken);
+    }
+    public void refreshToken(RefreshRequest request){
+        
     }
 
 }

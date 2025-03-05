@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.smartparking.smartbrain.dto.request.ParkingSlot.CreatedParkingSlotRequest;
 import com.smartparking.smartbrain.dto.response.ParkingSlot.ParkingSlotResponse;
-import com.smartparking.smartbrain.enums.VehicleType;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.ParkingSlotMapper;
