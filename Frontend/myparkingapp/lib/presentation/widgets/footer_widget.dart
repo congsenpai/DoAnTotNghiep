@@ -51,8 +51,8 @@ class footerWidget extends StatelessWidget {
             IconButton(
               icon: Image.asset(
                 'assets/icons/icon_vip/23.png', // Đường dẫn đến ảnh của bạn
-                width: Get.width / 20, // Kích thước icon
-                height: Get.width / 20,
+                width: Get.width / 15, // Kích thước icon
+                height: Get.width / 15,
               ),
               onPressed: () async {
                 // Navigator.pushReplacement(
@@ -68,8 +68,8 @@ class footerWidget extends StatelessWidget {
             IconButton(
               icon: Image.asset(
                 'assets/icons/icon_vip/24.png', // Đường dẫn đến ảnh của bạn
-                width: Get.width / 20, // Kích thước icon
-                height: Get.width / 20,
+                width: Get.width / 15, // Kích thước icon
+                height: Get.width / 15,
               ),
               onPressed: () {
                 // Navigator.pushReplacement(
@@ -87,8 +87,8 @@ class footerWidget extends StatelessWidget {
             IconButton(
               icon: Image.asset(
                 'assets/icons/icon_vip/31.png', // Đường dẫn đến ảnh của bạn
-                width: Get.width / 20, // Kích thước icon
-                height:Get.width / 20,
+                width: Get.width / 15, // Kích thước icon
+                height:Get.width / 15,
               ),
               onPressed: () {
                 Navigator.pushReplacement(

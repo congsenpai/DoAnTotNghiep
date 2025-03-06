@@ -32,7 +32,7 @@ class Images {
   }
 }
 List<Images> imagesDemo = [
-  Images(url: 'https://example.com/image1.jpg', imageId: '1', parkingLotId: 'PL001', userId: 'U001'),
-  Images(url: 'https://example.com/image2.png', imageId: '2', parkingLotId: 'PL001', userId: 'U002'),
-  Images(url: 'https://example.com/image3.gif', imageId: '3', parkingLotId: 'PL001', userId: 'U003'),
+  Images(url: "https://via.placeholder.com/150", imageId: '1', parkingLotId: 'PL001', userId: 'U001'),
+  Images(url: "https://via.placeholder.com/150", imageId: '2', parkingLotId: 'PL001', userId: 'U002'),
+  Images(url: "https://via.placeholder.com/150", imageId: '3', parkingLotId: 'PL001', userId: 'U003'),
 ];

@@ -23,10 +23,10 @@ class DiscountRepository {
       );
 
       Map<String, dynamic> responseData = json.decode(response.body);
-      // int code = responseData["code"];
-      // String message = responseData["message"];
-      int code = 200;
-      String message = 'good';
+      int code = responseData["code"];
+      String message = responseData["message"];
+      code = 200;
+      message = 'good';
 
       if(response.statusCode == 200){
         List<Discount> discounts = demoDiscounts
@@ -57,10 +57,10 @@ class DiscountRepository {
       );
 
       Map<String, dynamic> responseData = json.decode(response.body);
-      // int code = responseData["code"];
-      // String message = responseData["message"];
-      int code = 200;
-      String message = 'good';
+      int code = responseData["code"];
+      String message = responseData["message"];
+      code = 200;
+      message = 'good';
 
       if(response.statusCode == 200){
         List<Discount> discounts = demoDiscounts.where((discount) =>

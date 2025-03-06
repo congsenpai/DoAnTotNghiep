@@ -22,14 +22,14 @@ class ParkingLotRepository {
       );
 
       Map<String, dynamic> responseData = json.decode(response.body);
-      // int code = responseData["code"];
-      // String message = responseData["message"];
-      // String page = responseData["page"];
-      // String pageAmount = responseData["pageAmount"];
-      int code = 200;
-      String message = 'good';
-      int page = 1;
-      int pageAmount = 1;
+      int code = responseData["code"];
+      String message = responseData["message"];
+      int page = responseData["page"];
+      int pageAmount = responseData["pageAmount"];
+      code = 200;
+       message = 'good';
+      page = 1;
+      pageAmount = 1;
       if(response.statusCode == 200){
         List<ParkingLot> parkingLots = parkingLotList
             .where((parkingLot)=>parkingLot.parkingLotName.contains(searchText)).toList();

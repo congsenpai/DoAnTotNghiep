@@ -6,17 +6,17 @@ class AppTheme {
   // Light Theme
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    // elevatedButtonTheme: ElevatedButtonThemeData(
-    //   style: ElevatedButton.styleFrom(
-    //     backgroundColor: AppColors.primary,
-    //     foregroundColor: Colors.white,
-    //     disabledForegroundColor: AppColors.textSecondary,
-    //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.circular(8),
-    //     ),
-    //   ),
-    // ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        disabledForegroundColor: AppColors.textSecondary,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    ),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.primary,
       textTheme: ButtonTextTheme.primary,
@@ -38,18 +38,18 @@ class AppTheme {
       buttonColor: AppColors.primary,
       textTheme: ButtonTextTheme.primary,
     ),
-  //elevatedButtonTheme: ElevatedButtonThemeData(
-  //   style: ElevatedButton.styleFrom(
-  //     backgroundColor: AppColors.primaryDark,
-  //     foregroundColor: Colors.white,
-  //     disabledForegroundColor: AppColors.textSecondary,
-  //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(8),
-  //     ),
-  //   ),
-  // ),
-    //
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primaryDark,
+      foregroundColor: Colors.white,
+      disabledForegroundColor: AppColors.textSecondary,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  ),
+
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.backgroundDark,
     textTheme: AppTextStyles.textThemeDark,

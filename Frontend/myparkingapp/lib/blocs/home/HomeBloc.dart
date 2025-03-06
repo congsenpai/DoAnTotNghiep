@@ -67,11 +67,9 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   }
   void _gotoDetailLotScreen(GotoDetailLotEvent event,Emitter<HomeState> emit ) async{
     try{
-      print("aaaaaaaaaaaaaaaa");
       ImageRepository imageRepository = ImageRepository();
       APIResult apiResult = await imageRepository.giveImageByParkingLot(event.token, event.parkingLot);
       if(apiResult.code ==200){
-        print("................");
         List<Images> images = apiResult.result;
         emit(GotoDetailLotScreenState(images, event.parkingLot));
       }

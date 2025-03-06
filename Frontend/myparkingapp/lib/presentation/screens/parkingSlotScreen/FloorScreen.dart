@@ -1,7 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:myparkingapp/blocs/Slot/SlotState.dart';
 import 'package:myparkingapp/data/model/parkingSlot.dart';
 import 'package:myparkingapp/data/response/Slot/ListSlot.dart';
 import 'package:myparkingapp/presentation/widgets/classInitial.dart';
@@ -78,8 +78,7 @@ class _FloorScreenState extends State<FloorScreen> {
 
   }
   Widget _buildParkingSection(String section, List<ParkingSlot> slots, bool isCar) {
-    print("...........${slots.length}");
-    return !slots.isEmpty ?Padding(
+    return slots.isNotEmpty ?Padding(
       padding: EdgeInsets.symmetric(vertical: Get.width / 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,10 +160,12 @@ class _FloorScreenState extends State<FloorScreen> {
             ?AlertDialog(
           backgroundColor: Colors.white,
           title: Text(AppLocalizations.of(context).translate("Parking Slot"),),
-          content: Text(""),
+          content: Text(
+            '${AppLocalizations.of(context).translate('Selected parking slot:')} $slot of ${selectedSlot.slotName}',
+          ),
           actions: <Widget>[
             TextButton(
-              child: Text(AppLocalizations.of(context).translate("Booking Now"), style: TextStyle(color: Colors.blue)),
+              child: Text(AppLocalizations.of(context).translate("Booking Now"), style: const TextStyle(color: Colors.blue)),
               onPressed: () {
                 //print('Vị trí đã chọn :$slot !'); // In ra vị trí đã chọn
                 // Navigator.of(context).pop(); // Đóng dialog
@@ -182,7 +183,7 @@ class _FloorScreenState extends State<FloorScreen> {
             ),
             TextButton(
 
-              child: Text(AppLocalizations.of(context).translate("Cancel"), style: TextStyle(color: Colors.grey)),
+              child: Text(AppLocalizations.of(context).translate("Cancel"), style: const TextStyle(color: Colors.grey)),
               onPressed: () {
                 // setState(() {
                 //   lostSlotCar = '';
@@ -206,7 +207,7 @@ class _FloorScreenState extends State<FloorScreen> {
             TextButton(
               child: Text(AppLocalizations.of(context).translate("Booking Now"), style: const TextStyle(color: Colors.grey)),
               onPressed: () {
-                print('Vị trí đã chọn :$slot !'); // In ra vị trí đã chọn
+                // In ra vị trí đã chọn
                 // Navigator.of(context).pop(); // Đóng dialog
                 // Navigator.push(context,
                 //   MaterialPageRoute(builder: (context) => ParkingBookingDetailScreen(

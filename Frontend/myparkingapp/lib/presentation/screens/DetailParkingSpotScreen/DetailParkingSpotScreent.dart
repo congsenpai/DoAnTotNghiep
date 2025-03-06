@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +12,7 @@ import '../../../blocs/Lot/LotEvent.dart';
 import '../../../blocs/Lot/LotState.dart';
 import '../../widgets/Starwidget.dart';
 import '../../widgets/classInitial.dart';
-import '../parkingSlotScreen/parking_slot_screen.dart';
+import '../ParkingSlotScreen/ParkingLotScreen.dart';
 
 class ParkingSpotScreen extends StatefulWidget {
   final Function(Locale) onLanguageChange;

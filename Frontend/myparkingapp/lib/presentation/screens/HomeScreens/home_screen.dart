@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/presentation/screens/HomeScreens/parking_sport_by_search.dart';
-import 'package:myparkingapp/presentation/screens/detailParkingSpotScreen/detail_parking_spot_screent.dart';
+import 'package:myparkingapp/presentation/screens/DetailParkingSpotScreen/DetailParkingSpotScreent.dart';
 import '../../../blocs/home/HomeBloc.dart';
 import '../../../blocs/home/HomeEvent.dart';
 import '../../../blocs/home/HomeState.dart';
@@ -230,7 +230,6 @@ class _HomeScreenState extends State<HomeScreen> {
       else if(state is GotoDetailLotScreenState){
         ParkingLot parkingLot = state.parkingLot;
         List<Images> image = state.image;
-        print(".............");
           Navigator.push(
           context,
           MaterialPageRoute(

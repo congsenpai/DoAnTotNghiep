@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:myparkingapp/data/model/parkingLot.dart';
 import 'package:myparkingapp/data/response/Slot/ListSlot.dart';
 
@@ -15,3 +17,9 @@ class GotoBookingScreenEvent extends SlotEvent{
   GotoBookingScreenEvent(this.parkingLot,this.token);
 }
 
+class SlotLoadEvent extends SlotEvent{
+  final int page;
+  final String token;
+  final String search;
+  SlotLoadEvent(this.page, this.token, this.search);
+}

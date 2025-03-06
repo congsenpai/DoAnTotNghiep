@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/response/Slot/ListSlot.dart';
 import 'package:myparkingapp/presentation/widgets/classInitial.dart';
@@ -37,9 +36,6 @@ class _ParkingBookingScreenState extends State<ParkingSlotScreen> {
     floors = widget.lists.map((e) => e.floorName).toList();
     selectedFloor = floors[0];
     floorOfLot = widget.lists[0];
-    print(floors.length);
-    print(selectedFloor);
-    print(floorOfLot.floorName);
   }
 // Danh sách các vị trí đã có xe, sẽ cập nhật từ Firestore
   @override
@@ -70,7 +66,7 @@ class _ParkingBookingScreenState extends State<ParkingSlotScreen> {
                     border: Border.all(color: Colors.grey), // Viền màu xám
                     borderRadius: BorderRadius.circular(8), // Bo góc viền
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 10), // Padding bên trong
+                  padding: const EdgeInsets.symmetric(horizontal: 10), // Padding bên trong
                   child: DropdownButtonHideUnderline( // Ẩn gạch chân mặc định
                     child: DropdownButton<String>(
                       value: selectedFloor,
@@ -87,7 +83,6 @@ class _ParkingBookingScreenState extends State<ParkingSlotScreen> {
                           floorOfLot = widget.lists.firstWhere(
                                 (floors) => floors.floorName == selectedFloor,
                           );
-                          print("...${floorOfLot.lists.motoSlot.length}___${floorOfLot.lists.carSlot.length} ");
                         });
                       },
                     ),
@@ -95,7 +90,7 @@ class _ParkingBookingScreenState extends State<ParkingSlotScreen> {
                 ),
               ),
               SizedBox(
-                height: Get.width*5,
+                height: Get.width*4,
                 child: FloorScreen(floorOfLot: floorOfLot, isMonthly: false,)
               )
             ],
