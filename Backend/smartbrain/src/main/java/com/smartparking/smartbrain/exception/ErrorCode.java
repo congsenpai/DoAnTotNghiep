@@ -3,7 +3,10 @@ package com.smartparking.smartbrain.exception;
 public enum ErrorCode {
 
     // System errors
-    ERROR_NOT_FOUND(0001,"error special"),
+    ERROR_NOT_FOUND(0001,"Error special"),
+    NOT_REFRESH_TOKEN(0002,"Not refresh token"),
+    NOT_ACCESS_TOKEN(0003,"Not access token"),
+    INVALID_TOKEN(0004,"Invalid token"),
 
 
     // User errors
@@ -17,6 +20,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(1008, "Internal server error"),
     USER_NOT_EXISTS(1009, "User not exists"),
     TOKEN_EXPIRED(1010, "Token expired"),
+
 
      // ParkingSpot errors
     PARKING_LOT_NOT_FOUND(2001, "parking spot not found"),

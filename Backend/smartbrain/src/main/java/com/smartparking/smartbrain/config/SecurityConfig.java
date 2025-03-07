@@ -19,7 +19,7 @@ public class SecurityConfig {
     // user :
 
     // login :
-    private final String[] PostList_public= {"/auth/login","auth/logout", "/auth/introspect"};
+    private final String[] PostList_public= {"/auth/login","/auth/logout", "/auth/introspect", "/auth/refresh"};
     private CustomJwtDecoder customJwtDecoder;
 
 

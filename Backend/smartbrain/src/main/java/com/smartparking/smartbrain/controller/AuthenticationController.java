@@ -8,6 +8,7 @@ import com.nimbusds.jose.JOSEException;
 import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.LogoutRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.RefreshRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
@@ -44,6 +45,13 @@ public class AuthenticationController {
         authenticationSevice.logout(request);
         return ApiResponse.<Void>builder()
         .message("Logout successfully")
+        .build();
+    }
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> refresh(@RequestBody RefreshRequest request) throws ParseException, JOSEException {
+        var result = authenticationSevice.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+        .result(result)
         .build();
     }
 }
