@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/parking_lot.dart';
 import '../../../components/price_range_and_food_type.dart';
 import '../../../components/rating_with_counter.dart';
 import '../../../constants.dart';
 
-class RestaurantInfo extends StatelessWidget {
-  const RestaurantInfo({
-    super.key,
+class ParkingLotInfo extends StatelessWidget {
+  final ParkingLot lot;
+  const ParkingLotInfo({
+    super.key, required this.lot,
   });
 
   @override
@@ -17,39 +20,43 @@ class RestaurantInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Mayfield Bakery & Cafe",
+            AppLocalizations.of(context).translate(lot.parkingLotName),
             style: Theme.of(context).textTheme.headlineMedium,
             maxLines: 1,
           ),
           const SizedBox(height: defaultPadding / 2),
-          const VehicleTypeList(
-            typeList: ["Chinese", "American", "Deshi food"],
+          Text(
+            AppLocalizations.of(context).translate(lot.description),
+            style: Theme.of(context).textTheme.bodyMedium,
+            maxLines: 2,
           ),
           const SizedBox(height: defaultPadding / 2),
-          const RatingWithCounter(rating: 4.3, numOfRating: 200),
+          RatingWithCounter(rating: lot.rate, numOfRating: 200),
           const SizedBox(height: defaultPadding),
           Row(
             children: [
-              const DeliveryInfo(
+              DeliveryInfo(
                 iconSrc: "assets/icons/delivery.svg",
-                text: "Free",
-                subText: "Delivery",
+                text: AppLocalizations.of(context).translate("Slots total"),
+                subText: lot.totalSlot.toString(),
               ),
               const SizedBox(width: defaultPadding),
-              const DeliveryInfo(
+              DeliveryInfo(
                 iconSrc: "assets/icons/clock.svg",
-                text: "25",
-                subText: "Minutes",
+                text: AppLocalizations.of(context).translate("Status"),
+                subText: lot.status.name.toUpperCase(),
               ),
               const Spacer(),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text("Take away"),
+                child: Text(AppLocalizations.of(context).translate("Advise")),
               ),
             ],
           ),

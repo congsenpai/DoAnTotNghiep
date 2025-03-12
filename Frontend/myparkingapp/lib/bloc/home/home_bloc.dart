@@ -3,7 +3,9 @@ import 'package:myparkingapp/bloc/home/home_event.dart';
 import 'package:myparkingapp/bloc/home/home_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/parking_lot.dart';
-import 'package:myparkingapp/repository/slot_repository.dart';
+import 'package:myparkingapp/repository/lots_repository.dart';
+
+import '../../data/lot_on_page.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
   HomeBloc(): super(HomeInitialState()){
@@ -12,9 +14,9 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
   }
 
   void _LoadHomeScreen( HomeInitialEvent event, Emitter<HomeState> emit ) async{
-    emit(HomeLoadingState());
     LotRepository lotRepository = LotRepository();
     try{
+      emit(HomeLoadingState());
       ApiResult apiResult = await lotRepository.getParkingLotList(event.token, '', 1);
       int code = apiResult.code;
       String mess = apiResult.message;

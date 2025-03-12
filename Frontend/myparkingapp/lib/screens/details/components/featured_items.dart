@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/locallization/app_localizations.dart';
+import '../../../components/expand_image.dart';
 import '../../../constants.dart';
+import '../../../data/images.dart';
 import 'featured_item_card.dart';
 
 class FeaturedItems extends StatelessWidget {
+  final List<Images> images;
+
   const FeaturedItems({
     super.key,
+    required this.images,
   });
 
   @override
@@ -14,25 +20,26 @@ class FeaturedItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: Text("Featured Items",
-              style: Theme.of(context).textTheme.titleLarge),
+          padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+          child: Text(
+            AppLocalizations.of(context).translate("Images"),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
         const SizedBox(height: defaultPadding / 2),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              ...List.generate(
-                3, // for demo we use 3
-                (index) => Padding(
+              ...images.map(
+                    (item) => Padding(
                   padding: const EdgeInsets.only(left: defaultPadding),
                   child: FeaturedItemCard(
-                    title: "Cookie Sandwich",
-                    image: "assets/images/featured _items_${index + 1}.png",
-                    foodType: "Chines",
-                    priceRange: "\$" * 2,
-                    press: () {},
+                    title: "", // có thể truyền động nếu cần
+                    image: item.url,
+                    press: () {
+                      showImageDialog(context, item.url);
+                    }, isDetailScreen: false,
                   ),
                 ),
               ),

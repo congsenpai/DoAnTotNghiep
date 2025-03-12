@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingapp/components/cards/medium/Service_info_medium_card.dart';
 import 'package:myparkingapp/data/service.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
 import 'package:myparkingapp/screens/search/search_screen.dart';
 
 import '../../app/locallization/app_localizations.dart';
 import '../../bloc/home/home_bloc.dart';
+import '../../bloc/home/home_event.dart';
 import '../../bloc/home/home_state.dart';
 import '../../components/cards/big/big_card_image_slide.dart';
 import '../../components/cards/big/parkingLot_info_big_card.dart';
@@ -30,6 +32,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<ParkingLot> plots = parkingLotsDemoPage1;
+
+  @override
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<HomeBloc>().add(HomeInitialEvent(widget.token));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocConsumer<HomeBloc, HomeState>
         (builder: (context,state) {
         if(state is HomeLoadingState){
-
+          return Center(child:CircularProgressIndicator() ,) ;
         }
         else if(state is HomeLoadedState){
           plots = state.homeLots;
@@ -82,11 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: defaultPadding),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: BigCardImageSlide(images: ),
+                    child: BigCardImageSlide(images: bannerHomeScreen),
                   ),
                   const SizedBox(height: defaultPadding * 2),
                   SectionTitle(
-                    title: "Featured Partners",
+                    title: "My Service",
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -94,13 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  ServiceCardList(services: services,),
+
                   const SizedBox(height: defaultPadding),
                   const SizedBox(height: 20),
                   // Banner
                   const PromotionBanner(),
                   const SizedBox(height: 20),
                   SectionTitle(
-                    title: "Best Pick",
+                    title: "Nearly Parking Lots",
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -108,16 +120,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  ParkingLotCardList(lots: plots),
                   const SizedBox(height: 16),
                   const SizedBox(height: 20),
-                  SectionTitle(title: "All Restaurants", press: () => Navigator.push(
+                  SectionTitle(title: "All ParkingSlot", press: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchScreen(),
+                    builder: (context) => SearchScreen(token: widget.token,),
                   ),
             ), ),
                   const SizedBox(height: 16),
-
                   // Demo list of Big Cards
                   ParkingLotList(lots: parkingLotsDemoPage1)
                 ],
@@ -125,9 +137,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         }
-        return CircularProgressIndicator();
+        return Center(child:CircularProgressIndicator() ,) ;
       },
           listener: (context,state){
+          if(state is HomeErrorState){
+            print(state.mess);
+          }
 
           })
     );

@@ -1,6 +1,7 @@
 import 'package:myparkingapp/data/parking_lot.dart';
 
-import '../../repository/slot_repository.dart';
+import '../../data/lot_on_page.dart';
+import '../../repository/lots_repository.dart';
 
 abstract class HomeState{
 

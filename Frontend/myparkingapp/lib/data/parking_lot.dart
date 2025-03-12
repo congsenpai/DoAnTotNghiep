@@ -79,7 +79,7 @@ class ParkingLot {
 List<ParkingLot> parkingLotsDemoPage1 = [
   ParkingLot(
     parkingLotID: 'PL001',
-    parkingLotName: 'Bãi xe Trung tâm',
+    parkingLotName: 'Bãi xe Trung tâm DemoPage1',
     address: '123 Đường Lê Lợi, Quận 1, TP.HCM',
     latitude: 10.7769,
     longitude: 106.7009,
@@ -103,7 +103,7 @@ List<ParkingLot> parkingLotsDemoPage1 = [
   ),
   ParkingLot(
     parkingLotID: 'PL002',
-    parkingLotName: 'Bãi xe Bệnh viện',
+    parkingLotName: 'Bãi xe Bệnh viện DemoPage1',
     address: '456 Đường Nguyễn Trãi, Quận 5, TP.HCM',
     latitude: 10.7626,
     longitude: 106.6822,
@@ -127,7 +127,7 @@ List<ParkingLot> parkingLotsDemoPage1 = [
   ),
   ParkingLot(
     parkingLotID: 'PL003',
-    parkingLotName: 'Bãi xe Sân bay',
+    parkingLotName: 'Bãi xe Sân bay DemoPage1',
     address: 'Sân bay Tân Sơn Nhất, Quận Tân Bình, TP.HCM',
     latitude: 10.8188,
     longitude: 106.6518,
@@ -153,7 +153,7 @@ List<ParkingLot> parkingLotsDemoPage1 = [
 List<ParkingLot> parkingLotsDemoPage2 = [
   ParkingLot(
     parkingLotID: 'PL001',
-    parkingLotName: 'Bãi xe Trung tâm',
+    parkingLotName: 'Bãi xe Trung tâm DemoPage2',
     address: '123 Đường Lê Lợi, Quận 1, TP.HCM',
     latitude: 10.7769,
     longitude: 106.7009,
@@ -177,7 +177,7 @@ List<ParkingLot> parkingLotsDemoPage2 = [
   ),
   ParkingLot(
     parkingLotID: 'PL002',
-    parkingLotName: 'Bãi xe Bệnh viện',
+    parkingLotName: 'Bãi xe Bệnh viện DemoPage2',
     address: '456 Đường Nguyễn Trãi, Quận 5, TP.HCM',
     latitude: 10.7626,
     longitude: 106.6822,
@@ -201,7 +201,7 @@ List<ParkingLot> parkingLotsDemoPage2 = [
   ),
   ParkingLot(
     parkingLotID: 'PL003',
-    parkingLotName: 'Bãi xe Sân bay',
+    parkingLotName: 'Bãi xe Sân bay DemoPage2',
     address: 'Sân bay Tân Sơn Nhất, Quận Tân Bình, TP.HCM',
     latitude: 10.8188,
     longitude: 106.6518,
@@ -298,6 +298,8 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     ],
   ),
 ];
+
+
 
 
 

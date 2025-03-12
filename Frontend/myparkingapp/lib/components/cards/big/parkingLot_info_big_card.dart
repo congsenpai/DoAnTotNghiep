@@ -89,31 +89,51 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
   }
 }
 
-class ParkingLotList extends StatelessWidget {
+class ParkingLotList extends StatefulWidget {
   final List<ParkingLot> lots;
 
   const ParkingLotList({super.key, required this.lots});
 
   @override
-  Widget build(BuildContext context) {
-    return
-      Column(
-      children: List.generate(
-        lots.length,
-            (index) {
-          final lot = lots[index]; // Lấy phần tử hiện tại
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(
-                defaultPadding, 0, defaultPadding, defaultPadding),
-            child: ParkingLotInfoBigCard(
+  State<ParkingLotList> createState() => _ParkingLotListState();
+}
 
-               // Trạng thái miễn phí (tuỳ chỉnh theo logic VD: còn trống, miễn phí...)
+class _ParkingLotListState extends State<ParkingLotList> {
+  late List<ParkingLot> displayLots;
+
+  @override
+  void initState() {
+    super.initState();
+    displayLots = widget.lots; // init ban đầu
+  }
+
+  @override
+  void didUpdateWidget(covariant ParkingLotList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.lots != widget.lots) {
+      setState(() {
+        displayLots = widget.lots; // cập nhật khi widget.lots đổi
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(
+        displayLots.length,
+            (index) {
+          final lot = displayLots[index];
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(defaultPadding, 0, defaultPadding, defaultPadding),
+            child: ParkingLotInfoBigCard(
               press: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const DetailsScreen(), // Chuyển sang màn chi tiết
+                  builder: (context) => DetailsScreen(parkingLot: lot,),
                 ),
-              ), parkingLot: lot,
+              ),
+              parkingLot: lot,
             ),
           );
         },
@@ -121,5 +141,6 @@ class ParkingLotList extends StatelessWidget {
     );
   }
 }
+
 
 

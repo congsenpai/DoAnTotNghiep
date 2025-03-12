@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:myparkingapp/bloc/home/home_bloc.dart';
+import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
+import 'bloc/search/search_bloc.dart';
 import 'constants.dart';
 import 'main_screen.dart';
 import 'screens/onboarding/onboarding_scrreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+        providers: [
+          BlocProvider(create: (context)=> HomeBloc()),
+          BlocProvider(create: (context)=> SearchBloc()),
+    ],
+    child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -29,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'The Flutter Way - Foodly UI Kit',
+      title: 'My Parking App',
 
       theme: AppTheme.lightTheme, // Áp dụng Light Theme
       darkTheme: AppTheme.darkTheme, // Áp dụng Dark Theme

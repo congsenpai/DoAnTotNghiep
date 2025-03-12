@@ -6,15 +6,14 @@ import '../../../constants.dart';
 class FeaturedItemCard extends StatelessWidget {
   const FeaturedItemCard({
     super.key,
-    required this.foodType,
     required this.image,
-    required this.priceRange,
     required this.press,
-    required this.title,
+    required this.title, required this.isDetailScreen,
   });
 
-  final String foodType, image, priceRange, title;
+  final String image, title;
   final VoidCallback press;
+  final bool isDetailScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -43,28 +42,15 @@ class FeaturedItemCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
+              !isDetailScreen ?
               Text(
                 title,
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium
                     ?.copyWith(color: titleColor, fontWeight: FontWeight.w500),
-              ),
+              ):
               const SizedBox(height: 8),
-              Row(
-                children: [
-                  Text(
-                    priceRange,
-                    style: textStyle,
-                  ),
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                    child: SmallDot(),
-                  ),
-                  Text(foodType, style: textStyle)
-                ],
-              ),
             ],
           ),
         ),
