@@ -1,4 +1,4 @@
-package com.smartparking.smartbrain.dto.response;
+package com.smartparking.smartbrain.dto.request.Authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,7 @@ import lombok.AccessLevel;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    String accessToken;
-    String refreshToken;
-    boolean authenticated;
+public class AuthenticationRequest {
+    private String username;
+    private String password;
 }

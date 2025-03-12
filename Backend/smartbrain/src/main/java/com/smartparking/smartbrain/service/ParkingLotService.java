@@ -94,9 +94,13 @@ public class ParkingLotService {
         return response;
     }
     public List<ParkingLotResponse> getAllParkingLot() {
-        return parkingLotRepository.findAll().stream()
-        .map(parkingLotMapper::toParkingLotResponse)
-        .collect(Collectors.toList());
+
+        return parkingLotRepository.findAll().stream().map(parkingLot -> {
+            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserId());
+            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+            return response;
+        }).collect(Collectors.toList());
     }
 
     public void deleteParkingLot(String parkingLotID) {
