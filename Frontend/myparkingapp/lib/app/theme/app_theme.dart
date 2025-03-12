@@ -1,62 +1,52 @@
-import 'package:flutter/material.dart';
-import 'text_styles.dart';
-import 'colors.dart';
 
-class AppTheme {
-  // Light Theme
+
+import 'package:flutter/material.dart';
+
+import '../../constants.dart';
+
+class AppTheme{
   static final ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
+    colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
+        backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        disabledForegroundColor: AppColors.textSecondary,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(double.infinity, 40),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
     ),
-    buttonTheme: const ButtonThemeData(
-      buttonColor: AppColors.primary,
-      textTheme: ButtonTextTheme.primary,
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(color: bodyTextColor),
+      bodySmall: TextStyle(color: bodyTextColor),
     ),
-    primaryColor: AppColors.primary,
-    scaffoldBackgroundColor: AppColors.background,
-    textTheme: AppTextStyles.textThemeLight,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.backgroundDark,
-      titleTextStyle: AppTextStyles.appBarTitleLight,
+    inputDecorationTheme: const InputDecorationTheme(
+      contentPadding: EdgeInsets.all(defaultPadding),
+      hintStyle: TextStyle(color: bodyTextColor),
     ),
-    hoverColor: AppColors.primary
   );
 
-  // Dark Theme
   static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    buttonTheme: const ButtonThemeData(
-      buttonColor: AppColors.primary,
-      textTheme: ButtonTextTheme.primary,
-    ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.primaryDark,
-      foregroundColor: Colors.white,
-      disabledForegroundColor: AppColors.textSecondary,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+    colorScheme: ColorScheme.fromSeed(seedColor: primaryColorDark),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColorDark,
+        foregroundColor: Colors.black,
+        minimumSize: const Size(double.infinity, 40),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     ),
-  ),
-
-    primaryColor: AppColors.primary,
-    scaffoldBackgroundColor: AppColors.backgroundDark,
-    textTheme: AppTextStyles.textThemeDark,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.background,
-      titleTextStyle: AppTextStyles.appBarTitleDark,
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(color: bodyTextColorDark),
+      bodySmall: TextStyle(color: bodyTextColorDark),
     ),
-    hoverColor: AppColors.primaryDark
+    inputDecorationTheme: const InputDecorationTheme(
+      contentPadding: EdgeInsets.all(defaultPadding),
+      hintStyle: TextStyle(color: bodyTextColorDark),
+    ),
   );
+
 }

@@ -4,11 +4,471 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f55548-5144-4949-9e41-4fc61de60c1c" name="Changes" comment="">
+    <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/Illustrations/Illustrations_1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Illustrations/Illustrations_2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Illustrations/Illustrations_3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/font/SF Pro Text/SFProText-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/font/SF Pro Text/SFProText-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/font/SF Pro Text/SFProText-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/font/SF Pro Text/SFProText-Semibold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/back.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/camera.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/card.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/cart.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/clock.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/delivery.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/document.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/done.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/facebook.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/fast-delivery.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/fb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/fire.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/food.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/forward.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/google.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/home.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/invisible.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/location.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/lock.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/logout.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/marker.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/minus.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/notify.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/order.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/phone.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/plus.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/profile.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/rating.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/recomended.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/share.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/visible.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Header-image.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/big_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/big_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/big_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/big_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/featured _items_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/featured _items_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/featured _items_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/medium_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/medium_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/medium_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/medium_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/auth/bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/auth/event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/auth/state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/home/home_event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/home/home_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/main_screen/main_screen_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/main_screen/main_screen_event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/main_screen/main_screen_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/search/search_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/search/search_event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/search/search_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/api_result.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/buttons/fitted_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/buttons/primary_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/buttons/secondery_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/buttons/socal_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/big/big_card_image.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/big/big_card_image_slide.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/big/parkingLot_info_big_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/big/service_info_big_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/iteam_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/medium/Service_info_medium_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/cards/medium/lot_info_medium_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/dot_indicators.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/price_range_and_food_type.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/rating.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/rating_with_counter.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/scalton/big_card_image_slide_scalton.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/scalton/big_card_scalton.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/scalton/medium_card_scalton.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/scalton/scalton_line.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/scalton/scalton_rounded_container.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/section_title.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/small_dot.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/components/welcome_text.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/constants.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/discount.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/images.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/parking_lot.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/parking_slots.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/transaction.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/vehicle.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/wallet.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/demo_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/main_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/auth_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/lot_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/slot_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/transaction_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/user_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/wallet_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/addToOrder/add_to_order_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/addToOrder/components/info.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/addToOrder/components/required_section_title.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/addToOrder/components/rounded_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/addToOrder/components/rounded_checkedbox_list_tile.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/auth/components/sign_in_form.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/auth/forgot_password_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/auth/reset_email_sent_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/auth/sign_in_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/auth/sign_up_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_item_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_items.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/details/components/iteams.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/details/components/restaurrant_info.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/details/details_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/featured/components/body.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/featured/featurred_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/filter/components/categories.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/filter/components/dietaries.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/filter/components/price_range.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/filter/filter_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/findRestaurants/find_restaurants_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/home/components/parking_lot_card_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/home/components/promotion_banner.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/home/components/service_card_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/onboarding/components/onboard_content.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/onboarding/onboarding_scrreen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/orderDetails/components/order_item_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/orderDetails/components/price_row.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/orderDetails/components/total_price.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/orderDetails/order_details_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/phoneLogin/components/otp_form.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/phoneLogin/number_verify_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/phoneLogin/phone_login_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/profile/components/body.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/profile/profile_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/search/components/body.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/search/search_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/signUp/components/body.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/signUp/components/sign_up_form.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/.metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/.gradle/nb-cache/subprojects.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/myparkingapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/myparkingapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/myparkingapp_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/myparkingapp_android.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/Documents.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/Figma_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/Search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icons/Search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/doc_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/drop_box.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/excel_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/folder.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/google_drive.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/09.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/27.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/28.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/37.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/41.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/43.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/47.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/48.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/53.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/54.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/55.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/58.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/59.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/61.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/62.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/63.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/65.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/66.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/67.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/68.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/69.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/71.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/72.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/73.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/74.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/76.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_01.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_02.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_03.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_04.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_05.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/icon_vip/No_06.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/media.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/media_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_dashboard.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_doc.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_notification.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_profile.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_setting.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_store.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_task.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/menu_tran.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/one_drive.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/pdf_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/sound_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/unknown.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/xd_file.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/AnhAppbar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Location1_HVNH/HvnhMain.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Location1_HVNH/san-bong-ro-hoc-vien-ngan-hang-min.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Location2_DHTL/MainImage.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Location2_DHTL/PackingSpotDHTL.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/OIG2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/OIG4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/OrderImage/whitebackground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/backgroundCreditCard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/backgroundMap.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/detail/carImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/detail/motoImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/kawasaki.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/profile_pic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/vi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devtools_options.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/RunnerTests/RunnerTests.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ApiUrl.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/theme/app_theme.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/image.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/model/image.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/theme/colors.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/theme/text_styles.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Lot/LotBloc.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Lot/LotEvent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Lot/LotState.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Slot/SlotBloc.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Slot/SlotEvent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/Slot/SlotState.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/home/HomeBloc.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/home/HomeEvent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/home/HomeState.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/user/userBloc.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/user/userEvent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/user/userState.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/discount.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/image.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/invoice.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/monthlyTicket.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/parkingLot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/parkingSlot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/transaction.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/user.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/vehicle.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/model/wallet.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/response/Slot/ListSlot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/response/apiResponse.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/DetailParkingSpotScreen/DetailParkingSpotScreent.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/appbar.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/discountList.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/header_text.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/home_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/nearby_parking_spots_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/parking_sport_by_search.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/HomeScreens/service_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/ParkingSlotScreen/ParkingLotScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/SettingScreens/SettingScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/SettingScreens/UpdateInforScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/chatBotService/GeminiScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/screens/parkingSlotScreen/FloorScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/Starwidget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/classInitial.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/current_order.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/footer_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/spot_item_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/transaction_item_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/authRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/discountRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/imageRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/locationRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/userRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/walletRepository.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/trash/Trash.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/main.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/my_application.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/my_application.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Base.lproj/MainMenu.xib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/AppInfo.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/Debug.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/Release.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/Warnings.xcconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/DebugProfile.entitlements" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/MainFlutterWindow.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Runner/Release.entitlements" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/RunnerTests/RunnerTests.swift" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/myparkingapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/myparkingapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/Icon-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/Icon-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/Icon-maskable-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/icons/Icon-maskable-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/Runner.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/flutter_window.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/flutter_window.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/resource.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/resources/app_icon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/runner.exe.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/utils.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/win32_window.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/runner/win32_window.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,19 +477,6 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/main.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,82 +489,58 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2reif4Wd51scE93WcNQgSWrvCeP" />
+  <component name="ProjectId" id="2u5Ek8aS16lZHg3NtDAFam8Dctk" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" />
-    <panes>
-      <pane id="ProjectPane">
-        <option name="show-excluded-files" value="false" />
-      </pane>
-    </panes>
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tuilaBao&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp/lib/presentation/screens&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "tuilaBao",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingappAdmin",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\presentation\screens" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components\cards\big" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\screens\home\components" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components\cards\medium" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\bloc\main_screen" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\assets" />
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\presentation\widgets" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\presentation\screens" />
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\data\response" />
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\assets\images" />
-    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e9f55548-5144-4949-9e41-4fc61de60c1c" name="Changes" comment="" />
-      <created>1736926041900</created>
+      <changelist id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="" />
+      <created>1741530182604</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1736926041900</updated>
+      <updated>1741530182604</updated>
     </task>
     <servers />
-  </component>
-  <component name="ToolWindowManager">
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-    </layout>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/presentation/screens/HomeScreens/home_screen.dart</url>
-          <line>255</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-      <default-breakpoints>
-        <breakpoint type="dart-exception" />
-      </default-breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
