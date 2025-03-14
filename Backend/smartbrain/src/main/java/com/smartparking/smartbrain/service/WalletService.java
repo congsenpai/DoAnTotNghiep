@@ -1,7 +1,6 @@
 package com.smartparking.smartbrain.service;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Currency;
 import java.util.List;
@@ -68,17 +67,17 @@ public class WalletService {
         transaction.setUser(wallet.getUser());
         transaction.setAmount(request.getAmount());
         transaction.setType(Transactions.TOP_UP);
-        transaction.setCreatedDate(Timestamp.from(Instant.now()));
+        transaction.setCreatedAt(Instant.now());
         transaction.setDescription(request.getDescription() != null ? request.getDescription() : "Top-up wallet");
         transactionRepository.save(transaction);
 
         return new TransactionResponse(
-                transaction.getTransactionId(),
+                transaction.getTransactionID(),
                 walletId,
                 previousBalance,
                 wallet.getBalance(),
                 request.getAmount(),
-                transaction.getCreatedDate(),
+                transaction.getCreatedAt(),
                 transaction.getDescription()
         );
     }
@@ -112,17 +111,17 @@ public class WalletService {
         transaction.setUser(wallet.getUser());
         transaction.setAmount(request.getAmount().negate());
         transaction.setType(Transactions.PAYMENT);
-        transaction.setCreatedDate(Timestamp.from(Instant.now()));
+        transaction.setCreatedAt(Instant.now());
         transaction.setDescription(request.getDescription());
         transactionRepository.save(transaction);
 
         return new TransactionResponse(
-                transaction.getTransactionId(),
+                transaction.getTransactionID(),
                 walletId,
                 previousBalance,
                 wallet.getBalance(),
                 transaction.getAmount(),
-                transaction.getCreatedDate(),
+                transaction.getCreatedAt(),
                 transaction.getDescription()
         );
     }
@@ -144,7 +143,7 @@ public class WalletService {
         wallet.setUser(user);
         walletRepository.save(wallet);
         WalletResponse walletResponse = walletMapper.toWalletResponse(wallet);
-        walletResponse.setWalletId(wallet.getWalletId());
+        walletResponse.setWalletID(wallet.getWalletID());
         walletResponse.setCurrency(wallet.getCurrency().toString());
         return walletResponse;
     }

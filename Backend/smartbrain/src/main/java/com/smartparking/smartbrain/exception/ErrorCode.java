@@ -50,6 +50,9 @@ public enum ErrorCode {
     PERMISSION_NOT_FOUND(6001,"Permission not found"),
     PERMISSION_ALREADY_EXISTS(6002,"Permission already exists"),
     PERMISSION_NOT_EXISTS(6003,"Permission not exists"),
+    // Promotion errors
+    DISCOUNT_NOT_FOUND(7001,"Discount not found"),
+    DISCOUNT_NOT_EXISTS(7002,"Discount not exists"),
 
 
 

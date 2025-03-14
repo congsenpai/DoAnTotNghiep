@@ -1,7 +1,10 @@
 package com.smartparking.smartbrain.model;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.VehicleType;
 
@@ -15,8 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "vehicle_id", nullable = false, updatable = false)
-    String vehicleId;
+    String vehicleID;
 
     @Enumerated(EnumType.STRING)
     VehicleType vehicleType;
@@ -56,17 +57,12 @@ public class Vehicle {
     Set<Invoice> invoices;
 
     // Timestamp
-    Timestamp createdAt;
-    Timestamp updatedAt;
-        @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = new Timestamp(System.currentTimeMillis());
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    Instant createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Instant updatedAt;
     
 
 }

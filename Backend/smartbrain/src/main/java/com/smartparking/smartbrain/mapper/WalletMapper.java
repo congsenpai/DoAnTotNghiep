@@ -16,7 +16,7 @@ public interface WalletMapper {
     @Mapping(target = "transactions", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "walletId", ignore = true)
+    @Mapping(target = "walletID", ignore = true)
     @Mapping(target="currency",ignore = true)
     Wallet toWallet(CreateWalletRequest createWalletRequest);
 
@@ -25,7 +25,7 @@ public interface WalletMapper {
     @Mapping(target = "transactions", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "walletId", ignore = true)
+    @Mapping(target = "walletID", ignore = true)
     @Mapping(target="currency",ignore = true)
     void updateWalletFromRequest(UpdateWalletRequest updateWalletRequest, @MappingTarget Wallet wallet);
     

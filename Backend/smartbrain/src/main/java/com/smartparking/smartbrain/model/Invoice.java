@@ -1,7 +1,10 @@
 package com.smartparking.smartbrain.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.InvoiceStatus;
 
@@ -15,8 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "invoice_id", nullable = false, updatable = false)
-    String invoiceId;
+    String invoiceID;
     
     BigDecimal total_amount;
     @Enumerated(EnumType.STRING)
@@ -55,7 +56,7 @@ public class Invoice {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "discount_id", nullable = true)
     Discount discount;
 
@@ -72,16 +73,12 @@ public class Invoice {
     MonthlyTicket monthlyTicket;
 
     // Timestamp
-    Timestamp createAt;
-    Timestamp updateAt;
-    @PrePersist
-    protected void onCreate() {
-        this.createAt = new Timestamp(System.currentTimeMillis());
-    }
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateAt = new Timestamp(System.currentTimeMillis());
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    Instant createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Instant updatedAt;
 
 
 }

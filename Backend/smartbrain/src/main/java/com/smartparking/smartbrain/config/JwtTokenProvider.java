@@ -37,7 +37,7 @@ public class JwtTokenProvider {
             .expirationTime(new Date(System.currentTimeMillis() + 7L * 24 * 60 * 60 * 1000))
             .claim("scope", buildString(user))
             .jwtID(UUID.randomUUID().toString())
-            .claim("userId", user.getUserId())
+            .claim("userId", user.getUserID())
             .build();
         Payload payload = new Payload(JWTClaimsSet.toJSONObject());
         JWSObject JWSObject = new JWSObject(JWSHead, payload);
@@ -59,7 +59,7 @@ public class JwtTokenProvider {
             .expirationTime(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000))
             .claim("token-type", "refresh")
             .jwtID(UUID.randomUUID().toString())
-            .claim("userId", user.getUserId())
+            .claim("userId", user.getUserID())
             .build();
         Payload payload = new Payload(JWTClaimsSet.toJSONObject());
         JWSObject JWSObject = new JWSObject(JWSHead, payload);

@@ -1,5 +1,5 @@
 package com.smartparking.smartbrain.config;
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,8 +52,8 @@ public class ApplicationInitConfig {
                         .homeAddress("123 Admin St.")
                         .companyAddress("123 Admin St.")
                         .avatar("default-avatar.png")
-                        .createdDate(new Timestamp(System.currentTimeMillis()))  // Thời gian tạo
-                        .updatedDate(new Timestamp(System.currentTimeMillis()))  // Thời gian cập nhật
+                        .createdAt(Instant.now()) // Thời gian tạo
+                        .updatedAt(Instant.now())  // Thời gian cập nhật
                         .status(true)  // Trạng thái người dùng
                         .build();
                     userReponsitory.save(user);

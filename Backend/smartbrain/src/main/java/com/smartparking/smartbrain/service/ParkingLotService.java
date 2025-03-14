@@ -79,7 +79,7 @@ public class ParkingLotService {
         }
         // create reponse
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-        response.setUserID(parkingLot.getUser().getUserId());
+        response.setUserID(parkingLot.getUser().getUserID());
         response.setImages(createdParkingLotRequest.getImages());
         var slots = parkingSlotRepository.findByParkingLot(parkingLot);
         response.setParkingSlots(slots.stream().map(parkingSlotMapper::toParkingSlotResponse).collect(Collectors.toSet()));
@@ -89,7 +89,7 @@ public class ParkingLotService {
         var parkingLot = parkingLotRepository.findById(parkingLotID)
         .orElseThrow(() -> new AppException(ErrorCode.PARKING_LOT_NOT_FOUND));
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-        response.setUserID(parkingLot.getUser().getUserId());
+        response.setUserID(parkingLot.getUser().getUserID());
         response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
         return response;
     }
@@ -97,7 +97,7 @@ public class ParkingLotService {
 
         return parkingLotRepository.findAll().stream().map(parkingLot -> {
             ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-            response.setUserID(parkingLot.getUser().getUserId());
+            response.setUserID(parkingLot.getUser().getUserID());
             response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
             return response;
         }).collect(Collectors.toList());
