@@ -5,31 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/components/expand_image.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/components/pagination_button.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/data_on_floor.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/lot_on_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/repository/lots_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/home/home_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/home/home_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/search/search_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/search/search_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/search/search_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/search/search_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/search/search_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/search/search_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icons/Search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icons/search.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/components/cards/big/parkingLot_info_big_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/big/parkingLot_info_big_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/parking_lot.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/parking_lot.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/parking_slots.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/parking_slots.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/cards/iteam_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/iteam_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/data_on_floor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/data_on_floor.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/lot_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/app_dialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/repository/slot_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/slot_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/details/components/featured_item_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_item_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/details/components/featured_items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_items.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/details/components/restaurrant_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/lot_info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/details/components/iteams.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/iteams.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/details/details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/details_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home/components/parking_lot_card_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/components/parking_lot_card_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/search/search_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/search/search_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,23 +53,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tuilaBao&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "tuilaBao",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components\cards\big" />

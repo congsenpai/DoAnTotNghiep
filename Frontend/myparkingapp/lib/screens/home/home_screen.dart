@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/components/cards/medium/Service_info_medium_card.dart';
 import 'package:myparkingapp/data/service.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
@@ -141,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
           listener: (context,state){
           if(state is HomeErrorState){
-            print(state.mess);
+            return AppDialog.showMessage(context, state.mess);
           }
 
           })

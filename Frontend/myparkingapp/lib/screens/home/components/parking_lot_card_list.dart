@@ -58,7 +58,7 @@ class _ParkingLotCardListState extends State<ParkingLotCardList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailsScreen(parkingLot: widget.lots[index],),
+                            builder: (context) => DetailsScreen(parkingLot: widget.lots[index], token: '',),
                           ),
                         );
                       },

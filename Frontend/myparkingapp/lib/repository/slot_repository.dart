@@ -8,7 +8,7 @@ import '../data/parking_slots.dart';
 class SlotRepository {
   final String apiUrl = "";
 
-  Future<ApiResult> getParkingLotList(String token, ParkingLot parkingLot) async {
+  Future<ApiResult> getParkingSlotList(String token, ParkingLot parkingLot) async {
     String fullUrl = "";
     try {
       // final response = await http.put(
@@ -43,7 +43,7 @@ class SlotRepository {
         List<Slot> slots = demoSlots
             .where((slot) => slot.floorName == floor)
             .toList();
-        DataOnFloor dataOnFloor = DataOnFloor(floor, slots);
+        DataOnFloor dataOnFloor = DataOnFloor(floor, slots, floorNames.toList());
 
         dataOnFloors.add(dataOnFloor);
       }
@@ -54,4 +54,6 @@ class SlotRepository {
       throw Exception("updatedUser_repo:  $e");
     }
   }
+
+
 }

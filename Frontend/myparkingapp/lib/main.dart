@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:myparkingapp/bloc/home/home_bloc.dart';
+import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
@@ -17,6 +18,7 @@ void main() {
         providers: [
           BlocProvider(create: (context)=> HomeBloc()),
           BlocProvider(create: (context)=> SearchBloc()),
+          BlocProvider(create: (context)=> LotDetailBloc())
     ],
     child: MyApp()
     )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 
 import '../../constants.dart';
 
@@ -10,14 +11,14 @@ class ItemCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.image,
-    required this.foodType,
+    // required this.vehicleType,
     required this.price,
-    required this.priceRange,
+    required this.monthPrice,
     required this.press,
   });
 
-  final String? title, description, image, foodType, priceRange;
-  final double? price;
+  final String? title, description, image;
+  final double? price, monthPrice;
   final VoidCallback press;
 
   @override
@@ -67,19 +68,20 @@ class ItemCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          priceRange!,
-                          style: textStyle,
-                        ),
+                        Text(AppLocalizations.of(context).translate("Month cost"), style: textStyle),
+
                         const Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: defaultPadding / 2),
                           child: SmallDot(),
                         ),
-                        Text(foodType!, style: textStyle),
+                        Text(
+                          "$monthPrice",
+                          style: textStyle,
+                        ),
                         const Spacer(),
                         Text(
-                          "USD$price",
+                          "VND $price",
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!

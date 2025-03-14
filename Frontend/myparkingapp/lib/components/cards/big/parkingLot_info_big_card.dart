@@ -130,7 +130,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
               press: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(parkingLot: lot,),
+                  builder: (context) => DetailsScreen(parkingLot: lot, token: '',),
                 ),
               ),
               parkingLot: lot,
