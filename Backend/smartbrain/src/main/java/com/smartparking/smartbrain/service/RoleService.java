@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.smartparking.smartbrain.dto.request.Role.RoleRequest;
 import com.smartparking.smartbrain.dto.response.Role.RoleResponse;
+import com.smartparking.smartbrain.exception.AppException;
+import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.RoleMapper;
 import com.smartparking.smartbrain.model.Role;
 import com.smartparking.smartbrain.repository.PermissionRepository;
@@ -42,6 +44,9 @@ public class RoleService {
     }
     
     public void deleteRole(String roleName){
+        if (!roleRepository.existsById(roleName)) {
+            throw new AppException(ErrorCode.ROLE_NOT_EXISTS);
+        }
         roleRepository.deleteById(roleName);
     }
 }

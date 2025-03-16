@@ -185,9 +185,10 @@ public class WalletService {
 
     @Transactional
     public void deleteWallet(String walletId) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
-        walletRepository.delete(wallet);
+        if (!walletRepository.existsById(walletId)) {
+            throw new AppException(ErrorCode.WALLET_NOT_FOUND);
+        }
+        walletRepository.deleteById(walletId);
     }
 
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.smartparking.smartbrain.dto.request.Permission.PermissionRequest;
 import com.smartparking.smartbrain.dto.response.Permission.PermissionResponse;
+import com.smartparking.smartbrain.exception.AppException;
+import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.PermissionMapper;
 import com.smartparking.smartbrain.model.Permission;
 import com.smartparking.smartbrain.repository.PermissionRepository;
@@ -36,6 +38,9 @@ public class PermissionService {
     }
 
     public void deletePermission(String permissionName) {
+        if (!permissionRepository.existsById(permissionName)) {
+            throw new AppException(ErrorCode.PERMISSION_NOT_EXISTS);
+        }
         permissionRepository.deleteById(permissionName);
     }
 

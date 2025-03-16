@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smartparking.smartbrain.dto.request.ParkingLot.CreatedParkingLotRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
+import com.smartparking.smartbrain.dto.response.Discount.DiscountResponse;
 import com.smartparking.smartbrain.dto.response.ParkingLot.ParkingLotResponse;
+import com.smartparking.smartbrain.dto.response.ParkingSlot.ParkingSlotResponse;
+import com.smartparking.smartbrain.service.DiscountService;
 import com.smartparking.smartbrain.service.ParkingLotService;
+import com.smartparking.smartbrain.service.ParkingSlotService;
 
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -23,15 +27,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-
 @RestController
 @RequestMapping("/myparkingapp/parkinglots")
 @RequiredArgsConstructor
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ParkingLotController {
+
     ParkingLotService parkingLotService;
-    
+    ParkingSlotService parkingSlotService;
+    DiscountService discountService;
+
     @PostMapping
     public ApiResponse<ParkingLotResponse> createParkingLot(@Valid @RequestBody CreatedParkingLotRequest request) {
         return ApiResponse.<ParkingLotResponse>builder()
@@ -39,7 +45,7 @@ public class ParkingLotController {
         .build();
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ApiResponse<List<ParkingLotResponse>> getAllParkingLot() {
         return ApiResponse.<List<ParkingLotResponse>>builder()
         .result(parkingLotService.getAllParkingLot())
@@ -50,6 +56,19 @@ public class ParkingLotController {
     public ApiResponse<ParkingLotResponse> getParkingLotByID(@PathVariable String ParkingLotID) {
         return ApiResponse.<ParkingLotResponse>builder()
         .result(parkingLotService.getParkingLotByID(ParkingLotID))
+        .build();
+    }
+
+    @GetMapping("/{ParkingLotID}/parkingslots")
+    public ApiResponse<List<ParkingSlotResponse>> getAllParkingSlotByParkingLot(@PathVariable String ParkingLotID) {
+        return ApiResponse.<List<ParkingSlotResponse>>builder()
+        .result(parkingSlotService.getAllParkingSlotByParkingLotID(ParkingLotID))
+        .build();
+    }
+    @GetMapping("/{ParkingLotID}/discounts")
+    public ApiResponse<List<DiscountResponse>> getAllDiscountByParkingLot(@PathVariable String ParkingLotID) {
+        return ApiResponse.<List<DiscountResponse>>builder()
+        .result(discountService.getAllDiscountByParkingLotID(ParkingLotID))
         .build();
     }
     

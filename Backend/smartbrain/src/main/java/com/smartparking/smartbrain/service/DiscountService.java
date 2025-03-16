@@ -47,12 +47,20 @@ public class DiscountService {
         Discount discount=discountRepository.findById(discountID).orElseThrow(()-> new AppException(ErrorCode.DISCOUNT_NOT_FOUND));
         return discountMapper.toDiscountResponse(discount);
     }
-    public List<DiscountResponse> getAllDiscount(String parkingLotID){
-        ParkingLot parkingLot=parkingLotRepository.findById(parkingLotID).orElseThrow(()-> new AppException(ErrorCode.PARKING_LOT_NOT_EXISTS));
-        List<Discount> discounts=discountRepository.findAllByParkingLot(parkingLot);
+    public List<DiscountResponse> getAllDiscountByParkingLotID(String parkingLotID){
+        List<Discount> discounts=discountRepository.findAllByParkingLot_ParkingLotID(parkingLotID);
         return discounts.stream().map(discountMapper::toDiscountResponse).toList();
     }
+
+    public List<DiscountResponse> getAllGlobalDiscount(){ 
+        List<Discount> discounts=discountRepository.findByParkingLotIsNull();
+        return discounts.stream().map(discountMapper::toDiscountResponse).toList();
+    }
+
     public void deleteDiscount(String discountID){
+        if(!discountRepository.existsById(discountID)){ 
+            throw new AppException(ErrorCode.DISCOUNT_NOT_EXISTS);
+        }
         discountRepository.deleteById(discountID);
     }
 }
