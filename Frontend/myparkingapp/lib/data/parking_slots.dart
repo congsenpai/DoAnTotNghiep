@@ -1,8 +1,7 @@
+import 'package:myparkingapp/data/vehicle.dart';
+
 enum SlotStatus {
   AVAILABLE, OCCUPIED, RESERVED
-}
-enum VehicleType {
-  MOTORCYCLE,CAR, BICYCLE
 }
 class Slot {
   String slotId;
@@ -60,7 +59,7 @@ List<Slot> demoSlots = [
     slotId: 'S001',
     slotName: 'Slot A1',
     vehicleType: VehicleType.MOTORCYCLE,
-    slotStatus: SlotStatus.AVAILABLE,
+    slotStatus: SlotStatus.RESERVED,
     pricePerHour: 5.0,
     pricePerMonth: 100.0,
     lotId: 'PL001', floorName: '1',
@@ -69,7 +68,7 @@ List<Slot> demoSlots = [
     slotId: 'S002',
     slotName: 'Slot A2',
     vehicleType: VehicleType.MOTORCYCLE,
-    slotStatus: SlotStatus.AVAILABLE,
+    slotStatus: SlotStatus.OCCUPIED,
     pricePerHour: 2.0,
     pricePerMonth: 50.0,
     lotId: 'PL001', floorName: '1',
@@ -90,6 +89,23 @@ List<Slot> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 5.0,
     pricePerMonth: 100.0,
+    lotId: 'PL001', floorName: '1',
+  ),
+  Slot(slotId: 'S011',
+    slotName: 'Slot A1',
+    vehicleType: VehicleType.CAR,
+    slotStatus: SlotStatus.AVAILABLE,
+    pricePerHour: 5.0,
+    pricePerMonth: 100.0,
+    lotId: 'PL001', floorName: '1',
+  ),
+  Slot(
+    slotId: 'S012',
+    slotName: 'Slot A2',
+    vehicleType: VehicleType.CAR,
+    slotStatus: SlotStatus.AVAILABLE,
+    pricePerHour: 2.0,
+    pricePerMonth: 50.0,
     lotId: 'PL001', floorName: '1',
   ),
   Slot(

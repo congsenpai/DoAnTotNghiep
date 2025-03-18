@@ -85,6 +85,9 @@
         "Finding...":"Finding...",
         "There is no matching information": "There is no matching information",
         "Password must contain uppercase letters and special characters": "Password must contain uppercase letters and special characters",
+        "info": "Info",
+        "success": "Success",
+        "error": "Error",
 
 
 "6":"Card",

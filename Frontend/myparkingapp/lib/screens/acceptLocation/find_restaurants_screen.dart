@@ -7,8 +7,8 @@ import '../../components/buttons/secondery_button.dart';
 import '../../components/welcome_text.dart';
 import '../../constants.dart';
 
-class FindRestaurantsScreen extends StatelessWidget {
-  const FindRestaurantsScreen({super.key});
+class AcceptLocationScreen extends StatelessWidget {
+  const AcceptLocationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

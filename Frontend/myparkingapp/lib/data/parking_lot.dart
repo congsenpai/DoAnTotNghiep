@@ -1,11 +1,7 @@
 import 'discount.dart';
 import 'images.dart';
 
-enum LotStatus {
-  ON,
-  OFF,
-  FULL_SLOT,
-}
+enum LotStatus { ON, OFF, FULL_SLOT}
 
 class ParkingLot {
   String parkingLotID;
@@ -18,8 +14,6 @@ class ParkingLot {
   double rate;
   String description;
   List<Images> images;
-  List<Discount> discounts;
-
   ParkingLot({
     required this.parkingLotID,
     required this.parkingLotName,
@@ -31,7 +25,6 @@ class ParkingLot {
     required this.rate,
     required this.description,
     required this.images,
-    required this.discounts,
   });
 
   // Convert from JSON
@@ -52,9 +45,7 @@ class ParkingLot {
       images: (json['images'] as List<dynamic>)
           .map((item) => Images.fromJson(item))
           .toList(),
-      discounts: (json['discounts'] as List<dynamic>)
-          .map((item) => Discount.fromJson(item))
-          .toList(),
+
     );
   }
 
@@ -71,7 +62,6 @@ class ParkingLot {
       'rate': rate,
       'description': description,
       'images': images.map((item) => item.toJson()).toList(),
-      'discounts': discounts.map((item) => item.toJson()).toList(),
     };
   }
 }
@@ -91,15 +81,6 @@ List<ParkingLot> parkingLotsDemoPage1 = [
       Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
       Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D001',
-          discountCode: 'SALE10',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 10.0,
-          description: 'Giảm 10% cho khách hàng lần đầu tiên.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -115,15 +96,6 @@ List<ParkingLot> parkingLotsDemoPage1 = [
       Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D002',
-          discountCode: 'HEALTH20',
-          discountType: DiscountType.FIXED,
-          discountValue: 2000.0,
-          description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -138,15 +110,6 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     images: [
       Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
-    discounts: [
-      Discount(
-          discountId: 'D003',
-          discountCode: 'AIRPORT5',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 5.0,
-          description: 'Giảm 5% cho khách gửi xe dài hạn (trên 7 ngày).'
-      ),
     ],
   ),
 ];
@@ -165,15 +128,6 @@ List<ParkingLot> parkingLotsDemoPage2 = [
       Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
       Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D001',
-          discountCode: 'SALE10',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 10.0,
-          description: 'Giảm 10% cho khách hàng lần đầu tiên.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -189,15 +143,6 @@ List<ParkingLot> parkingLotsDemoPage2 = [
       Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D002',
-          discountCode: 'HEALTH20',
-          discountType: DiscountType.FIXED,
-          discountValue: 2000.0,
-          description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -212,15 +157,6 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     images: [
       Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
-    discounts: [
-      Discount(
-          discountId: 'D003',
-          discountCode: 'AIRPORT5',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 5.0,
-          description: 'Giảm 5% cho khách gửi xe dài hạn (trên 7 ngày).'
-      ),
     ],
   ),
 ];
@@ -239,15 +175,6 @@ List<ParkingLot> parkingLotsDemoPage3 = [
       Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
       Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D001',
-          discountCode: 'SALE10',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 10.0,
-          description: 'Giảm 10% cho khách hàng lần đầu tiên.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -263,15 +190,6 @@ List<ParkingLot> parkingLotsDemoPage3 = [
       Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
     ],
-    discounts: [
-      Discount(
-          discountId: 'D002',
-          discountCode: 'HEALTH20',
-          discountType: DiscountType.FIXED,
-          discountValue: 2000.0,
-          description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.'
-      ),
-    ],
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -286,15 +204,6 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     images: [
       Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
       Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
-    discounts: [
-      Discount(
-          discountId: 'D003',
-          discountCode: 'AIRPORT5',
-          discountType: DiscountType.PERCENTAGE,
-          discountValue: 5.0,
-          description: 'Giảm 5% cho khách gửi xe dài hạn (trên 7 ngày).'
-      ),
     ],
   ),
 ];

@@ -38,12 +38,12 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         child: widget.isLot? ListView.builder(
           // while we dont have our data bydefault we show 3 scalton
           itemCount: isLoading ?demoDataLength: widget.lots.length ,
           itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.only(bottom: defaultPadding),
+            padding: const EdgeInsets.only(bottom: defaultPadding, top:defaultPadding),
             child:
             isLoading
                 ?

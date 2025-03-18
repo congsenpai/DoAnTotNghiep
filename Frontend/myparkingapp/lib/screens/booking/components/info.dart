@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/parking_lot.dart';
 
-import '../../../components/price_range_and_food_type.dart';
+import '../../../components/vehicle_type_list.dart';
 import '../../../constants.dart';
+import '../../../data/parking_slots.dart';
 
 class Info extends StatelessWidget {
+  final ParkingLot lot;
+  final Slot slot;
+
   const Info({
-    super.key,
+    super.key, required this.lot, required this.slot,
   });
 
   @override
@@ -16,7 +22,7 @@ class Info extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1.33,
           child: Image.asset(
-            "assets/images/Header-image.png",
+            lot.images[0].url,
             fit: BoxFit.cover,
           ),
         ),
@@ -26,16 +32,21 @@ class Info extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Cookie Sandwich",
+              Text("${lot.parkingLotName}    -    ${slot.slotName}",
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               Text(
-                "Shortbread, chocolate turtle cookies, and red velvet. 8 ounces cream cheese, softened.",
+                lot.description,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
-              const VehicleTypeList(
-                typeList: ["Chinese", "American", "Deshi food"],
+              Text(
+                "${AppLocalizations.of(context).translate("CostByMonth: ")}:${slot.pricePerMonth} / VNĐ",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              Text(
+                "${AppLocalizations.of(context).translate("CostByHour: ")}:${slot.pricePerHour} / VNĐ",
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),

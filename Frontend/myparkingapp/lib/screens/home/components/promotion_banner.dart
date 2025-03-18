@@ -32,10 +32,16 @@ class _PromotionBannerState extends State<PromotionBanner> {
               aspectRatio: 1.97,
               child: ScaltonRoundedContainer(radious: 12),
             )
-          : ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: Image.asset("assets/images/Banner.png"),
-            ),
+          : Material(
+            elevation: 10,
+            shadowColor: Colors.black.withOpacity(0.4),
+            color: Colors.transparent,
+
+            child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                child: Image.asset("assets/images/Banner.png"),
+              ),
+          ),
     );
   }
 }

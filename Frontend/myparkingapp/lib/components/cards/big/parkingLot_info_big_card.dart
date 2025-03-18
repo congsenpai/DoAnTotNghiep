@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/data/parking_lot.dart';
@@ -5,7 +7,7 @@ import 'package:myparkingapp/data/parking_slots.dart';
 
 import '../../../constants.dart';
 import '../../../screens/details/details_screen.dart';
-import '../../price_range_and_food_type.dart';
+import '../../vehicle_type_list.dart';
 import '../../rating_with_counter.dart';
 import '../../small_dot.dart';
 import 'big_card_image_slide.dart';
@@ -81,8 +83,10 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
               const SizedBox(width: 8),
               Text(widget.parkingLot.status.name.toString(),
                   style: Theme.of(context).textTheme.labelSmall),
+
             ],
           ),
+          const SizedBox(height: 8),
         ],
       ),
     );

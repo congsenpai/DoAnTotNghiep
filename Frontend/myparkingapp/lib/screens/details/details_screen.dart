@@ -69,7 +69,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ParkingLotInfo(lot: widget.parkingLot,),
                     SizedBox(height: defaultPadding),
                     FeaturedItems(images: widget.parkingLot.images,),
-                    SizedBox(height: defaultPadding),
                     DefaultTabController(
                       length: floorNames.length,
                       child: Column(
@@ -92,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ],
                       ),
                     ),
-                    Items(slots: dataOnFloor.lots,),
+                    Items(slots: dataOnFloor.lots, lot: widget.parkingLot, token: widget.token,),
                   ],
                 ),
               ),
@@ -101,7 +100,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           return Center(child: CircularProgressIndicator(),);
       }, listener: (context,state){
           if(state is LotDetailErrorScreen){
-            return AppDialog.showMessage(context, state.mess);
+            return AppDialog.showErrorEvent(context, state.mess);
           }
       })
 

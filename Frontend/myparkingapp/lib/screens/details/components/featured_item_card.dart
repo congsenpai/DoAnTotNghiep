@@ -41,8 +41,8 @@ class FeaturedItemCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              !isDetailScreen ?
+              isDetailScreen ? const SizedBox(height: 8) :const SizedBox(width: 0,),
+              isDetailScreen ?
               Text(
                 title,
                 style: Theme.of(context)
@@ -50,7 +50,7 @@ class FeaturedItemCard extends StatelessWidget {
                     .bodyMedium
                     ?.copyWith(color: titleColor, fontWeight: FontWeight.w500),
               ):
-              const SizedBox(height: 8),
+              const SizedBox(width: 0,),
             ],
           ),
         ),

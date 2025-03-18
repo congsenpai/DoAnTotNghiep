@@ -8,11 +8,13 @@ import '../../../components/cards/iteam_card.dart';
 import '../../../components/small_dot.dart';
 import '../../../constants.dart';
 import '../../../data/parking_slots.dart';
-import '../../addToOrder/add_to_order_screen.dart';
+import '../../booking/booking_screen.dart';
 
 class Items extends StatelessWidget {
+  final ParkingLot lot;
+  final String token;
   final List<Slot> slots;
-  const Items({super.key, required this.slots});
+  const Items({super.key, required this.slots, required this.lot, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -27,98 +29,107 @@ class Items extends StatelessWidget {
         children: [
           // First Column
           Expanded(
-            flex: 1,
+            flex: 5,
             child: Column(
               children: List.generate(
                 firstColumnData.length,
                     (index) => Container(
-                      height: Get.width / 3, // Tăng chiều cao để chứa đầy đủ nội dung
+                      color: Colors.transparent,
+                      height: Get.width / 4, // Tăng chiều cao để chứa đầy đủ nội dung
                       padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
                       child: ElevatedButton(
-                        onPressed: () {
-                          secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(firstColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
+                          firstColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
+                        ),
+                        onPressed:(){
+                          firstColumnData[index].slotStatus == SlotStatus.AVAILABLE
                               ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AddToOrderScrreen(),
+                              builder: (context) => BookingScreen(lot: lot, slot: firstColumnData[index], token: token,),
                             ),
-                          )
-                              : AppDialog.showMessage(context, "This Slot was not available");
+                          ):AppDialog.showErrorEvent(context, "This Slot was not available");
                         },
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(
-                              height: Get.width / 6, // Cố định kích thước hình ảnh
-                              width: double.infinity,
-                              child: Image.asset(
-                                "assets/images/motoImage.png",
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(AppLocalizations.of(context).translate("Month cost")),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                                  child: SmallDot(),
-                                ),
-                                Text("${secondColumnData[index].pricePerMonth}"),
-                                const Spacer(),
-                                Text("VND ${secondColumnData[index].pricePerHour}/h,"),
-                              ],
-                            ),
+                            Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/20),)),
+                            Expanded(flex: 2, child: Image.asset("assets/icons/icon_car.png",fit: BoxFit.cover,),)
                           ],
-                        ),
-                      ),
+                        ),)
                     ),
               ),
             ),
           ),
-          const SizedBox(width: defaultPadding), // Spacing between columns
+          SizedBox(width: Get.width / 10), // Spacing between columns
           // Second Column
           Expanded(
-            flex: 1,
+            flex: 4,
             child: Column(
               children: List.generate(
                 secondColumnData.length,
                     (index) => Container(
-                      color: secondColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.blue :
-                      secondColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red,
-                      height: Get.width / 6, // Tăng chiều cao để chứa đầy đủ nội dung
-                      padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
-                              ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AddToOrderScrreen(),
-                            ),
-                          )
-                              : AppDialog.showMessage(context, "This Slot was not available");
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: Get.width / 6, // Cố định kích thước hình ảnh
-                              width: double.infinity,
-                              child: Icon(Icons.motorcycle_outlined)
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(secondColumnData[index].slotName),
-                                Text("VND ${secondColumnData[index].pricePerHour}/h,"),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                        padding: EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
+                        height: Get.width / 6, width: Get.width/4,// Tăng chiều cao để chứa đầy đủ nội dung
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(secondColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
+                            secondColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
+                          ),
+                          onPressed:(){
+                            secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
+                                ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], token: token,),
+                              ),
+                            ):AppDialog.showErrorEvent(context, "This Slot was not available");
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/40),)),
+                              Expanded(flex: 2, child: Image.asset("assets/icons/icon_moto.png",fit: BoxFit.cover,),)
+                            ],
+                          ),)
                     ),
                 ),
               ),
             ),
+          Expanded(
+            flex: 4,
+            child: Column(
+              children: List.generate(
+                secondColumnData.length,
+                    (index) => Container(
+                    padding: EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
+                    height: Get.width / 6, width: Get.width/4,// Tăng chiều cao để chứa đầy đủ nội dung
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(secondColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
+                        secondColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
+                      ),
+                      onPressed:(){
+                        secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
+                            ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], token: token,),
+                          ),
+                        ):AppDialog.showErrorEvent(context, "This Slot was not available");
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/40),)),
+                          Expanded(flex: 2, child: Image.asset("assets/icons/icon_moto.png",fit: BoxFit.cover,),)
+                        ],
+                      ),)
+                ),
+              ),
+            ),
+          ),
 
         ],
       ),
@@ -137,3 +148,5 @@ final List<Map<String, dynamic>> demoData = List.generate(
     "priceRange": "\$" * 2,
   },
 );
+
+

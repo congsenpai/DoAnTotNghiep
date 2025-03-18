@@ -32,11 +32,16 @@ class LotInfoMediumCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 1.25,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.asset(image, fit: BoxFit.cover),
+            Material(
+              elevation: 10,
+              shadowColor: Colors.black.withOpacity(0.4),
+              color: Colors.transparent,
+              child: AspectRatio(
+                aspectRatio: 1.25,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.asset(image, fit: BoxFit.cover),
+                ),
               ),
             ),
             const SizedBox(height: defaultPadding / 2),

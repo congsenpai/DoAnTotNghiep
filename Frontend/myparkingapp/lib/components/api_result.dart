@@ -6,3 +6,7 @@ class ApiResult{
       this.code,this.message,this.result
       );
 }
+
+
+
+

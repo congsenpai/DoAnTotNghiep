@@ -21,35 +21,40 @@ class _BigCardImageSlideState extends State<BigCardImageSlide> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.81,
-      child: Stack(
-        children: [
-          PageView.builder(
-            onPageChanged: (value) {
-              setState(() {
-                intialIndex = value;
-              });
-            },
-            itemCount: widget.images.length,
-            itemBuilder: (context, index) =>
-                BigCardImage(image: widget.images[index]),
-          ),
-          Positioned(
-            bottom: defaultPadding,
-            right: defaultPadding,
-            child: Row(
-              children: List.generate(
-                widget.images.length,
-                (index) => DotIndicator(
-                  isActive: intialIndex == index,
-                  activeColor: Colors.white,
-                  inActiveColor: Colors.white,
+    return Material(
+      color: Colors.transparent,
+      elevation: 8,
+      shadowColor: Colors.black.withOpacity(1),
+      child: AspectRatio(
+        aspectRatio: 1.81,
+        child: Stack(
+          children: [
+            PageView.builder(
+              onPageChanged: (value) {
+                setState(() {
+                  intialIndex = value;
+                });
+              },
+              itemCount: widget.images.length,
+              itemBuilder: (context, index) =>
+                  BigCardImage(image: widget.images[index]),
+            ),
+            Positioned(
+              bottom: defaultPadding,
+              right: defaultPadding,
+              child: Row(
+                children: List.generate(
+                  widget.images.length,
+                  (index) => DotIndicator(
+                    isActive: intialIndex == index,
+                    activeColor: Colors.white,
+                    inActiveColor: Colors.white,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

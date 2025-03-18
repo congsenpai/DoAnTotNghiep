@@ -43,7 +43,6 @@ class FeaturedItems extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: defaultPadding),
             ],
           ),
         ),

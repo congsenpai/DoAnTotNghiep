@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/parking_lot.dart';
-import '../../../components/price_range_and_food_type.dart';
+import '../../../components/vehicle_type_list.dart';
 import '../../../components/rating_with_counter.dart';
 import '../../../constants.dart';
 

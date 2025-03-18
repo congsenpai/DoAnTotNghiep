@@ -8,7 +8,7 @@ import 'package:myparkingapp/data/service.dart';
 
 import '../../../constants.dart';
 import '../../../screens/details/details_screen.dart';
-import '../../price_range_and_food_type.dart';
+import '../../vehicle_type_list.dart';
 import '../../rating_with_counter.dart';
 import '../../small_dot.dart';
 import 'big_card_image.dart';

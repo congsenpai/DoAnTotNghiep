@@ -84,6 +84,9 @@
         "Finding...":"Tìm kiếm...",
         "There is no matching information": "Không có bất cứ thông tin trùng khớp",
         "Password must contain uppercase letters and special characters": "Mật khẩu phải chứa chữ in hoa và ký tự đặc biệt",
+        "info": "Thông tin",
+        "success": "Thành công",
+        "error": "Thất bại",
         
 "6":"Card",
         "balance":"Số dư",

@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import '../data/lot_on_page.dart';
 import '../data/user.dart';
 
-
 class LotRepository{
   final String apiUrl = "";
   Future<ApiResult> getParkingLotList(String token, String searchText, int page) async{

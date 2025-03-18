@@ -89,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
       }, listener: (context,state){
           if(state is SearchScreenError){
-            return AppDialog.showMessage(context, state.mess);
+            return AppDialog.showErrorEvent(context, state.mess);
           }
       })
     );

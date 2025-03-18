@@ -108,13 +108,13 @@ final User demoUser = User(
       walletId: "W001",
       balance: 150.75,
       currency: "USD",
-      name: "Main Wallet",
+      name: "Main Wallet", userId: 'U001',
     ),
     Wallet(
       walletId: "W002",
       balance: 50.00,
       currency: "USD",
-      name: "Secondary Wallet",
+      name: "Secondary Wallet", userId: 'U001',
     ),
   ],
 );

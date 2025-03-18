@@ -101,14 +101,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false,),
+                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service',),
                       ),
                     ),
                   ),
+                  const SizedBox(height: defaultPadding * 2),
                   ServiceCardList(services: services,),
-
                   const SizedBox(height: defaultPadding),
-                  const SizedBox(height: 20),
                   // Banner
                   const PromotionBanner(),
                   const SizedBox(height: 20),
@@ -117,10 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: plots, services: [], isLot: true,),
+                        builder: (context) => FeaturedScreen(lots: plots, services: [], isLot: true, title: 'Nearly Parking Lots',),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
                   ParkingLotCardList(lots: plots),
                   const SizedBox(height: 16),
                   const SizedBox(height: 20),
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
           listener: (context,state){
           if(state is HomeErrorState){
-            return AppDialog.showMessage(context, state.mess);
+            return AppDialog.showErrorEvent(context, state.mess);
           }
 
           })

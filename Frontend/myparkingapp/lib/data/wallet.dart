@@ -3,12 +3,14 @@ class Wallet {
   double balance;
   String currency;
   String name;
+  String userId;
 
   Wallet({
     required this.walletId,
     required this.balance,
     required this.currency,
     required this.name,
+    required this.userId,
   });
 
   // Convert JSON to Wallet object
@@ -18,6 +20,7 @@ class Wallet {
       balance: (json['balance'] as num).toDouble(),
       currency: json['currency'] as String,
       name: json['name'] as String,
+      userId: json['userId'] as String,
     );
   }
 
@@ -28,7 +31,7 @@ class Wallet {
       'balance': balance,
       'currency': currency,
       'name': name,
+      'userId':userId
     };
   }
-
 }

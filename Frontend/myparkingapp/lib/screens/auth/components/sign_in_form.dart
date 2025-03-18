@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app/locallization/app_localizations.dart';
-import '../../findRestaurants/find_restaurants_screen.dart';
 
 import '../../../constants.dart';
+import '../../acceptLocation/find_restaurants_screen.dart';
 import '../forgot_password_screen.dart';
 
 class SignInForm extends StatefulWidget {
@@ -82,7 +82,7 @@ class _SignInFormState extends State<SignInForm> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FindRestaurantsScreen(),
+                    builder: (context) => const AcceptLocationScreen(),
                   ),
                   (_) => true,
                 );

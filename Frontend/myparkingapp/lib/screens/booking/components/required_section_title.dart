@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 
 import '../../../constants.dart';
 
@@ -16,7 +17,8 @@ class RequiredSectionTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          title,
+          AppLocalizations.of(context).translate(title)
+          ,
           maxLines: 1,
           style: Theme.of(context).textTheme.titleLarge,
         ),
@@ -28,8 +30,8 @@ class RequiredSectionTitle extends StatelessWidget {
           decoration: BoxDecoration(
               color: accentColor.withOpacity(0.2),
               borderRadius: const BorderRadius.all(Radius.circular(4))),
-          child: Text(
-            "Required".toUpperCase(),
+          child: Text(AppLocalizations.of(context).translate("Required").toUpperCase()
+            ,
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!
