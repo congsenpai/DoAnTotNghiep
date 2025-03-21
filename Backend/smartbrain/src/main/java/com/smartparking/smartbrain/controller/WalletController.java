@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/myparkingapp/wallets")
 @RequiredArgsConstructor
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class WalletController {
 
-    final WalletService walletService;
+    WalletService walletService;
 
     // create wallet
     @PostMapping
@@ -55,15 +55,14 @@ public class WalletController {
     }
 
     // update wallet
-    @PutMapping("/{walletId}")
+    @PutMapping("")
     public ApiResponse<WalletResponse> updateWallet(
-            @PathVariable String walletId,
             @RequestBody @Valid UpdateWalletRequest request
     ) {
         return ApiResponse.<WalletResponse>builder()
         .code(200)
         .message("updated wallet successfully")
-        .result(walletService.updateWallet(walletId, request))
+        .result(walletService.updateWallet(request))
         .build();
     }
 
@@ -78,27 +77,25 @@ public class WalletController {
         .build();
     }
     // recharge wallet - top up
-    @PostMapping("/{walletId}/top-up")
+    @PostMapping("/top-up")
     public ApiResponse<TransactionResponse> topUp(
-            @PathVariable String walletId,
             @RequestBody @Valid TopUpRequest request
     ) {
         return ApiResponse.<TransactionResponse>builder()
         .code(200)
         .message("Wallet recharged successfully")
-        .result(walletService.topUp(walletId, request))
+        .result(walletService.topUp(request))
         .build();
     }
     // make payment
-    @PostMapping("/{walletId}/payment")
+    @PostMapping("/payment")
     public ApiResponse<TransactionResponse> makePayment(
-            @PathVariable String walletId,
             @RequestBody @Valid PaymentRequest request
     ) {
         return ApiResponse.<TransactionResponse>builder()
         .code(200)
         .message("Wallet recharged successfully")
-        .result(walletService.makePayment(walletId, request))
+        .result(walletService.makePayment(request))
         .build();
     }
 }

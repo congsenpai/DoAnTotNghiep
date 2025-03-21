@@ -25,9 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/myparkingapp/users")
 @RequiredArgsConstructor
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class UserController {
-    final UserService userService;
+    UserService userService;
 
     @PostMapping
     public ApiResponse<UserResponse> createRequestUser(@RequestBody @Valid UserRequest request){

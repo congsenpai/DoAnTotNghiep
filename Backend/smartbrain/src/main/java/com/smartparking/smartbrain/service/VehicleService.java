@@ -23,24 +23,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VehicleService {
-
-
-    VehicleRepository vehicleRepository;
-    VehicleMapper vehicleMapper;
-    UserRepository userRepository;
+    final VehicleRepository vehicleRepository;
+    final VehicleMapper vehicleMapper;
+    final UserRepository userRepository;
 
 
     public VehicleResponse createVehicle(VehicleRequest request){
         User user=userRepository.findById(request.getUserID())
         .orElseThrow(()-> new AppException(ErrorCode.USER_NOT_FOUND));
-        
         Vehicle vehicle=vehicleMapper.toVehicle(request);
         vehicle.setUser(user);
         vehicleRepository.save(vehicle);
         return vehicleMapper.toVehicleResponse(vehicle);
     }
     public List<VehicleResponse> getVehicleByUserID(String userID){
-        var vehicles=vehicleRepository.findByUser_userID(userID);
+        List<Vehicle> vehicles = vehicleRepository.findByUser_userID(userID);
+        if (vehicles.isEmpty()) {
+            throw new AppException(ErrorCode.VEHICLE_NOT_FOUND);
+        }
         return vehicles.stream().map(vehicleMapper::toVehicleResponse).toList();
     }
     public void deletedByID(String vehicleID){

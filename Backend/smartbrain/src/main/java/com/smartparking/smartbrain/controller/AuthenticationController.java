@@ -1,5 +1,8 @@
 package com.smartparking.smartbrain.controller;
 import java.text.ParseException;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,4 +57,10 @@ public class AuthenticationController {
         .result(result)
         .build();
     }
+    @GetMapping("/principal")
+    public Object getPrincipal(@AuthenticationPrincipal Object principal) {
+        System.out.println("🔹 Principal Class: " + (principal != null ? principal.getClass().getName() : "null"));
+        return principal;
+    }
+
 }

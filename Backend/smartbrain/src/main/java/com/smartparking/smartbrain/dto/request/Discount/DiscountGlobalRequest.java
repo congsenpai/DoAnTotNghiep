@@ -1,5 +1,7 @@
 package com.smartparking.smartbrain.dto.request.Discount;
 
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,4 +25,5 @@ public class DiscountGlobalRequest {
     String description;
     @NotEmpty(message = "Expired time can not empty")
     String expiredAt;
+    BigDecimal maxValue;
 }

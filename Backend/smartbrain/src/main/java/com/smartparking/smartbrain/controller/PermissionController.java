@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/myparkingapp/permissions")
 @RequiredArgsConstructor
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class PermissionController {
-    final PermissionService permissionService;
+    PermissionService permissionService;
 
     @PostMapping
     public ApiResponse<PermissionResponse> createPermission(@RequestBody PermissionRequest permissionRequest) {

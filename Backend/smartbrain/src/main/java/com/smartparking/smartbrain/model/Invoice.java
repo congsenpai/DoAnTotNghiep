@@ -36,7 +36,6 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "invoices")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Invoice {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "invoice_id", nullable = false, updatable = false)
@@ -44,7 +43,8 @@ public class Invoice {
     
     BigDecimal total_amount;
     @Enumerated(EnumType.STRING)
-    InvoiceStatus status;
+    @Builder.Default
+    InvoiceStatus status=InvoiceStatus.PENDING;
     String description;
 
     // Relationship
@@ -68,8 +68,7 @@ public class Invoice {
     @JoinColumn(name="vehicle_id", nullable = false)
     Vehicle vehicle;
 
-    @OneToOne
-    @JoinColumn(name = "monthly_ticket_id", nullable = true)
+    @OneToOne(mappedBy = "invoice")
     MonthlyTicket monthlyTicket;
 
     // Timestamp
@@ -79,6 +78,5 @@ public class Invoice {
     @UpdateTimestamp
     @Column(name = "updated_at")
     Instant updatedAt;
-
 
 }

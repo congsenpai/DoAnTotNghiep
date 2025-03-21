@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Currency;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,14 +37,14 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WalletService {
 
-    final WalletRepository walletRepository;
-    final UserRepository userRepository;
-    final TransactionRepository transactionRepository;
-    final WalletMapper walletMapper;
+    WalletRepository walletRepository;
+    UserRepository userRepository;
+    TransactionRepository transactionRepository;
+    WalletMapper walletMapper;
 
     @Transactional
-    public TransactionResponse topUp(String walletId, TopUpRequest request) {
-        Wallet wallet = walletRepository.findById(walletId)
+    public TransactionResponse topUp(TopUpRequest request) {
+        Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
         BigDecimal previousBalance = wallet.getBalance();
         if (request.getCurrency() != null) {
@@ -73,7 +74,7 @@ public class WalletService {
 
         return new TransactionResponse(
                 transaction.getTransactionID(),
-                walletId,
+                request.getWalletID(),
                 previousBalance,
                 wallet.getBalance(),
                 request.getAmount(),
@@ -83,8 +84,9 @@ public class WalletService {
     }
 
     @Transactional
-    public TransactionResponse makePayment(String walletId, PaymentRequest request) {
-        Wallet wallet = walletRepository.findById(walletId)
+    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.principal.claims['userId'])")
+    public TransactionResponse makePayment(PaymentRequest request) {
+        Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
 
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
@@ -117,7 +119,7 @@ public class WalletService {
 
         return new TransactionResponse(
                 transaction.getTransactionID(),
-                walletId,
+                request.getWalletID(),
                 previousBalance,
                 wallet.getBalance(),
                 transaction.getAmount(),
@@ -166,8 +168,8 @@ public class WalletService {
     }
 
     @Transactional
-    public WalletResponse updateWallet(String walletId, UpdateWalletRequest request) {
-        Wallet wallet = walletRepository.findById(walletId)
+    public WalletResponse updateWallet(UpdateWalletRequest request) {
+        Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
         walletMapper.updateWalletFromRequest(request, wallet);
         if (request.getCurrency() != null) {

@@ -23,28 +23,30 @@ public enum ErrorCode {
 
 
      // ParkingSpot errors
-    PARKING_LOT_NOT_FOUND(2001, "parking spot not found"),
-    PARKING_LOT_ALREADY_EXISTS(2002,"parking spot alrealy exitst"),
-    PARKING_LOT_NOT_EXISTS(2003,"parking spot not exists"),
-    FALSE_UPDATE_STATUS_LOT(2004,"updating spot status false"),
+    PARKING_LOT_NOT_FOUND(2001, "Parking spot not found"),
+    PARKING_LOT_ALREADY_EXISTS(2002,"Parking spot alrealy exitst"),
+    PARKING_LOT_NOT_EXISTS(2003,"Parking spot not exists"),
+    FALSE_UPDATE_STATUS_LOT(2004,"Updating spot status false"),
 
      // Image errors
-    IMAGE_NOT_FOUND(3001, "image not found"),
-    IMAGE_ALREADY_EXISTS(3002,"image alrealy exitst"),
-    IMAGE_NOT_EXISTS(3003,"image not exists"),
-    IMAGE_UPDATE_STATUS_SLOT(3004,"updating image status false"),
+    IMAGE_NOT_FOUND(3001, "Image not found"),
+    IMAGE_ALREADY_EXISTS(3002,"Image alrealy exitst"),
+    IMAGE_NOT_EXISTS(3003,"Image not exists"),
+    IMAGE_UPDATE_STATUS_SLOT(3004,"Updating image status false"),
 
      // ParkingSlot errors
-    PARKING_SLOT_NOT_FOUND(4001, "slot not found"),
-    PARKING_SLOT_ALREADY_EXISTS(4002,"slot alrealy exitst"),
-    PARKING_SLOT_NOT_EXISTS(4003,"slot not exists"),
-    FALSE_UPDATE_STATUS_SLOT(4004,"updating slot status false"),
-    TOTAL_SLOT_EXCEED(4005,"total slot exceed, can't use auto create slot, please create slot manually"),
+    PARKING_SLOT_NOT_FOUND(4001, "Slot not found"),
+    PARKING_SLOT_ALREADY_EXISTS(4002,"Slot alrealy exitst"),
+    PARKING_SLOT_NOT_EXISTS(4003,"Slot not exists"),
+    FALSE_UPDATE_STATUS_SLOT(4004,"Updating slot status false"),
+    TOTAL_SLOT_EXCEED(4005,"Total slot exceed, can't use auto create slot, please create slot manually"),
 
     // Wallet errors
     WALLET_NOT_FOUND(5001, "Wallet not found"),
     INVALID_CURRENCY(5002, "Invalid currency"),
     CURRENCY_MISMATCH(5003, "Currency mismatch"),
+    WALLET_NOT_BELONG_TO_USER(5004, "Wallet not belong to user"),
+    WALLET_NOT_ENOUGH_MONEY(5005, "Wallet not enough money"),
     
     // Permission errors
     PERMISSION_NOT_FOUND(6001,"Permission not found"),
@@ -54,14 +56,23 @@ public enum ErrorCode {
     // Promotion errors
     DISCOUNT_NOT_FOUND(7001,"Discount not found"),
     DISCOUNT_NOT_EXISTS(7002,"Discount not exists"),
-    // Vehicle
-    VEHICLE_NOT_FOUND(8001,"Permission not found"),
-    VEHICLE_ALREADY_EXISTS(8002,"Permission already exists"),
-    VEHICLE_NOT_EXISTS(8003,"Permission not exists"),
+    DISCOUNT_NOT_BELONG_TO_PARKING_SLOT(7003,"Discount not belong to parking slot"),
+    // Vehicle errors
+    VEHICLE_NOT_FOUND(8001,"Vehicle not found"),
+    VEHICLE_ALREADY_EXISTS(8002,"Vehicle already exists"),
+    VEHICLE_NOT_EXISTS(8003,"Vehicle not exists"),
     // Role errors
-    ROLE_NOT_FOUND(9001,"Permission not found"),
-    ROLE_ALREADY_EXISTS(9002,"Permission already exists"),
-    ROLE_NOT_EXISTS(9003,"Permission not exists"),
+    ROLE_NOT_FOUND(9001,"Role not found"),
+    ROLE_ALREADY_EXISTS(9002,"Role already exists"),
+    ROLE_NOT_EXISTS(9003,"Role not exists"),
+    // Invoice errors
+    INVOICE_NOT_FOUND(0101,"Invoice not found"),
+    INVOICE_ALREADY_EXISTS(0102,"Invoice already exists"),
+    INVOICE_NOT_EXISTS(0103,"Invoice not exists"),
+    // Transaction errors
+    TRANSACTION_NOT_FOUND(0201,"Transaction not found"),
+    TRANSACTION_ALREADY_EXISTS(0202,"Transaction already exists"),
+    TRANSACTION_NOT_EXISTS(0203,"Transaction not exists"),
 
 
 
