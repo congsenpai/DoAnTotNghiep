@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Transaction {
     @Id
@@ -40,7 +42,8 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     Transactions type;
     @Enumerated(EnumType.STRING)
-    TransactionStatus status;
+    @Builder.Default
+    TransactionStatus status= TransactionStatus.PENDING;
 
     // Relationship
     @ManyToOne
@@ -51,7 +54,8 @@ public class Transaction {
     @JoinColumn(name = "wallet_id", nullable = false)
     @NotNull(message = "Wallet cannot be null")
     Wallet wallet;
-    @OneToOne(mappedBy="transaction")
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", nullable = true)
     Invoice invoice;
     // Timestamp
     @CreationTimestamp

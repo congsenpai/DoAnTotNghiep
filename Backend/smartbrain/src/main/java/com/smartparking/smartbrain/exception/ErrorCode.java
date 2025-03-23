@@ -22,11 +22,11 @@ public enum ErrorCode {
     TOKEN_EXPIRED(1010, "Token expired"),
 
 
-     // ParkingSpot errors
-    PARKING_LOT_NOT_FOUND(2001, "Parking spot not found"),
-    PARKING_LOT_ALREADY_EXISTS(2002,"Parking spot alrealy exitst"),
-    PARKING_LOT_NOT_EXISTS(2003,"Parking spot not exists"),
-    FALSE_UPDATE_STATUS_LOT(2004,"Updating spot status false"),
+     // ParkingLot errors
+    PARKING_LOT_NOT_FOUND(2001, "Parking lot not found"),
+    PARKING_LOT_ALREADY_EXISTS(2002,"Parking lot alrealy exitst"),
+    PARKING_LOT_NOT_EXISTS(2003,"Parking lot not exists"),
+    FALSE_UPDATE_STATUS_LOT(2004,"Updating lot status false"),
 
      // Image errors
     IMAGE_NOT_FOUND(3001, "Image not found"),
@@ -69,10 +69,15 @@ public enum ErrorCode {
     INVOICE_NOT_FOUND(0101,"Invoice not found"),
     INVOICE_ALREADY_EXISTS(0102,"Invoice already exists"),
     INVOICE_NOT_EXISTS(0103,"Invoice not exists"),
+    INVOICE_NOT_DEPOSIT(0104,"Invoice not deposit"),
     // Transaction errors
     TRANSACTION_NOT_FOUND(0201,"Transaction not found"),
     TRANSACTION_ALREADY_EXISTS(0202,"Transaction already exists"),
     TRANSACTION_NOT_EXISTS(0203,"Transaction not exists"),
+    // Monthly ticket errors
+    MONTHLY_TICKET_NOT_FOUND(0301,"Monthly ticket not found"),
+    MONTHLY_TICKET_ALREADY_EXISTS(0302,"Monthly ticket already exists"),
+    MONTHLY_TICKET_NOT_EXISTS(0303,"Monthly ticket not exists"),
 
 
 

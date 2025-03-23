@@ -13,9 +13,11 @@ import com.smartparking.smartbrain.repository.WalletRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WalletPermission {
     @Autowired
@@ -26,6 +28,7 @@ public class WalletPermission {
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
 
         if (Objects.equals(wallet.getUser().getUserID(), userId)) {
+            log.info("wallet valid");
             return true;
         }
         

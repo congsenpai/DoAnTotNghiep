@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.model;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -41,16 +43,15 @@ public class Invoice {
     @Column(name = "invoice_id", nullable = false, updatable = false)
     String invoiceID;
     
-    BigDecimal total_amount;
+    BigDecimal totalAmount;
     @Enumerated(EnumType.STRING)
     @Builder.Default
     InvoiceStatus status=InvoiceStatus.PENDING;
     String description;
 
     // Relationship
-    @OneToOne
-    @JoinColumn(name = "transaction_id", nullable = false)
-    Transaction transaction;
+    @OneToMany(mappedBy = "invoice")
+    Set<Transaction> transactions;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

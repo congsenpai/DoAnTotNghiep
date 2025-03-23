@@ -1,9 +1,11 @@
 package com.smartparking.smartbrain.service;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.converter.DateTimeConverter;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedMonthlyRequest;
+import com.smartparking.smartbrain.dto.request.Invoice.PaymentDailyRequest;
 import com.smartparking.smartbrain.dto.request.MonthlyTicket.CreatedMonthlyTicketRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.DepositRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.enums.DiscountType;
@@ -36,48 +40,80 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InvoiceService {
 
-    TransactionRepository transactionRepository;
     InvoiceRepository invoiceRepository;
     InvoiceMapper invoiceMapper;
-    VehicleRepository vehicleRepository;
     UserRepository userRepository;
-    ParkingSlotRepository parkingSlotRepository;
-    DiscountRepository discountRepository;
     MonthlyTicketService monthlyTicketService;
     WalletService walletService;
     DateTimeConverter dateTimeConverter;
+    WalletRepository walletRepository;
+    MonthlyTicketRepository monthlyTicketRepository;
 
 
-    public InvoiceResponse createDailyInvoice(InvoiceCreatedDailyRequest request){
-        Invoice invoice=invoiceMapper.toDailyInvoice(request);
-
-        var vehicle=vehicleRepository.findById(request.getVehicleID())
-        .orElseThrow(()-> new AppException(ErrorCode.VEHICLE_NOT_EXISTS));
-        invoice.setVehicle(vehicle);
-
-        var user=userRepository.findById(request.getUserID())
-        .orElseThrow(()-> new AppException(ErrorCode.USER_NOT_EXISTS));
-        invoice.setUser(user);
-
-        var parkingSlot=parkingSlotRepository.findById(request.getParkingSlotID())
-        .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
-        invoice.setParkingSlot(parkingSlot);
-
-        var discount=discountRepository.findByDiscountCode(request.getDiscountCode())
-        .orElseThrow(()-> new AppException(ErrorCode.DISCOUNT_NOT_EXISTS));
-        invoice.setDiscount(discount);
-
-        invoiceRepository.save(invoice);
+    // Daily invoice deposit
+    @PreAuthorize("@slotPermission.canAccessSlot(#request.parkingSlotID)&&@discountPermission.canAccessDiscount(#request.discountCode, #request.parkingSlotID)")
+    public InvoiceResponse depositDailyInvoice(InvoiceCreatedDailyRequest request){
+        Invoice invoice = invoiceMapper.toDailyInvoice(request);
+        var depositValue= invoice.getParkingSlot().getPricePerHour()
+            .multiply(BigDecimal.valueOf(3));
+        DepositRequest depositRequest= DepositRequest.builder()
+            .walletID(request.getWalletID())
+            .amount(depositValue)
+            .description("Thanh toán tiền cọc")
+            .currency("USD")
+            .build();
+        try {
+            walletService.deposit(depositRequest);
+            invoice.setStatus(InvoiceStatus.DEPOSIT);
+            // Lưu hóa đơn vào cơ sở dữ liệu
+            invoice = invoiceRepository.save(invoice);
+            return invoiceMapper.toInvoiceResponse(invoice);
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.WALLET_NOT_ENOUGH_MONEY);
+        }
+    }
+    // Daily invoice payment
+    public InvoiceResponse paymentDailyInvoice(PaymentDailyRequest request) {
+        var invoice = invoiceRepository.findById(request.getOrderID())
+            .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
+        var wallet=walletRepository.findById(request.getWalletID())
+            .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
+        if (invoice.getStatus() != InvoiceStatus.DEPOSIT) {
+            throw new AppException(ErrorCode.INVOICE_NOT_DEPOSIT, invoice.getStatus().toString());
+        }
+        var parkingSlot= invoice.getParkingSlot();
+        var discount= invoice.getDiscount();
+        var createdAt= invoice.getCreatedAt();
+        BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(parkingSlot, discount, createdAt,false))
+            .orElse(BigDecimal.ZERO);
+        PaymentRequest paymentRequest= PaymentRequest.builder()
+            .walletID(wallet.getWalletID())
+            .amount(totalAmount)
+            .description("Thanh toán hóa đơn ngày")
+            .currency("USD")
+            .build();
+        
+        try {
+            walletService.makePayment(paymentRequest);
+            invoice.setTotalAmount(totalAmount);
+            invoice.setStatus(InvoiceStatus.PAID);
+            // Lưu hóa đơn vào cơ sở dữ liệu
+            invoice = invoiceRepository.save(invoice);
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.WALLET_NOT_ENOUGH_MONEY);
+        }
+        
         return invoiceMapper.toInvoiceResponse(invoice);
     }
 
+    // Monthly invoice
     @PreAuthorize("@discountPermission.canAccessDiscount(#request.discountCode, #request.parkingSlotID)")
     public InvoiceResponse createMonthlyInvoice(InvoiceCreatedMonthlyRequest request) {
         Instant expiredAt=dateTimeConverter.fromStringToInstant(request.getExpiredAt());
         Invoice invoice = invoiceMapper.toMonthlyInvoice(request);
         // Make transaction
         //caculator total amount
-        BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmountForMonth(invoice.getParkingSlot(), invoice.getDiscount(), expiredAt))
+        BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(invoice.getParkingSlot(), invoice.getDiscount(), expiredAt,true))
         .orElse(BigDecimal.ZERO);
 
         PaymentRequest paymentRequest= PaymentRequest.builder()
@@ -86,19 +122,16 @@ public class InvoiceService {
             .description("Thanh toán hóa đơn tháng")
             .currency("USD")
             .build();
-        
-        try {
-            var transactionID=walletService.makePayment(paymentRequest).getTransactionId();
-            invoice.setTransaction(transactionRepository.findById(transactionID)
-            .orElseThrow(()-> new AppException(ErrorCode.TRANSACTION_NOT_EXISTS)));
-            invoice.setTotal_amount(totalAmount);
-            invoice.setStatus(InvoiceStatus.PAID);
+        log.info("Total amount: {}", totalAmount);
+        log.info("Payment request: {}", paymentRequest);
+        var transaction=walletService.makePayment(paymentRequest);
+        if (transaction != null) {
             // Lưu hóa đơn vào cơ sở dữ liệu
+            invoice.setTotalAmount(totalAmount);
+            invoice.setStatus(InvoiceStatus.PAID);
             invoice = invoiceRepository.save(invoice);
-        } catch (AppException e) {
-            throw new AppException(ErrorCode.WALLET_NOT_ENOUGH_MONEY);
         }
-        
+
         // Tạo MonthlyTicket
         CreatedMonthlyTicketRequest request2 = CreatedMonthlyTicketRequest.builder()
             .parkingSlotID(invoice.getParkingSlot().getSlotID())
@@ -106,8 +139,10 @@ public class InvoiceService {
             .invoiceID(invoice.getInvoiceID()) // Lúc này invoiceID đã có
             .expiredAt(request.getExpiredAt())
             .build();
-        monthlyTicketService.createdMonthlyTicket(request2);
+        var response= monthlyTicketService.createdMonthlyTicket(request2);
         invoiceRepository.save(invoice);
+        invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
+            .orElseThrow(()-> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
         return invoiceMapper.toInvoiceResponse(invoice);
     }
 
@@ -126,6 +161,13 @@ public class InvoiceService {
         var invoices =invoiceRepository.findByUser_UserID(userID);
         return invoices.stream().map(invoiceMapper::toInvoiceResponse).toList();
     }
+    public List<InvoiceResponse> getInvoiceByUserIDNotPayment(String userID){
+        if (!userRepository.existsById(userID)) {
+            throw new AppException(ErrorCode.USER_NOT_EXISTS);
+        }
+        var invoices =invoiceRepository.findUnpaidInvoicesByUser(userID);
+        return invoices.stream().map(invoiceMapper::toInvoiceResponse).toList();
+    }
 
 
     public List<InvoiceResponse> getAllInvoice(){
@@ -135,18 +177,39 @@ public class InvoiceService {
 
 
 
-    public BigDecimal caculatorTotalAmountForMonth(ParkingSlot parkingSlot, Discount discount, Instant expiredAt) {
-        if (parkingSlot == null || expiredAt == null) {
-            throw new IllegalArgumentException("ParkingSlot và MonthlyTicket không được null!");
+    public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, Instant timeInstant, Boolean isMonthly) {
+        if (parkingSlot == null || timeInstant == null) {
+            throw new IllegalArgumentException("ParkingSlot và thời gian không được null!");
         }
-
-        // Chuyển expiredAt từ Instant sang LocalDate
-        LocalDate expiredDate = expiredAt.atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate today = LocalDate.now();
+        BigDecimal totalAmount = BigDecimal.ZERO;
         
-        // Tính số tháng từ thời điểm hiện tại đến ngày hết hạn
-        long numberOfMonths = expiredDate.getMonthValue()- today.getMonthValue();
-        BigDecimal totalAmount = parkingSlot.getPricePerMonth().multiply(BigDecimal.valueOf(numberOfMonths));
+        
+        if (isMonthly == true) {
+             // Chuyển expiredAt từ Instant sang LocalDate
+            LocalDate expiredDate = timeInstant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate today = LocalDate.now();
+            // Tính số tháng từ thời điểm hiện tại đến ngày hết hạn
+
+            long numberOfMonths = ChronoUnit.MONTHS.between(today, expiredDate);
+            long extraDays = ChronoUnit.DAYS.between(today.plusMonths(numberOfMonths), expiredDate);
+            
+            if (extraDays > 0) {
+                numberOfMonths++; // Nếu có ngày lẻ, làm tròn lên
+            }
+            
+            totalAmount = parkingSlot.getPricePerMonth().multiply(BigDecimal.valueOf(numberOfMonths));
+            log.info("Number of months: {}", numberOfMonths);
+            log.info("Total amount for monthly: {}", totalAmount);
+
+        }
+        else {
+            // Tính số giờ từ thời điểm hiện tại đến ngày hết hạn
+            long numberOfHours = Duration.between(Instant.now(),timeInstant).toHours();
+            totalAmount = parkingSlot.getPricePerHour().multiply(BigDecimal.valueOf(numberOfHours));
+        }
+        
+        
+
         if (discount != null) {
             BigDecimal maxDiscountValue = discount.getMaxValue();
             BigDecimal discountValue = BigDecimal.valueOf(discount.getDiscountValue());

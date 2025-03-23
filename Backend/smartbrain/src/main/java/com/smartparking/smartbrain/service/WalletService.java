@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smartparking.smartbrain.dto.request.Wallet.CreateWalletRequest;
+import com.smartparking.smartbrain.dto.request.Wallet.DepositRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
@@ -44,6 +45,7 @@ public class WalletService {
 
     @Transactional
     public TransactionResponse topUp(TopUpRequest request) {
+        log.info("Top up wallet with request: {}", request);
         Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
         BigDecimal previousBalance = wallet.getBalance();
@@ -84,8 +86,53 @@ public class WalletService {
     }
 
     @Transactional
-    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.principal.claims['userId'])")
+    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.token.claims['userId'])")
     public TransactionResponse makePayment(PaymentRequest request) {
+        Wallet wallet = walletRepository.findById(request.getWalletID())
+                .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
+        log.info("Make payment with request: {}", request);
+        if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
+        if (request.getCurrency() != null) {
+            try {
+                Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
+                if (!currency.equals(wallet.getCurrency())) {
+                    throw new AppException(ErrorCode.CURRENCY_MISMATCH);
+                }
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
+            }
+            
+        }
+
+        BigDecimal previousBalance = wallet.getBalance();
+        wallet.setBalance(wallet.getBalance().subtract(request.getAmount()));
+        walletRepository.save(wallet);
+
+        Transaction transaction = new Transaction();
+        transaction.setWallet(wallet);
+        transaction.setUser(wallet.getUser());
+        transaction.setAmount(request.getAmount().negate());
+        transaction.setType(Transactions.PAYMENT);
+        transaction.setCreatedAt(Instant.now());
+        transaction.setDescription(request.getDescription());
+        transactionRepository.save(transaction);
+
+        return new TransactionResponse(
+                transaction.getTransactionID(),
+                request.getWalletID(),
+                previousBalance,
+                wallet.getBalance(),
+                transaction.getAmount(),
+                transaction.getCreatedAt(),
+                transaction.getDescription()
+        );
+    }
+
+    @Transactional
+    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.token.claims['userId'])")
+    public TransactionResponse deposit(DepositRequest request) {
         Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
 
@@ -112,7 +159,7 @@ public class WalletService {
         transaction.setWallet(wallet);
         transaction.setUser(wallet.getUser());
         transaction.setAmount(request.getAmount().negate());
-        transaction.setType(Transactions.PAYMENT);
+        transaction.setType(Transactions.DEPOSIT);
         transaction.setCreatedAt(Instant.now());
         transaction.setDescription(request.getDescription());
         transactionRepository.save(transaction);

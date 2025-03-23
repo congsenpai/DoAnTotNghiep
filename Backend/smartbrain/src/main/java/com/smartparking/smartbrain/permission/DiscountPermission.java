@@ -16,9 +16,11 @@ import com.smartparking.smartbrain.repository.ParkingSlotRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DiscountPermission {
 
@@ -50,6 +52,7 @@ public class DiscountPermission {
         // Kiểm tra Discount có thuộc ParkingLot của ParkingSlot không
         if (discount.getParkingLot() != null && slot.getParkingLot() != null) {
             if (Objects.equals(discount.getParkingLot().getParkingLotID(), slot.getParkingLot().getParkingLotID())) {
+                log.info("Discount valid");
                 return true;
             }
         }
