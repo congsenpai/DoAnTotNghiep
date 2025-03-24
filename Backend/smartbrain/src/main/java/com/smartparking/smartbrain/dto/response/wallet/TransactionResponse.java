@@ -1,7 +1,8 @@
 package com.smartparking.smartbrain.dto.response.Wallet;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.Instant;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,6 @@ public class TransactionResponse {
     private BigDecimal previousBalance; // Số dư trước giao dịch
     private BigDecimal currentBalance;  // Số dư sau giao dịch
     private BigDecimal amount;          // Số tiền giao dịch
-    private Timestamp timestamp;        // Thời gian giao dịch
+    private Instant timestamp;        // Thời gian giao dịch
     private String description;         // Mô tả giao dịch
 }

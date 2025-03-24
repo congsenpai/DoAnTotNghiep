@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-
 import com.smartparking.smartbrain.dto.request.ParkingLot.CreatedParkingLotRequest;
 import com.smartparking.smartbrain.dto.request.ParkingLot.LocationConfig;
 import com.smartparking.smartbrain.dto.request.ParkingLot.VehicleSlotConfig;
@@ -12,7 +11,6 @@ import com.smartparking.smartbrain.dto.response.ParkingLot.ParkingLotResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.ParkingLotMapper;
-import com.smartparking.smartbrain.mapper.ParkingSlotMapper;
 import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.model.ParkingSlot;
 import com.smartparking.smartbrain.model.User;
@@ -32,12 +30,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ParkingLotService {
+
     ParkingLotRepository parkingLotRepository;
     ParkingLotMapper parkingLotMapper;
     UserRepository userRepository;
     ImagesRepository imagesRepository;
     ParkingSlotRepository parkingSlotRepository;
-    ParkingSlotMapper parkingSlotMapper;
 
     public ParkingLotResponse createParkingLot(@Valid CreatedParkingLotRequest createdParkingLotRequest) {
         // check user exist
@@ -79,31 +77,34 @@ public class ParkingLotService {
         }
         // create reponse
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-        response.setUserID(parkingLot.getUser().getUserId());
+        response.setUserID(parkingLot.getUser().getUserID());
         response.setImages(createdParkingLotRequest.getImages());
-        var slots = parkingSlotRepository.findByParkingLot(parkingLot);
-        response.setParkingSlots(slots.stream().map(parkingSlotMapper::toParkingSlotResponse).collect(Collectors.toSet()));
         return response;
     }
+
     public ParkingLotResponse getParkingLotByID(String parkingLotID) {
         var parkingLot = parkingLotRepository.findById(parkingLotID)
         .orElseThrow(() -> new AppException(ErrorCode.PARKING_LOT_NOT_FOUND));
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-        response.setUserID(parkingLot.getUser().getUserId());
+        response.setUserID(parkingLot.getUser().getUserID());
         response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
         return response;
     }
+
     public List<ParkingLotResponse> getAllParkingLot() {
 
         return parkingLotRepository.findAll().stream().map(parkingLot -> {
             ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-            response.setUserID(parkingLot.getUser().getUserId());
+            response.setUserID(parkingLot.getUser().getUserID());
             response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
             return response;
         }).collect(Collectors.toList());
     }
 
     public void deleteParkingLot(String parkingLotID) {
+        if (!parkingLotRepository.existsById(parkingLotID)) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_EXISTS);
+        }
         parkingLotRepository.deleteById(parkingLotID);
     }
 }

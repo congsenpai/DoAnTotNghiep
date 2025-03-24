@@ -35,7 +35,6 @@ public class UserService {
     final PasswordEncoder passwordEncoder;
     final UserMapper userMapper;
     
-    
     public UserResponse createReqUser(UserRequest request){
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);

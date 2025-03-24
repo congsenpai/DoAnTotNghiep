@@ -45,10 +45,8 @@ public class ParkingSlotService {
         return parkingSlotMapper.toParkingSlotResponse(parkingSlot);
     }
 
-    public List<ParkingSlotResponse> getAllParkingSlot(String parkingLotID){
-        ParkingLot parkingLot= parkingLotRepository.findById(parkingLotID)
-        .orElseThrow(() -> new AppException(ErrorCode.PARKING_LOT_NOT_FOUND));
-        List<ParkingSlot> parkingSlots = parkingSlotRepository.findByParkingLot(parkingLot);
+    public List<ParkingSlotResponse> getAllParkingSlotByParkingLotID(String parkingLotID){
+        List<ParkingSlot> parkingSlots = parkingSlotRepository.findByParkingLot_ParkingLotID(parkingLotID);
         return parkingSlots.stream().map(parkingSlotMapper::toParkingSlotResponse).toList();
     }
     

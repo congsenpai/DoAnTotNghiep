@@ -2,8 +2,6 @@ package com.smartparking.smartbrain.dto.response.ParkingLot;
 
 import java.util.Set;
 
-import com.smartparking.smartbrain.dto.response.ParkingSlot.ParkingSlotResponse;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +25,5 @@ public class ParkingLotResponse {
     Double rate;
     String description;
     String userID;
-    Set<ParkingSlotResponse> parkingSlots;
     Set<String> images;
 }

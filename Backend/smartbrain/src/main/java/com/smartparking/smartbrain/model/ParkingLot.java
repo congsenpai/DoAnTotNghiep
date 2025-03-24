@@ -1,6 +1,9 @@
 package com.smartparking.smartbrain.model;
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.LotStatus;
 
@@ -14,8 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -60,17 +61,16 @@ public class ParkingLot {
     Set<ParkingSlot> parkingSlots;
     @OneToMany(mappedBy = "parkingLot")
     Set<Image> images;
+    @OneToMany(mappedBy="parkingLot")
+    Set<Discount> discounts;
+    @OneToMany(mappedBy = "parkingLot")
+    Set<Rating> ratings;
 
     // Timestamp
-    Timestamp createAt;
-    Timestamp updateAt;
-        @PrePersist
-    protected void onCreate() {
-        this.createAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateAt = new Timestamp(System.currentTimeMillis());
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    Instant createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Instant updatedAt;
 }

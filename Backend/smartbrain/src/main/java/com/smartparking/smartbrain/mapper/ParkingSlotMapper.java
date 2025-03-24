@@ -11,9 +11,9 @@ import com.smartparking.smartbrain.model.ParkingSlot;
 public interface ParkingSlotMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "invoice", ignore = true)
-    @Mapping(target = "monthlyTicket", ignore = true)
+    @Mapping(target = "monthlyTickets", ignore = true)
     @Mapping(target = "parkingLot", ignore = true)
-    @Mapping(target = "slotId", ignore = true)
+    @Mapping(target = "slotID", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     ParkingSlot toParkingSlot(CreatedParkingSlotRequest request);
 

@@ -1,7 +1,11 @@
 package com.smartparking.smartbrain.model;
 
-import java.sql.Timestamp;
+
+import java.time.Instant;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -32,7 +36,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id", nullable = false, updatable = false)
-    String userId;
+    String userID;
 
     @Column(unique = true, nullable = false)
     @NotNull(message = "Username cannot be null")
@@ -67,11 +71,6 @@ public class User {
 
     String avatar;
 
-    @Column(nullable = false, updatable = false)
-    Timestamp createdDate;
-
-    Timestamp updatedDate;
-
     // Relationship
     @Column(nullable = false)
     @NotNull(message = "Role cannot be null")
@@ -81,7 +80,7 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
     Set<Role> roles;
     // Relationship One to Many
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // if the user is deleted then the related info will be also deleted
     Set<Wallet> wallets;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -98,16 +97,14 @@ public class User {
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<ParkingLot> parkingLots;
-    
 
-    // Lifecycle Hooks for Timestamps
-    @PrePersist
-    protected void onCreate() {
-        this.createdDate = new Timestamp(System.currentTimeMillis());
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Rating> ratings;
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedDate = new Timestamp(System.currentTimeMillis());
-    }
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    Instant createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Instant updatedAt;
 }

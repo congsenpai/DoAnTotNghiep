@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,6 +24,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InvalidToken {
     @Id
-    String id;
+    @Column(name = "token_id")
+    String tokenID;
     Date expiryTime;
 }

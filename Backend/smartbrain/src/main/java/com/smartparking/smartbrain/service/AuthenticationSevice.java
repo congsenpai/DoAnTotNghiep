@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.service;
 
 import java.text.ParseException;
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -104,7 +105,7 @@ public class AuthenticationSevice {
         String id=signedJWT.getJWTClaimsSet().getJWTID();
         Date expiryTime=signedJWT.getJWTClaimsSet().getExpirationTime();
         InvalidToken invalidToken = InvalidToken.builder()
-            .id(id)
+            .tokenID(id)
             .expiryTime(expiryTime)
             .build();
         invalidatedRepository.save(invalidToken);
@@ -115,7 +116,7 @@ public class AuthenticationSevice {
         String id=signedJWT.getJWTClaimsSet().getJWTID();
         Date expiryTime=signedJWT.getJWTClaimsSet().getExpirationTime();
         InvalidToken invalidRefreshToken = InvalidToken.builder()
-            .id(id)
+            .tokenID(id)
             .expiryTime(expiryTime)
             .build();
         invalidatedRepository.save(invalidRefreshToken);

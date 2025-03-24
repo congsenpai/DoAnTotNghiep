@@ -1,7 +1,10 @@
 package com.smartparking.smartbrain.model;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.TransactionStatus;
 import com.smartparking.smartbrain.enums.Transactions;
@@ -31,7 +34,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "transaction_id", nullable = false, updatable = false)
-    String transactionId;
+    String transactionID;
     @NotNull(message = "Amount cannot be null")
     BigDecimal amount;
     String description;
@@ -51,10 +54,11 @@ public class Transaction {
     Wallet wallet;
     @OneToOne(mappedBy="transaction")
     Invoice invoice;
-    @Column(nullable = false, updatable = false)
-    Timestamp createdDate;
-    @PrePersist
-    protected void onCreate() {
-        this.createdDate = new Timestamp(System.currentTimeMillis());
-    }
+    // Timestamp
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    Instant createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Instant updatedAt;
 }

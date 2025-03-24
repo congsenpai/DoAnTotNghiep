@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class WalletResponse {
-    private String walletId;
+    private String walletID;
     private String currency;
     private BigDecimal balance;
     private String name;

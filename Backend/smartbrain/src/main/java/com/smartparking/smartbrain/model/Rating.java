@@ -1,8 +1,4 @@
 package com.smartparking.smartbrain.model;
-import java.time.Instant;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,31 +17,27 @@ import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
+@Table(name = "ratings")
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "images")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Image {
+public class Rating {
     @Id
+    @Column(name = "rating_id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "image_id", nullable = false, updatable = false)
-    String imagesID;
-    String url;
+    String ratingID;
+    int ratingValue;
+    String comment;
 
-    // Relationship
+    // relationship
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id",nullable = true)
+    @JoinColumn(name = "parking_lot_id",nullable = false)
     ParkingLot parkingLot;
-
+    
     @ManyToOne
-    @JoinColumn(name = "user_id",nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     User user;
-    // Timestamp
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    Instant createdAt;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    Instant updatedAt;
+
+
 }

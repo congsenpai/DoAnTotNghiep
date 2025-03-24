@@ -3,6 +3,7 @@ package com.smartparking.smartbrain.dto.response.User;
 import java.util.Set;
 
 import com.smartparking.smartbrain.dto.response.Role.RoleResponse;
+import com.smartparking.smartbrain.model.Vehicle;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class UserResponse {
     private String homeAddress;
     private String companyAddress;
     private Set<RoleResponse> roles;
+    private Set<Vehicle> vehicles;
     private boolean status;
     private String avatar;
 }

@@ -1,6 +1,5 @@
 package com.smartparking.smartbrain.dto.response;
 
-import com.smartparking.smartbrain.exception.ErrorCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
