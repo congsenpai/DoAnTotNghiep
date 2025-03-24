@@ -1,6 +1,7 @@
 package com.smartparking.smartbrain.dto.response.Invoice;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import com.smartparking.smartbrain.dto.response.Discount.DiscountResponse;
 import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
@@ -28,5 +29,5 @@ public class InvoiceResponse {
     String parkingLotName;
     VehicleResponse vehicle;
     Boolean isMonthlyTicket;
-    String createdAt;
+    Instant createdAt;
 }

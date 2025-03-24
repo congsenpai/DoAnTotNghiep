@@ -72,7 +72,8 @@ public class InvoiceService {
         invoice.setTotalAmount(depositValue);
         invoice.setStatus(InvoiceStatus.DEPOSIT);
         invoice = invoiceRepository.save(invoice);
-        InvoiceResponse invoiceResponse=invoiceMapper.toInvoiceResponse(invoice);
+        InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+        invoiceResponse.setCreatedAt(Instant.now());
         return invoiceResponse;
     }
     @Transactional(rollbackOn = AppException.class)
@@ -97,10 +98,6 @@ public class InvoiceService {
         BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(parkingSlot, discount, createdAt,false))
             .orElse(BigDecimal.ZERO);
         log.info("Total amount: {}", totalAmount);
-        log.info("Parking slot: {}", parkingSlot);
-        log.info("Discount: {}", discount);
-        log.info("Created at: {}", createdAt);
-        log.info("Invoice: {}", invoice);
         PaymentRequest paymentRequest= PaymentRequest.builder()
             .walletID(request.getWalletID())
             .amount(totalAmount)
@@ -119,7 +116,7 @@ public class InvoiceService {
         invoice = invoiceRepository.save(invoice);
         log.info("complete save invoice");
         InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
-        invoiceResponse.setIsMonthlyTicket(false);
+        invoiceResponse.setCreatedAt(Instant.now());
         return invoiceResponse;
     }
 
@@ -162,9 +159,9 @@ public class InvoiceService {
         invoiceRepository.save(invoice);
         invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
             .orElseThrow(()-> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
-        InvoiceResponse invoiceResponse=invoiceMapper.toInvoiceResponse(invoice);
-        invoiceResponse.setIsMonthlyTicket(true);
-        return invoiceResponse;
+            InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+            invoiceResponse.setCreatedAt(Instant.now());
+            return invoiceResponse;
     }
 
 

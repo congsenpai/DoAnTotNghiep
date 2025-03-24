@@ -1,13 +1,18 @@
 package com.smartparking.smartbrain.mapper;
 
+import java.time.Instant;
+
+import org.hibernate.proxy.HibernateProxy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import com.smartparking.smartbrain.converter.DateTimeConverter;
 import com.smartparking.smartbrain.converter.EntityConverter;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedMonthlyRequest;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.model.Invoice;
+import com.smartparking.smartbrain.model.MonthlyTicket;
 
 @Mapper(componentModel = "spring", uses = {DateTimeConverter.class,EntityConverter.class})
 public interface InvoiceMapper {
@@ -42,8 +47,19 @@ public interface InvoiceMapper {
     @Mapping(source = "parkingSlot.slotName", target = "parkingSlotName")
     @Mapping(source = "user.userID", target = "userID")
     @Mapping(source = "vehicle", target = "vehicle")
-    @Mapping(ignore = true, target = "isMonthlyTicket")
+    @Mapping(source = "monthlyTicket", target = "isMonthlyTicket", qualifiedByName = "mapIsMonthlyTicket")
     @Mapping(source = "parkingSlot.parkingLot.parkingLotName", target = "parkingLotName")
+    @Mapping(target = "createdAt", ignore = true)
     InvoiceResponse toInvoiceResponse(Invoice invoice);
+
+    // Named mapper
+    @Named("mapIsMonthlyTicket")
+    default boolean mapIsMonthlyTicket(MonthlyTicket monthlyTicket) {
+    if (monthlyTicket == null ||
+        monthlyTicket instanceof HibernateProxy && !((HibernateProxy) monthlyTicket).getHibernateLazyInitializer().isUninitialized()) {
+        return false;
+    }
+    return true;
+    }
     
 }
