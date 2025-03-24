@@ -21,9 +21,8 @@ public class DepositRequest {
     @DecimalMin(value = "0.01", inclusive = true, message = "Amount must be greater than 0")
     BigDecimal amount;
     @NotNull(message = "Currency is required")
-    String currency; // Optional
-
-    String description; // Optional
+    String currency;
+    String description;
     @NotNull(message = "Wallet ID is required")
     String walletID;
 }

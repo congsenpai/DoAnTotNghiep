@@ -3,7 +3,9 @@ package com.smartparking.smartbrain.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedMonthlyRequest;
+import com.smartparking.smartbrain.dto.request.Invoice.PaymentDailyRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.service.InvoiceService;
@@ -30,18 +32,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InvoiceController {
     InvoiceService invoiceService;
-    // @PostMapping("/daily/deposit")
-    // public ApiResponse<InvoiceResponse> depositDailyInvoice(@Valid @RequestBody InvoiceCreatedDailyRequest request) {
-    //     return ApiResponse.<InvoiceResponse>builder()
-    //     .result(invoiceService.depositDailyInvoice(request))
-    //     .build();
-    // }
-    // @PostMapping("/daily/payment")
-    // public ApiResponse<InvoiceResponse> paymentDailyInvoice(@Valid @RequestBody InvoiceCreatedDailyRequest request) {
-    //     return ApiResponse.<InvoiceResponse>builder()
-    //     .result(invoiceService.depositDailyInvoice(request))
-    //     .build();
-    // }
+    @PostMapping("/daily/deposit")
+    public ApiResponse<InvoiceResponse> depositDailyInvoice(@Valid @RequestBody InvoiceCreatedDailyRequest request) {
+        return ApiResponse.<InvoiceResponse>builder()
+        .result(invoiceService.depositDailyInvoice(request))
+        .build();
+    }
+    @PostMapping("/daily/payment")
+    public ApiResponse<InvoiceResponse> paymentDailyInvoice(@Valid @RequestBody PaymentDailyRequest request) {
+        return ApiResponse.<InvoiceResponse>builder()
+        .result(invoiceService.paymentDailyInvoice(request))
+        .build();
+    }
     @PostMapping("/monthly")
     public ApiResponse<InvoiceResponse> createMonthlyInvoice(@Valid @RequestBody InvoiceCreatedMonthlyRequest request) {
         return ApiResponse.<InvoiceResponse>builder()

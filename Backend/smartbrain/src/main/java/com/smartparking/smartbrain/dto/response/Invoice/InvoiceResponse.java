@@ -1,11 +1,10 @@
 package com.smartparking.smartbrain.dto.response.Invoice;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
+import com.smartparking.smartbrain.dto.response.Discount.DiscountResponse;
+import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
-import com.smartparking.smartbrain.model.Transaction;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,14 +18,15 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InvoiceResponse {
+    String invoiceID;
     BigDecimal totalAmount;
     InvoiceStatus status;
     String description;
-    Set<Transaction> transactions;
     String userID;
-    String discountID;
-    String parkingSlotID;
-    String vehicleID;
+    DiscountResponse discount;
+    String parkingSlotName;
+    String parkingLotName;
+    VehicleResponse vehicle;
     Boolean isMonthlyTicket;
     String createdAt;
 }

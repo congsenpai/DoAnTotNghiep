@@ -7,6 +7,7 @@ public enum ErrorCode {
     NOT_REFRESH_TOKEN(0002,"Not refresh token"),
     NOT_ACCESS_TOKEN(0003,"Not access token"),
     INVALID_TOKEN(0004,"Invalid token"),
+    SLOT_NOT_VALID_WITH_VEHICLE_TYPE(0005,"Slot not valid with vehicle type"),
 
 
     // User errors

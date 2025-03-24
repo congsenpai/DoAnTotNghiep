@@ -15,7 +15,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PaymentDailyRequest {
     @NotEmpty(message = "Invoice can not be null")
-    String orderID;
+    String invoiceID;
     @NotEmpty(message = "Wallet can not be null")
     String walletID;
+    String parkingSlotID;
+    String discountID;
 }

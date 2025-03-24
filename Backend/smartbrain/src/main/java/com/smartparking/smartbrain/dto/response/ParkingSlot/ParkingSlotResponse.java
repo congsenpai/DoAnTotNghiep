@@ -15,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ParkingSlotResponse {
+    String slotID;
     String slotName;
     String vehicleType;
     String slotStatus;

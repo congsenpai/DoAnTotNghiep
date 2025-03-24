@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.smartparking.smartbrain.enums.UserStatus;
 import com.smartparking.smartbrain.model.Permission;
 import com.smartparking.smartbrain.model.Role;
 import com.smartparking.smartbrain.model.User;
@@ -134,10 +135,9 @@ public class ApplicationInitConfig {
                     .phone("1234567890")
                     .homeAddress("123 Admin St.")
                     .companyAddress("123 Admin St.")
-                    .avatar("default-avatar.png")
                     .createdAt(Instant.now())
                     .updatedAt(Instant.now())
-                    .status(true)
+                    .status(UserStatus.ACTIVE)
                     .build();
 
                 userRepository.save(user);

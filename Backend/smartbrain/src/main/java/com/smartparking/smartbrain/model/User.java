@@ -7,6 +7,8 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.smartparking.smartbrain.enums.UserStatus;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -67,16 +69,15 @@ public class User {
 
     @Column(nullable = false)
     @Builder.Default
-    Boolean status = true;
-
-    String avatar;
+    @Enumerated(EnumType.STRING)
+    UserStatus status = UserStatus.ACTIVE;
 
     // Relationship
     @Column(nullable = false)
     @NotNull(message = "Role cannot be null")
 
     // Relationship with Role Many to Many - User can have multiple roles
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
     Set<Role> roles;
     // Relationship One to Many
@@ -100,6 +101,8 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Rating> ratings;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Image image;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

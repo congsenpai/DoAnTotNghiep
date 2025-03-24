@@ -21,7 +21,6 @@ public class PaymentRequest {
     BigDecimal amount;
     @NotNull(message = "Currency is required")
     String currency; // Optional
-
     String description; // Optional
     @NotNull(message = "Wallet ID is required")
     String walletID;

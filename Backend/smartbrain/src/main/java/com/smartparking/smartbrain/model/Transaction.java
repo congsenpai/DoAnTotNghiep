@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.TransactionStatus;
-import com.smartparking.smartbrain.enums.Transactions;
+import com.smartparking.smartbrain.enums.TransactionType;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -40,7 +40,7 @@ public class Transaction {
     BigDecimal amount;
     String description;
     @Enumerated(EnumType.STRING)
-    Transactions type;
+    TransactionType type;
     @Enumerated(EnumType.STRING)
     @Builder.Default
     TransactionStatus status= TransactionStatus.PENDING;

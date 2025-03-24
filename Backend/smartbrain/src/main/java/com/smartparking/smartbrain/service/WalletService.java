@@ -1,11 +1,9 @@
 package com.smartparking.smartbrain.service;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Currency;
 import java.util.List;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +14,13 @@ import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
 import com.smartparking.smartbrain.dto.response.Wallet.TransactionResponse;
 import com.smartparking.smartbrain.dto.response.Wallet.WalletResponse;
-import com.smartparking.smartbrain.enums.Transactions;
+import com.smartparking.smartbrain.enums.TransactionStatus;
+import com.smartparking.smartbrain.enums.TransactionType;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
+import com.smartparking.smartbrain.mapper.TransactionMapper;
 import com.smartparking.smartbrain.mapper.WalletMapper;
+import com.smartparking.smartbrain.model.Invoice;
 import com.smartparking.smartbrain.model.Transaction;
 import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Wallet;
@@ -42,13 +43,13 @@ public class WalletService {
     UserRepository userRepository;
     TransactionRepository transactionRepository;
     WalletMapper walletMapper;
+    TransactionMapper transactionMapper;
 
-    @Transactional
+    @Transactional(rollbackFor = AppException.class)
     public TransactionResponse topUp(TopUpRequest request) {
         log.info("Top up wallet with request: {}", request);
         Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
-        BigDecimal previousBalance = wallet.getBalance();
         if (request.getCurrency() != null) {
             try {
                 Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
@@ -65,30 +66,23 @@ public class WalletService {
         
         walletRepository.save(wallet);
 
-        Transaction transaction = new Transaction();
-        transaction.setWallet(wallet);
-        transaction.setUser(wallet.getUser());
-        transaction.setAmount(request.getAmount());
-        transaction.setType(Transactions.TOP_UP);
-        transaction.setCreatedAt(Instant.now());
-        transaction.setDescription(request.getDescription() != null ? request.getDescription() : "Top-up wallet");
+        Transaction transaction = Transaction.builder()
+                .wallet(wallet)
+                .user(wallet.getUser())
+                .amount(request.getAmount())
+                .type(TransactionType.TOP_UP)
+                .status(TransactionStatus.COMPLETED)
+                .createdAt(Instant.now())
+                .description(request.getDescription() != null ? request.getDescription() : "Top-up wallet")
+                .build();
         transactionRepository.save(transaction);
 
-        return new TransactionResponse(
-                transaction.getTransactionID(),
-                request.getWalletID(),
-                previousBalance,
-                wallet.getBalance(),
-                request.getAmount(),
-                transaction.getCreatedAt(),
-                transaction.getDescription()
-        );
+        return transactionMapper.toTransactionResponse(transaction);
     }
 
-    @Transactional
-    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.token.claims['userId'])")
-    public TransactionResponse makePayment(PaymentRequest request) {
-        Wallet wallet = walletRepository.findById(request.getWalletID())
+    @Transactional(rollbackFor = AppException.class)
+    public TransactionResponse makePayment(PaymentRequest request, Invoice invoice) {
+        Wallet wallet = walletRepository.findByIdWithUser(request.getWalletID())
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
         log.info("Make payment with request: {}", request);
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
@@ -106,36 +100,28 @@ public class WalletService {
             
         }
 
-        BigDecimal previousBalance = wallet.getBalance();
         wallet.setBalance(wallet.getBalance().subtract(request.getAmount()));
         walletRepository.save(wallet);
 
-        Transaction transaction = new Transaction();
-        transaction.setWallet(wallet);
-        transaction.setUser(wallet.getUser());
-        transaction.setAmount(request.getAmount().negate());
-        transaction.setType(Transactions.PAYMENT);
-        transaction.setCreatedAt(Instant.now());
-        transaction.setDescription(request.getDescription());
+        Transaction transaction = Transaction.builder()
+                .wallet(wallet)
+                .user(wallet.getUser())
+                .invoice(invoice)
+                .amount(request.getAmount().negate())
+                .type(TransactionType.PAYMENT)
+                .status(TransactionStatus.COMPLETED)
+                .createdAt(Instant.now())
+                .description(request.getDescription())
+                .build();
         transactionRepository.save(transaction);
 
-        return new TransactionResponse(
-                transaction.getTransactionID(),
-                request.getWalletID(),
-                previousBalance,
-                wallet.getBalance(),
-                transaction.getAmount(),
-                transaction.getCreatedAt(),
-                transaction.getDescription()
-        );
+        return transactionMapper.toTransactionResponse(transaction);
     }
 
-    @Transactional
-    @PreAuthorize("@walletPermission.canAccessWallet(#request.walletID, authentication.token.claims['userId'])")
-    public TransactionResponse deposit(DepositRequest request) {
+    @Transactional(rollbackFor = AppException.class)
+    public TransactionResponse deposit(DepositRequest request, Invoice invoice) {
         Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
-
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
             throw new IllegalArgumentException("Insufficient balance");
         }
@@ -151,31 +137,23 @@ public class WalletService {
             
         }
 
-        BigDecimal previousBalance = wallet.getBalance();
         wallet.setBalance(wallet.getBalance().subtract(request.getAmount()));
         walletRepository.save(wallet);
 
-        Transaction transaction = new Transaction();
-        transaction.setWallet(wallet);
-        transaction.setUser(wallet.getUser());
-        transaction.setAmount(request.getAmount().negate());
-        transaction.setType(Transactions.DEPOSIT);
-        transaction.setCreatedAt(Instant.now());
-        transaction.setDescription(request.getDescription());
+        Transaction transaction = Transaction.builder()
+                .wallet(wallet)
+                .user(wallet.getUser())
+                .invoice(invoice)
+                .amount(request.getAmount().negate())
+                .type(TransactionType.DEPOSIT)
+                .status(TransactionStatus.COMPLETED)
+                .createdAt(Instant.now())
+                .description(request.getDescription())
+                .build();
         transactionRepository.save(transaction);
-
-        return new TransactionResponse(
-                transaction.getTransactionID(),
-                request.getWalletID(),
-                previousBalance,
-                wallet.getBalance(),
-                transaction.getAmount(),
-                transaction.getCreatedAt(),
-                transaction.getDescription()
-        );
+        return transactionMapper.toTransactionResponse(transaction);
     }
 
-    @Transactional
     public WalletResponse createWallet(CreateWalletRequest request) {
         Currency currency;
         try {

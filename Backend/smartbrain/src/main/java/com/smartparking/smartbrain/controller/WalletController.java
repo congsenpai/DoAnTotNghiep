@@ -1,6 +1,5 @@
 package com.smartparking.smartbrain.controller;
 import com.smartparking.smartbrain.dto.request.Wallet.CreateWalletRequest;
-import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.TopUpRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.UpdateWalletRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
@@ -85,17 +84,6 @@ public class WalletController {
         .code(200)
         .message("Wallet recharged successfully")
         .result(walletService.topUp(request))
-        .build();
-    }
-    // make payment
-    @PostMapping("/payment")
-    public ApiResponse<TransactionResponse> makePayment(
-            @RequestBody @Valid PaymentRequest request
-    ) {
-        return ApiResponse.<TransactionResponse>builder()
-        .code(200)
-        .message("Wallet recharged successfully")
-        .result(walletService.makePayment(request))
         .build();
     }
 }

@@ -7,12 +7,14 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -69,7 +71,8 @@ public class Invoice {
     @JoinColumn(name="vehicle_id", nullable = false)
     Vehicle vehicle;
 
-    @OneToOne(mappedBy = "invoice")
+    @OneToOne(mappedBy = "invoice",fetch = FetchType.LAZY)
+    @JsonIgnore
     MonthlyTicket monthlyTicket;
 
     // Timestamp

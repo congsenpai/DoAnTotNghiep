@@ -63,7 +63,7 @@ public class ParkingLotService {
                 int numSlots = vehicleSlotConfig.getNumberOfSlot(); // Số lượng slot cho loại xe này
                 for (int i = 0; i < numSlots; i++) {
                 // Định dạng số slot theo A00, A01, ..., A99 rồi tiếp tục A100 nếu cần
-                    String slotName = String.format("%s%02d", location.getLocation(), slotCounter.getAndIncrement());
+                    String slotName = String.format("%s%02d", "("+location.getLocation()+")", slotCounter.getAndIncrement());
                     ParkingSlot parkingSlot = ParkingSlot.builder()
                         .slotName(slotName)
                         .parkingLot(parkingLot)

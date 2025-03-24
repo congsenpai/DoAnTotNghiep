@@ -2,14 +2,12 @@ package com.smartparking.smartbrain.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import com.smartparking.smartbrain.converter.DateTimeConverter;
 import com.smartparking.smartbrain.converter.EntityConverter;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedMonthlyRequest;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.model.Invoice;
-import com.smartparking.smartbrain.model.MonthlyTicket;
 
 @Mapper(componentModel = "spring", uses = {DateTimeConverter.class,EntityConverter.class})
 public interface InvoiceMapper {
@@ -40,17 +38,12 @@ public interface InvoiceMapper {
     @Mapping(source = "discountCode", target = "discount", qualifiedByName = "mapDiscount")
     Invoice toMonthlyInvoice(InvoiceCreatedMonthlyRequest request);
     
-    @Mapping(source = "discount.discountID", target = "discountID")
-    @Mapping(source = "parkingSlot.slotID", target = "parkingSlotID")
+    @Mapping(source = "discount", target = "discount")
+    @Mapping(source = "parkingSlot.slotName", target = "parkingSlotName")
     @Mapping(source = "user.userID", target = "userID")
-    @Mapping(source = "vehicle.vehicleID", target = "vehicleID")
-    @Mapping(source = "monthlyTicket", target = "isMonthlyTicket", qualifiedByName = "mapIsMonthlyTicket")
+    @Mapping(source = "vehicle", target = "vehicle")
+    @Mapping(ignore = true, target = "isMonthlyTicket")
+    @Mapping(source = "parkingSlot.parkingLot.parkingLotName", target = "parkingLotName")
     InvoiceResponse toInvoiceResponse(Invoice invoice);
-
-    // Named mapper
-    @Named("mapIsMonthlyTicket") // if monthly ticket is null set false else set true
-    default boolean mapIsMonthlyTicket(MonthlyTicket monthlyTicket) {
-        return monthlyTicket != null;
-    }
     
 }
