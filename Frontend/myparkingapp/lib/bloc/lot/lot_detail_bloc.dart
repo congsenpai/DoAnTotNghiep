@@ -1,52 +1,71 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_event.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
-import 'package:myparkingapp/components/api_result.dart';
-import 'package:myparkingapp/data/data_on_floor.dart';
-import 'package:myparkingapp/repository/lots_repository.dart';
-import 'package:myparkingapp/repository/slot_repository.dart';
+import 'package:myparkingapp/data/response/parking_slots.dart';
+// import 'package:myparkingapp/data/repository/slot_repository.dart';
 
 class LotDetailBloc extends Bloc<LotDetailEvent,LotDetailState>{
   LotDetailBloc():super(LotDetailInitial()){
     on<LotDetailScreenInitialEvent>(_LoadHomeScreen);
     on<LoadListLotsEvent>(_LoadListLots);
   }
+
+  Future<List<DataOnFloor>> loadDataOnFloor() async{
+    List<ParkingSlot> slots = demoSlots;
+      Set<String> floorNames = slots.map((i)=>i.floorName).toSet();
+      List<DataOnFloor> datas = [];
+      for(var name in floorNames){
+        List<ParkingSlot> slot = slots.where((i)=>i.floorName == name).toList();
+        DataOnFloor dataOnFloor = DataOnFloor(name, slot, floorNames.toList());
+        datas.add(dataOnFloor);
+      }
+      return datas;
+  }
   void _LoadHomeScreen(LotDetailScreenInitialEvent event, Emitter<LotDetailState> emit) async {
-    SlotRepository slotRepository = SlotRepository();
+    // SlotRepository slotRepository = SlotRepository();
     emit(LoadingLotDetailState());
     try {
-      ApiResult apiResult = await slotRepository.getParkingSlotList(
-          event.token, event.parkingLot);
-      int code = apiResult.code;
-      String mess = apiResult.message;
-      if (code == 200) {
-        DataOnFloor dataOnFloor = apiResult.result[0];
-        emit(LoadedLotDetailState(dataOnFloor));
-      }
-      else {
-        emit(LotDetailErrorScreen(mess));
-      }
+      // ApiResult apiResult = await slotRepository.getParkingSlotList(event.parkingLot);
+      // int code = apiResult.code;
+      // String mess = apiResult.message;
+      // if (code == 200) {
+      //   DataOnFloor dataOnFloor = apiResult.result[0];
+      //   emit(LoadedLotDetailState(dataOnFloor));
+      // }
+      // else {
+      //   emit(LotDetailErrorScreen(mess));
+      // }
+      List<DataOnFloor> datas = await loadDataOnFloor();
+      DataOnFloor dataOnFloor = datas[0];
+      emit(LoadedLotDetailState(dataOnFloor));
+      
     }
     catch (e) {
       Exception("LotDetailBloc : $e");
     }
   }
   void _LoadListLots(LoadListLotsEvent event, Emitter<LotDetailState> emit ) async{
-    SlotRepository slotRepository = SlotRepository();
+    // SlotRepository slotRepository = SlotRepository();
     emit(LoadingLotDetailState());
     try {
-      ApiResult apiResult = await slotRepository.getParkingSlotList(
-          event.token, event.parkingLot);
-      int code = apiResult.code;
-      String mess = apiResult.message;
-      if (code == 200) {
-        List<DataOnFloor> datas = apiResult.result;
-        DataOnFloor dataOnFloor = datas.firstWhere((data)=>data.floorName == event.floorName);
-        emit(LoadedLotDetailState(dataOnFloor));
-      }
-      else {
-        emit(LotDetailErrorScreen(mess));
-      }
+      // ApiResult apiResult = await slotRepository.getParkingSlotList(
+      //     event.token, event.parkingLot);
+      // int code = apiResult.code;
+      // String mess = apiResult.message;
+      // if (code == 200) {
+      //   List<DataOnFloor> datas = apiResult.result;
+      //   DataOnFloor dataOnFloor = datas.firstWhere((data)=>data.floorName == event.floorName);
+      //   emit(LoadedLotDetailState(dataOnFloor));
+      // }
+      // else {
+      //   emit(LotDetailErrorScreen(mess));
+      // }
+      List<DataOnFloor> datas = await loadDataOnFloor();
+
+      DataOnFloor dataOnFloor = datas.firstWhere((data)=>data.floorName == event.floorName);
+      emit(LoadedLotDetailState(dataOnFloor));
+
+
     }
     catch (e) {
       Exception("LotDetailBloc : $e");

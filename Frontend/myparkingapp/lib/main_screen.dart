@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 
 import 'constants.dart';
-import 'data/parking_lot.dart';
+import 'data/response/parking_lot.dart';
 import 'screens/home/home_screen.dart';
-import 'screens/orderDetails/order_details_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  final List<ParkingLot> lots;
-  const MainScreen({super.key, required this.lots});
+  final User user;
+  const MainScreen({super.key, required this.user});
+
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -29,19 +31,11 @@ class _MainScreenState extends State<MainScreen> {
     {"icon": "assets/icons/order.svg", "title": "Orders"},
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    parkinglots = widget.lots;
-
-  }
-  final List<Widget> _screens = [
-    HomeScreen(token: '',),
-    SearchScreen(token: '',),
-    const OrderDetailsScreen(),
-    const ProfileScreen(),
+  late final List<Widget> _screens = [
+    HomeScreen( user: widget.user,),
+    SearchScreen( user:  widget.user,),
+    InvoiceScreen(user: widget.user,),
+    ProfileScreen(),
   ];
 
 // Screens

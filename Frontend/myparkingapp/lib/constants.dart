@@ -83,6 +83,7 @@ final matchValidator = MatchValidator(errorText: 'passwords do not match');
 final phoneNumberValidator = MinLengthValidator(10,
     errorText: 'Phone Number must be at least 10 digits long');
 
+final userNameValidator = MinLengthValidator(10, errorText: 'user name must be at least 8 digital long ');
 // Common Text
 final Center kOrText = Center(
     child: Text("Or", style: TextStyle(color: titleColor.withOpacity(0.7))));

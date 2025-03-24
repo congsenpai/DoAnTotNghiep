@@ -1,18 +1,15 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../data/response/invoice.dart';
 
 class OrderedItemCard extends StatelessWidget {
   const OrderedItemCard({
-    super.key,
-    required this.numOfItem,
-    required this.title,
-    required this.description,
-    required this.price,
+    super.key, required this.invoice,
   });
-  final int numOfItem;
-  final String? title, description;
-  final double? price;
+  final Invoice invoice;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +18,19 @@ class OrderedItemCard extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            NumOfItems(numOfItem: numOfItem),
+            StatusOfItems(numOfItem: invoice.status),
             const SizedBox(width: defaultPadding * 0.75),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title!,
+                    invoice.description,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: defaultPadding / 4),
                   Text(
-                    description!,
+                    invoice.vehicle.vehicleType.name,
                     style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -43,7 +40,7 @@ class OrderedItemCard extends StatelessWidget {
             ),
             const SizedBox(width: defaultPadding / 2),
             Text(
-              "USD$price",
+              "VNĐ ${invoice.totalAmount}",
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
@@ -58,13 +55,13 @@ class OrderedItemCard extends StatelessWidget {
   }
 }
 
-class NumOfItems extends StatelessWidget {
-  const NumOfItems({
+class StatusOfItems extends StatelessWidget {
+  const StatusOfItems({
     super.key,
     required this.numOfItem,
   });
 
-  final int numOfItem;
+  final InvoiceStatus numOfItem;
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +71,15 @@ class NumOfItems extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-            width: 0.5, color: const Color(0xFF868686).withOpacity(0.3)),
+      
       ),
-      child: Text(
-        numOfItem.toString(),
-        style: Theme.of(context)
-            .textTheme
-            .labelLarge!
-            .copyWith(color: primaryColor),
+      child: CircleAvatar(
+        backgroundColor: numOfItem == InvoiceStatus.PAID ? Colors.green : numOfItem == InvoiceStatus.CANCELLED ? Colors.red : Colors.yellow,
+        child: Icon(
+          numOfItem == InvoiceStatus.PAID ? Icons.check : numOfItem == InvoiceStatus.CANCELLED ? Icons.close : Icons.warning,
+          color: Colors.white,
+          size: 20,
+        ),
       ),
     );
   }

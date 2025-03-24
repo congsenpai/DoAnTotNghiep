@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/booking/booking_bloc.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
-import 'package:myparkingapp/data/parking_slots.dart';
-import 'package:myparkingapp/data/discount.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/discount.dart';
 import 'package:myparkingapp/demo_data.dart';
 import '../bloc/booking/booking_event.dart';
 
 class AutocompleteDropDown extends StatefulWidget {
   final List<MonthInfo> months;
   final Discount discount;
-  final Slot slot;
+  final ParkingSlot slot;
   final ParkingLot lot;
   final List<Discount> discounts;
   final DateTime start;

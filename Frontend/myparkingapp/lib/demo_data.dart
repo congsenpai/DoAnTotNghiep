@@ -1,6 +1,6 @@
 
 
-import 'package:myparkingapp/data/discount.dart';
+import 'package:myparkingapp/data/response/discount.dart';
 
 List<String> bannerHomeScreen = [
   "assets/images/big_1.png",
@@ -46,7 +46,7 @@ Discount emptyDiscount = Discount(
     discountType: DiscountType.FIXED,
     discountValue: 0,
     description: "",
-    parkingLotId: '');
+    parkingLotId: '', expiredAt: '');
 List<Map<int, String>> month = [
   {1: "January"},
   {2: "February"},

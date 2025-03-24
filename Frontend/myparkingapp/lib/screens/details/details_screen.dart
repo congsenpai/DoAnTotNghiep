@@ -3,21 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
-import 'package:myparkingapp/data/data_on_floor.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
 
 import '../../bloc/lot/lot_detail_event.dart';
 import '../../components/app_dialog.dart';
 import '../../constants.dart';
-import '../search/search_screen.dart';
 import 'components/featured_items.dart';
 import 'components/iteams.dart';
 import 'components/lot_info.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final String token;
+  final User user;
   final ParkingLot parkingLot;
-  const DetailsScreen({super.key, required this.parkingLot, required this.token});
+  const DetailsScreen({super.key, required this.parkingLot, required this.user});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -32,7 +32,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<LotDetailBloc>().add(LotDetailScreenInitialEvent(widget.token, widget.parkingLot));
+    context.read<LotDetailBloc>().add(LotDetailScreenInitialEvent(widget.parkingLot));
   }
 
 
@@ -82,7 +82,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               String selectedFloorName = floorNames[index];
                               // Gửi event kèm tên tầng
                               context.read<LotDetailBloc>().add(
-                                LoadListLotsEvent(widget.token, selectedFloorName, widget.parkingLot),
+                                LoadListLotsEvent( selectedFloorName, widget.parkingLot),
                               );
                             },
                             tabs: floorNames.map((name) => Tab(text: name)).toList(), // Tạo tab cho mỗi tầng
@@ -91,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ],
                       ),
                     ),
-                    Items(slots: dataOnFloor.lots, lot: widget.parkingLot, token: widget.token,),
+                    Items(slots: dataOnFloor.lots, lot: widget.parkingLot, user: widget.user,),
                   ],
                 ),
               ),

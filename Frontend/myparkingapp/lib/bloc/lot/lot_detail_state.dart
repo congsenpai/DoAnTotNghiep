@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/data_on_floor.dart';
+import 'package:myparkingapp/data/response/parking_slots.dart';
 
 abstract class LotDetailState{
 

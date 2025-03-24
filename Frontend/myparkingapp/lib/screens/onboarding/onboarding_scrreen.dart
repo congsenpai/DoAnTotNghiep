@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import '../../constants.dart';
 import '../../components/dot_indicators.dart';

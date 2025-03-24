@@ -1,11 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/booking/booking_event.dart';
 import 'package:myparkingapp/bloc/booking/booking_state.dart';
-import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/demo_data.dart';
-import 'package:myparkingapp/repository/discount_repository.dart';
 
-import '../../data/discount.dart';
+import '../../data/response/discount.dart';
 
 class BookingBloc extends Bloc<BookingEvent,BookingState>{
   BookingBloc():super(BookingInitialState()){
@@ -15,12 +13,11 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
   }
 
   void _loadBookingScreen (BookingInitialEvent event, Emitter<BookingState> emit) async{
-    DiscountRepository discountRepository = DiscountRepository();
+    // DiscountRepository discountRepository = DiscountRepository();
     try{
       emit(BookingLoadingState());
       print("\n-----------------------------------error\n");
-      ApiResult apiResult = await discountRepository.getListDiscountByLot(event.lot, event.token);
-      List<Discount> discounts = apiResult.result;
+      List<Discount> discounts = discountDemo.where((i)=>i.parkingLotId == event.lot.parkingLotID).toList();
       List<MonthInfo> months = await MonthInfo.renderMonthList(DateTime.now());
       print("\n-----------------------------------error\n");
       emit(BookingLoadedState(
@@ -31,7 +28,7 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
         discounts[0]));
     }
     catch (e){
-      throw Exception("_loadBookingScreen : $e");
+      throw Exception("BookingBloc_loadBookingScreen : $e");
     }
   }
   void _BookingCreateInvoice(BookingCreateInvoiceEvent event, Emitter<BookingState> emit) async{

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/user.dart';
 
 import '../../bloc/search/search_bloc.dart';
 import '../../bloc/search/search_event.dart';
@@ -12,9 +13,8 @@ import '../../components/pagination_button.dart';
 import '../../constants.dart';
 
 class SearchScreen extends StatefulWidget {
-
-  final String token;
-  const SearchScreen({super.key, required this.token});
+  final User user;
+  const SearchScreen({super.key,required this.user});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchBloc>().add(SearchScreenInitialEvent(widget.token));
+    context.read<SearchBloc>().add(SearchScreenInitialEvent());
   }
 
   @override
@@ -48,7 +48,8 @@ class _SearchScreenState extends State<SearchScreen> {
               SearchForm(page: 1, token: '',),
             ],
           ),
-        ),)
+        ),
+        )
       ),
       body: BlocConsumer<SearchBloc,SearchState>
         (builder:  (context,state){
@@ -70,13 +71,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       Text("Search Results" ,
                           style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(height: defaultPadding),
-                      ParkingLotList(lots: lots),
+                      ParkingLotList(lots: lots, user: widget.user),
                       const SizedBox(height: defaultPadding),
 
                       PaginationButtons(page: page, pageAmount: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
-                          context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(widget.token,searchText,page)) ;// Gọi hàm search
+                          context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(searchText,page)) ;// Gọi hàm search
                         });
                         // Gọi API hoặc cập nhật dữ liệu cho trang mới
                       },)// Không cần SingleChildScrollView nữa
@@ -117,7 +118,7 @@ class _SearchFormState extends State<SearchForm> {
         controller: _controller,
         onFieldSubmitted: (value) {
           if (_formKey.currentState!.validate()) {
-            context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(widget.token,_controller.text,widget.page)) ;// Gọi hàm search
+            context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(_controller.text,widget.page)) ;// Gọi hàm search
           }
         },
         validator: requiredValidator.call,

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
-import 'package:myparkingapp/data/parking_slots.dart';
-import 'package:myparkingapp/data/service.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/service.dart';
 
 import '../../../constants.dart';
 import '../../../screens/details/details_screen.dart';

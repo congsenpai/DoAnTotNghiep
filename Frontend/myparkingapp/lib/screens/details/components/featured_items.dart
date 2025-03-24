@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../app/locallization/app_localizations.dart';
 import '../../../components/expand_image.dart';
 import '../../../constants.dart';
-import '../../../data/images.dart';
+import '../../../data/response/images.dart';
 import 'featured_item_card.dart';
 
 class FeaturedItems extends StatelessWidget {

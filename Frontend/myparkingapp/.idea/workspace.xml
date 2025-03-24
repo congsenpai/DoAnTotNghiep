@@ -5,52 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_bloc.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_event.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/components/auto_complete_dropdown.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/invoice.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/data/monthly_ticket.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/repository/discount_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/discount_on_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/repository/invoice_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/lang/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/vi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/theme/app_theme.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/api_result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/api_result.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/app_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/cards/big/big_card_image_slide.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/big/big_card_image_slide.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/home/home_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/home/home_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/lot/lot_detail_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/auto_complete_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/auto_complete_dropdown.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/components/cards/big/parkingLot_info_big_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/big/parkingLot_info_big_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/components/cards/big/service_info_big_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/big/service_info_big_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/components/cards/medium/lot_info_medium_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/medium/lot_info_medium_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/price_range_and_food_type.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/vehicle_type_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/discount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/discount.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/parking_lot.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/parking_lot.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/parking_slots.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/parking_slots.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/transaction.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/wallet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/wallet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/data_on_floor.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/discount.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/images.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/invoice.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/lot_on_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/lot_on_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/monthly_ticket.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/parking_lot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/parking_slots.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/transaction.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/user.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/vehicle.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/wallet.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/demo_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/demo_data.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/discount_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/discount_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/repository/lots_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/lots_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/addToOrder/add_to_order_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/addToOrder/components/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/components/info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/addToOrder/components/required_section_title.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/components/required_section_title.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/addToOrder/components/rounded_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/components/rounded_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/addToOrder/components/rounded_checkedbox_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/components/rounded_checkedbox_list_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/auth/components/sign_in_form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/auth/components/sign_in_form.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/details/components/featured_item_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_item_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/slot_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/slot_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/user_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/wallet_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/wallet_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/booking/components/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/components/info.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/details/components/featured_items.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/featured_items.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/details/components/iteams.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/iteams.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/details/components/lot_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/components/lot_info.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/details/details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/details/details_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/featured/components/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/featured/components/body.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/featured/featurred_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/featured/featurred_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/findRestaurants/find_restaurants_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/acceptLocation/find_restaurants_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home/components/promotion_banner.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/components/promotion_banner.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/components/parking_lot_card_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/components/parking_lot_card_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/onboarding/onboarding_scrreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/onboarding/onboarding_scrreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/orderDetails/components/order_item_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoiceDetails/components/order_item_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/orderDetails/components/price_row.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoiceDetails/components/price_row.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/orderDetails/components/total_price.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoiceDetails/components/total_price.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/orderDetails/order_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoiceDetails/invoice_details_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/search/components/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/search/components/body.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/search/search_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/search/search_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +146,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/booking/booking_screen.dart</url>
-          <line>42</line>
+          <line>46</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

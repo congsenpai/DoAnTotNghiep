@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/service.dart';
+import 'package:myparkingapp/data/response/service.dart';
 
 import '../../../components/cards/medium/Service_info_medium_card.dart';
 import '../../../components/scalton/medium_card_scalton.dart';

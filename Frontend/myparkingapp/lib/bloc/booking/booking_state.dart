@@ -1,4 +1,4 @@
-import '../../data/discount.dart';
+import '../../data/response/discount.dart';
 import '../../demo_data.dart';
 
 abstract class BookingState{}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
 import '../../../constants.dart';
 
 import '../../../components/cards/big/parkingLot_info_big_card.dart';

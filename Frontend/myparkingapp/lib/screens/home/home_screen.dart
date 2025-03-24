@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/components/cards/medium/Service_info_medium_card.dart';
-import 'package:myparkingapp/data/service.dart';
+
+import 'package:myparkingapp/data/response/user.dart';import 'package:myparkingapp/data/response/service.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
 import 'package:myparkingapp/screens/search/search_screen.dart';
 
@@ -14,18 +14,16 @@ import '../../components/cards/big/big_card_image_slide.dart';
 import '../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../components/section_title.dart';
 import '../../constants.dart';
-import '../../data/parking_lot.dart';
-import '../../data/user.dart';
+import '../../data/response/parking_lot.dart';
 import '../../demo_data.dart';
 import '../../screens/filter/filter_screen.dart';
-import '../details/details_screen.dart';
 import '../featured/featurred_screen.dart';
 import 'components/parking_lot_card_list.dart';
 import 'components/promotion_banner.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String token;
-  const HomeScreen({super.key, required this.token});
+  final User user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -39,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<HomeBloc>().add(HomeInitialEvent(widget.token));
+    context.read<HomeBloc>().add(HomeInitialEvent());
   }
   @override
   Widget build(BuildContext context) {
@@ -101,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service',),
+                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: widget.user,),
                       ),
                     ),
                   ),
@@ -116,23 +114,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: plots, services: [], isLot: true, title: 'Nearly Parking Lots',),
+                        builder: (context) => FeaturedScreen(lots: plots, services: [], isLot: true, title: 'Nearly Parking Lots', user: widget.user,),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ParkingLotCardList(lots: plots),
+                  ParkingLotCardList(lots: plots, user: widget.user),
                   const SizedBox(height: 16),
                   const SizedBox(height: 20),
                   SectionTitle(title: "All ParkingSlot", press: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchScreen(token: widget.token,),
+                    builder: (context) => SearchScreen( user: widget.user,),
                   ),
             ), ),
                   const SizedBox(height: 16),
                   // Demo list of Big Cards
-                  ParkingLotList(lots: parkingLotsDemoPage1)
+                  ParkingLotList(lots: parkingLotsDemoPage1, user: widget.user)
                 ],
               ),
             ),

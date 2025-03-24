@@ -1,6 +1,19 @@
-import 'discount.dart';
-import 'images.dart';
 
+
+import 'package:myparkingapp/data/response/images.dart';
+
+class LotOnPage{
+  final List<ParkingLot> lots;
+  final int page;
+  final int pageAmount;
+  LotOnPage(this.lots,this.page,this.pageAmount);
+}
+
+final List<LotOnPage> demo = [
+  LotOnPage(parkingLotsDemoPage1, 1, 3),
+  LotOnPage(parkingLotsDemoPage2, 2, 3),
+  LotOnPage(parkingLotsDemoPage3, 3, 3),
+];
 enum LotStatus { ON, OFF, FULL_SLOT}
 
 class ParkingLot {
@@ -14,6 +27,7 @@ class ParkingLot {
   double rate;
   String description;
   List<Images> images;
+  String userID;
   ParkingLot({
     required this.parkingLotID,
     required this.parkingLotName,
@@ -25,6 +39,7 @@ class ParkingLot {
     required this.rate,
     required this.description,
     required this.images,
+    required this.userID
   });
 
   // Convert from JSON
@@ -45,6 +60,7 @@ class ParkingLot {
       images: (json['images'] as List<dynamic>)
           .map((item) => Images.fromJson(item))
           .toList(),
+      userID: '',
 
     );
   }
@@ -78,9 +94,9 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
-      Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
-    ],
+      Images( url: 'assets/images/featured _items_1.png'),
+      Images( url: 'assets/images/featured _items_1.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -93,9 +109,9 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images( url: 'assets/images/featured _items_2.png'),
+      Images(url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -108,9 +124,9 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images( url: 'assets/images/featured _items_2.png'),
+      Images( url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
 ];
 List<ParkingLot> parkingLotsDemoPage2 = [
@@ -125,9 +141,9 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
-      Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
-    ],
+      Images( url: 'assets/images/featured _items_1.png'),
+      Images(url: 'assets/images/featured _items_1.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -140,9 +156,9 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images(url: 'assets/images/featured _items_2.png'),
+      Images( url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -155,9 +171,9 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images( url: 'assets/images/featured _items_2.png'),
+      Images( url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
 ];
 List<ParkingLot> parkingLotsDemoPage3 = [
@@ -172,9 +188,9 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images(imagesID: 'IMG001', url: 'assets/images/featured _items_1.png'),
-      Images(imagesID: 'IMG002', url: 'assets/images/featured _items_1.png'),
-    ],
+      Images( url: 'assets/images/featured _items_1.png'),
+      Images( url: 'assets/images/featured _items_1.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL002',
@@ -187,9 +203,9 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images(imagesID: 'IMG003', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG004', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images(url: 'assets/images/featured _items_2.png'),
+      Images( url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
   ParkingLot(
     parkingLotID: 'PL003',
@@ -202,9 +218,9 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images(imagesID: 'IMG005', url: 'assets/images/featured _items_2.png'),
-      Images(imagesID: 'IMG006', url: 'assets/images/featured _items_2.png'),
-    ],
+      Images( url: 'assets/images/featured _items_2.png'),
+      Images(url: 'assets/images/featured _items_2.png'),
+    ], userID: '',
   ),
 ];
 

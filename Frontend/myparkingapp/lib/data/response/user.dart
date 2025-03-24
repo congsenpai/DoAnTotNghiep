@@ -1,8 +1,8 @@
-import 'package:myparkingapp/data/images.dart';
-import 'package:myparkingapp/data/vehicle.dart';
-import 'package:myparkingapp/data/wallet.dart';
+import 'package:myparkingapp/data/response/images.dart';
+import 'package:myparkingapp/data/response/vehicle.dart';
+import 'package:myparkingapp/data/response/wallet.dart';
 class User {
-  final String userId;
+  final String userID;
   final String username;
   final String password;
   final String firstName;
@@ -16,7 +16,7 @@ class User {
   final List<Wallet> wallets;
 
   User({
-    required this.userId,
+    required this.userID,
     required this.username,
     required this.password,
     required this.firstName,
@@ -33,7 +33,7 @@ class User {
   /// Convert JSON -> User
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userId: json['userId'] as String,
+      userID: json['userID'] as String,
       username: json['username'] as String,
       password: json['password'] as String,
       firstName: json['firstName'] as String,
@@ -46,16 +46,14 @@ class User {
       vehicles: (json['vehicles'] as List<dynamic>)
           .map((item) => Vehicle.fromJson(item))
           .toList(),
-      wallets: (json['wallets'] as List<dynamic>)
-          .map((item) => Wallet.fromJson(item))
-          .toList(),
+      wallets: [],
     );
   }
 
   /// Convert User -> JSON
   Map<String, dynamic> toJson() {
     return {
-      'userId': userId,
+      'userID': userID,
       'username': username,
       'password': password,
       'firstName': firstName,
@@ -66,18 +64,17 @@ class User {
       'companyAddress': companyAddress,
       'avatar': avatar.toJson(),
       'vehicles': vehicles.map((v) => v.toJson()).toList(),
-      'wallets': wallets.map((w) => w.toJson()).toList(),
     };
   }
 
   /// Hỗ trợ debug dễ dàng
   @override
   String toString() {
-    return 'User(userId: $userId, username: $username, email: $email, phone: $phone, vehicles: ${vehicles.length}, wallets: ${wallets.length})';
+    return 'User(userId: $userID, username: $username, email: $email, phone: $phone, vehicles: ${vehicles.length}, wallets: ${wallets.length})';
   }
 }
 final User demoUser = User(
-  userId: "U001",
+  userID: "U001",
   username: "john_doe",
   password: "123456",
   firstName: "John",
@@ -87,7 +84,7 @@ final User demoUser = User(
   homeAddress: "123 Main Street, Cityville",
   companyAddress: "456 Company Blvd, Worktown",
   avatar: Images(
-    imagesID: '', url: 'assets/images/Header-image.png',
+    url: 'assets/images/Header-image.png',
   ),
   vehicles: [
     Vehicle(

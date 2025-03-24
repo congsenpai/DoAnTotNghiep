@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingapp/data/response/user.dart';
 import '../../app/locallization/app_localizations.dart';
 import '../../main_screen.dart';
 
@@ -8,7 +9,8 @@ import '../../components/welcome_text.dart';
 import '../../constants.dart';
 
 class AcceptLocationScreen extends StatelessWidget {
-  const AcceptLocationScreen({super.key});
+  final User user;
+  const AcceptLocationScreen({super.key, required this.user,});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class AcceptLocationScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const MainScreen(lots: [],),
+                builder: (context) => MainScreen(user: user,),
               ),
             );
           },
@@ -98,7 +100,7 @@ class AcceptLocationScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MainScreen(lots: [],),
+                            builder: (context) => MainScreen(user: user,),
                           ),
                         );
                       },

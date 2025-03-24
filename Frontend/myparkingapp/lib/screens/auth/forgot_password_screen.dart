@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_state.dart';
+import 'package:myparkingapp/components/app_dialog.dart';
 import '../../app/locallization/app_localizations.dart';
 import 'reset_email_sent_screen.dart';
 
@@ -14,7 +19,12 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate("Forgot Password")),
       ),
-      body: const SingleChildScrollView(
+      body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state) {
+        if(state is AuthLoadingState){
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+        }
+      
+        return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +37,15 @@ class ForgotPasswordScreen extends StatelessWidget {
             ForgotPassForm(),
           ],
         ),
-      ),
+      );
+      }, listener: (context,state){
+        if(state is AuthSuccessState){
+          return AppDialog.showSuccessEvent(context, state.mess,);
+        }
+        else if(state is AuthErrorState){
+          return AppDialog.showErrorEvent(context, state.mess);
+        }
+      })
     );
   }
 }
@@ -51,7 +69,9 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           // Email Field
           TextFormField(
             validator: emailValidator.call,
-            onSaved: (value) {},
+            onSaved: (value) {
+
+            },
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("Email Address")),
           ),

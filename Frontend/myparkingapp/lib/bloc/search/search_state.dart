@@ -1,6 +1,6 @@
-import 'package:myparkingapp/repository/lots_repository.dart';
 
-import '../../data/lot_on_page.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+
 
 abstract class SearchState{}
 

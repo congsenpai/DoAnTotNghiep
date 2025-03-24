@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
-import '../../../app/locallization/app_localizations.dart';
-import '../../../components/cards/iteam_card.dart';
-import '../../../components/small_dot.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/user.dart';
 import '../../../constants.dart';
-import '../../../data/parking_slots.dart';
+import '../../../data/response/parking_slots.dart';
 import '../../booking/booking_screen.dart';
 
 class Items extends StatelessWidget {
   final ParkingLot lot;
-  final String token;
-  final List<Slot> slots;
-  const Items({super.key, required this.slots, required this.lot, required this.token});
+  final List<ParkingSlot> slots;
+  final User user;
+  const Items({super.key, required this.slots, required this.lot, required this.user});
 
   @override
   Widget build(BuildContext context) {
     // Split demoData into 2 parts for 2 columns
-    List<Slot> firstColumnData = slots.where((slot)=>slot.vehicleType.name == 'CAR').toList();
-    List<Slot> secondColumnData = slots.where((slot)=>slot.vehicleType.name == 'MOTORCYCLE').toList();
+    List<ParkingSlot> firstColumnData = slots.where((slot)=>slot.vehicleType.name == 'CAR').toList();
+    List<ParkingSlot> secondColumnData = slots.where((slot)=>slot.vehicleType.name == 'MOTORCYCLE').toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -47,7 +44,7 @@ class Items extends StatelessWidget {
                               ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookingScreen(lot: lot, slot: firstColumnData[index], token: token,),
+                              builder: (context) => BookingScreen(lot: lot, slot: firstColumnData[index], user: user),
                             ),
                           ):AppDialog.showErrorEvent(context, "This Slot was not available");
                         },
@@ -82,7 +79,7 @@ class Items extends StatelessWidget {
                                 ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], token: token,),
+                                builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], user: user),
                               ),
                             ):AppDialog.showErrorEvent(context, "This Slot was not available");
                           },
@@ -115,7 +112,7 @@ class Items extends StatelessWidget {
                             ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], token: token,),
+                            builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], user: user),
                           ),
                         ):AppDialog.showErrorEvent(context, "This Slot was not available");
                       },

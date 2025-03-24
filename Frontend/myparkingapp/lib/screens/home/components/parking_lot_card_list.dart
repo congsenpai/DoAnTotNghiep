@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/user.dart';
 
 import '../../../components/cards/medium/lot_info_medium_card.dart';
 import '../../../components/scalton/medium_card_scalton.dart';
@@ -8,9 +9,9 @@ import '../../../demo_data.dart';
 import '../../details/details_screen.dart';
 
 class ParkingLotCardList extends StatefulWidget {
+  final User user;
   final List<ParkingLot> lots;
-
-  const ParkingLotCardList({super.key, required this.lots});
+  const ParkingLotCardList({super.key, required this.lots, required this.user});
 
   @override
   State<ParkingLotCardList> createState() => _ParkingLotCardListState();
@@ -58,7 +59,7 @@ class _ParkingLotCardListState extends State<ParkingLotCardList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailsScreen(parkingLot: widget.lots[index], token: '',),
+                            builder: (context) => DetailsScreen(parkingLot: widget.lots[index], user: widget.user),
                           ),
                         );
                       },

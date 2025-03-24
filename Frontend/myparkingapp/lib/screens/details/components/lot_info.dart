@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/data/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot.dart';
 import '../../../components/vehicle_type_list.dart';
 import '../../../components/rating_with_counter.dart';
 import '../../../constants.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../phoneLogin/phone_login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_event.dart';
 
 import '../../../constants.dart';
 
@@ -15,28 +17,26 @@ class _SignUpFormState extends State<SignUpForm> {
 
   bool _obscureText = true;
 
+  String userName = "";
+  String passWord = "";
+  String confirmPassword = "";
+  String phoneNumber = "";
+  String email = "";
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          // Full Name Field
+          // User Name Field
           TextFormField(
-            validator: requiredValidator.call,
-            onSaved: (value) {},
+            validator: userNameValidator.call,
+            onSaved: (value) {
+              userName = value ?? '';
+            },
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(hintText: "Full Name"),
-          ),
-          const SizedBox(height: defaultPadding),
-
-          // Email Field
-          TextFormField(
-            validator: emailValidator.call,
-            onSaved: (value) {},
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: "Email Address"),
+            decoration: const InputDecoration(hintText: "User Name"),
           ),
           const SizedBox(height: defaultPadding),
 
@@ -45,8 +45,9 @@ class _SignUpFormState extends State<SignUpForm> {
             obscureText: _obscureText,
             validator: passwordValidator.call,
             textInputAction: TextInputAction.next,
-            onChanged: (value) {},
-            onSaved: (value) {},
+            onSaved: (value) {
+              passWord = value ?? '';
+            },
             decoration: InputDecoration(
               hintText: "Password",
               suffixIcon: GestureDetector(
@@ -55,9 +56,10 @@ class _SignUpFormState extends State<SignUpForm> {
                     _obscureText = !_obscureText;
                   });
                 },
-                child: _obscureText
-                    ? const Icon(Icons.visibility_off, color: bodyTextColor)
-                    : const Icon(Icons.visibility, color: bodyTextColor),
+                child: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: bodyTextColor,
+                ),
               ),
             ),
           ),
@@ -66,6 +68,18 @@ class _SignUpFormState extends State<SignUpForm> {
           // Confirm Password Field
           TextFormField(
             obscureText: _obscureText,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please confirm your password';
+              }
+              if (value != passWord) {
+                return 'Passwords do not match';
+              }
+              return null;
+            },
+            onSaved: (value) {
+              confirmPassword = value ?? '';
+            },
             decoration: InputDecoration(
               hintText: "Confirm Password",
               suffixIcon: GestureDetector(
@@ -74,27 +88,62 @@ class _SignUpFormState extends State<SignUpForm> {
                     _obscureText = !_obscureText;
                   });
                 },
-                child: _obscureText
-                    ? const Icon(Icons.visibility_off, color: bodyTextColor)
-                    : const Icon(Icons.visibility, color: bodyTextColor),
+                child: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: bodyTextColor,
+                ),
               ),
             ),
           ),
           const SizedBox(height: defaultPadding),
+
+          // Phone Number Field
+          TextFormField(
+            validator: phoneNumberValidator.call,
+            onSaved: (value) {
+              phoneNumber = value ?? '';
+            },
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.phone,
+            decoration: const InputDecoration(hintText: "Phone Number"),
+          ),
+          const SizedBox(height: defaultPadding),
+
+          // Email Field
+          TextFormField(
+            validator: emailValidator.call,
+            onSaved: (value) {
+              email = value ?? '';
+            },
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(hintText: "Email"),
+          ),
+          const SizedBox(height: defaultPadding),
+
           // Sign Up Button
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PghoneLoginScreen(),
-                ),
-              );
+              if (_formKey.currentState?.validate() ?? false) {
+                _formKey.currentState!.save();
+                context
+                    .read<AuthBloc>()
+                    .add(RegisterEvent(userName, passWord, phoneNumber, email));
+              }
             },
             child: const Text("Sign Up"),
+          ),
+
+          // Navigate to Phone Login
+          TextButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(RegisterEvent(userName, passWord, phoneNumber, email));
+            },
+            child: const Text("Sign up with phone number"),
           ),
         ],
       ),
     );
   }
 }
+

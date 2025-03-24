@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import '../../../app/locallization/app_localizations.dart';
 
 import '../../../constants.dart';
-import '../../acceptLocation/find_restaurants_screen.dart';
 import '../forgot_password_screen.dart';
 
 class SignInForm extends StatefulWidget {
@@ -14,6 +16,8 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
+  String userName = "";
+  String passWord = ""; 
 
   bool _obscureText = true;
 
@@ -24,11 +28,13 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         children: [
           TextFormField(
-            validator: emailValidator.call,
-            onSaved: (value) {},
+            validator: userNameValidator.call,
+            onSaved: (value) {
+              userName = value ?? '';
+            },
             textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("Email Address")),
+            keyboardType: TextInputType.phone,
+            decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("UserName")),
           ),
           const SizedBox(height: defaultPadding),
 
@@ -36,7 +42,9 @@ class _SignInFormState extends State<SignInForm> {
           TextFormField(
             obscureText: _obscureText,
             validator: passwordValidator.call,
-            onSaved: (value) {},
+            onSaved: (value) {
+              passWord = value ?? '';
+            },
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context).translate("Password"),
               suffixIcon: GestureDetector(
@@ -58,7 +66,7 @@ class _SignInFormState extends State<SignInForm> {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ForgotPasswordScreen(),
+                builder: (context) => ForgotPasswordScreen(),
               ),
             ),
             child: Text(
@@ -77,15 +85,8 @@ class _SignInFormState extends State<SignInForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-
                 // just for demo
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AcceptLocationScreen(),
-                  ),
-                  (_) => true,
-                );
+                context.read<AuthBloc>().add(LoginEvent(userName, passWord));
               }
             },
             child:  Text(AppLocalizations.of(context).translate("Sign in")),

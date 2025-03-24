@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/components/cards/big/service_info_big_card.dart';
-import 'package:myparkingapp/data/service.dart';
+import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/service.dart';
 import '../../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../../components/scalton/big_card_scalton.dart';
 import '../../../constants.dart';
 
-import '../../../data/parking_lot.dart';
+import '../../../data/response/parking_lot.dart';
 import '../../../demo_data.dart';
 
 /// Just for show the scalton we use [StatefulWidget]
 class Body extends StatefulWidget {
+  final User user;
   final List<ParkingLot> lots;
   final List<Service> services;
   final bool isLot;
-  const Body({super.key, required this.lots, required this.services, required this.isLot});
+  const Body({super.key, required this.lots, required this.services, required this.isLot, required this.user});
 
   @override
   State<Body> createState() => _BodyState();
@@ -50,7 +52,7 @@ class _BodyState extends State<Body> {
             const BigCardScalton()
                 : ParkingLotInfoBigCard(
                     // Images are List<String>
-                    press: () {}, parkingLot: widget.lots[index],
+                    press: () {}, parkingLot: widget.lots[index], user: widget.user,
                   ),
           ),
         ):

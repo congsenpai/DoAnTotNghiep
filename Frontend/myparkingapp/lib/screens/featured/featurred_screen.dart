@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/service.dart';
+import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/service.dart';
 
-import '../../data/parking_lot.dart';
+import '../../data/response/parking_lot.dart';
 import 'components/body.dart';
 
 class FeaturedScreen extends StatelessWidget {
+  final User user;
   final String title;
   final List<ParkingLot> lots;
   final List<Service> services;
   final bool isLot;
-  const FeaturedScreen({super.key, required this.lots, required this.services, required this.isLot, required this.title});
+  const FeaturedScreen({super.key, required this.lots, required this.services, required this.isLot, required this.title, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class FeaturedScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Body(lots: lots, services: services, isLot: isLot,),
+      body: Body(lots: lots, services: services, isLot: isLot, user: user,),
     );
   }
 }
