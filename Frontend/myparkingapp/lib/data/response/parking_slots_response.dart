@@ -1,9 +1,9 @@
-import 'package:myparkingapp/data/response/vehicle.dart';
+import 'package:myparkingapp/data/response/vehicle__response.dart';
 
 enum SlotStatus {
   AVAILABLE, OCCUPIED, RESERVED
 }
-class ParkingSlot {
+class ParkingSlotResponse {
   String slotID;
   String slotName;
   VehicleType vehicleType;
@@ -13,7 +13,7 @@ class ParkingSlot {
   String floorName;
   String lotId; // sau bỏ
 
-  ParkingSlot({
+  ParkingSlotResponse({
     required this.slotID,
     required this.slotName,
     required this.vehicleType,
@@ -25,7 +25,7 @@ class ParkingSlot {
   });
 
   // Parse Slot from JSON
-  factory ParkingSlot.fromJson(Map<String, dynamic> json) => ParkingSlot(
+  factory ParkingSlotResponse.fromJson(Map<String, dynamic> json) => ParkingSlotResponse(
     slotID: json['slotID'],
     slotName: json['slotName'],
     vehicleType: VehicleType.values.firstWhere((e) => e.name == json['vehicleType']),
@@ -43,8 +43,8 @@ class ParkingSlot {
         'pricePerMonth: $pricePerMonth, lotId: $lotId)';
   }
 }
-List<ParkingSlot> demoSlots = [
-  ParkingSlot(
+List<ParkingSlotResponse> demoSlots = [
+  ParkingSlotResponse(
     slotID: 'S001',
     slotName: 'Slot A1',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -53,7 +53,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 100.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S002',
     slotName: 'Slot A2',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -62,7 +62,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 50.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S003',
     slotName: 'Slot B1',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -71,7 +71,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 20.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S004',
     slotName: 'Slot A1',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -80,7 +80,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 100.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(slotID: 'S011',
+  ParkingSlotResponse(slotID: 'S011',
     slotName: 'Slot A1',
     vehicleType: VehicleType.CAR,
     slotStatus: SlotStatus.AVAILABLE,
@@ -88,7 +88,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 100.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S012',
     slotName: 'Slot A2',
     vehicleType: VehicleType.CAR,
@@ -97,7 +97,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 50.0,
     lotId: 'PL001', floorName: '1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S005',
     slotName: 'Slot A2',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -106,7 +106,7 @@ List<ParkingSlot> demoSlots = [
     pricePerMonth: 50.0,
     lotId: 'PL001', floorName: '2',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotID: 'S006',
     slotName: 'Slot B1',
     vehicleType: VehicleType.MOTORCYCLE,
@@ -120,7 +120,7 @@ List<ParkingSlot> demoSlots = [
 
 class DataOnFloor{
   final String floorName;
-  final List<ParkingSlot> lots;
+  final List<ParkingSlotResponse> lots;
   final List<String> floorNames;
 
   DataOnFloor(

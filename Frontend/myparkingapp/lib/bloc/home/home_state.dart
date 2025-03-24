@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import '../../data/repository/lots_repository.dart';
 
 abstract class HomeState{
@@ -8,8 +8,8 @@ abstract class HomeState{
 class HomeInitialState extends HomeState{}
 
 class HomeLoadedState extends HomeState{
-  final List<ParkingLot> homeLots;
-  final List<ParkingLot> nearlyLots;
+  final List<ParkingLotResponse> homeLots;
+  final List<ParkingLotResponse> nearlyLots;
   HomeLoadedState(this.homeLots,this.nearlyLots);
 }
 class HomeLoadingState extends HomeState{

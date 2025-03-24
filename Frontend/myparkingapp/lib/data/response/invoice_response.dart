@@ -1,9 +1,9 @@
-import 'package:myparkingapp/data/response/transaction.dart';
-import 'package:myparkingapp/data/response/vehicle.dart';
-import 'discount.dart';
+import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'discount_response.dart';
 
 class InvoiceOnPage {
-  List<Invoice> invoices;
+  List<InvoiceResponse> invoices;
   int page;
   int pageAmount;
 
@@ -17,20 +17,20 @@ List<InvoiceOnPage> invoiceOnPages = [
 
 enum InvoiceStatus { PENDING, PAID, CANCELLED }
 
-class Invoice {
+class InvoiceResponse {
   String invoiceID;
   double totalAmount;
   InvoiceStatus status;
   String description;
-  List<Transaction> transaction;
-  Discount discount;
+  List<TransactionResponse> transaction;
+  DiscountResponse discount;
   String parkingSlotName;
   String parkingLotName;
-  Vehicle vehicle;
+  VehicleResponse vehicle;
   String userID;
   bool isMonthlyTicket;
 
-  Invoice({
+  InvoiceResponse({
     required this.invoiceID,
     required this.totalAmount,
     required this.status,
@@ -44,8 +44,8 @@ class Invoice {
     required this.isMonthlyTicket,
   });
 
-  factory Invoice.fromJson(Map<String, dynamic> json) {
-    return Invoice(
+  factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
+    return InvoiceResponse(
       invoiceID: json['invoiceId'] ?? '',
       totalAmount: (json['totalAmount'] ?? 0).toDouble(),
       status: InvoiceStatus.values.firstWhere(
@@ -53,11 +53,11 @@ class Invoice {
           orElse: () => InvoiceStatus.PENDING),
       description: json['description'] ?? '',
       transaction: (json['transaction'] as List<dynamic>?)
-              ?.map((t) => Transaction.fromJson(t))
+              ?.map((t) => TransactionResponse.fromJson(t))
               .toList() ??
           [],
-      discount: Discount.fromJson(json['discount'] ?? {}),
-      vehicle: Vehicle.fromJson(json['vehicle'] ?? {}),
+      discount: DiscountResponse.fromJson(json['discount'] ?? {}),
+      vehicle: VehicleResponse.fromJson(json['vehicle'] ?? {}),
       userID: json['userId'] ?? '',
       parkingSlotName: json['parkingSlotName'] ?? '',
       parkingLotName: json['parkingLotName'] ?? '',
@@ -71,7 +71,7 @@ class Invoice {
   }
 }
 
-Discount discountSample = Discount(
+DiscountResponse discountSample = DiscountResponse(
   discountId: 'D001',
   discountCode: 'SALE10',
   discountType: DiscountType.PERCENTAGE,
@@ -81,15 +81,15 @@ Discount discountSample = Discount(
   expiredAt: '',
 );
 
-Vehicle vehicleSample = Vehicle(
+VehicleResponse vehicleSample = VehicleResponse(
   vehicleId: "V001",
   vehicleType: VehicleType.CAR,
   licensePlate: "ABC-1234",
   description: "Red Sedan Car",
 );
 
-final List<Invoice> invoicesPage1 = [
-  Invoice(
+final List<InvoiceResponse> invoicesPage1 = [
+  InvoiceResponse(
     invoiceID: "INV001",
     status: InvoiceStatus.PAID,
     description: "Invoice for Top up wallet",
@@ -102,7 +102,7 @@ final List<Invoice> invoicesPage1 = [
     parkingLotName: 'Lot 1',
     isMonthlyTicket: false,
   ),
-  Invoice(
+  InvoiceResponse(
     invoiceID: "INV002",
     status: InvoiceStatus.PENDING,
     description: "Invoice for Payment for order #1234",
@@ -117,8 +117,8 @@ final List<Invoice> invoicesPage1 = [
   ),
 ];
 
-final List<Invoice> invoicesPage2 = [
-  Invoice(
+final List<InvoiceResponse> invoicesPage2 = [
+  InvoiceResponse(
     invoiceID: "INV003",
     status: InvoiceStatus.CANCELLED,
     description: "Invoice for Top up bonus",
@@ -131,7 +131,7 @@ final List<Invoice> invoicesPage2 = [
     parkingLotName: 'Lot 3',
     isMonthlyTicket: true,
   ),
-  Invoice(
+  InvoiceResponse(
     invoiceID: "INV004",
     status: InvoiceStatus.PAID,
     description: "Invoice for Payment for order #5678",

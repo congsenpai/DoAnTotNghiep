@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/service.dart';
 
-import '../../data/response/parking_lot.dart';
+import '../../data/response/parking_lot_response.dart';
 import 'components/body.dart';
 
 class FeaturedScreen extends StatelessWidget {
-  final User user;
+  final UserResponse user;
   final String title;
-  final List<ParkingLot> lots;
+  final List<ParkingLotResponse> lots;
   final List<Service> services;
   final bool isLot;
   const FeaturedScreen({super.key, required this.lots, required this.services, required this.isLot, required this.title, required this.user});

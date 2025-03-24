@@ -1,5 +1,5 @@
 class TransactionOnPage{
-  List<Transaction> trans;
+  List<TransactionResponse> trans;
   int page;
   int pageAmount;
   TransactionOnPage(this.trans,this.page,this.pageAmount);
@@ -9,7 +9,7 @@ class TransactionOnPage{
 enum Transactions { TOP_UP, PAYMENT }
 enum TransactionStatus { COMPLETED, PENDING, FAILED }
 
-class Transaction {
+class TransactionResponse {
   String transactionID;
   double currentBalance;
   String description;
@@ -17,7 +17,7 @@ class Transaction {
   TransactionStatus status;
   String walletId;
 
-  Transaction({
+  TransactionResponse({
     required this.transactionID,
     required this.currentBalance,
     required this.description,
@@ -26,8 +26,8 @@ class Transaction {
     required this.walletId,
   });
 
-  factory Transaction.fromJson(Map<String, dynamic> json) {
-    return Transaction(
+  factory TransactionResponse.fromJson(Map<String, dynamic> json) {
+    return TransactionResponse(
       transactionID: json['transactionId'],
       currentBalance: (json['currentBalance'] as num).toDouble(),
       description: json['description'],
@@ -44,8 +44,8 @@ class Transaction {
     return 'Transaction(transactionId: $transactionID, amount: $currentBalance, description: $description, type: $type, status: $status, walletId: $walletId)';
   }
 }
-List<Transaction> transactions = [
-  Transaction(
+List<TransactionResponse> transactions = [
+  TransactionResponse(
     transactionID: "W001",
     currentBalance: 150.0,
     description: "Top up wallet",
@@ -53,7 +53,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W002",
     currentBalance: 200.0,
     description: "Payment for order #1234",
@@ -61,7 +61,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.PENDING,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W003",
     currentBalance: 50.0,
     description: "Top up bonus",
@@ -69,7 +69,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.FAILED,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W004",
     currentBalance: 75.5,
     description: "Payment for order #5678",
@@ -77,7 +77,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W005",
     currentBalance: 300.0,
     description: "Top up via credit card",
@@ -85,7 +85,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.PENDING,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W006",
     currentBalance: 120.0,
     description: "Payment for subscription",
@@ -93,7 +93,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W007",
     currentBalance: 500.0,
     description: "Top up special event",
@@ -101,7 +101,7 @@ List<Transaction> transactions = [
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
   ),
-  Transaction(
+  TransactionResponse(
     transactionID: "W008",
     currentBalance: 80.0,
     description: "Payment for online course",

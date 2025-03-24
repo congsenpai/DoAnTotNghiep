@@ -3,7 +3,7 @@ import 'package:myparkingapp/bloc/booking/booking_event.dart';
 import 'package:myparkingapp/bloc/booking/booking_state.dart';
 import 'package:myparkingapp/demo_data.dart';
 
-import '../../data/response/discount.dart';
+import '../../data/response/discount_response.dart';
 
 class BookingBloc extends Bloc<BookingEvent,BookingState>{
   BookingBloc():super(BookingInitialState()){
@@ -17,7 +17,7 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
     try{
       emit(BookingLoadingState());
       print("\n-----------------------------------error\n");
-      List<Discount> discounts = discountDemo.where((i)=>i.parkingLotId == event.lot.parkingLotID).toList();
+      List<DiscountResponse> discounts = discountDemo.where((i)=>i.parkingLotId == event.lot.parkingLotID).toList();
       List<MonthInfo> months = await MonthInfo.renderMonthList(DateTime.now());
       print("\n-----------------------------------error\n");
       emit(BookingLoadedState(

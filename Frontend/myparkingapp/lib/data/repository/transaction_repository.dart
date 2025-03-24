@@ -1,10 +1,11 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
-import 'package:myparkingapp/data/response/transaction.dart';
-import 'package:myparkingapp/data/response/wallet.dart';
+import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/wallet__response.dart';
 
 class TransactionRepository{
-    Future<ApiResult> getTransactionByWalletSearchAndPage(Wallet wallet, String search, int page) async{
+    Future<ApiResult> getTransactionByWalletSearchAndPage(WalletResponse wallet, String search, int page) async{
         try{
             ApiClient apiClient = ApiClient();
             final response = await apiClient.getTransactionByWalletSearchAndPage(wallet.walletId, search, page);
@@ -14,8 +15,8 @@ class TransactionRepository{
                 String mess = jsonData['mess'];
                 int page = jsonData['result']['page'];
                 int pageAmount = jsonData['result']['pageAmount'];
-                List<Transaction> trans = (jsonData['result']['transactions'] as List)
-                .map((json) => Transaction.fromJson(json))
+                List<TransactionResponse> trans = (jsonData['result']['transactions'] as List)
+                .map((json) => TransactionResponse.fromJson(json))
                 .toList();
 
                 TransactionOnPage result = TransactionOnPage(
@@ -44,7 +45,7 @@ class TransactionRepository{
         }
     }
 
-    Future<ApiResult> getTransactionByWalletDateTypePage(Wallet wallet, Transactions tranType, DateTime start, DateTime end, int page) async{
+    Future<ApiResult> getTransactionByWalletDateTypePage(WalletResponse wallet, Transactions tranType, DateTime start, DateTime end, int page) async{
         try{
             ApiClient apiClient = ApiClient();
             final response = await apiClient.getTransactionByWalletDateTypePage(wallet.walletId, tranType, start, end, page);
@@ -54,8 +55,8 @@ class TransactionRepository{
                 String mess = jsonData['mess'];
                 int page = jsonData['result']['page'];
                 int pageAmount = jsonData['result']['pageAmount'];
-                List<Transaction> trans = (jsonData['result']['transactions'] as List)
-                .map((json) => Transaction.fromJson(json))
+                List<TransactionResponse> trans = (jsonData['result']['transactions'] as List)
+                .map((json) => TransactionResponse.fromJson(json))
                 .toList();
 
                 TransactionOnPage result = TransactionOnPage(
@@ -82,7 +83,7 @@ class TransactionRepository{
             ); 
         }
     }
-    Future<ApiResult> createTransaction(Transaction transaction) async{
+    Future<ApiResult> createTransaction(CreatedTransactionRequest transaction) async{
         try{
             ApiClient apiClient = ApiClient();
             final response = await apiClient.createTransaction(transaction);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 
-import 'package:myparkingapp/data/response/user.dart';import 'package:myparkingapp/data/response/service.dart';
+import 'package:myparkingapp/data/response/user__response.dart';import 'package:myparkingapp/data/response/service.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
 import 'package:myparkingapp/screens/search/search_screen.dart';
 
@@ -14,7 +14,7 @@ import '../../components/cards/big/big_card_image_slide.dart';
 import '../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../components/section_title.dart';
 import '../../constants.dart';
-import '../../data/response/parking_lot.dart';
+import '../../data/response/parking_lot_response.dart';
 import '../../demo_data.dart';
 import '../../screens/filter/filter_screen.dart';
 import '../featured/featurred_screen.dart';
@@ -22,7 +22,7 @@ import 'components/parking_lot_card_list.dart';
 import 'components/promotion_banner.dart';
 
 class HomeScreen extends StatefulWidget {
-  final User user;
+  final UserResponse user;
   const HomeScreen({super.key, required this.user});
 
   @override
@@ -30,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ParkingLot> plots = parkingLotsDemoPage1;
+  List<ParkingLotResponse> plots = parkingLotsDemoPage1;
 
   @override
   @override

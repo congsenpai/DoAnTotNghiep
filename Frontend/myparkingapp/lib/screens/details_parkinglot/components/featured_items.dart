@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../app/locallization/app_localizations.dart';
 import '../../../components/expand_image.dart';
 import '../../../constants.dart';
-import '../../../data/response/images.dart';
+import '../../../data/response/images_response.dart';
 import 'featured_item_card.dart';
 
 class FeaturedItems extends StatelessWidget {
-  final List<Images> images;
+  final List<ImagesResponse> images;
 
   const FeaturedItems({
     super.key,

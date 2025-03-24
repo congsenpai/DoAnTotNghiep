@@ -1,7 +1,7 @@
-import 'package:myparkingapp/data/response/images.dart';
-import 'package:myparkingapp/data/response/vehicle.dart';
-import 'package:myparkingapp/data/response/wallet.dart';
-class User {
+import 'package:myparkingapp/data/response/images_response.dart';
+import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/wallet__response.dart';
+class UserResponse {
   final String userID;
   final String username;
   final String password;
@@ -11,11 +11,11 @@ class User {
   final String phone;
   final String homeAddress;
   final String companyAddress;
-  final Images avatar;
-  final List<Vehicle> vehicles;
-  final List<Wallet> wallets;
+  final ImagesResponse avatar;
+  final List<VehicleResponse> vehicles;
+  final List<WalletResponse> wallets; // will remove when project final
 
-  User({
+  UserResponse({
     required this.userID,
     required this.username,
     required this.password,
@@ -31,8 +31,8 @@ class User {
   });
 
   /// Convert JSON -> User
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserResponse.fromJson(Map<String, dynamic> json) {
+    return UserResponse(
       userID: json['userID'] as String,
       username: json['username'] as String,
       password: json['password'] as String,
@@ -42,9 +42,9 @@ class User {
       phone: json['phone'] as String,
       homeAddress: json['homeAddress'] as String,
       companyAddress: json['companyAddress'] as String,
-      avatar: Images.fromJson(json['avatar']),
+      avatar: ImagesResponse.fromJson(json['avatar']),
       vehicles: (json['vehicles'] as List<dynamic>)
-          .map((item) => Vehicle.fromJson(item))
+          .map((item) => VehicleResponse.fromJson(item))
           .toList(),
       wallets: [],
     );
@@ -73,7 +73,7 @@ class User {
     return 'User(userId: $userID, username: $username, email: $email, phone: $phone, vehicles: ${vehicles.length}, wallets: ${wallets.length})';
   }
 }
-final User demoUser = User(
+final UserResponse demoUser = UserResponse(
   userID: "U001",
   username: "john_doe",
   password: "123456",
@@ -83,17 +83,17 @@ final User demoUser = User(
   phone: "+123456789",
   homeAddress: "123 Main Street, Cityville",
   companyAddress: "456 Company Blvd, Worktown",
-  avatar: Images(
+  avatar: ImagesResponse(
     url: 'assets/images/Header-image.png',
   ),
   vehicles: [
-    Vehicle(
+    VehicleResponse(
       vehicleId: "V001",
       vehicleType: VehicleType.CAR,
       licensePlate: "ABC-1234",
       description: "Red Sedan Car",
     ),
-    Vehicle(
+    VehicleResponse(
       vehicleId: "V002",
       vehicleType: VehicleType.MOTORCYCLE,
       licensePlate: "XYZ-5678",
@@ -101,13 +101,13 @@ final User demoUser = User(
     ),
   ],
   wallets: [
-    Wallet(
+    WalletResponse(
       walletId: "W001",
       balance: 150.75,
       currency: "USD",
       name: "Main Wallet", userId: 'U001',
     ),
-    Wallet(
+    WalletResponse(
       walletId: "W002",
       balance: 50.00,
       currency: "USD",

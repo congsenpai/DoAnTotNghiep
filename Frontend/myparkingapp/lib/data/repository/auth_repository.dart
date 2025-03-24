@@ -1,6 +1,7 @@
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myparkingapp/components/api_result.dart';
+import 'package:myparkingapp/data/request/register_user_request.dart';
 
 import '../network/api_client.dart';
 
@@ -29,10 +30,10 @@ class AuthRepository {
     }
   }
 
-  Future<ApiResult> register(String username, String password, String email, String phoneNumber) async {
+  Future<ApiResult> register(RegisterUserRequest user) async {
     try {
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.register(username, password,email,phoneNumber);
+      final response = await apiClient.register(user);
       if (response.statusCode == 200) {
         ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
         return apiResult;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 import '../../bloc/search/search_bloc.dart';
 import '../../bloc/search/search_event.dart';
@@ -13,7 +13,7 @@ import '../../components/pagination_button.dart';
 import '../../constants.dart';
 
 class SearchScreen extends StatefulWidget {
-  final User user;
+  final UserResponse user;
   const SearchScreen({super.key,required this.user});
 
   @override
@@ -22,7 +22,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
 
-  List<ParkingLot> lots = [];
+  List<ParkingLotResponse> lots = [];
   int page=1;
   int pageAmount =1;
   String searchText = '';

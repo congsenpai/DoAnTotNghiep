@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/components/cards/big/service_info_big_card.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/service.dart';
 import '../../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../../components/scalton/big_card_scalton.dart';
 import '../../../constants.dart';
 
-import '../../../data/response/parking_lot.dart';
+import '../../../data/response/parking_lot_response.dart';
 import '../../../demo_data.dart';
 
 /// Just for show the scalton we use [StatefulWidget]
 class Body extends StatefulWidget {
-  final User user;
-  final List<ParkingLot> lots;
+  final UserResponse user;
+  final List<ParkingLotResponse> lots;
   final List<Service> services;
   final bool isLot;
   const Body({super.key, required this.lots, required this.services, required this.isLot, required this.user});

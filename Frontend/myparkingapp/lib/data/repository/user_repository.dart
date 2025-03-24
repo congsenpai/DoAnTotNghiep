@@ -1,6 +1,7 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/request/update_user_request.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 class UserRepository{
 
@@ -15,7 +16,7 @@ class UserRepository{
 
       int code = jsonData['code'];
       String mess = jsonData['mess'];
-      User user = User.fromJson(jsonData['result']);
+      UserResponse user = UserResponse.fromJson(jsonData['result']);
 
       // Chuyển 'result' từ JSON thành danh sách Discount
       
@@ -30,7 +31,7 @@ class UserRepository{
 
   }
 
-  Future<ApiResult> updateUser(User user) async{
+  Future<ApiResult> updateUser(UpdateUserRequest user) async{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.updateUser(user);

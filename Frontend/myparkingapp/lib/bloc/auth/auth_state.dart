@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 abstract class AuthState {}
 
@@ -24,7 +24,7 @@ class AuthErrorState extends AuthState{
 }
 
 class GotoAcceptLocationScreenState extends AuthState{
-  final User user;
+  final UserResponse user;
   GotoAcceptLocationScreenState(this.user);
 }
 

@@ -1,11 +1,11 @@
-class Wallet {
+class WalletResponse {
   String walletId;
   double balance;
   String currency;
   String name;
   String userId;
 
-  Wallet({
+  WalletResponse({
     required this.walletId,
     required this.balance,
     required this.currency,
@@ -14,8 +14,8 @@ class Wallet {
   });
 
   // Convert JSON to Wallet object
-  factory Wallet.fromJson(Map<String, dynamic> json) {
-    return Wallet(
+  factory WalletResponse.fromJson(Map<String, dynamic> json) {
+    return WalletResponse(
       walletId: json['walletId'] as String,
       balance: (json['balance'] as num).toDouble(),
       currency: json['currency'] as String,

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import '../../../constants.dart';
-import '../../../data/response/parking_slots.dart';
+import '../../../data/response/parking_slots_response.dart';
 import '../../booking/booking_screen.dart';
 
 class Items extends StatelessWidget {
-  final ParkingLot lot;
-  final List<ParkingSlot> slots;
-  final User user;
+  final ParkingLotResponse lot;
+  final List<ParkingSlotResponse> slots;
+  final UserResponse user;
   const Items({super.key, required this.slots, required this.lot, required this.user});
 
   @override
   Widget build(BuildContext context) {
     // Split demoData into 2 parts for 2 columns
-    List<ParkingSlot> firstColumnData = slots.where((slot)=>slot.vehicleType.name == 'CAR').toList();
-    List<ParkingSlot> secondColumnData = slots.where((slot)=>slot.vehicleType.name == 'MOTORCYCLE').toList();
+    List<ParkingSlotResponse> firstColumnData = slots.where((slot)=>slot.vehicleType.name == 'CAR').toList();
+    List<ParkingSlotResponse> secondColumnData = slots.where((slot)=>slot.vehicleType.name == 'MOTORCYCLE').toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),

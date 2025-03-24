@@ -1,10 +1,10 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
-import 'package:myparkingapp/data/response/discount.dart';
-import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/discount_response.dart';
+import 'package:myparkingapp/data/response/parking_slots_response.dart';
 class DiscountRepository{
   final String apiUrl = "";
-  Future<ApiResult> getListDiscountBySlot(ParkingSlot slot) async {
+  Future<ApiResult> getListDiscountBySlot(ParkingSlotResponse slot) async {
   try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.getListDiscountBySlot(slot.slotID);
@@ -17,8 +17,8 @@ class DiscountRepository{
       String mess = jsonData['mess'];
 
       // Chuyển 'result' từ JSON thành danh sách Discount
-      List<Discount> discounts = (jsonData['result'] as List)
-          .map((json) => Discount.fromJson(json))
+      List<DiscountResponse> discounts = (jsonData['result'] as List)
+          .map((json) => DiscountResponse.fromJson(json))
           .toList();
 
       return ApiResult(code, mess, discounts);

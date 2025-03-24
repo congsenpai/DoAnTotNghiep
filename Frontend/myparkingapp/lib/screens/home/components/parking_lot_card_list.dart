@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 import '../../../components/cards/medium/lot_info_medium_card.dart';
 import '../../../components/scalton/medium_card_scalton.dart';
 import '../../../constants.dart';
 import '../../../demo_data.dart';
-import '../../details/details_screen.dart';
+import '../../details_parkinglot/details_screen.dart';
 
 class ParkingLotCardList extends StatefulWidget {
-  final User user;
-  final List<ParkingLot> lots;
+  final UserResponse user;
+  final List<ParkingLotResponse> lots;
   const ParkingLotCardList({super.key, required this.lots, required this.user});
 
   @override

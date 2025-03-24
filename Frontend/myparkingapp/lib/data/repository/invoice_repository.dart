@@ -1,12 +1,12 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
-import 'package:myparkingapp/data/response/invoice.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/invoice_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 class InvoiceRepository{
   String apiUrl = "http://localhost/myparkingapp";
 
-  Future<ApiResult> getInvoiceByUserWithSearchAndPage(User user,String search,int page) async{
+  Future<ApiResult> getInvoiceByUserWithSearchAndPage(UserResponse user,String search,int page) async{
     try{
         ApiClient apiClient = ApiClient();
         final response = await apiClient.getInvoiceByUserWithSearchAndPage(search, page, user.userID);
@@ -16,8 +16,8 @@ class InvoiceRepository{
             String mess = jsonData['mess'];
             int page = jsonData['result']['page'];
             int pageAmount = jsonData['result']['pageAmount'];
-            List<Invoice> invoices = (jsonData['result']['invoice'] as List)
-            .map((json) => Invoice.fromJson(json))
+            List<InvoiceResponse> invoices = (jsonData['result']['invoice'] as List)
+            .map((json) => InvoiceResponse.fromJson(json))
             .toList();
 
             InvoiceOnPage result = InvoiceOnPage(

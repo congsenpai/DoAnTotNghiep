@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import '../../app/locallization/app_localizations.dart';
 import '../../main_screen.dart';
 
@@ -9,7 +9,7 @@ import '../../components/welcome_text.dart';
 import '../../constants.dart';
 
 class AcceptLocationScreen extends StatelessWidget {
-  final User user;
+  final UserResponse user;
   const AcceptLocationScreen({super.key, required this.user,});
 
   @override

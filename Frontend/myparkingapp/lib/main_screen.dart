@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 
 import 'constants.dart';
-import 'data/response/parking_lot.dart';
+import 'data/response/parking_lot_response.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  final User user;
+  final UserResponse user;
   const MainScreen({super.key, required this.user});
 
 
@@ -22,7 +22,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // Bydefault first one is selected
   int _selectedIndex = 0;
-  List<ParkingLot> parkinglots = parkingLotsDemoPage1;
+  List<ParkingLotResponse> parkinglots = parkingLotsDemoPage1;
 
   // List of nav items
   final List<Map<String, dynamic>> _navitems = [

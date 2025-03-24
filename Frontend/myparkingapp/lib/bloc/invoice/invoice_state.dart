@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/response/invoice.dart';
+import 'package:myparkingapp/data/response/invoice_response.dart';
 
 abstract class InvoiceState{
 
@@ -14,7 +14,7 @@ class InvoiceLoadingState extends InvoiceState{
 }
 
 class InvoiceLoadedState extends InvoiceState{
-  List<Invoice> invoices;
+  List<InvoiceResponse> invoices;
   final int page;
   final int pageAmount;
   InvoiceLoadedState(this.invoices,this.page,this.pageAmount);

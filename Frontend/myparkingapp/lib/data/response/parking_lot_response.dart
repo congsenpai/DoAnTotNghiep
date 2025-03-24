@@ -1,9 +1,9 @@
 
 
-import 'package:myparkingapp/data/response/images.dart';
+import 'package:myparkingapp/data/response/images_response.dart';
 
 class LotOnPage{
-  final List<ParkingLot> lots;
+  final List<ParkingLotResponse> lots;
   final int page;
   final int pageAmount;
   LotOnPage(this.lots,this.page,this.pageAmount);
@@ -16,7 +16,7 @@ final List<LotOnPage> demo = [
 ];
 enum LotStatus { ON, OFF, FULL_SLOT}
 
-class ParkingLot {
+class ParkingLotResponse {
   String parkingLotID;
   String parkingLotName;
   String address;
@@ -26,9 +26,9 @@ class ParkingLot {
   LotStatus status;
   double rate;
   String description;
-  List<Images> images;
+  List<ImagesResponse> images;
   String userID;
-  ParkingLot({
+  ParkingLotResponse({
     required this.parkingLotID,
     required this.parkingLotName,
     required this.address,
@@ -43,8 +43,8 @@ class ParkingLot {
   });
 
   // Convert from JSON
-  factory ParkingLot.fromJson(Map<String, dynamic> json) {
-    return ParkingLot(
+  factory ParkingLotResponse.fromJson(Map<String, dynamic> json) {
+    return ParkingLotResponse(
       parkingLotID: json['parkingLotID'],
       parkingLotName: json['parkingLotName'],
       address: json['address'],
@@ -58,7 +58,7 @@ class ParkingLot {
       rate: (json['rate'] as num).toDouble(),
       description: json['description'],
       images: (json['images'] as List<dynamic>)
-          .map((item) => Images.fromJson(item))
+          .map((item) => ImagesResponse.fromJson(item))
           .toList(),
       userID: '',
 
@@ -82,8 +82,8 @@ class ParkingLot {
   }
 }
 
-List<ParkingLot> parkingLotsDemoPage1 = [
-  ParkingLot(
+List<ParkingLotResponse> parkingLotsDemoPage1 = [
+  ParkingLotResponse(
     parkingLotID: 'PL001',
     parkingLotName: 'Bãi xe Trung tâm DemoPage1',
     address: '123 Đường Lê Lợi, Quận 1, TP.HCM',
@@ -94,11 +94,11 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images( url: 'assets/images/featured _items_1.png'),
-      Images( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( url: 'assets/images/featured _items_1.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL002',
     parkingLotName: 'Bãi xe Bệnh viện DemoPage1',
     address: '456 Đường Nguyễn Trãi, Quận 5, TP.HCM',
@@ -109,11 +109,11 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images( url: 'assets/images/featured _items_2.png'),
-      Images(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse(url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL003',
     parkingLotName: 'Bãi xe Sân bay DemoPage1',
     address: 'Sân bay Tân Sơn Nhất, Quận Tân Bình, TP.HCM',
@@ -124,13 +124,13 @@ List<ParkingLot> parkingLotsDemoPage1 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images( url: 'assets/images/featured _items_2.png'),
-      Images( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
 ];
-List<ParkingLot> parkingLotsDemoPage2 = [
-  ParkingLot(
+List<ParkingLotResponse> parkingLotsDemoPage2 = [
+  ParkingLotResponse(
     parkingLotID: 'PL001',
     parkingLotName: 'Bãi xe Trung tâm DemoPage2',
     address: '123 Đường Lê Lợi, Quận 1, TP.HCM',
@@ -141,11 +141,11 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images( url: 'assets/images/featured _items_1.png'),
-      Images(url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse(url: 'assets/images/featured _items_1.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL002',
     parkingLotName: 'Bãi xe Bệnh viện DemoPage2',
     address: '456 Đường Nguyễn Trãi, Quận 5, TP.HCM',
@@ -156,11 +156,11 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images(url: 'assets/images/featured _items_2.png'),
-      Images( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL003',
     parkingLotName: 'Bãi xe Sân bay DemoPage2',
     address: 'Sân bay Tân Sơn Nhất, Quận Tân Bình, TP.HCM',
@@ -171,13 +171,13 @@ List<ParkingLot> parkingLotsDemoPage2 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images( url: 'assets/images/featured _items_2.png'),
-      Images( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
 ];
-List<ParkingLot> parkingLotsDemoPage3 = [
-  ParkingLot(
+List<ParkingLotResponse> parkingLotsDemoPage3 = [
+  ParkingLotResponse(
     parkingLotID: 'PL001',
     parkingLotName: 'Bãi xe Trung tâm',
     address: '123 Đường Lê Lợi, Quận 1, TP.HCM',
@@ -188,11 +188,11 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      Images( url: 'assets/images/featured _items_1.png'),
-      Images( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( url: 'assets/images/featured _items_1.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL002',
     parkingLotName: 'Bãi xe Bệnh viện',
     address: '456 Đường Nguyễn Trãi, Quận 5, TP.HCM',
@@ -203,11 +203,11 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      Images(url: 'assets/images/featured _items_2.png'),
-      Images( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotID: 'PL003',
     parkingLotName: 'Bãi xe Sân bay',
     address: 'Sân bay Tân Sơn Nhất, Quận Tân Bình, TP.HCM',
@@ -218,8 +218,8 @@ List<ParkingLot> parkingLotsDemoPage3 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      Images( url: 'assets/images/featured _items_2.png'),
-      Images(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse(url: 'assets/images/featured _items_2.png'),
     ], userID: '',
   ),
 ];

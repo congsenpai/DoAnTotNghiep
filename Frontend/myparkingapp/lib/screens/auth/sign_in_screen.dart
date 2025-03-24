@@ -8,7 +8,7 @@ import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import '../../components/welcome_text.dart';
 import '../../constants.dart';
@@ -91,7 +91,7 @@ class SignInScreen extends StatelessWidget {
           return AppDialog.showErrorEvent(context, state.mess);
         }
         else if(state is GotoAcceptLocationScreenState){
-          User user = state.user;
+          UserResponse user = state.user;
           Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
-import 'package:myparkingapp/data/response/parking_slots.dart';
-import 'package:myparkingapp/data/response/user.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_slots_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 import '../../bloc/lot/lot_detail_event.dart';
 import '../../components/app_dialog.dart';
@@ -15,8 +15,8 @@ import 'components/iteams.dart';
 import 'components/lot_info.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final User user;
-  final ParkingLot parkingLot;
+  final UserResponse user;
+  final ParkingLotResponse parkingLot;
   const DetailsScreen({super.key, required this.parkingLot, required this.user});
 
   @override

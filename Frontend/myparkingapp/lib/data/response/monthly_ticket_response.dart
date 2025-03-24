@@ -1,4 +1,4 @@
-class MonthlyTicket {
+class MonthlyTicketResponse {
   String monthlyTicketID;
   String parkingSlotID;
   String userID;
@@ -7,7 +7,7 @@ class MonthlyTicket {
   String updateAt;
   String expriedAt;
 
-  MonthlyTicket({
+  MonthlyTicketResponse({
     required this.monthlyTicketID,
     required this.parkingSlotID,
     required this.userID,
@@ -17,8 +17,8 @@ class MonthlyTicket {
     required this.expriedAt
   });
 
-  factory MonthlyTicket.fromJson(Map<String, dynamic> json) {
-    return MonthlyTicket(
+  factory MonthlyTicketResponse.fromJson(Map<String, dynamic> json) {
+    return MonthlyTicketResponse(
       monthlyTicketID: json['monthlyTicketId'],
       userID: json['userId'],
       invoiceID: json['invoiceId'], parkingSlotID: json['parkingSlotID'], createdAt: '', updateAt: '', expriedAt: '',
@@ -30,7 +30,7 @@ class MonthlyTicket {
     return 'MonthlyTicket(monthlyTicketId: $monthlyTicketID, slotId: $parkingSlotID, userId: $userID, invoiceId: $invoiceID)';
   }
 }
-final MonthlyTicket monthlyTicketDemo = MonthlyTicket(
+final MonthlyTicketResponse monthlyTicketDemo = MonthlyTicketResponse(
   monthlyTicketID: "MT001",
   userID: "U001",
   invoiceID: "INV001", parkingSlotID: '', createdAt: '', updateAt: '', expriedAt: '',

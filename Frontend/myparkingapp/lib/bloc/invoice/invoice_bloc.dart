@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
-import 'package:myparkingapp/data/response/invoice.dart';
+import 'package:myparkingapp/data/response/invoice_response.dart';
 
 class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
   InvoiceBloc():super(InvoiceInitialState()){
@@ -12,7 +12,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
     try{
       emit(InvoiceLoadingState());
       InvoiceOnPage invoiceOnPage = invoiceOnPages.firstWhere((i)=>i.page == 1);
-      List<Invoice> invoices = invoiceOnPage.invoices;
+      List<InvoiceResponse> invoices = invoiceOnPage.invoices;
       emit(InvoiceLoadedState(invoices, event.page, invoiceOnPage.pageAmount));
     }
     catch(e){

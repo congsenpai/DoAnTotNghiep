@@ -5,7 +5,7 @@ import 'package:myparkingapp/bloc/booking/booking_bloc.dart';
 import 'package:myparkingapp/bloc/home/home_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';

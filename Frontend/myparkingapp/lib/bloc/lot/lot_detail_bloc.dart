@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_event.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
-import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/parking_slots_response.dart';
 // import 'package:myparkingapp/data/repository/slot_repository.dart';
 
 class LotDetailBloc extends Bloc<LotDetailEvent,LotDetailState>{
@@ -11,11 +11,11 @@ class LotDetailBloc extends Bloc<LotDetailEvent,LotDetailState>{
   }
 
   Future<List<DataOnFloor>> loadDataOnFloor() async{
-    List<ParkingSlot> slots = demoSlots;
+    List<ParkingSlotResponse> slots = demoSlots;
       Set<String> floorNames = slots.map((i)=>i.floorName).toSet();
       List<DataOnFloor> datas = [];
       for(var name in floorNames){
-        List<ParkingSlot> slot = slots.where((i)=>i.floorName == name).toList();
+        List<ParkingSlotResponse> slot = slots.where((i)=>i.floorName == name).toList();
         DataOnFloor dataOnFloor = DataOnFloor(name, slot, floorNames.toList());
         datas.add(dataOnFloor);
       }

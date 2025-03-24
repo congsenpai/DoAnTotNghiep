@@ -1,13 +1,13 @@
-class Images {
+class ImagesResponse {
   String url;
 
-  Images({
+  ImagesResponse({
     required this.url,
   });
 
   // Convert from JSON
-  factory Images.fromJson(Map<String, dynamic> json) {
-    return Images(
+  factory ImagesResponse.fromJson(Map<String, dynamic> json) {
+    return ImagesResponse(
       url: json['url'],
     );
   }

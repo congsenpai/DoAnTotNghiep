@@ -1,20 +1,20 @@
-import 'package:myparkingapp/data/response/discount.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
-import 'package:myparkingapp/data/response/parking_slots.dart';
+import 'package:myparkingapp/data/response/discount_response.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
+import 'package:myparkingapp/data/response/parking_slots_response.dart';
 import 'package:myparkingapp/demo_data.dart';
 
 abstract class BookingEvent{}
 
 class BookingInitialEvent extends BookingEvent{
-  final ParkingLot lot;
+  final ParkingLotResponse lot;
   BookingInitialEvent( this.lot);
 }
 
 class BookingCreateInvoiceEvent extends BookingEvent{
-  final ParkingLot lot;
-  final ParkingSlot slot;
-  final Discount discount;
-  final List<Discount> discounts;
+  final ParkingLotResponse lot;
+  final ParkingSlotResponse slot;
+  final DiscountResponse discount;
+  final List<DiscountResponse> discounts;
   final DateTime start;
   final List<MonthInfo> months;
   final MonthInfo month;
@@ -22,9 +22,9 @@ class BookingCreateInvoiceEvent extends BookingEvent{
       this.slot,this.month, this.discounts, this.months);
 }
 class GetOderEvent extends BookingEvent{
-  final ParkingLot lot;
-  final ParkingSlot slot;
-  final Discount discount;
+  final ParkingLotResponse lot;
+  final ParkingSlotResponse slot;
+  final DiscountResponse discount;
   final DateTime start;
   final MonthInfo monthList;
   GetOderEvent( this.lot,this.slot,this.discount,this.start,

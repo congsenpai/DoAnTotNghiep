@@ -33,13 +33,13 @@ extension VehicleTypeExtension on VehicleType {
 }
 
 // Class Vehicle
-class Vehicle {
+class VehicleResponse {
   String vehicleId;
   VehicleType vehicleType;
   String licensePlate;
   String description;
 
-  Vehicle({
+  VehicleResponse({
     required this.vehicleId,
     required this.vehicleType,
     required this.licensePlate,
@@ -47,8 +47,8 @@ class Vehicle {
   });
 
   // Convert JSON to Vehicle object
-  factory Vehicle.fromJson(Map<String, dynamic> json) {
-    return Vehicle(
+  factory VehicleResponse.fromJson(Map<String, dynamic> json) {
+    return VehicleResponse(
       vehicleId: json['vehicleId'] as String,
       vehicleType: VehicleTypeExtension.fromString(json['vehicleType']),
       licensePlate: json['licensePlate'] as String,

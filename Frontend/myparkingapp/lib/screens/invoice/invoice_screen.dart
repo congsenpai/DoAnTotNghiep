@@ -6,13 +6,13 @@ import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/components/pagination_button.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import '../../constants.dart';
-import '../../data/response/invoice.dart';
-import 'components/order_item_card.dart';
+import '../../data/response/invoice_response.dart';
+import 'components/invoice_list.dart';
 
 class InvoiceScreen extends StatefulWidget {
-  final User user;
+  final UserResponse user;
   const InvoiceScreen({super.key, required this.user});
 
   @override
@@ -28,7 +28,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   }
   
 
-  List<Invoice> invoices = [];
+  List<InvoiceResponse> invoices = [];
   int page = 1;
   int pageAmount = 1;
   String searchText = "";
@@ -63,7 +63,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                           (index) => Padding(
                         padding:
                         const EdgeInsets.symmetric(vertical: defaultPadding / 2),
-                        child: OrderedItemCard(invoice: invoices[index],)
+                        child: InvoiceList(invoice: invoices[index],)
                         ),
                       ),
                     PaginationButtons(page: page, pageAmount: pageAmount, onPageChanged: (newPage) {
@@ -92,7 +92,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
 }
 
 class SearchForm extends StatefulWidget {
-  final User user;
+  final UserResponse user;
   final int page;
   const SearchForm({super.key, required this.user, required this.page});
 

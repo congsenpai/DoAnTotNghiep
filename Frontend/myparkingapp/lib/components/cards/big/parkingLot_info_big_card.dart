@@ -2,20 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
-import 'package:myparkingapp/data/response/parking_slots.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 import '../../../constants.dart';
-import '../../../screens/details/details_screen.dart';
+import '../../../screens/details_parkinglot/details_screen.dart';
 import '../../vehicle_type_list.dart';
 import '../../rating_with_counter.dart';
 import '../../small_dot.dart';
 import 'big_card_image_slide.dart';
 
 class ParkingLotInfoBigCard extends StatefulWidget {
-  final User user; 
-  final ParkingLot parkingLot;
+  final UserResponse user; 
+  final ParkingLotResponse parkingLot;
   final VoidCallback press;
 
   const ParkingLotInfoBigCard({
@@ -96,8 +95,8 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
 }
 
 class ParkingLotList extends StatefulWidget {
-  final List<ParkingLot> lots;
-  final User user;
+  final List<ParkingLotResponse> lots;
+  final UserResponse user;
 
 
   const ParkingLotList({super.key, required this.lots, required this.user});
@@ -107,7 +106,7 @@ class ParkingLotList extends StatefulWidget {
 }
 
 class _ParkingLotListState extends State<ParkingLotList> {
-  late List<ParkingLot> displayLots;
+  late List<ParkingLotResponse> displayLots;
 
   @override
   void initState() {

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:myparkingapp/data/request/coordinates.dart';
-import 'package:myparkingapp/data/response/invoice.dart';
-import 'package:myparkingapp/data/response/monthly_ticket.dart';
-import 'package:myparkingapp/data/response/transaction.dart';
-import 'package:myparkingapp/data/response/user.dart';
-import 'package:myparkingapp/data/response/wallet.dart';
+import 'package:myparkingapp/data/request/created_invoice_request.dart';
+import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
+import 'package:myparkingapp/data/request/register_user_request.dart';
+import 'package:myparkingapp/data/request/update_user_request.dart';
+import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
+import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/wallet__response.dart';
 import 'dio_client.dart';
 
 class ApiClient {
@@ -21,20 +23,14 @@ class ApiClient {
   }
 
   Future<Response> register(
-    String username,
-    String password,
-    String gmail,
-    String phoneNumber,
+    RegisterUserRequest user
     ) async {
       final DioClient dioClient = DioClient();
 
       return await dioClient.dio.post(
         "auth/register",
         data: {
-          "username": username,
-          "password": password,
-          "gmail": gmail,
-          "phoneNumber": phoneNumber,
+          user.toJson()
         },
       );
     }
@@ -77,12 +73,12 @@ class ApiClient {
     );
   }
 
-  Future<Response> updateUser(User user) async {
+  Future<Response> updateUser(UpdateUserRequest user) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "/user/${user.userID}/wallet",
       data:{
-        "user":user
+        user.toJson()
       },
     );
   }
@@ -113,10 +109,10 @@ class ApiClient {
 
   Future<Response> getNearParkingLot(Coordinates coordinate) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
+    return await dioClient.dio.post(
       "/parkingLot/nearlyParking",
       data: {
-        "coordinates": coordinate
+        coordinate.toJson()
       },
     );
   }
@@ -141,12 +137,12 @@ class ApiClient {
 
   //-------------------------INVOICE-----------------------------------//
 
-  Future<Response> createInvoice(Invoice invoice) async {
+  Future<Response> createInvoice(CreatedInvoiceRequest invoice) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "/invoice",
       data:{
-        'invoice':invoice
+        invoice.toJson()
       }
     );
   }
@@ -167,12 +163,12 @@ class ApiClient {
     );
   }
 
-  Future<Response> createWallet(Wallet wallet) async {
+  Future<Response> createWallet(WalletResponse wallet) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "/wallet",
       data:{
-        'wallet':wallet
+        wallet.toJson()
       }
     );
   }
@@ -191,12 +187,12 @@ class ApiClient {
 
   //--------------------------TRANSACTION-------------------------------//
 
-    Future<Response> createTransaction(Transaction transaction) async {
+    Future<Response> createTransaction(CreatedTransactionRequest transaction) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "/wallet",
       data:{
-        'transaction':transaction
+        transaction.toJson()
       }
     );
   }
@@ -204,7 +200,7 @@ class ApiClient {
 
   //--------------------------MONTH TICKET-----------------------------//
 
-  Future<Response> createMonthTicket(MonthlyTicket monthlyTicket) async {
+  Future<Response> createMonthTicket(MonthlyTicketResponse monthlyTicket) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "/monthlyTicket",

@@ -1,4 +1,4 @@
-import '../../data/response/discount.dart';
+import '../../data/response/discount_response.dart';
 import '../../demo_data.dart';
 
 abstract class BookingState{}
@@ -12,11 +12,11 @@ class BookingLoadingState extends BookingState{
 }
 
 class BookingLoadedState extends BookingState{
-  final List<Discount> discounts;
+  final List<DiscountResponse> discounts;
   final List<MonthInfo> monthLists;
   final MonthInfo month;
   final DateTime start;
-  final Discount discount;
+  final DiscountResponse discount;
 
   BookingLoadedState(this.discounts, this.monthLists, this.start, this.month, this.discount);
 

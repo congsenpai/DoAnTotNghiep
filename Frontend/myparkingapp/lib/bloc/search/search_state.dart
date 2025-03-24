@@ -1,5 +1,5 @@
 
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 
 abstract class SearchState{}

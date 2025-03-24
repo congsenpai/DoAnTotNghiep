@@ -1,6 +1,6 @@
 
 
-import 'package:myparkingapp/data/response/discount.dart';
+import 'package:myparkingapp/data/response/discount_response.dart';
 
 List<String> bannerHomeScreen = [
   "assets/images/big_1.png",
@@ -40,7 +40,7 @@ List<Map<String, dynamic>> demoMediumCardData = [
   },
 ];
 
-Discount emptyDiscount = Discount(
+DiscountResponse emptyDiscount = DiscountResponse(
     discountId: "",
     discountCode: "",
     discountType: DiscountType.FIXED,

@@ -3,7 +3,7 @@ import 'package:myparkingapp/bloc/search/search_event.dart';
 import 'package:myparkingapp/bloc/search/search_state.dart';
 // import 'package:myparkingapp/components/api_result.dart';
 // import 'package:myparkingapp/data/repository/lots_repository.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 class SearchBloc extends Bloc<SearchEvent,SearchState>{
   SearchBloc(): super(SearchScreenInitial()){

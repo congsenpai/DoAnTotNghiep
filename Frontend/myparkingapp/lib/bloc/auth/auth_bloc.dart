@@ -4,14 +4,16 @@ import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/repository/auth_repository.dart';
 import 'package:myparkingapp/data/repository/user_repository.dart';
-import 'package:myparkingapp/data/response/user.dart';
+import 'package:myparkingapp/data/request/register_user_request.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 class AuthBloc extends Bloc<AuthEvent,AuthState>{
   AuthBloc():super(AuthInitialState()){
     on<LoginEvent>(_login);
     on<GetUserEvent>(_giveUserByUserName);
     on<RegisterEvent>(_register);
-
+    on<giveEmail>(_giveEmail);
+    on<giveRePassWord>(_giveRePassWord);
   }
 }
 
@@ -35,7 +37,7 @@ void _giveUserByUserName(GetUserEvent event, Emitter<AuthState> emit) async{
   int code = apiResult.code;
   String mess = apiResult.message;
   if(code == 200){
-    User user = apiResult.result;
+    UserResponse user = apiResult.result;
     emit(GotoAcceptLocationScreenState(user));
   }
   else{
@@ -47,7 +49,16 @@ void _giveUserByUserName(GetUserEvent event, Emitter<AuthState> emit) async{
 void _register(RegisterEvent event, Emitter<AuthState> emit) async{
   emit(AuthLoadingState());
   AuthRepository auth = AuthRepository();
-  ApiResult apiResult = await auth.register(event.userName,event.passWord,event.email,event.phoneNumber);
+  RegisterUserRequest request = RegisterUserRequest(
+    username: event.userName,
+    password: event.passWord,
+    firstName: 'firstName', 
+    lastName: 'lastName', 
+    email: event.email, 
+    phone: event.phoneNumber, 
+    homeAddress: 'homeAddress', 
+    companyAddress: 'companyAddress');
+  ApiResult apiResult = await auth.register(request);
   int code = apiResult.code;
   String mess = apiResult.message;
   if(code == 200){

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 import '../../../components/vehicle_type_list.dart';
 import '../../../constants.dart';
-import '../../../data/response/parking_slots.dart';
+import '../../../data/response/parking_slots_response.dart';
 
 class Info extends StatelessWidget {
-  final ParkingLot lot;
-  final ParkingSlot slot;
+  final ParkingLotResponse lot;
+  final ParkingSlotResponse slot;
 
   const Info({
     super.key, required this.lot, required this.slot,

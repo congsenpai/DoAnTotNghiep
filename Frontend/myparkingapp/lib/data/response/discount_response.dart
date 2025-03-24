@@ -2,7 +2,7 @@ enum DiscountType {
   PERCENTAGE,
   FIXED,
 }
-class Discount {
+class DiscountResponse {
   String discountId;
   String discountCode;
   DiscountType discountType;
@@ -10,7 +10,7 @@ class Discount {
   String description;
   String expiredAt;
   String parkingLotId;// sau này bỏ
-  Discount({
+  DiscountResponse({
     required this.discountId,
     required this.discountCode,
     required this.discountType,
@@ -22,8 +22,8 @@ class Discount {
   });
 
   // Convert from JSON
-  factory Discount.fromJson(Map<String, dynamic> json) {
-    return Discount(
+  factory DiscountResponse.fromJson(Map<String, dynamic> json) {
+    return DiscountResponse(
       discountId: json['discountId'],
       discountCode: json['discountCode'],
       discountType: DiscountType.values.firstWhere(
@@ -49,8 +49,8 @@ class Discount {
   }
 }
 
-List<Discount> discountDemo = [
-  Discount(
+List<DiscountResponse> discountDemo = [
+  DiscountResponse(
       discountId: 'D001',
       discountCode: 'SALE10',
       discountType: DiscountType.PERCENTAGE,
@@ -58,7 +58,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 10% cho khách hàng lần đầu tiên.',
       parkingLotId: 'PL001', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D002',
       discountCode: 'HEALTH20',
       discountType: DiscountType.FIXED,
@@ -66,7 +66,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.',
       parkingLotId: 'PL001', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D003',
       discountCode: 'AIRPORT5',
       discountType: DiscountType.PERCENTAGE,
@@ -74,7 +74,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 5% cho khách gửi xe dài hạn (trên 7 ngày).',
       parkingLotId: 'PL001', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D001',
       discountCode: 'SALE10',
       discountType: DiscountType.PERCENTAGE,
@@ -82,7 +82,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 10% cho khách hàng lần đầu tiên.',
       parkingLotId: 'PL001', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D002',
       discountCode: 'HEALTH20',
       discountType: DiscountType.FIXED,
@@ -90,7 +90,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.',
       parkingLotId: 'PL001', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D003',
       discountCode: 'AIRPORT5',
       discountType: DiscountType.PERCENTAGE,
@@ -98,7 +98,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 5% cho khách gửi xe dài hạn (trên 7 ngày).',
       parkingLotId: 'PL002', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D001',
       discountCode: 'SALE10',
       discountType: DiscountType.PERCENTAGE,
@@ -106,7 +106,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 10% cho khách hàng lần đầu tiên.',
       parkingLotId: 'PL002', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D002',
       discountCode: 'HEALTH20',
       discountType: DiscountType.FIXED,
@@ -114,7 +114,7 @@ List<Discount> discountDemo = [
       description: 'Giảm 2000đ cho mỗi lượt gửi xe của bệnh nhân.',
       parkingLotId: 'PL002', expiredAt: ''
   ),
-  Discount(
+  DiscountResponse(
       discountId: 'D003',
       discountCode: 'AIRPORT5',
       discountType: DiscountType.PERCENTAGE,

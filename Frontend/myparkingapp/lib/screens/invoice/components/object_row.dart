@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class PriceRow extends StatelessWidget {
-  const PriceRow({
+class ObjectRow extends StatelessWidget {
+  const ObjectRow({
     super.key,
-    required this.text,
-    required this.price,
+    required this.title,
+    required this.content,
   });
 
-  final String text;
-  final double price;
+  final String title;
+  final dynamic content;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,11 @@ class PriceRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          text,
+          title,
           style: const TextStyle(color: titleColor),
         ),
         Text(
-          "\$$price",
+          content.toString(),
           style: const TextStyle(color: titleColor),
         )
       ],

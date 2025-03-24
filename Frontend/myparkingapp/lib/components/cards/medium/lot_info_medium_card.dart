@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 import '../../../constants.dart';
 import '../../rating.dart';

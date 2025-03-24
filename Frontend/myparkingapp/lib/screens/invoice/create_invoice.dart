@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
@@ -32,30 +30,17 @@ class OrderDetailsScreen extends StatelessWidget {
               const SizedBox(height: 8),
               ObjectRow(title: "parkingSlotName",content: invoice.isMonthlyTicket ? "Month":"Date"),
               const SizedBox(height: 8),
-              ObjectRow(title: "Description",content: invoice.description),
+              ObjectRow(title: "parkingSlotName",content: invoice),
               const SizedBox(height: 8),
-              ...List.generate(invoice.transaction.length, (index) {
-              return PrimaryButton(
-                text: "Transaction ${index + 1}",
-                press: () {
-                  AppDialog.showDetailTransaction(context, invoice.transaction[index]);
-                },
-                );
-              },
-              ),
-              const SizedBox(height: 32),
-              PrimaryButton(
-                text: "Vehicle",
-                press: () {
-                  AppDialog.showDetailVehicle(context, invoice.vehicle);
-                },
-              ),
-              const SizedBox(height: 32),
+
               const TotalPrice(price: 20),
               const SizedBox(height: 32),
-
-
-              
+              PrimaryButton(
+                text: "",
+                press: () {
+                  
+                },
+              ),
             ],
           ),
         ),
@@ -88,7 +73,7 @@ class PrimaryButton extends StatelessWidget {
 
   Text buildText(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate(text).toUpperCase(),
+      text.toUpperCase(),
       style: const TextStyle(
         color: Colors.white,
         fontSize: 14,

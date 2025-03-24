@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/home/home_event.dart';
 import 'package:myparkingapp/bloc/home/home_state.dart';
 // import 'package:myparkingapp/components/api_result.dart';
-import 'package:myparkingapp/data/response/parking_lot.dart';
+import 'package:myparkingapp/data/response/parking_lot_response.dart';
 // import 'package:myparkingapp/data/repository/lots_repository.dart';
 
 class HomeBloc extends Bloc<HomeEvent,HomeState>{
@@ -27,7 +27,7 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
       //   emit(HomeErrorState(mess));
       // }
       LotOnPage lotOnPage = demo[1];
-      List<ParkingLot> lots = lotOnPage.lots;
+      List<ParkingLotResponse> lots = lotOnPage.lots;
       emit(HomeLoadedState(lots, lots));
 
     }
