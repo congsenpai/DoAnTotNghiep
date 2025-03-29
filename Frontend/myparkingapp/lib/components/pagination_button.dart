@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class PaginationButtons extends StatelessWidget {
   final int page; // Trang hiện tại
-  final int pageAmount; // Tổng số trang
+  final int pageTotal; // Tổng số trang
   final Function(int) onPageChanged; // Hàm callback khi đổi trang
 
   const PaginationButtons({
     super.key,
     required this.page,
-    required this.pageAmount,
+    required this.pageTotal,
     required this.onPageChanged,
   });
 
@@ -26,13 +26,13 @@ class PaginationButtons extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Trang $page / $pageAmount',
+            'Trang $page / $pageTotal',
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
         // Nút trang tiếp theo
         IconButton(
-          onPressed: page < pageAmount ? () => onPageChanged(page + 1) : null,
+          onPressed: page < pageTotal ? () => onPageChanged(page + 1) : null,
           icon: const Icon(Icons.arrow_forward_ios),
         ),
       ],

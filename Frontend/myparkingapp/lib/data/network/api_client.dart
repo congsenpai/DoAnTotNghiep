@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:myparkingapp/data/request/created_invoice_request.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
 import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/vehicle__response.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 import 'dio_client.dart';
 
@@ -76,7 +78,7 @@ class ApiClient {
   Future<Response> updateUser(UpdateUserRequest user) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/user/${user.userID}/wallet",
+      "/user/${user.userID}/update",
       data:{
         user.toJson()
       },
@@ -93,7 +95,41 @@ class ApiClient {
   Future<Response> getWalletByUser(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/$userId/wallet",
+      "user/$userId/wallet",
+    );
+  }
+
+  Future<Response> getTransactionsByUser({
+      required String userID, 
+      Transactions? tranType,
+      DateTime? start,
+      DateTime? end,
+    }) async {
+    final DioClient dioClient = DioClient();
+    
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "user/$userID/transactions/";
+    
+    if (tranType != null) {
+      url += "&type=$tranType";
+    }
+    
+    if (start != null && end != null) {
+      url += "&from=${start.toIso8601String()}&end=${end.toIso8601String()}";
+    }
+
+    return await dioClient.dio.get(url);
+  }
+
+  Future<Response> changePassWord(String userID, String oldPass, String newPass) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "/user/$userID/updatePass",
+      data:{
+        'userID':userID,
+        'oldPassWord':oldPass,
+        'newPassWord':newPass
+      },
     );
   }
   
@@ -103,14 +139,14 @@ class ApiClient {
   Future<Response> getParkingLotBySearchAndPage(String search,int page) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/parkingLot/search/$search/page/$page",
+      "parkingLot/search/$search/page/$page",
     );
   }
 
   Future<Response> getNearParkingLot(Coordinates coordinate) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/parkingLot/nearlyParking",
+      "parkingLot/nearlyParking",
       data: {
         coordinate.toJson()
       },
@@ -121,7 +157,7 @@ class ApiClient {
   Future<Response> getParkingSlotByLot(String parkingLotID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/paskingLot/$parkingLotID/parkingLot",
+      "paskingLot/$parkingLotID/parkingLot",
     );
   }
 
@@ -131,7 +167,7 @@ class ApiClient {
   Future<Response> getListDiscountBySlot(String parkingSlotID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/paskingSlot/$parkingSlotID/discount",
+      "paskingSlot/$parkingSlotID/discount",
     );
   }
 
@@ -140,7 +176,7 @@ class ApiClient {
   Future<Response> createInvoice(CreatedInvoiceRequest invoice) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/invoice",
+      "invoice",
       data:{
         invoice.toJson()
       }
@@ -149,24 +185,32 @@ class ApiClient {
 
   //--------------------------WALLET------------------------------------//
 
-  Future<Response> getTransactionByWalletSearchAndPage(String walletId,String search, int page) async {
+  Future<Response> getTransactions({
+      required String walletId, 
+      Transactions? tranType,
+      DateTime? start,
+      DateTime? end,
+      required int page,
+    }) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
-      "/wallet/$walletId/transactions/search/$search/page/$page",
-    );
-  }
+    
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "wallet/$walletId/transactions?page=$page";
+    
+    if (tranType != null) {
+      url += "&type=$tranType";
+    }
+    
+    if (start != null && end != null) {
+      url += "&from=${start.toIso8601String()}&end=${end.toIso8601String()}";
+    }
 
-  Future<Response> getTransactionByWalletDateTypePage(String walletId, Transactions tranType, DateTime start, DateTime end, int page)async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
-      "/wallet/$walletId/transactions/type/$tranType/from/$start/end/$end/page/$page",
-    );
+    return await dioClient.dio.get(url);
   }
-
-  Future<Response> createWallet(WalletResponse wallet) async {
+  Future<Response> createWallet(CreatedWalletRequest wallet) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/wallet",
+      "wallet",
       data:{
         wallet.toJson()
       }
@@ -176,7 +220,7 @@ class ApiClient {
   Future<Response> unlockOrUnlockWallet(String walletId, bool newState) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.patch(
-      "/wallet",
+      "wallet",
       data:{
         'walletId': walletId,
         'newState': newState,
@@ -190,7 +234,7 @@ class ApiClient {
     Future<Response> createTransaction(CreatedTransactionRequest transaction) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/wallet",
+      "wallet",
       data:{
         transaction.toJson()
       }
@@ -203,10 +247,28 @@ class ApiClient {
   Future<Response> createMonthTicket(MonthlyTicketResponse monthlyTicket) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/monthlyTicket",
+      "monthlyTicket",
       data:{
         'monthlyTicket':monthlyTicket
       }
+    );
+  }
+
+  Future<Response> addVehicle(VehicleResponse request, String userID) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "vehicle",
+      data:{
+        'VehicleResponse':request,
+        'userID':userID
+      }
+    );
+  }
+
+  Future<Response> deleteVehicle(String vehicleID) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.patch(
+      "vehicle/$vehicleID/lock",
     );
   }
 

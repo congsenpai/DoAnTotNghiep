@@ -1,6 +1,7 @@
 
 
 import 'package:myparkingapp/data/network/api_client.dart';
+import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
@@ -32,7 +33,7 @@ class WalletRepository{
   }
 
   }
-  Future<ApiResult> createWallet(WalletResponse wallet) async{
+  Future<ApiResult> createWallet(CreatedWalletRequest wallet) async{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.createWallet(wallet);

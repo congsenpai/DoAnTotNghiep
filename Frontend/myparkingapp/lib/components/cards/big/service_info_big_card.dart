@@ -85,38 +85,3 @@ class _ServiceInfoBigCardState extends State<ServiceInfoBigCard> {
     );
   }
 }
-
-// class ParkingLotList extends StatelessWidget {
-//   final List<ParkingLot> lots;
-//
-//   const ParkingLotList({super.key, required this.lots});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//       Column(
-//       children: List.generate(
-//         lots.length,
-//             (index) {
-//           final lot = lots[index]; // Lấy phần tử hiện tại
-//           return Padding(
-//             padding: const EdgeInsets.fromLTRB(
-//                 defaultPadding, 0, defaultPadding, defaultPadding),
-//             child: ServiceInfoBigCard(
-//
-//                // Trạng thái miễn phí (tuỳ chỉnh theo logic VD: còn trống, miễn phí...)
-//               press: () => Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => const DetailsScreen(), // Chuyển sang màn chi tiết
-//                 ),
-//               ), service: lots,
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-
-

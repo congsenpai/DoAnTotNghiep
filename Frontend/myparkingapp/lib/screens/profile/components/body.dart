@@ -1,12 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/screens/profile/components/update_password_screen.dart';
+import 'package:myparkingapp/screens/profile/components/update_user_screen.dart';
+import 'package:myparkingapp/screens/wallet/wallet_screen.dart';
 import '../../../constants.dart';
 
 class Body extends StatelessWidget {
-  const Body({super.key});
+  final UserResponse user;
+  const Body({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
+    void _showLanguageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).translate("Choose Language")),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text("EN"),
+              onTap: () {
+                Get.updateLocale(const Locale('en')); // hoặc Locale('en')
+                print("en");
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("VI"),
+              onTap: () {
+                Get.updateLocale(const Locale('vi')); // hoặc Locale('en')
+                print("vi");
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -15,48 +52,45 @@ class Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: defaultPadding),
-              Text("Account Settings",
+              
+              Text(AppLocalizations.of(context).translate("Account Settings"),
                   style: Theme.of(context).textTheme.headlineMedium),
               Text(
-                "Update your settings like notifications, payments, profile edit etc.",
+                AppLocalizations.of(context).translate("Update your settings like notifications, payments, profile edit etc."),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               ProfileMenuCard(
                 svgSrc: "assets/icons/profile.svg",
-                title: "Profile Information",
-                subTitle: "Change your account information",
-                press: () {},
+                title: AppLocalizations.of(context).translate("Profile Information"),
+                subTitle: AppLocalizations.of(context).translate("Change your account information"),
+                press: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen(user: user,)));
+                },
               ),
               ProfileMenuCard(
                 svgSrc: "assets/icons/lock.svg",
-                title: "Change Password",
-                subTitle: "Change your password",
-                press: () {},
+                title: AppLocalizations.of(context).translate("Change Password"),
+                subTitle: AppLocalizations.of(context).translate("Change your password"),
+                press: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: user,)));
+                },
               ),
               ProfileMenuCard(
                 svgSrc: "assets/icons/card.svg",
-                title: "Payment Methods",
-                subTitle: "Add your credit & debit cards",
-                press: () {},
+                title: AppLocalizations.of(context).translate("Payment Methods"),
+                subTitle: AppLocalizations.of(context).translate("Add your credit & debit cards"),
+                press: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => WalletScreen(user: user)));
+                },
               ),
               ProfileMenuCard(
                 svgSrc: "assets/icons/marker.svg",
-                title: "Locations",
-                subTitle: "Add or remove your delivery locations",
-                press: () {},
-              ),
-              ProfileMenuCard(
-                svgSrc: "assets/icons/fb.svg",
-                title: "Add Social Account",
-                subTitle: "Add Facebook, Twitter etc ",
-                press: () {},
-              ),
-              ProfileMenuCard(
-                svgSrc: "assets/icons/share.svg",
-                title: "Refer to Friends",
-                subTitle: "Get \$10 for reffering friends",
-                press: () {},
+                title: AppLocalizations.of(context).translate("Language"),
+                subTitle: AppLocalizations.of(context).translate("Add or remove your delivery locations"),
+                press: () {
+                  _showLanguageDialog();
+                },
               ),
             ],
           ),
@@ -64,6 +98,7 @@ class Body extends StatelessWidget {
       ),
     );
   }
+  
 }
 
 class ProfileMenuCard extends StatelessWidget {

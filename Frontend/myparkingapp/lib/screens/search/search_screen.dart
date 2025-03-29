@@ -74,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ParkingLotList(lots: lots, user: widget.user),
                       const SizedBox(height: defaultPadding),
 
-                      PaginationButtons(page: page, pageAmount: pageAmount, onPageChanged: (newPage) {
+                      PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
                           context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(searchText,page)) ;// Gọi hàm search

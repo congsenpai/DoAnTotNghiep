@@ -35,3 +35,18 @@ class WalletResponse {
     };
   }
 }
+
+List<WalletResponse> walletdemo =[
+    WalletResponse(
+      walletId: "W001",
+      balance: 150.75,
+      currency: "USD",
+      name: "Main Wallet", userId: 'U001',
+    ),
+    WalletResponse(
+      walletId: "W002",
+      balance: 50.00,
+      currency: "USD",
+      name: "Secondary Wallet", userId: 'U001',
+    ),
+  ];

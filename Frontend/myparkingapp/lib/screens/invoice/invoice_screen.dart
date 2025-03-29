@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
@@ -37,9 +39,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     return BlocConsumer<InvoiceBloc,InvoiceState>
       (builder: (context,state) {
         if(state is InvoiceLoadingState){
-          return Center(
-              child: CircularProgressIndicator(),
-          );
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
         }
         else if(state is InvoiceLoadedState){
           invoices = state.invoices;
@@ -47,7 +47,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           pageAmount = state.pageAmount;
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Your Orders"),
+              title: Text(AppLocalizations.of(context).translate("Your Orders")),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -66,10 +66,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                         child: InvoiceList(invoice: invoices[index],)
                         ),
                       ),
-                    PaginationButtons(page: page, pageAmount: pageAmount, onPageChanged: (newPage) {
+                    PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
-                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, searchText, 1));;// Gọi hàm search
+                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, searchText, page));;// Gọi hàm search
                         });
                         // Gọi API hoặc cập nhật dữ liệu cho trang mới
                       },)
@@ -80,9 +80,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           );
 
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
     }, listener: (context,state){
         if(state is InvoiceErrorState){
           AppDialog.showErrorEvent(context, state.mess);

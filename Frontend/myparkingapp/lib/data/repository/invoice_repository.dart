@@ -1,5 +1,6 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
+import 'package:myparkingapp/data/request/created_invoice_request.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 
@@ -29,6 +30,35 @@ class InvoiceRepository{
                 code,
                 mess,
                 result,
+            );
+            return apiResult;
+        }
+        else{
+            throw Exception(
+            "InvoiceRepository_getInvoiceByUserWithSearchAndPage"
+        ); 
+        }
+    }
+    catch(e){
+        throw Exception(
+            "InvoiceRepository_getInvoiceByUserWithSearchAndPage: $e"
+        ); 
+    }
+
+  }
+
+  Future<ApiResult> createdInvoice(CreatedInvoiceRequest invoice) async{
+    try{
+        ApiClient apiClient = ApiClient();
+        final response = await apiClient.createInvoice(invoice);
+        if(response.statusCode == 200){
+            Map<String, dynamic> jsonData = response.data;
+            int code = jsonData['code'];
+            String mess = jsonData['mess'];
+            ApiResult apiResult = ApiResult(
+                code,
+                mess,
+                '',
             );
             return apiResult;
         }

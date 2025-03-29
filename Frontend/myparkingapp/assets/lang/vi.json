@@ -14,6 +14,7 @@
     "Get Started": "Bắt đầu",
     "Welcome to": "Chào mừng",
     "Enter your Phone number or Email \naddress for sign in :)": "Nhập số điện thoại hoặc địa chỉ \nemail của bạn để đăng nhập :)",
+    "Filter":"Lọc",
 
 
 "2":" Loại ngôn ngữ",
@@ -87,6 +88,7 @@
         "info": "Thông tin",
         "success": "Thành công",
         "error": "Thất bại",
+        "Delivery to":"Cung cấp bởi",
         
 "6":"Card",
         "balance":"Số dư",
@@ -124,5 +126,19 @@
         "ContractImageUrl":"Link ảnh",
         "ContractDetail":"Chi tiết hợp đồng",
         "ContractList":"Danh sách hợp đồng",
-        "updatedDate":"Ngày sửa"
+        "updatedDate":"Ngày sửa",
+"10":"Profile Info",
+        "Account Settings": "Cài đặt tài khoản",
+        "Update your settings like notifications, payments, profile edit etc.": "Cập nhật cài đặt của bạn như thông báo, thanh toán, chỉnh sửa hồ sơ, v.v.",
+        "Profile Information": "Thông tin hồ sơ",
+        "Change your account information": "Thay đổi thông tin tài khoản của bạn",
+        "Change Password": "Đổi mật khẩu",
+        "Change your password": "Thay đổi mật khẩu của bạn",
+        "Payment Methods": "Phương thức thanh toán",
+        "Add your credit & debit cards": "Thêm thẻ tín dụng & thẻ ghi nợ của bạn",
+        "Language": "Ngôn ngữ",
+        "Add or remove your delivery locations": "Thêm hoặc xóa vị trí giao hàng của bạn",
+        "Info": "Thông tin",
+        "Success": "Thành công",
+        "Error": "Lỗi"
 }

@@ -14,6 +14,8 @@
     "Get Started": "Get Started",
     "Welcome to": "Welcome to",
     "Enter your Phone number or Email \naddress for sign in :)": "Enter your Phone number or Email \naddress for sign in :)",
+    "Filter":"Filter",
+
 
 
 
@@ -24,6 +26,7 @@
     "en": "en",
     "Vietnamese": "Vietnamese",
     "vi": "vi",
+
 
 
 
@@ -88,6 +91,7 @@
         "info": "Info",
         "success": "Success",
         "error": "Error",
+        "Delivery to":"Delivery to",
 
 
 "6":"Card",
@@ -137,6 +141,19 @@
       "and others payment methods.": "and others payment methods.",
       "Choose your food": "Choose your food",
       "Easily find your type of food craving and": "Easily find your type of food craving and",
-      "you’ll get delivery in wide range.": "you’ll get delivery in wide range."
-
+      "you’ll get delivery in wide range.": "you’ll get delivery in wide range.",
+"10":"Profile Info",
+        "Account Settings": "Account Settings",
+        "Update your settings like notifications, payments, profile edit etc.": "Update your settings like notifications, payments, profile edit etc.",
+        "Profile Information": "Profile Information",
+        "Change your account information": "Change your account information",
+        "Change Password": "Change Password",
+        "Change your password": "Change your password",
+        "Payment Methods": "Payment Methods",
+        "Add your credit & debit cards": "Add your credit & debit cards",
+        "Language": "Language",
+        "Add or remove your delivery locations": "Add or remove your delivery locations",
+        "Info": "Info",
+        "Success": "Success",
+        "Error": "Error"
 }

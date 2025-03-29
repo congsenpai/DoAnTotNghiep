@@ -29,7 +29,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               title: const Text("English"),
               onTap: () {
                 Get.updateLocale(const Locale('en')); // hoặc Locale('en')
-                print("en");
                 Navigator.pop(context);
               },
             ),
@@ -37,7 +36,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               title: const Text("Tiếng Việt"),
               onTap: () {
                 Get.updateLocale(const Locale('vi')); // hoặc Locale('en')
-                print("vi");
                 Navigator.pop(context);
               },
             ),
@@ -114,19 +112,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 List<Map<String, dynamic>> demoData = [
   {
     "illustration": "assets/Illustrations/Illustrations_1.svg",
-    "title": "All your favorites",
-    "text": "Order from the best local restaurants \nwith easy, on-demand delivery.",
+    "title": "Time is gold",
+    "text": "Don’t waste time circling for a spot. Let technology guide you to the right place, at the right time."
   },
   {
     "illustration": "assets/Illustrations/Illustrations_2.svg",
-    "title": "Free delivery offers",
-    "text":
-    "Free delivery for new customers via Apple Pay\nand others payment methods.",
+    "title": "Convenience makes a difference",
+    "text": "A smart choice saves you effort. Book in advance, park easily, and enjoy your day."
   },
   {
     "illustration": "assets/Illustrations/Illustrations_3.svg",
-    "title": "Choose your food",
-    "text":
-    "Easily find your type of food craving and\nyou’ll get delivery in wide range.",
-  },
+    "title": "Stay in control",
+    "text": "Own your journey—don’t let parking slow you down. One tap, and everything is within reach."
+  }
 ];

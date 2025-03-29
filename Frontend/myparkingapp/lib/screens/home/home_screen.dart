@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 
 import 'package:myparkingapp/data/response/user__response.dart';import 'package:myparkingapp/data/response/service.dart';
+import 'package:myparkingapp/screens/chatbot/chat_bot.dart';
+import 'package:myparkingapp/screens/dashboard/dash_board_screen.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
 import 'package:myparkingapp/screens/search/search_screen.dart';
 
@@ -31,10 +36,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<ParkingLotResponse> plots = parkingLotsDemoPage1;
+  List<Service> services = [];
 
-  @override
+  
   @override
   void initState() {
+    services = [
+    Service(
+      image: 'assets/images/AI_chatbot.png',
+      name: 'Chatbot',
+      description: 'training by Gemini',
+      version: 1.0,
+      press: () {
+        // Viết logic điều hướng ở đây hoặc pass từ ngoài vào
+        Get.to(ChatScreen(title: 'Gemini',));
+      },
+    ),
+    Service(
+      image: 'assets/images/budget_management.png',
+      name: 'Dashboard',
+      description: 'budget management',
+      version: 1.0,
+      press: () {
+        Get.to(DashBoardScreen(user: widget.user));
+      },
+    ),
+    ];
     // TODO: implement initState
     super.initState();
     context.read<HomeBloc>().add(HomeInitialEvent());
@@ -79,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocConsumer<HomeBloc, HomeState>
         (builder: (context,state) {
         if(state is HomeLoadingState){
-          return Center(child:CircularProgressIndicator() ,) ;
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
         }
         else if(state is HomeLoadedState){
           plots = state.homeLots;
@@ -136,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         }
-        return Center(child:CircularProgressIndicator() ,) ;
+        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
       },
           listener: (context,state){
           if(state is HomeErrorState){

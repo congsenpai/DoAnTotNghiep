@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/response/discount_response.dart';
 import 'package:myparkingapp/data/response/transaction__response.dart';
 import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/wallet__response.dart';
 
 class AppDialog {
   /// Hàm hiển thị dialog với nội dung truyền vào
@@ -72,6 +77,69 @@ class AppDialog {
       ),
     );
   }
+
+  static void showDetailDiscount(BuildContext context, DiscountResponse discount) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.info, color: Colors.blue),
+            const SizedBox(width: 8),
+            Text("Discount Details"),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInfoRow(context, "DiscountCode", discount.discountCode),
+            _buildInfoRow(context, "Discount Type", discount.discountType.name),
+            _buildInfoRow(context, "Discount Value", discount.discountValue.toString()),
+            _buildInfoRow(context, "Expire At", discount.expiredAt),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void showDetailWallet(BuildContext context, WalletResponse wallet) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.info, color: Colors.blue),
+            const SizedBox(width: 8),
+            Text("Discount Details"),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInfoRow(context, "Wallet Name", wallet.name),
+            _buildInfoRow(context, "Balance", wallet.balance.toString()),
+            _buildInfoRow(context, "Currency money", wallet.currency),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   static void showDetailTransaction(BuildContext context, TransactionResponse trans) {
     showDialog(
       context: context,
@@ -87,12 +155,43 @@ class AppDialog {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow("Transaction ID", trans.transactionID),
-            _buildInfoRow("Current Balance", trans.currentBalance.toString()),
-            _buildInfoRow("Description", trans.description),
-            _buildInfoRow("Type", trans.type.toString().split('.').last),
-            _buildInfoRow("Status", trans.status.toString().split('.').last),
-            _buildInfoRow("Wallet ID", trans.walletId),
+            _buildInfoRow(context, "Transaction ID", trans.transactionID),
+            _buildInfoRow(context, "Current Balance", trans.currentBalance.toString()),
+            _buildInfoRow(context, "Description", trans.description),
+            _buildInfoRow(context, "Type", trans.type.toString().split('.').last),
+            _buildInfoRow(context, "Status", trans.status.toString().split('.').last),
+            _buildInfoRow(context, "Wallet ID", trans.walletId),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void showCreatedTransaction(BuildContext context, CreatedTransactionRequest trans) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.info, color: Colors.blue),
+            const SizedBox(width: 8),
+            Text("Transaction Details"),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInfoRow(context, "Current Balance", trans.currentBalance.toString()),
+            _buildInfoRow(context, "Description", trans.description),
+            _buildInfoRow(context, "Type", trans.type.toString().split('.').last),
+            _buildInfoRow(context, "Wallet ID", trans.walletId),
           ],
         ),
         actions: [
@@ -120,10 +219,10 @@ class AppDialog {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow("Vehicle ID", vehicle.vehicleId),
-            _buildInfoRow("Vehicle Type", vehicle.vehicleType.toString().split('.').last),
-            _buildInfoRow("License Plate", vehicle.licensePlate),
-            _buildInfoRow("Description", vehicle.description),
+            _buildInfoRow(context, "Vehicle ID", vehicle.vehicleId),
+            _buildInfoRow(context, "Vehicle Type", vehicle.vehicleType.toString().split('.').last),
+            _buildInfoRow(context, "License Plate", vehicle.licensePlate),
+            _buildInfoRow(context, "Description", vehicle.description),
           ],
         ),
         actions: [
@@ -136,15 +235,15 @@ class AppDialog {
     );
   }
 
-  static Widget _buildInfoRow(String label, String value) {
+  static Widget _buildInfoRow(BuildContext context, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "$label: ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            "${AppLocalizations.of(context).translate(label)}: ",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).shadowColor),
           ),
           Expanded(
             child: Text(value, softWrap: true),
@@ -153,6 +252,8 @@ class AppDialog {
       ),
     );
   }
+
+
 }
 
 

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 
@@ -17,9 +19,8 @@ class RequiredSectionTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          AppLocalizations.of(context).translate(title)
-          ,
-          maxLines: 1,
+          AppLocalizations.of(context).translate(title),
+          maxLines: 2,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Container(

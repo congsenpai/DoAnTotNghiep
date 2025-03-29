@@ -5,16 +5,16 @@ import 'package:myparkingapp/data/response/transaction__response.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 
 class TransactionRepository{
-    Future<ApiResult> getTransactionByWalletSearchAndPage(WalletResponse wallet, String search, int page) async{
+    Future<ApiResult> getTransactionByWalletDateTypePage(WalletResponse wallet, int page,Transactions? tranType, DateTime? start, DateTime? end) async{
         try{
             ApiClient apiClient = ApiClient();
-            final response = await apiClient.getTransactionByWalletSearchAndPage(wallet.walletId, search, page);
+            final response = await apiClient.getTransactions(walletId: wallet.walletId, page: page, tranType: tranType, start: start, end: end,);
             if(response.statusCode == 200){
                 Map<String, dynamic> jsonData = response.data;
                 int code = jsonData['code'];
                 String mess = jsonData['mess'];
                 int page = jsonData['result']['page'];
-                int pageAmount = jsonData['result']['pageAmount'];
+                int pageTotal = jsonData['result']['pageTotal'];
                 List<TransactionResponse> trans = (jsonData['result']['transactions'] as List)
                 .map((json) => TransactionResponse.fromJson(json))
                 .toList();
@@ -22,7 +22,7 @@ class TransactionRepository{
                 TransactionOnPage result = TransactionOnPage(
                     trans, 
                     page, 
-                    pageAmount);
+                    pageTotal);
                 
                 ApiResult apiResult = ApiResult(
                     code,
@@ -30,31 +30,29 @@ class TransactionRepository{
                     result,
                 );
                 return apiResult;
-
             }
             else{
                 throw Exception(
-                "TransactionRepository_getTransactionByWalletSearchAndPage"
+                "TransactionRepository_getTransactionByWalletDateTypePage"
             ); 
             }
         }
         catch(e){
             throw Exception(
-                "TransactionRepository_getTransactionByWalletSearchAndPage: $e"
+                "TransactionRepository_getTransactionByWalletDateTypePage: $e"
             ); 
         }
     }
-
-    Future<ApiResult> getTransactionByWalletDateTypePage(WalletResponse wallet, Transactions tranType, DateTime start, DateTime end, int page) async{
+    Future<ApiResult> getTransactionByUserDateTypePage(String userID,Transactions? tranType, DateTime? start, DateTime? end) async{
         try{
             ApiClient apiClient = ApiClient();
-            final response = await apiClient.getTransactionByWalletDateTypePage(wallet.walletId, tranType, start, end, page);
+            final response = await apiClient.getTransactionsByUser(userID: userID, tranType: tranType, start: start, end: end,);
             if(response.statusCode == 200){
                 Map<String, dynamic> jsonData = response.data;
                 int code = jsonData['code'];
                 String mess = jsonData['mess'];
-                int page = jsonData['result']['page'];
-                int pageAmount = jsonData['result']['pageAmount'];
+                int page = 1;
+                int pageTotal = 1;
                 List<TransactionResponse> trans = (jsonData['result']['transactions'] as List)
                 .map((json) => TransactionResponse.fromJson(json))
                 .toList();
@@ -62,7 +60,7 @@ class TransactionRepository{
                 TransactionOnPage result = TransactionOnPage(
                     trans, 
                     page, 
-                    pageAmount);
+                    pageTotal);
                 
                 ApiResult apiResult = ApiResult(
                     code,

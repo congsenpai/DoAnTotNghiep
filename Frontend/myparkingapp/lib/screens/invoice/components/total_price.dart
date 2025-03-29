@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../constants.dart';
+import 'package:get/get.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 
 class TotalPrice extends StatelessWidget {
   const TotalPrice({
@@ -15,10 +15,10 @@ class TotalPrice extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text.rich(
+        Text.rich(
           TextSpan(
-            text: "Total ",
-            style: TextStyle(color: titleColor, fontWeight: FontWeight.w500),
+            text: AppLocalizations.of(context).translate("Total"),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: Get.width/15,),
             children: [
               TextSpan(
                 text: "(incl. VAT)",
@@ -30,7 +30,7 @@ class TotalPrice extends StatelessWidget {
         Text(
           "\$$price",
           style:
-              const TextStyle(color: titleColor, fontWeight: FontWeight.w500),
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: Get.width/15),
         ),
       ],
     );

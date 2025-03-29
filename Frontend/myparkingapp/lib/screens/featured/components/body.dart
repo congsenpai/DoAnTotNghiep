@@ -52,7 +52,9 @@ class _BodyState extends State<Body> {
             const BigCardScalton()
                 : ParkingLotInfoBigCard(
                     // Images are List<String>
-                    press: () {}, parkingLot: widget.lots[index], user: widget.user,
+                    press: () {
+                      
+                    }, parkingLot: widget.lots[index], user: widget.user,
                   ),
           ),
         ):
@@ -67,7 +69,9 @@ class _BodyState extends State<Body> {
             const BigCardScalton()
                 : ServiceInfoBigCard(
               // Images are List<String>
-              press: () {}, service: widget.services[index],
+              press: () {
+
+              }, service: widget.services[index],
             ),
           ),
         ),

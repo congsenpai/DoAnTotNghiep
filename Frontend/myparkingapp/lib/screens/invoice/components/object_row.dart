@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-
 class ObjectRow extends StatelessWidget {
   const ObjectRow({
     super.key,
@@ -19,11 +17,11 @@ class ObjectRow extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(color: titleColor),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         Text(
           content.toString(),
-          style: const TextStyle(color: titleColor),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         )
       ],
     );

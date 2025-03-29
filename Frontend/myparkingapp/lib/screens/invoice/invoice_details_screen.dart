@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
+class InvociceDetailsScreen extends StatelessWidget {
   final InvoiceResponse invoice;
   
-  const OrderDetailsScreen({super.key, required this.invoice});
+  const InvociceDetailsScreen({super.key, required this.invoice});
 
   @override
   Widget build(BuildContext context) {
@@ -16,50 +17,90 @@ class OrderDetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Your Orders"),
+        title: Text(AppLocalizations.of(context).translate("Your Orders")),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              
-              
-              ObjectRow(title: "parkingLotName",content: invoice.parkingLotName),
-              const SizedBox(height: 8),
-              ObjectRow(title: "parkingSlotName",content: invoice.parkingSlotName),
-              const SizedBox(height: 8),
-              ObjectRow(title: "parkingSlotName",content: invoice.isMonthlyTicket ? "Month":"Date"),
-              const SizedBox(height: 8),
-              ObjectRow(title: "Description",content: invoice.description),
-              const SizedBox(height: 8),
-              ...List.generate(invoice.transaction.length, (index) {
-              return PrimaryButton(
-                text: "Transaction ${index + 1}",
-                press: () {
-                  AppDialog.showDetailTransaction(context, invoice.transaction[index]);
-                },
-                );
-              },
-              ),
-              const SizedBox(height: 32),
-              PrimaryButton(
-                text: "Vehicle",
-                press: () {
-                  AppDialog.showDetailVehicle(context, invoice.vehicle);
-                },
-              ),
-              const SizedBox(height: 32),
-              const TotalPrice(price: 20),
-              const SizedBox(height: 32),
-
-
-              
-            ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/background_invoice.png", // Đường dẫn đến GIF trong thư mục assets
+              fit: BoxFit.cover,
+            ),
           ),
+          Container(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.5),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: Get.width/30),
+                ObjectRow(title: "parkingLotName",content: invoice.parkingLotName),
+                SizedBox(height: Get.width/30),
+                ObjectRow(title: "parkingSlotName",content: invoice.parkingSlotName),
+                SizedBox(height: Get.width/30),
+                ObjectRow(title: "Invoice Type",content: invoice.isMonthlyTicket ? "Month":"Date"),
+                SizedBox(height: Get.width/30),
+
+                Text(
+                  AppLocalizations.of(context).translate("Description"),
+                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  invoice.description,
+                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: Get.width/30),
+                PrimaryButton(
+                      text: "Discount",
+                      press: () {
+                        AppDialog.showDetailDiscount(context, invoice.discount);
+                      },
+                    ),
+                SizedBox(height: Get.width/30),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(  // Dùng Column để chứa danh sách nút bấm
+                        children: List.generate(invoice.transaction.length, (index) {
+                          return PrimaryButton(
+                            text: "Transaction ${index + 1} ${invoice.transaction[index].type.name}",
+                            press: () {
+                              AppDialog.showDetailTransaction(context, invoice.transaction[index]);
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                    SizedBox(width: 8,),
+                    Expanded(
+                      flex: 1,
+                      child: PrimaryButton(
+                        text: "Vehicle",
+                        press: () {
+                          AppDialog.showDetailVehicle(context, invoice.vehicle);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                
+                SizedBox(height: Get.width/10),
+                
+                Spacer(),
+                TotalPrice(price: invoice.totalAmount),
+                SizedBox(height: Get.width/10),
+              ],
+            ),
+          ),
+        
+      
+        ],
         ),
-      ),
     );
   }
 }

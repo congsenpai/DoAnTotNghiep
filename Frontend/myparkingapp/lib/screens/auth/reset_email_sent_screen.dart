@@ -5,10 +5,12 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
+
 
 import '../../constants.dart';
 
-import '../../components/welcome_text.dart';
+
 
 class ResetEmailSentScreen extends StatefulWidget {
   
@@ -38,10 +40,9 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const WelcomeText(
-                title: "Reset email sent",
-                text:
-                    "We have sent a instructions email to \ntheflutterway@email.com."),
+            ImageContent(illustration: "assets/Illustrations/give_email.svg",
+            title: "Reset email sent",
+            text: "We have sent a instructions email to \ntheflutterway@email.com.",),
             const SizedBox(height: defaultPadding),
 
             TextFormField(

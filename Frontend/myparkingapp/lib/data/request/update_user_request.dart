@@ -33,7 +33,6 @@ class UpdateUserRequest {
     return {
       'userID': userID,
       'username': username,
-      'password': password,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,

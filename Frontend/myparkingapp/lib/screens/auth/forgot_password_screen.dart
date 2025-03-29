@@ -4,6 +4,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
+import 'package:myparkingapp/screens/onboarding/components/onboard_content.dart';
 import '../../app/locallization/app_localizations.dart';
 import 'reset_email_sent_screen.dart';
 
@@ -23,16 +25,13 @@ class ForgotPasswordScreen extends StatelessWidget {
         if(state is AuthLoadingState){
           return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
         }
-      
+
         return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WelcomeText(
-                title: "Forgot password",
-                text:
-                    "Enter your email address and we will \nsend you a reset instructions."),
+            ImageContent(illustration: "assets/Illustrations/register.svg",title: "Forgot password",text: "Enter your email address and we will \nsend you a reset instructions.",),
             SizedBox(height: defaultPadding),
             ForgotPassForm(),
           ],

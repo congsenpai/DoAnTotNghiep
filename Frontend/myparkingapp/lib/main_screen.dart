@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen( user: widget.user,),
     SearchScreen( user:  widget.user,),
     InvoiceScreen(user: widget.user,),
-    ProfileScreen(),
+    ProfileScreen(user: widget.user,),
   ];
 
 // Screens

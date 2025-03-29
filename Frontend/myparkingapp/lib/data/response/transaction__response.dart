@@ -1,8 +1,8 @@
 class TransactionOnPage{
   List<TransactionResponse> trans;
   int page;
-  int pageAmount;
-  TransactionOnPage(this.trans,this.page,this.pageAmount);
+  int pageTotal;
+  TransactionOnPage(this.trans,this.page,this.pageTotal);
 }
 
 
@@ -16,6 +16,7 @@ class TransactionResponse {
   Transactions type;
   TransactionStatus status;
   String walletId;
+  DateTime createAt;
 
   TransactionResponse({
     required this.transactionID,
@@ -24,6 +25,7 @@ class TransactionResponse {
     required this.type,
     required this.status,
     required this.walletId,
+    required this.createAt
   });
 
   factory TransactionResponse.fromJson(Map<String, dynamic> json) {
@@ -35,7 +37,7 @@ class TransactionResponse {
               (e) => e.toString().split('.').last == json['type']),
       status: TransactionStatus.values.firstWhere(
               (e) => e.toString().split('.').last == json['status']),
-      walletId: json['walletId'],
+      walletId: json['walletId'], createAt: DateTime(2020,12,30),
     );
   }
 
@@ -44,6 +46,7 @@ class TransactionResponse {
     return 'Transaction(transactionId: $transactionID, amount: $currentBalance, description: $description, type: $type, status: $status, walletId: $walletId)';
   }
 }
+
 List<TransactionResponse> transactions = [
   TransactionResponse(
     transactionID: "W001",
@@ -52,6 +55,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.TOP_UP,
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 25),
   ),
   TransactionResponse(
     transactionID: "W002",
@@ -60,6 +64,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.PAYMENT,
     status: TransactionStatus.PENDING,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 20),
   ),
   TransactionResponse(
     transactionID: "W003",
@@ -68,6 +73,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.TOP_UP,
     status: TransactionStatus.FAILED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 18),
   ),
   TransactionResponse(
     transactionID: "W004",
@@ -76,6 +82,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.PAYMENT,
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 15),
   ),
   TransactionResponse(
     transactionID: "W005",
@@ -84,6 +91,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.TOP_UP,
     status: TransactionStatus.PENDING,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 10),
   ),
   TransactionResponse(
     transactionID: "W006",
@@ -92,6 +100,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.PAYMENT,
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 8),
   ),
   TransactionResponse(
     transactionID: "W007",
@@ -100,6 +109,7 @@ List<TransactionResponse> transactions = [
     type: Transactions.TOP_UP,
     status: TransactionStatus.COMPLETED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 5),
   ),
   TransactionResponse(
     transactionID: "W008",
@@ -108,5 +118,6 @@ List<TransactionResponse> transactions = [
     type: Transactions.PAYMENT,
     status: TransactionStatus.FAILED,
     walletId: "W001",
+    createAt: DateTime(2025, 3, 3),
   ),
 ];

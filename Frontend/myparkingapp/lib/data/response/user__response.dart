@@ -86,32 +86,12 @@ final UserResponse demoUser = UserResponse(
   avatar: ImagesResponse(
     url: 'assets/images/Header-image.png',
   ),
-  vehicles: [
-    VehicleResponse(
-      vehicleId: "V001",
-      vehicleType: VehicleType.CAR,
-      licensePlate: "ABC-1234",
-      description: "Red Sedan Car",
-    ),
-    VehicleResponse(
-      vehicleId: "V002",
-      vehicleType: VehicleType.MOTORCYCLE,
-      licensePlate: "XYZ-5678",
-      description: "Black Motorcycle",
-    ),
-  ],
-  wallets: [
-    WalletResponse(
-      walletId: "W001",
-      balance: 150.75,
-      currency: "USD",
-      name: "Main Wallet", userId: 'U001',
-    ),
-    WalletResponse(
-      walletId: "W002",
-      balance: 50.00,
-      currency: "USD",
-      name: "Secondary Wallet", userId: 'U001',
-    ),
-  ],
+  vehicles: vehiclesdemo,
+  wallets: walletdemo
 );
+
+
+
+
+
+

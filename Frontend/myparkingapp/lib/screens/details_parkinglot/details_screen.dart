@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
 import 'package:myparkingapp/data/response/parking_slots_response.dart';
@@ -53,7 +54,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body:BlocConsumer<LotDetailBloc,LotDetailState>
         (builder: (context,state){
           if(state is LoadingLotDetailState){
-            return Center(child: CircularProgressIndicator(),);
+            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
           }
           else if(state is LoadedLotDetailState){
 
@@ -97,7 +98,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             );
           }
-          return Center(child: CircularProgressIndicator(),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
       }, listener: (context,state){
           if(state is LotDetailErrorScreen){
             return AppDialog.showErrorEvent(context, state.mess);

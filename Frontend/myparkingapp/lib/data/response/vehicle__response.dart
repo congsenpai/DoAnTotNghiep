@@ -71,3 +71,19 @@ class VehicleResponse {
     return 'Vehicle(vehicleId: $vehicleId, vehicleType: ${vehicleType.name}, licensePlate: $licensePlate, description: $description)';
   }
 }
+
+
+List<VehicleResponse> vehiclesdemo = [
+  VehicleResponse(
+      vehicleId: "V001",
+      vehicleType: VehicleType.CAR,
+      licensePlate: "ABC-1234",
+      description: "Red Sedan Car",
+    ),
+    VehicleResponse(
+      vehicleId: "V002",
+      vehicleType: VehicleType.MOTORCYCLE,
+      licensePlate: "XYZ-5678",
+      description: "Black Motorcycle",
+    ),
+];

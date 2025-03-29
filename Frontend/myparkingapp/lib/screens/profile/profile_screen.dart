@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final UserResponse user;
+  const ProfileScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Body(),
+    return Scaffold(
+      body: Body(user: user,),
     );
   }
 }

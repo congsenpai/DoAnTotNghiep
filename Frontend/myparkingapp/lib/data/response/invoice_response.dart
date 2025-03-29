@@ -5,9 +5,9 @@ import 'discount_response.dart';
 class InvoiceOnPage {
   List<InvoiceResponse> invoices;
   int page;
-  int pageAmount;
+  int pageTotal;
 
-  InvoiceOnPage(this.invoices, this.page, this.pageAmount);
+  InvoiceOnPage(this.invoices, this.page, this.pageTotal);
 }
 
 List<InvoiceOnPage> invoiceOnPages = [

@@ -6,11 +6,10 @@ import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
-import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
-import '../../components/welcome_text.dart';
+import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
 import '../../constants.dart';
 import 'sign_up_screen.dart';
 import 'components/sign_in_form.dart';
@@ -27,25 +26,22 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const SizedBox(),
-        title: Text(AppLocalizations.of(context).translate("Sign In")),
       ),
       body: BlocConsumer<AuthBloc,AuthState> 
       (builder: (context,state) {
         if(state is AuthLoadingState){
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
-        else if(state is LoadedLotDetailState){
-          return SingleChildScrollView(
+        return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const WelcomeText(
-                    title: "Welcome to",
-                    text:
-                        "Enter your Phone number or Email \naddress for sign in :)",
-                  ),
+                  ImageContent(illustration: "assets/Illustrations/login.svg",
+                  text: "Enter your username and password ", title: 'Login',),
+                  const SizedBox(height: defaultPadding),
+                  
                   SignInForm(),
                   const SizedBox(height: defaultPadding),
                   kOrText,
@@ -75,13 +71,14 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  
                   const SizedBox(height: defaultPadding),
             ],
           ),
         ),
+      
       );
-        }
-        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+        
       }, 
       listener: (context,state) {
         if(state is AuthSuccessState){
@@ -106,3 +103,4 @@ class SignInScreen extends StatelessWidget {
     );
   }
 }
+

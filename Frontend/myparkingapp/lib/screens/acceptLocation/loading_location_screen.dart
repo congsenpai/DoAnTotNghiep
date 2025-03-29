@@ -43,6 +43,7 @@ class AcceptLocationScreen extends StatelessWidget {
               // Getting Current Location
               SeconderyButton(
                 press: () {
+                  
 
                 },
                 child: Row(

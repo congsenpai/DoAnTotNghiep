@@ -14,13 +14,14 @@ class WelcomeText extends StatelessWidget {
         const SizedBox(height: defaultPadding),
         Text(
           AppLocalizations.of(context).translate(title),
-          style: Theme.of(context)
+          style:Theme.of(context)
               .textTheme
               .titleLarge!
-              .copyWith(fontWeight: FontWeight.w600),
+              .copyWith(fontWeight: FontWeight.w600, color: Colors.white)
+              
         ),
         const SizedBox(height: defaultPadding / 2),
-        Text(AppLocalizations.of(context).translate(text), style: Theme.of(context).textTheme.bodyMedium),
+        Text(AppLocalizations.of(context).translate(text), style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white)),
         const SizedBox(height: defaultPadding),
       ],
     );
