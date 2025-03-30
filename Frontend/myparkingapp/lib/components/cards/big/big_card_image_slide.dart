@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
@@ -7,10 +9,11 @@ import 'big_card_image.dart';
 class BigCardImageSlide extends StatefulWidget {
   const BigCardImageSlide({
     super.key,
-    required this.images,
+    required this.images, required this.active,
   });
 
   final List images;
+  final String active;
 
   @override
   State<BigCardImageSlide> createState() => _BigCardImageSlideState();
@@ -52,7 +55,14 @@ class _BigCardImageSlideState extends State<BigCardImageSlide> {
                   ),
                 ),
               ),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Text(widget.active.toUpperCase(),style: TextStyle(
+                color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold
+              ),),
             )
+
           ],
         ),
       ),

@@ -21,7 +21,6 @@ import '../../components/section_title.dart';
 import '../../constants.dart';
 import '../../data/response/parking_lot_response.dart';
 import '../../demo_data.dart';
-import '../../screens/filter/filter_screen.dart';
 import '../featured/featurred_screen.dart';
 import 'components/parking_lot_card_list.dart';
 import 'components/promotion_banner.dart';
@@ -62,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     ),
     ];
-    // TODO: implement initState
     super.initState();
     context.read<HomeBloc>().add(HomeInitialEvent());
   }
@@ -86,22 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FilterScreen(),
-                ),
-              );
-            },
-            child: Text(
-              AppLocalizations.of(context).translate("Filter"),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-        ],
       ),
       body: BlocConsumer<HomeBloc, HomeState>
         (builder: (context,state) {
@@ -118,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: defaultPadding),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: BigCardImageSlide(images: bannerHomeScreen),
+                    child: BigCardImageSlide(images: bannerHomeScreen, active: '',),
                   ),
                   const SizedBox(height: defaultPadding * 2),
                   SectionTitle(
@@ -169,7 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
           if(state is HomeErrorState){
             return AppDialog.showErrorEvent(context, state.mess);
           }
-
           })
     );
   }

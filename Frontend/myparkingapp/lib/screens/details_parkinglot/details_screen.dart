@@ -46,7 +46,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           IconButton(
             icon: SvgPicture.asset("assets/icons/share.svg"),
             onPressed: () {
-
+              
             },
           ),
         ],
@@ -104,10 +104,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
             return AppDialog.showErrorEvent(context, state.mess);
           }
       })
-
-
-
-
     );
   }
 }

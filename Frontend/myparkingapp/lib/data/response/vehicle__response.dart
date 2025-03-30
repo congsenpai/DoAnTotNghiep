@@ -1,4 +1,6 @@
 // Khai báo enum VehicleType
+// ignore_for_file: constant_identifier_names
+
 enum VehicleType {
   MOTORCYCLE,
   CAR,

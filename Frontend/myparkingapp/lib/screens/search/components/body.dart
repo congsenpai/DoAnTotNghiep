@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import '../../../constants.dart';
 
-import '../../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../../components/scalton/big_card_scalton.dart';
-import '../../../demo_data.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});

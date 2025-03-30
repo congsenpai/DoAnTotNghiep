@@ -15,7 +15,6 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
     on<BookingInitialInvoiceEvent>(_loadBookingScreen);
     on<GetMonthOderEvent>(_bookingCreateMonthInvoice);
     on<GetDateOderEvent>(_bookingCreateDateInvoice);
-
   }
 
   void _loadBookingScreen (BookingInitialInvoiceEvent event, Emitter<BookingState> emit) async{
@@ -31,9 +30,6 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
       WalletResponse wallet = event.wallet;
       List<VehicleResponse> vehicles = event.vehicles;
       VehicleResponse vehicle = event.vehicle;
-
-
-      
       emit(BookingLoadedState(
         discounts,
         months,
@@ -44,8 +40,6 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
         wallets,
         vehicles,
         vehicle
-
-
         ));
     }
     catch (e){
@@ -69,7 +63,7 @@ class BookingBloc extends Bloc<BookingEvent,BookingState>{
         description: "Deposit Parking Slot",
         transaction: [transaction],
         discount: event.discount,
-        parkingSlotName: event.slot.floorName ,
+        parkingSlotName: event.slot.floorName,
         vehicle: event.vehicle,
         userID: event.wallet.userId,
         parkingLotName: event.lot.parkingLotName,

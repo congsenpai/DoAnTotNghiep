@@ -8,6 +8,7 @@ import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_event.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/data/api_service/vn_pay/vn_pay_service.dart';
 
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
@@ -77,7 +78,9 @@ class _WalletScreenState extends State<WalletScreen> {
                                 showTransaction: ()=>{
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen(wallet: wallet)))
                                 },
-                                depositMoney: (WalletResponse wallet) {  } ,
+                                depositMoney: (WalletResponse wallet) {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TransferFormScreen(walletResponse: wallet,)));
+                                } ,
                                 wallet: wallet,
                                 lockWallet: (WalletResponse wallet) {
                                   context.read<WalletBloc>().add(LockWalletEvent(wallet.walletId));

@@ -69,7 +69,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
-                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, searchText, page));;// Gọi hàm search
+                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, searchText, page));// Gọi hàm search
                         });
                         // Gọi API hoặc cập nhật dữ liệu cho trang mới
                       },)

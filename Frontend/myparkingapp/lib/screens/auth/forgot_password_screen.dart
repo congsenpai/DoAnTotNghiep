@@ -5,11 +5,9 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
-import 'package:myparkingapp/screens/onboarding/components/onboard_content.dart';
 import '../../app/locallization/app_localizations.dart';
 import 'reset_email_sent_screen.dart';
 
-import '../../components/welcome_text.dart';
 import '../../constants.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -23,7 +21,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       ),
       body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state) {
         if(state is AuthLoadingState){
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
 
         return SingleChildScrollView(

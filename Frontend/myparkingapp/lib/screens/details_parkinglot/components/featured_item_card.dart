@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use
 
-import '../../../components/small_dot.dart';
+import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class FeaturedItemCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class FeaturedItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.labelLarge!.copyWith(
+    Theme.of(context).textTheme.labelLarge!.copyWith(
           color: titleColor.withOpacity(0.64),
           fontWeight: FontWeight.normal,
         );

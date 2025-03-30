@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/api_service/tomtom_map/map_screen.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import '../../../components/vehicle_type_list.dart';
 import '../../../components/rating_with_counter.dart';
@@ -49,6 +53,8 @@ class ParkingLotInfo extends StatelessWidget {
               const Spacer(),
               OutlinedButton(
                 onPressed: () {
+                  LatLng location = LatLng(lot.latitude,lot.longitude);
+                  Get.to(MapWidgetScreen(endPoint: location , parkingLotName: lot.parkingLotName,));
 
                 },
                 style: ElevatedButton.styleFrom(
@@ -56,7 +62,7 @@ class ParkingLotInfo extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text(AppLocalizations.of(context).translate("Advise")),
+                child: Text(AppLocalizations.of(context).translate("Map")),
               ),
             ],
           ),

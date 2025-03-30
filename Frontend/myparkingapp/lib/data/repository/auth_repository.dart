@@ -1,8 +1,6 @@
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
-
 import '../network/api_client.dart';
 
 class AuthRepository {
@@ -17,7 +15,6 @@ class AuthRepository {
         String refreshToken = response.data['result']['refresh_token'];
         bool isAuth = response.data['result']["authentication"];
         ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'], isAuth);
-
         await storage.write(key: 'access_token', value: accessToken);
         await storage.write(key: 'refresh_token', value: refreshToken);
         return apiResult;

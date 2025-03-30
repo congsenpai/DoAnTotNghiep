@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/home/home_event.dart';
 import 'package:myparkingapp/bloc/home/home_state.dart';

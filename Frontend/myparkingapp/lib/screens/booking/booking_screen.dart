@@ -292,7 +292,7 @@ class _BookingScreenState extends State<BookingScreen> {
             }
             else if (state is BookingErrorState){
               return AppDialog.showErrorEvent(context, state.mess);
-            };
+            }
           }
         )
         );

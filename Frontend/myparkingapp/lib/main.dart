@@ -7,18 +7,17 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/booking/booking_bloc.dart';
 import 'package:myparkingapp/bloc/home/home_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
+import 'package:myparkingapp/bloc/location/location_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
 import 'bloc/search/search_bloc.dart';
-import 'constants.dart';
-import 'main_screen.dart';
-import 'screens/onboarding/onboarding_scrreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -34,6 +33,7 @@ void main() {
           BlocProvider(create: (context)=> WalletBloc()),
           BlocProvider(create: (context)=> TransactionBloc()),
           BlocProvider(create: (context)=> AuthBloc()),
+          BlocProvider(create: (context)=> LocationBloc())
     ],
     child: MyApp()
     )
@@ -59,7 +59,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'My Parking App',
-
       theme: AppTheme.lightTheme, // Áp dụng Light Theme
       darkTheme: AppTheme.darkTheme, // Áp dụng Dark Theme
       themeMode: ThemeMode.system,
@@ -74,6 +73,6 @@ class _MyAppState extends State<MyApp> {
         Locale('en', ''), // English
         Locale('vi', ''), // Vietnamese
       ],
-      home: MainScreen(user: demoUser));
+      home: AcceptLocationScreen(user: demoUser,));
   }
 }

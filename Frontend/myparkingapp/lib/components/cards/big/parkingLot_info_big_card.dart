@@ -1,7 +1,14 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/bloc/location/location_bloc.dart';
+import 'package:myparkingapp/bloc/location/location_event.dart';
+import 'package:myparkingapp/bloc/location/location_state.dart';
+import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 
@@ -29,69 +36,77 @@ class ParkingLotInfoBigCard extends StatefulWidget {
 
 class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.press,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // pass list of images here
-          BigCardImageSlide(images: widget.parkingLot.images.map((image)=>image.url).toList()),
-          const SizedBox(height: defaultPadding / 2),
-          Text(widget.parkingLot.parkingLotName, style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: defaultPadding / 4),
-          VehicleTypeList(typeList: ["vehicle","car"]),
-          const SizedBox(height: defaultPadding / 4),
-          Row(
-            children: [
-              RatingWithCounter(rating: widget.parkingLot.rate, numOfRating: 10000),
-              const SizedBox(width: defaultPadding / 2),
-              SvgPicture.asset(
-                "assets/icons/clock.svg",
-                height: 20,
-                width: 20,
-                colorFilter: ColorFilter.mode(
-                  Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color!
-                      .withOpacity(0.5),
-                  BlendMode.srcIn,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                "20 Min",
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                child: SmallDot(),
-              ),
-              SvgPicture.asset(
-                "assets/icons/delivery.svg",
-                height: 20,
-                width: 20,
-                colorFilter: ColorFilter.mode(
-                  Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color!
-                      .withOpacity(0.5),
-                  BlendMode.srcIn,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(widget.parkingLot.status.name.toString(),
-                  style: Theme.of(context).textTheme.labelSmall),
-
-            ],
-          ),
-          const SizedBox(height: 8),
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    LatLng location = LatLng(widget.parkingLot.latitude, widget.parkingLot.longitude);
+    context.read<LocationBloc>().add(GetCurrentDistance(location));
   }
+  double distance = 2;
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<LocationBloc,LocationState>(
+        builder: (context,state){
+          if(state is LocationLoading){
+            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
+          }
+          if(state is LoadingDistanceState){
+            distance = state.distance;
+
+          }
+          return InkWell(
+            onTap: widget.press,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // pass list of images here
+                BigCardImageSlide(images: widget.parkingLot.images.map((image)=>image.url).toList(), active: widget.parkingLot.status.name.toString(),),
+                const SizedBox(height: defaultPadding / 2),
+                Text(widget.parkingLot.parkingLotName, style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: defaultPadding / 4),
+                VehicleTypeList(typeList: ["vehicle","car"]),
+                const SizedBox(height: defaultPadding / 4),
+                Row(
+                  children: [
+                    RatingWithCounter(rating: widget.parkingLot.rate, numOfRating: 10000),
+                    const SizedBox(width: defaultPadding / 2),
+                    SvgPicture.asset(
+                      "assets/icons/clock.svg",
+                      height: 20,
+                      width: 20,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .color!
+                            .withOpacity(0.5),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "$distance km",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                      child: SmallDot(),
+                    ),
+                    const SizedBox(width: 8),
+
+                  ],
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          );
+        }, listener: (context,state){
+        if(state is LocationSuccessState){
+          return AppDialog.showSuccessEvent(context, state.mess,);
+        }
+        else if(state is LocationErrorState){
+          return AppDialog.showErrorEvent(context, state.mess);
+        }
+      }); }
 }
 
 class ParkingLotList extends StatefulWidget {

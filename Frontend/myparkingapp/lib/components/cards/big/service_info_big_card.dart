@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import 'package:myparkingapp/data/response/parking_slots_response.dart';
 import 'package:myparkingapp/data/response/service.dart';
 
 import '../../../constants.dart';
-import '../../../screens/details_parkinglot/details_screen.dart';
-import '../../vehicle_type_list.dart';
 import '../../rating_with_counter.dart';
 import '../../small_dot.dart';
-import 'big_card_image.dart';
-import 'big_card_image_slide.dart';
 
 class ServiceInfoBigCard extends StatefulWidget {
   final Service service;

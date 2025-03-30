@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 abstract class AuthEvent {}
 class LoginEvent extends AuthEvent{
   String userName;

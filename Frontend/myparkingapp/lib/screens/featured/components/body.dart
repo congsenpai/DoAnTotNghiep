@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myparkingapp/components/cards/big/service_info_big_card.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/service.dart';
+import 'package:myparkingapp/screens/details_parkinglot/details_screen.dart';
 import '../../../components/cards/big/parkingLot_info_big_card.dart';
 import '../../../components/scalton/big_card_scalton.dart';
 import '../../../constants.dart';
@@ -53,6 +54,9 @@ class _BodyState extends State<Body> {
                 : ParkingLotInfoBigCard(
                     // Images are List<String>
                     press: () {
+                      MaterialPageRoute(
+                            builder: (context) => DetailsScreen(parkingLot: widget.lots[index], user: widget.user),
+                          );
                       
                     }, parkingLot: widget.lots[index], user: widget.user,
                   ),
@@ -70,7 +74,7 @@ class _BodyState extends State<Body> {
                 : ServiceInfoBigCard(
               // Images are List<String>
               press: () {
-
+                widget.services[index].press;
               }, service: widget.services[index],
             ),
           ),

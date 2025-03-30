@@ -5,7 +5,6 @@ import 'package:myparkingapp/data/response/user__response.dart';
 import '../../../components/cards/medium/lot_info_medium_card.dart';
 import '../../../components/scalton/medium_card_scalton.dart';
 import '../../../constants.dart';
-import '../../../demo_data.dart';
 import '../../details_parkinglot/details_screen.dart';
 
 class ParkingLotCardList extends StatefulWidget {

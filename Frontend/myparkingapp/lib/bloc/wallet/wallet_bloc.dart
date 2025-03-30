@@ -2,10 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_event.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
-import 'package:myparkingapp/data/repository/user_repository.dart';
 import 'package:myparkingapp/data/repository/wallet_repository.dart';
 import 'package:myparkingapp/data/request/created_wallet_request.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 
 class WalletBloc extends Bloc<WalletEvent,WalletState>{
@@ -13,8 +11,6 @@ class WalletBloc extends Bloc<WalletEvent,WalletState>{
     on<WalletInitialEvent>(_loadWalletScreen);
     on<AddWalletEvent>(_addWallet);
     on<LockWalletEvent>(_lockWallet);
-
-
   }
 
 
@@ -50,10 +46,6 @@ class WalletBloc extends Bloc<WalletEvent,WalletState>{
   void _lockWallet(LockWalletEvent event, Emitter<WalletState> emit) async {
     try{
       emit(WalletLoadingState());
-
-
-
-
       emit(WalletSuccessState("active"));
     }
     catch(e){

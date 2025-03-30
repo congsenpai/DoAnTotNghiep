@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:myparkingapp/data/response/transaction__response.dart';
 import 'package:myparkingapp/data/response/vehicle__response.dart';
 import 'discount_response.dart';

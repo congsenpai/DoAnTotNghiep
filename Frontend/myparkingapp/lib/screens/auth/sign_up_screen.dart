@@ -32,7 +32,7 @@ class SignUpScreen extends StatelessWidget {
       ),
       body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state){
         if(state is AuthLoadingState){
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
         return SingleChildScrollView(
             child: Padding(

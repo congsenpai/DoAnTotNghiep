@@ -11,7 +11,6 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
     on<InvoiceInitialEvent>(_getInvoiceBySearchAndPage);
     on<CreatedInvoiceEvent>(_createInvoice);
   }
-
   void _getInvoiceBySearchAndPage (InvoiceInitialEvent event, Emitter<InvoiceState> emit){
     try{
       emit(InvoiceLoadingState());
@@ -23,26 +22,18 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
       Exception("InvoiceBloc _getInvoiceBySearchAndPage : $e");
     }
   }
-
   void _createInvoice(CreatedInvoiceEvent event, Emitter<InvoiceState> emit) async{
     try{
-
       emit(InvoiceLoadingState());
-
       TransactionRepository tran = TransactionRepository();
       InvoiceRepository invoice = InvoiceRepository();
       ApiResult tranApi = await tran.createTransaction(event.tran);
-      if(tranApi.code != 200){
-        emit(InvoiceErrorState(tranApi.message));
+      ApiResult invoiceApi = await invoice.createdInvoice(event.invoice);
+      if(invoiceApi.code !=200){
+        emit(InvoiceErrorState(invoiceApi.message));
       }
       else{
-        ApiResult invoiceApi = await invoice.createdInvoice(event.invoice);
-        if(invoiceApi.code !=200){
-          emit(InvoiceErrorState(invoiceApi.message));
-        }
-        else{
-          emit(InvoiceSuccessState("${tranApi.message} \n ${invoiceApi.message}"));
-        }
+        emit(InvoiceSuccessState("${tranApi.message} \n ${invoiceApi.message}"));
       }
     }
     catch(e){
