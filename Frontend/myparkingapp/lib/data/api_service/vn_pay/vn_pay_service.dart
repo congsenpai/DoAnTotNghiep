@@ -1,11 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
-import 'package:myparkingapp/bloc/payment/payment_event.dart';
 import 'package:myparkingapp/bloc/payment/payment_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/data/api_service/vn_pay/info_vnpay.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 
 class TransferFormScreen extends StatefulWidget {
@@ -26,23 +29,15 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).translate('Xác nhận thông tin')),
-        content: Text(
-          'Họ và tên: $name\n'
-              'Số tiền: $amount VND\n'
-              'Ghi chú: ${note.isNotEmpty ? note : 'Pay $amount to wallet : ${widget.walletResponse.name}'}\n'
-        ),
+        title: Text(AppLocalizations.of(context).translate('Confirm Infomation')),
+        content: SizedBox(
+          width: Get.width,
+          child: Example(name: name, amount: amount, note: note,)
+          ), 
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(AppLocalizations.of(context).translate('Hủy')),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<PaymentBloc>().add(GetPaymentEvent(name,amount,widget.walletResponse));
-            },
-            child: Text(AppLocalizations.of(context).translate('Xác nhận')),
-          ),
+          IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon: Icon(Icons.cancel, color: Colors.red,))
         ],
       ),
     );
@@ -51,6 +46,12 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text = widget.walletResponse.name;
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -89,12 +90,12 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate('Họ và tên'),
+                    labelText: AppLocalizations.of(context).translate('wallet name'),
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).translate('Vui lòng nhập họ và tên');
+                      return AppLocalizations.of(context).translate('Enter wallet name');
                     }
                     return null;
                   },
@@ -104,16 +105,16 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
                 TextFormField(
                   controller: _amountController,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate('Số tiền'),
+                    labelText: AppLocalizations.of(context).translate('Money'),
                     border: OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).translate('Vui lòng nhập số tiền');
+                      return AppLocalizations.of(context).translate('Enter money');
                     }
                     if (double.tryParse(value) == null) {
-                      return AppLocalizations.of(context).translate('Số tiền không hợp lệ');
+                      return AppLocalizations.of(context).translate('Money not validation');
                     }
                     return null;
                   },
@@ -124,7 +125,7 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
                 TextFormField(
                   controller: _noteController,
                   decoration:  InputDecoration(
-                    labelText: AppLocalizations.of(context).translate('Ghi chú (không bắt buộc)'),
+                    labelText: AppLocalizations.of(context).translate('Note'),
                     border: OutlineInputBorder(),
                   ),
                   maxLines: 2,
@@ -138,7 +139,7 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
                     onPressed: () {
                       _submitForm();
                     },
-                    child: const Text('Xác nhận chuyển khoản'),
+                    child: Text(AppLocalizations.of(context).translate('Accept')),
                   ),
                 ),
               ],
@@ -146,16 +147,14 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
           ),
         ),
       );
-      }, listener:(context,state){
-        if(state is PaymentSuccessState){
-              return AppDialog.showSuccessEvent(context, state.mess,);
-            }
-            else if(state is PaymentErrorState){
-              return AppDialog.showErrorEvent(context, state.mess);
-            }
-      })
-   
-   
+      }, listener:(context,state) async {
+      if(state is PaymentSuccessState){
+            return AppDialog.showSuccessEvent(context, state.mess);
+          }
+      else if(state is PaymentErrorState){
+        return AppDialog.showErrorEvent(context, state.mess);
+      }
+    })
     );
   }
 

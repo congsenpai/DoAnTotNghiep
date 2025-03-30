@@ -15,3 +15,9 @@ class PaymentErrorState extends PaymentState{
   String mess;
   PaymentErrorState(this.mess);
 }
+
+class PaymentUrlGeneratedState extends PaymentState {
+  final String paymentUrl;
+
+  PaymentUrlGeneratedState(this.paymentUrl);
+}

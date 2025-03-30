@@ -9,10 +9,13 @@ import 'package:myparkingapp/bloc/home/home_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
 import 'package:myparkingapp/bloc/location/location_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
+import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
+import 'package:myparkingapp/data/api_service/vn_pay/info_vnpay.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
@@ -33,7 +36,8 @@ void main() {
           BlocProvider(create: (context)=> WalletBloc()),
           BlocProvider(create: (context)=> TransactionBloc()),
           BlocProvider(create: (context)=> AuthBloc()),
-          BlocProvider(create: (context)=> LocationBloc())
+          BlocProvider(create: (context)=> LocationBloc()),
+          BlocProvider(create: (context)=> PaymentBloc())
     ],
     child: MyApp()
     )
@@ -73,6 +77,6 @@ class _MyAppState extends State<MyApp> {
         Locale('en', ''), // English
         Locale('vi', ''), // Vietnamese
       ],
-      home: AcceptLocationScreen(user: demoUser,));
+      home: MainScreen(user: demoUser));
   }
 }
