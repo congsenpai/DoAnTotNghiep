@@ -8,7 +8,10 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smartparking.smartbrain.converter.DateTimeConverter;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
@@ -18,6 +21,7 @@ import com.smartparking.smartbrain.dto.request.MonthlyTicket.CreatedMonthlyTicke
 import com.smartparking.smartbrain.dto.request.Wallet.DepositRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
+import com.smartparking.smartbrain.encoder.AESEncryption;
 import com.smartparking.smartbrain.enums.DiscountType;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
 import com.smartparking.smartbrain.exception.AppException;
@@ -28,7 +32,6 @@ import com.smartparking.smartbrain.model.Invoice;
 import com.smartparking.smartbrain.model.ParkingSlot;
 import com.smartparking.smartbrain.repository.*;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -37,21 +40,22 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class InvoiceService {
-
-    InvoiceRepository invoiceRepository;
-    InvoiceMapper invoiceMapper;
-    UserRepository userRepository;
-    MonthlyTicketService monthlyTicketService;
-    WalletService walletService;
-    DateTimeConverter dateTimeConverter;
-    MonthlyTicketRepository monthlyTicketRepository;
-    ParkingSlotRepository parkingRepository;
-    DiscountRepository discountRepository;
+    @Value("${jwt.signerKey}")
+    protected String SECRET_KEY;
+    final InvoiceRepository invoiceRepository;
+    final InvoiceMapper invoiceMapper;
+    final UserRepository userRepository;
+    final MonthlyTicketService monthlyTicketService;
+    final WalletService walletService;
+    final DateTimeConverter dateTimeConverter;
+    final MonthlyTicketRepository monthlyTicketRepository;
+    final ParkingSlotRepository parkingRepository;
+    final DiscountRepository discountRepository;
 
     // Daily invoice deposit
-    @Transactional(rollbackOn = AppException.class)
+    @Transactional(rollbackFor = AppException.class)
     public InvoiceResponse depositDailyInvoice(InvoiceCreatedDailyRequest request){
         Invoice invoice = invoiceMapper.toDailyInvoice(request);
         // Lưu hóa đơn vào cơ sở dữ liệu
@@ -67,16 +71,21 @@ public class InvoiceService {
         try {
             walletService.deposit(depositRequest,invoice);
         } catch (AppException e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error unknown when deposit invoice"); 
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error unknown when deposit invoice");
         }
         invoice.setTotalAmount(depositValue);
         invoice.setStatus(InvoiceStatus.DEPOSIT);
         invoice = invoiceRepository.save(invoice);
         InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
         invoiceResponse.setCreatedAt(Instant.now());
+        try {
+            invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+        }
         return invoiceResponse;
     }
-    @Transactional(rollbackOn = AppException.class)
+    @Transactional(rollbackFor = AppException.class)
     // Daily invoice payment
     public InvoiceResponse paymentDailyInvoice(PaymentDailyRequest request) {
         var invoice = invoiceRepository.findByIdWithoutRelations(request.getInvoiceID())
@@ -92,11 +101,25 @@ public class InvoiceService {
         if (invoice.getStatus() != InvoiceStatus.DEPOSIT) {
             throw new AppException(ErrorCode.INVOICE_NOT_DEPOSIT, invoice.getStatus().toString());
         }
-        // Lưu hóa đơn vào cơ sở dữ liệu
-        invoice = invoiceRepository.save(invoice);
-
+        BigDecimal depositAmount =invoice.getTotalAmount();
         BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(parkingSlot, discount, createdAt,false))
             .orElse(BigDecimal.ZERO);
+        invoice.setTotalAmount(totalAmount);
+        // Nếu depositAmount lớn hơn totalAmount -> Trả lại phần dư
+        if (depositAmount.compareTo(totalAmount) > 0) {
+            BigDecimal refund = depositAmount.subtract(totalAmount);
+            try {
+                walletService.refundDeposit(refund,request.getWalletID());
+            } catch (Exception e) {
+                throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when refund deposit to user wallet");
+            }
+            
+        }
+        // Nếu totalAmount lớn hơn depositAmount -> Cập nhật totalAmount = totalAmount - depositAmount
+        else if (totalAmount.compareTo(depositAmount) > 0) {
+            totalAmount = totalAmount.subtract(depositAmount);
+        }
+
         log.info("Total amount: {}", totalAmount);
         PaymentRequest paymentRequest= PaymentRequest.builder()
             .walletID(request.getWalletID())
@@ -111,17 +134,23 @@ public class InvoiceService {
         } catch (AppException e) {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error unknown when payment invoice");
         }
-        invoice.setTotalAmount(totalAmount);
         invoice.setStatus(InvoiceStatus.PAID);
         invoice = invoiceRepository.save(invoice);
         log.info("complete save invoice");
         InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+        
         invoiceResponse.setCreatedAt(Instant.now());
+        try {
+            invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
+            log.info("invoice: {}",invoice,"Key: {}",SECRET_KEY,"Object: {}", AESEncryption.encryptObject(invoice, SECRET_KEY));
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+        }
         return invoiceResponse;
     }
 
     // Monthly invoice
-    @Transactional(rollbackOn = AppException.class)
+    @Transactional(rollbackFor = AppException.class)
     public InvoiceResponse createMonthlyInvoice(InvoiceCreatedMonthlyRequest request) {
         Instant expiredAt=dateTimeConverter.fromStringToInstant(request.getExpiredAt());
         Invoice invoice = invoiceMapper.toMonthlyInvoice(request);
@@ -159,9 +188,14 @@ public class InvoiceService {
         invoiceRepository.save(invoice);
         invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
             .orElseThrow(()-> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
-            InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
-            invoiceResponse.setCreatedAt(Instant.now());
-            return invoiceResponse;
+        InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+        invoiceResponse.setCreatedAt(Instant.now());
+        try {
+            invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+        }
+        return invoiceResponse;
     }
 
 

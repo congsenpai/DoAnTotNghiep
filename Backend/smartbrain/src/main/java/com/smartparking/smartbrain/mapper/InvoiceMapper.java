@@ -1,7 +1,4 @@
 package com.smartparking.smartbrain.mapper;
-
-import java.time.Instant;
-
 import org.hibernate.proxy.HibernateProxy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

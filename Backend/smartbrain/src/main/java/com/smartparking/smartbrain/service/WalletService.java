@@ -1,5 +1,6 @@
 package com.smartparking.smartbrain.service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Currency;
 import java.util.List;
@@ -74,6 +75,30 @@ public class WalletService {
                 .status(TransactionStatus.COMPLETED)
                 .createdAt(Instant.now())
                 .description(request.getDescription() != null ? request.getDescription() : "Top-up wallet")
+                .build();
+        transactionRepository.save(transaction);
+
+        return transactionMapper.toTransactionResponse(transaction);
+    }
+    @Transactional(rollbackFor = AppException.class)
+    public TransactionResponse refundDeposit(BigDecimal amount, String walletID) {
+        log.info("Return deposit to wallet: {} amount :{}", walletID,amount);
+        Wallet wallet = walletRepository.findById(walletID)
+                .orElseThrow(() -> new AppException(ErrorCode.WALLET_NOT_FOUND));
+
+        // add amount to old balanced
+        wallet.setBalance(wallet.getBalance().add(amount));
+        
+        walletRepository.save(wallet);
+
+        Transaction transaction = Transaction.builder()
+                .wallet(wallet)
+                .user(wallet.getUser())
+                .amount(amount)
+                .type(TransactionType.RETURN_DEPOSIT)
+                .status(TransactionStatus.COMPLETED)
+                .createdAt(Instant.now())
+                .description("Return deposit to wallet")
                 .build();
         transactionRepository.save(transaction);
 

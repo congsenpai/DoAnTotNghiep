@@ -30,4 +30,5 @@ public class InvoiceResponse {
     VehicleResponse vehicle;
     Boolean isMonthlyTicket;
     Instant createdAt;
+    String objectDecrypt;
 }

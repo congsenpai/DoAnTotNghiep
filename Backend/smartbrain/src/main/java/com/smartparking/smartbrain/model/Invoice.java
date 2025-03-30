@@ -52,23 +52,28 @@ public class Invoice {
     String description;
 
     // Relationship
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice",fetch = FetchType.LAZY)
+    @JsonIgnore
     Set<Transaction> transactions;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "discount_id", nullable = true)
+    @JsonIgnore
     Discount discount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parking_slot_id", nullable = false)
+    @JsonIgnore
     ParkingSlot parkingSlot;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="vehicle_id", nullable = false)
+    @JsonIgnore
     Vehicle vehicle;
 
     @OneToOne(mappedBy = "invoice",fetch = FetchType.LAZY)

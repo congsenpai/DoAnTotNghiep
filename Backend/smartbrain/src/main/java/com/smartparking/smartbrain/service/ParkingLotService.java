@@ -107,4 +107,29 @@ public class ParkingLotService {
         }
         parkingLotRepository.deleteById(parkingLotID);
     }
+
+    public List<ParkingLotResponse> findByParkingLotName(String name) {
+        var parkingLotList=parkingLotRepository.findByParkingLotName(name);
+        if (!parkingLotList.isEmpty()) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+        }
+        return parkingLotList.stream().map(parkingLot -> {
+            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserID());
+            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+            return response;
+        }).collect(Collectors.toList());
+    }
+    public List<ParkingLotResponse> findNearestParkingLot(double lat,double lon){
+        var parkingLotList=parkingLotRepository.findNearestParkingLots(lat,lon);
+        if (!parkingLotList.isEmpty()) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+        }
+        return parkingLotList.stream().map(parkingLot -> {
+            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserID());
+            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+            return response;
+        }).collect(Collectors.toList());
+    }
 }
