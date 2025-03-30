@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.encoder;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AESEncryption {
 
     private static final String ALGORITHM = "AES";
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // Tạo SecretKey từ signerKey (Băm SHA-256 để lấy đúng 32 byte)
     private static SecretKeySpec getSecretKey(String signerKey) throws Exception {
@@ -29,7 +30,9 @@ public class AESEncryption {
 
     // Mã hóa object thành chuỗi
     public static String encryptObject(Object obj, String signerKey) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule()); // Hỗ trợ Java 8 Date/Time
+        ObjectMapper objectMapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Hỗ trợ Java 8 Date/Time
         logObject("This object is", obj);
         String json = objectMapper.writeValueAsString(obj); // Chuyển object thành JSON
         return encrypt(json, signerKey);
@@ -37,7 +40,11 @@ public class AESEncryption {
 
     // Giải mã chuỗi thành object
     public static <T> T decryptObject(String encryptedData, String signerKey, Class<T> clazz) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         String decryptedJson = decrypt(encryptedData, signerKey);
+        log.info("The object after decrypt: {}",decryptedJson);
         return objectMapper.readValue(decryptedJson, clazz);
     }
 
@@ -52,13 +59,27 @@ public class AESEncryption {
 
     // Hàm giải mã chuỗi
     public static String decrypt(String encryptedData, String signerKey) throws Exception {
-        SecretKeySpec secretKey = getSecretKey(signerKey);
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        byte[] decodedBytes = Base64.getDecoder().decode(encryptedData);
-        return new String(cipher.doFinal(decodedBytes), StandardCharsets.UTF_8);
+        try {
+            log.info("Encrypted data received: {}", encryptedData);
+            SecretKeySpec secretKey = getSecretKey(signerKey);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+            byte[] decodedBytes = Base64.getDecoder().decode(encryptedData);
+            log.info("Decoded bytes: {}", Arrays.toString(decodedBytes));
+
+            String decryptedString = new String(cipher.doFinal(decodedBytes), StandardCharsets.UTF_8);
+            log.info("Decrypted string: {}", decryptedString);
+            return decryptedString;
+        } catch (Exception e) {
+            log.error("Decryption failed! Error: ", e);
+            throw e; // Bắn lại exception để debug
+        }
     }
     public static void logObject(String message, Object object) {
+        ObjectMapper objectMapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             String json = objectMapper.writeValueAsString(object);
             log.info("{}: {}", message, json);

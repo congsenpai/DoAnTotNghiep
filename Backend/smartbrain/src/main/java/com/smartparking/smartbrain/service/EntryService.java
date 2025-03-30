@@ -3,12 +3,14 @@ package com.smartparking.smartbrain.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.smartparking.smartbrain.dto.request.Entry.EntryRequest;
 import com.smartparking.smartbrain.encoder.AESEncryption;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
 import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Invoice;
+import com.smartparking.smartbrain.repository.InvoiceRepository;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,29 +26,39 @@ public class EntryService {
     @Value("${jwt.signerKey}")
     protected String SECRET_KEY;
     final ParkingSlotService parkingSlotService;
+    final InvoiceRepository invoiceRepository;
 
     // viết một hàm tạo chuỗi String sử dụng mã hóa từ hóa đơn Response
     // với hóa đơn theo ngày thì khi người dùng đặt cọc sẽ dùng hóa đơn đặt cọc để vào và hóa đơn thanh toán để ra
-    public void enterParkingLot(String objectEncrypt){
+    public void enterParkingLot(EntryRequest request){
         try {
-            Invoice invoiceDecrypt =AESEncryption.decryptObject(objectEncrypt, SECRET_KEY, Invoice.class);
+            log.info("Data encrypt is: {}",request.getObjectEncrypt());
+            log.info("Secret key is: {}",SECRET_KEY);
+            Invoice invoiceDecrypt =AESEncryption.decryptObject(request.getObjectEncrypt(), SECRET_KEY, Invoice.class);
+            log.info("The invoice ID is: {}",invoiceDecrypt.getInvoiceID());
             InvoiceStatus status=invoiceDecrypt.getStatus();
+            Invoice invoice=invoiceRepository.findById(invoiceDecrypt.getInvoiceID())
+            .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
+            log.info("Invoice status is :{}",status);
             if (status.equals(InvoiceStatus.DEPOSIT)||status.equals(InvoiceStatus.PAID)) {
-                parkingSlotService.updateParkingSlotStatus(invoiceDecrypt.getParkingSlot().getSlotID(), SlotStatus.OCCUPIED);
+                log.info("Condition is true");
+                parkingSlotService.updateParkingSlotStatus(invoice.getParkingSlot().getSlotID(), SlotStatus.OCCUPIED);
             }
         } catch (Exception e) {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Has error occur when decrypt QR CODE");
         }
     }
-    public void outParkingLot(String objectEncrypt){
+    public void leaveParkingLot(EntryRequest request){
         try {
-            Invoice invoiceDecrypt =AESEncryption.decryptObject(objectEncrypt, SECRET_KEY, Invoice.class);
+            Invoice invoiceDecrypt =AESEncryption.decryptObject(request.getObjectEncrypt(), SECRET_KEY, Invoice.class);
             InvoiceStatus status=invoiceDecrypt.getStatus();
+            Invoice invoice=invoiceRepository.findById(invoiceDecrypt.getInvoiceID())
+            .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
             if (status.equals(InvoiceStatus.PAID)) {
-                if (invoiceDecrypt.getMonthlyTicket()!=null) {
-                    parkingSlotService.updateParkingSlotStatus(invoiceDecrypt.getParkingSlot().getSlotID(), SlotStatus.RESERVED);
+                if (invoice.getMonthlyTicket()!=null) {
+                    parkingSlotService.updateParkingSlotStatus(invoice.getParkingSlot().getSlotID(), SlotStatus.RESERVED);
                 }else{
-                    parkingSlotService.updateParkingSlotStatus(invoiceDecrypt.getParkingSlot().getSlotID(), SlotStatus.AVAILABLE);
+                    parkingSlotService.updateParkingSlotStatus(invoice.getParkingSlot().getSlotID(), SlotStatus.AVAILABLE);
                 }
             }
         } catch (Exception e) {
