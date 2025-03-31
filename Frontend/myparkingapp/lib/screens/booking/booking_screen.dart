@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/booking/booking_bloc.dart';
-import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/parking_slots_response.dart';

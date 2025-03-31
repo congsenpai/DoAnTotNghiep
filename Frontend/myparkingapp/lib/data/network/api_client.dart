@@ -8,7 +8,6 @@ import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
 import 'package:myparkingapp/data/response/transaction__response.dart';
 import 'package:myparkingapp/data/response/vehicle__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
 import 'dio_client.dart';
 
 class ApiClient {

@@ -32,7 +32,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
+
     context.read<LotDetailBloc>().add(LotDetailScreenInitialEvent(widget.parkingLot));
   }
 

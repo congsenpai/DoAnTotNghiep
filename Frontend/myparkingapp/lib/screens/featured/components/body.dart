@@ -8,7 +8,7 @@ import '../../../components/scalton/big_card_scalton.dart';
 import '../../../constants.dart';
 
 import '../../../data/response/parking_lot_response.dart';
-import '../../../demo_data.dart';
+
 
 /// Just for show the scalton we use [StatefulWidget]
 class Body extends StatefulWidget {

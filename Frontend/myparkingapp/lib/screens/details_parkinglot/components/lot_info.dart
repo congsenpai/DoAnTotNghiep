@@ -6,7 +6,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/api_service/tomtom_map/map_screen.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import '../../../components/vehicle_type_list.dart';
 import '../../../components/rating_with_counter.dart';
 import '../../../constants.dart';
 

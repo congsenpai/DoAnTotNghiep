@@ -1,5 +1,4 @@
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import '../../data/repository/lots_repository.dart';
 
 abstract class HomeState{
 

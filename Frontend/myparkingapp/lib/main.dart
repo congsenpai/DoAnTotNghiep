@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, unused_element
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +13,8 @@ import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
-import 'package:myparkingapp/data/api_service/vn_pay/info_vnpay.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/main_screen.dart';
-import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';

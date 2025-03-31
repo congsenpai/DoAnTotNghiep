@@ -79,7 +79,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen(wallet: wallet)))
                                 },
                                 depositMoney: (WalletResponse wallet) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TransferFormScreen(walletResponse: wallet,)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepositFormScreen(walletResponse: wallet, user: widget.user,)));
                                 } ,
                                 wallet: wallet,
                                 lockWallet: (WalletResponse wallet) {
@@ -89,10 +89,10 @@ class _WalletScreenState extends State<WalletScreen> {
                           .toList(),
                     ),
 
-                    ElevatedButton.icon(
-                    onPressed: () => _showVehicleAdd(context),
-                    icon: Icon(Icons.add_circle_outlined),
-                    label: Text("Add Wallet"),
+                  ElevatedButton.icon(
+                  onPressed: () => _showWalletAdd(context),
+                  icon: Icon(Icons.add_circle_outlined),
+                  label: Text("Add Wallet"),
                   ),
                   const SizedBox(height: 20),
                 ],
@@ -115,7 +115,7 @@ class _WalletScreenState extends State<WalletScreen> {
         })
     );
   }
-  void _showVehicleAdd(BuildContext context) {
+  void _showWalletAdd(BuildContext context) {
     TextEditingController name = TextEditingController();
 
     showDialog(

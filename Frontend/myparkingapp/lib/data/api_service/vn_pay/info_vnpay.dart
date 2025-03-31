@@ -1,17 +1,24 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
-class Example extends StatefulWidget {
+class TransactionInfo extends StatefulWidget {
+  final UserResponse user;
   final String name;
   final double amount;
   final String note;
-  const Example({super.key, required this.name, required this.amount, required this.note});
+  const TransactionInfo({super.key, required this.name, required this.amount, required this.note, required this.user});
 
   @override
-  State<Example> createState() => _ExampleState();
+  State<TransactionInfo> createState() => _TransactionInfoState();
 }
 
-class _ExampleState extends State<Example> {
+class _TransactionInfoState extends State<TransactionInfo> {
   String responseCode = '200';
 
   Future<void> onPayment() async {
@@ -49,7 +56,7 @@ class _ExampleState extends State<Example> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context).translate('Thanh toán VNPay'))),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).translate('VNPay'))),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -62,38 +69,32 @@ class _ExampleState extends State<Example> {
                 1: FlexColumnWidth(2), // Cột 2 chiếm 2 phần
               },
               children: [
-                _buildTableRow(AppLocalizations.of(context).translate("Tên"), widget.name),
-                _buildTableRow(AppLocalizations.of(context).translate("Số tiền"), "${widget.amount} VND"),
-                _buildTableRow(AppLocalizations.of(context).translate("Ghi chú"), widget.note),
+                _buildTableRow(AppLocalizations.of(context).translate("WalletName"), widget.name),
+                _buildTableRow(AppLocalizations.of(context).translate("Money"), "${widget.amount} VND"),
+                _buildTableRow(AppLocalizations.of(context).translate("Note"), widget.note),
               ],
             ),
             const SizedBox(height: 20),
-            responseCode == "00" 
-              ? Icon(Icons.check_circle_outline, color: Colors.greenAccent) 
-              : responseCode == "200" 
-                ? Icon(Icons.punch_clock_outlined, color: Colors.yellowAccent) 
-                : Icon(Icons.cancel_outlined, color: Colors.red),
+            responseCode == "00"
+            ? Infomation(color: Colors.green,icon: Icons.check, text: 'Successfully transaction',) // Thêm giá trị màu hợp lệ
+            : responseCode == "200"
+                ? Infomation(color: Colors.yellow,icon: Icons.closed_caption_off_outlined, text: 'Loading transaction',) 
+                : Infomation(color: Colors.red,icon: Icons.check, text: 'Failed transaction',), 
+            
             const SizedBox(height: 20),
-            Text(
-              responseCode == '00' 
-                ? AppLocalizations.of(context).translate('Thanh toán thành công') 
-                : responseCode == '200' 
-                  ? AppLocalizations.of(context).translate('Chờ thanh toán') 
-                  : AppLocalizations.of(context).translate('Thanh toán thất bại'),
-              style: TextStyle(
-                fontSize: 18, 
-                color: responseCode == '00' 
-                  ? Colors.green 
-                  : responseCode == '200' 
-                    ? Colors.yellow 
-                    : Colors.red,
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
+
+            responseCode == '200' 
+            ? ElevatedButton(
               onPressed: onPayment,
-              child: Text(AppLocalizations.of(context).translate('Thanh toán ngay')),
-            ),
+              child: Text(AppLocalizations.of(context).translate('Payment now')),
+            ): responseCode == '00' 
+            ?  ElevatedButton(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen(user: widget.user,)));
+              },
+              child: Text(AppLocalizations.of(context).translate('Return profile')),
+            ) : SizedBox(height: 20)
+            
           ],
         ),
       ),
@@ -114,4 +115,37 @@ class _ExampleState extends State<Example> {
       ],
     );
   }
+  
 }
+
+class Infomation extends StatelessWidget {
+  final Color? color;
+  final IconData? icon; // Đổi từ Icon? -> IconData?
+  final String text;
+  
+  const Infomation({super.key, required this.color, this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 10.0, // Đặt độ nâng (bóng)
+      color: Colors.black.withOpacity(0.5), // Màu nền
+      borderRadius: BorderRadius.circular(8), // Bo góc nếu cần
+      child: Container(
+        width: MediaQuery.of(context).size.width / 2, // Thay thế Get.width
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            if (icon != null) Icon(icon, color: color), // Kiểm tra null trước khi hiển thị icon
+            Text(
+              AppLocalizations.of(context).translate(text),
+              style: TextStyle(color: color), // Thêm màu chữ để dễ đọc
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+

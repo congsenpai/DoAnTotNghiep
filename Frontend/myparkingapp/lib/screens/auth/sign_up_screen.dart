@@ -6,10 +6,8 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
-import 'package:myparkingapp/screens/onboarding/components/onboard_content.dart';
 import '../../app/locallization/app_localizations.dart';
 import '../signUp/components/sign_up_form.dart';
-import '../../components/welcome_text.dart';
 import '../../constants.dart';
 import 'sign_in_screen.dart';
 

@@ -28,9 +28,6 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
         
       );
-      print("paymentUrl \n");
-      print("paymentUrl \n $paymentUrl \n");
-      print("paymentUrl \n");
 
       emit(PaymentUrlGeneratedState(paymentUrl));  // Gửi URL lên UIN
     } catch (e) {

@@ -9,17 +9,19 @@ import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
 import 'package:myparkingapp/bloc/payment/payment_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/api_service/vn_pay/info_vnpay.dart';
+import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 
-class TransferFormScreen extends StatefulWidget {
+class DepositFormScreen extends StatefulWidget {
 
   final WalletResponse walletResponse;
+  final UserResponse user;
 
-  const TransferFormScreen({super.key, required this.walletResponse});
+  const DepositFormScreen({super.key, required this.walletResponse, required this.user});
   @override
-  State<TransferFormScreen> createState() => _TransferFormScreenState();
+  State<DepositFormScreen> createState() => _DepositFormScreenState();
 }
-class _TransferFormScreenState extends State<TransferFormScreen> {
+class _DepositFormScreenState extends State<DepositFormScreen> {
 
   void _submitForm() {
     String name = _nameController.text;
@@ -32,7 +34,8 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
         title: Text(AppLocalizations.of(context).translate('Confirm Infomation')),
         content: SizedBox(
           width: Get.width,
-          child: Example(name: name, amount: amount, note: note,)
+          height: Get.height/2,
+          child: TransactionInfo(name: name, amount: amount, note: note, user: widget.user,)
           ), 
         actions: [
           IconButton(onPressed: (){

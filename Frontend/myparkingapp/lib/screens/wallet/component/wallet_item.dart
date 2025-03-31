@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/welcome_text.dart';
 import 'package:myparkingapp/data/response/wallet__response.dart';
 
@@ -71,7 +72,7 @@ class WalletItem extends StatelessWidget {
           Spacer(),
         
           Expanded(
-            flex:1,
+            flex:3,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -81,7 +82,13 @@ class WalletItem extends StatelessWidget {
                     backgroundColor:  WidgetStateProperty.all<Color>(Colors.black.withOpacity(0.4)), // ✅ Đúng,
                   ),
                   onPressed: detailCard,
-                  child: const Icon(Icons.details_outlined, color: Colors.green),
+                  child:  Row(
+                    children: [
+                      Text(AppLocalizations.of(context).translate("Detail"),style: TextStyle(color: Colors.white),),
+                      Spacer(),
+                      Icon(Icons.details_outlined, color: Colors.green),
+                    ],
+                  ),
                 ),
                 SizedBox(height:10),
                 ElevatedButton(
@@ -90,7 +97,14 @@ class WalletItem extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all<Color>(Colors.black.withOpacity(0.4)),
                   ),
                   onPressed: showTransaction,
-                  child: const Icon(Icons.monetization_on_sharp, color: Colors.yellow),
+                  child: Row(
+                    children: [
+                      Text(AppLocalizations.of(context).translate("History"),style: TextStyle(color: Colors.white),),
+                      Spacer(),
+
+                      Icon(Icons.money, color: Colors.yellow),
+                    ],
+                  ),
                 ),
                 SizedBox(height:10),
                 ElevatedButton(
@@ -99,7 +113,13 @@ class WalletItem extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all<Color>(Colors.black.withOpacity(0.4)),
                   ),
                   onPressed: () => depositMoney(wallet),
-                  child: const Icon(Icons.transform_sharp, color: Colors.amberAccent),
+                  child: Row(
+                    children: [
+                      Text(AppLocalizations.of(context).translate('Recharge'),style: TextStyle(color: Colors.white),),
+                      Spacer(),
+                      Icon(Icons.monetization_on_outlined, color: Colors.amberAccent),
+                    ],
+                  ),
                 ),
                 SizedBox(height:10),
                 ElevatedButton(
@@ -108,7 +128,13 @@ class WalletItem extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all<Color>(Colors.black.withOpacity(0.4)),
                   ),
                   onPressed: () => depositMoney(wallet),
-                  child: const Icon(Icons.lock, color: Colors.red),
+                  child: Row(
+                    children: [
+                      Text(AppLocalizations.of(context).translate('Lock'),style: TextStyle(color: Colors.white),),
+                      Spacer(),
+                      Icon(Icons.lock, color: Colors.red),
+                    ],
+                  ),
                 ),
             
               ],

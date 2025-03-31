@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-
-import '../../../components/vehicle_type_list.dart';
 import '../../../constants.dart';
 import '../../../data/response/parking_slots_response.dart';
 
