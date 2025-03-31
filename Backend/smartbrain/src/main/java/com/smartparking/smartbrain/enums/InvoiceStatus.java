@@ -1,5 +1,5 @@
 package com.smartparking.smartbrain.enums;
 
 public enum InvoiceStatus {
-    PENDING, PAID, CANCELLED
+    PENDING, PAID, CANCELLED, DEPOSIT
 }

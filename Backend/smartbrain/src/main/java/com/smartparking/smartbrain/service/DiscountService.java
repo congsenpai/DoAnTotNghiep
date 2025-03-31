@@ -52,7 +52,7 @@ public class DiscountService {
         return discounts.stream().map(discountMapper::toDiscountResponse).toList();
     }
 
-    public List<DiscountResponse> getAllGlobalDiscount(){ 
+    public List<DiscountResponse> getAllGlobalDiscount(){
         List<Discount> discounts=discountRepository.findByParkingLotIsNull();
         return discounts.stream().map(discountMapper::toDiscountResponse).toList();
     }

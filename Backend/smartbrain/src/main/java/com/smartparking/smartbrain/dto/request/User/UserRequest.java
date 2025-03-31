@@ -17,16 +17,16 @@ import lombok.AccessLevel;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequest {
-    private String username;
+    String username;
     @Size(min = 6, message = "Password must be at least 6 characters")
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String homeAddress;
-    private String companyAddress;
-    private Set<String> roles;
-    private boolean status;
-    private String avatar;
+    String password;
+    String firstName;
+    String lastName;
+    String email;
+    String phone;
+    String homeAddress;
+    String companyAddress;
+    Set<String> roles;
+    boolean status;
+    String images;
 }

@@ -7,12 +7,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.smartparking.smartbrain.enums.TransactionStatus;
-import com.smartparking.smartbrain.enums.Transactions;
+import com.smartparking.smartbrain.enums.TransactionType;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,9 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Transaction {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "transaction_id", nullable = false, updatable = false)
@@ -39,9 +40,10 @@ public class Transaction {
     BigDecimal amount;
     String description;
     @Enumerated(EnumType.STRING)
-    Transactions type;
+    TransactionType type;
     @Enumerated(EnumType.STRING)
-    TransactionStatus status;
+    @Builder.Default
+    TransactionStatus status= TransactionStatus.PENDING;
 
     // Relationship
     @ManyToOne
@@ -52,7 +54,8 @@ public class Transaction {
     @JoinColumn(name = "wallet_id", nullable = false)
     @NotNull(message = "Wallet cannot be null")
     Wallet wallet;
-    @OneToOne(mappedBy="transaction")
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", nullable = true)
     Invoice invoice;
     // Timestamp
     @CreationTimestamp

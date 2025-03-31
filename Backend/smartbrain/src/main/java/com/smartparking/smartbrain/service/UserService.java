@@ -47,6 +47,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         // Set roles for user
         var roles= roleRepository.findAllById(request.getRoles());
+        System.out.println(roles);
+        if (roles.isEmpty()) {
+            throw new AppException(ErrorCode.ROLE_NOT_FOUND);
+        }
         user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
         return userMapper.toUserResponse(user);

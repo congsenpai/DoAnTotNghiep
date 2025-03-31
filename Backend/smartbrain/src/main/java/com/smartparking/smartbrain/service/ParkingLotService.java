@@ -63,7 +63,7 @@ public class ParkingLotService {
                 int numSlots = vehicleSlotConfig.getNumberOfSlot(); // Số lượng slot cho loại xe này
                 for (int i = 0; i < numSlots; i++) {
                 // Định dạng số slot theo A00, A01, ..., A99 rồi tiếp tục A100 nếu cần
-                    String slotName = String.format("%s%02d", location.getLocation(), slotCounter.getAndIncrement());
+                    String slotName = String.format("%s%02d", "("+location.getLocation()+")", slotCounter.getAndIncrement());
                     ParkingSlot parkingSlot = ParkingSlot.builder()
                         .slotName(slotName)
                         .parkingLot(parkingLot)
@@ -106,5 +106,30 @@ public class ParkingLotService {
             throw new AppException(ErrorCode.PARKING_LOT_NOT_EXISTS);
         }
         parkingLotRepository.deleteById(parkingLotID);
+    }
+
+    public List<ParkingLotResponse> findByParkingLotName(String name) {
+        var parkingLotList=parkingLotRepository.findByParkingLotName(name);
+        if (!parkingLotList.isEmpty()) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+        }
+        return parkingLotList.stream().map(parkingLot -> {
+            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserID());
+            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+            return response;
+        }).collect(Collectors.toList());
+    }
+    public List<ParkingLotResponse> findNearestParkingLot(double lat,double lon){
+        var parkingLotList=parkingLotRepository.findNearestParkingLots(lat,lon);
+        if (!parkingLotList.isEmpty()) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+        }
+        return parkingLotList.stream().map(parkingLot -> {
+            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserID());
+            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+            return response;
+        }).collect(Collectors.toList());
     }
 }

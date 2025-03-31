@@ -1,4 +1,5 @@
 package com.smartparking.smartbrain.model;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,10 +37,12 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "discount_id", nullable = false, updatable = false)
     String discountID;
+    @Column(unique = true)
     String discountCode;
     @Enumerated(EnumType.STRING)
     DiscountType discountType;
     double discountValue;
+    BigDecimal maxValue;
     String description;
     @Builder.Default
     Boolean isGlobalDiscount =true;

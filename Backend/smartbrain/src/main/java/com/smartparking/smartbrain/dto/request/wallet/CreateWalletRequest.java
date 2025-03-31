@@ -17,15 +17,15 @@ import java.math.BigDecimal;
 public class CreateWalletRequest {
 
     @NotNull(message = "User ID is required")
-    private String userId;
+    String userId;
 
     @NotBlank(message = "Currency is required")
     
-    private String currency; // USD, EUR, VND, ...
+    String currency; // USD, EUR, VND, ...
 
     @Builder.Default
-    private BigDecimal balance = BigDecimal.ZERO; // Default value: 0
+    BigDecimal balance = BigDecimal.ZERO; // Default value: 0
 
     @NotBlank(message = "Name of wallet is required")
-    private String name;
+    String name;
 }

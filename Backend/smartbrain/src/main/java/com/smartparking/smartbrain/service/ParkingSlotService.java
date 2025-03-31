@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.smartparking.smartbrain.dto.request.ParkingSlot.CreatedParkingSlotRequest;
 import com.smartparking.smartbrain.dto.response.ParkingSlot.ParkingSlotResponse;
+import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.ParkingSlotMapper;
@@ -37,6 +38,13 @@ public class ParkingSlotService {
         parkingSlot.setParkingLot(parkingLot);
         parkingSlot = parkingSlotRepository.save(parkingSlot);
         return parkingSlotMapper.toParkingSlotResponse(parkingSlot);
+    }
+    public void updateParkingSlotStatus(String parkingSlotID, SlotStatus status){
+        log.info("Parking slot ID is : {}",parkingSlotID);
+        ParkingSlot parkingSlot = parkingSlotRepository.findById(parkingSlotID)
+        .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_FOUND));
+        parkingSlot.setSlotStatus(status);
+        parkingSlotRepository.save(parkingSlot);
     }
 
     public ParkingSlotResponse getParkingSlot(String parkingSlotID){

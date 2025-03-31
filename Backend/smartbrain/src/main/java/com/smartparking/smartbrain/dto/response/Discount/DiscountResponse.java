@@ -16,6 +16,7 @@ import java.time.Instant;
 @Builder
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class DiscountResponse {
+    String discountID;
     String discountCode;
     DiscountType discountType;
     double discountValue;

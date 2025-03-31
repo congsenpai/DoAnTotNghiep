@@ -23,7 +23,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } else {
             logger.warn("No JWT Token found in request");
         }
-        
         filterChain.doFilter(request, response);
     }
 }

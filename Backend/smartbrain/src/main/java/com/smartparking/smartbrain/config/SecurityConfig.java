@@ -28,6 +28,7 @@ public class SecurityConfig {
     private CustomJwtDecoder customJwtDecoder;
 
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -70,6 +71,7 @@ public class SecurityConfig {
         jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        jwtAuthenticationConverter.setPrincipalClaimName("userId");
         return jwtAuthenticationConverter;
 
     }
@@ -82,4 +84,6 @@ public class SecurityConfig {
     public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
         return new JwtAuthenticationEntryPoint();
     }
+
+
 }

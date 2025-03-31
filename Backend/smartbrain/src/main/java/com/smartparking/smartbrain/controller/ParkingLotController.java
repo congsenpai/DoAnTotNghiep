@@ -25,6 +25,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -80,6 +82,20 @@ public class ParkingLotController {
         .message(ParkingLotID + " has been deleted")
         .build();
     }
+    @GetMapping("/search")
+    public ApiResponse<List<ParkingLotResponse>> findParkingLotByName(@RequestParam String name) {
+        return ApiResponse.<List<ParkingLotResponse>>builder()
+        .result(parkingLotService.findByParkingLotName(name))
+        .build();
+    }
+    @GetMapping("/nearby")
+    public ApiResponse<List<ParkingLotResponse>> findNearestParkingLot(@RequestParam double lat, @RequestParam double lon) {
+        return ApiResponse.<List<ParkingLotResponse>>builder()
+        .result(parkingLotService.findNearestParkingLot(lat, lon))
+        .build();
+    }
+    
+    
     
     
 }

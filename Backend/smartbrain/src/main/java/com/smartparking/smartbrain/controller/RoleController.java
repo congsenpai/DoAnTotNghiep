@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/myparkingapp/roles")
 @RequiredArgsConstructor
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class RoleController {
-    final RoleService RoleService;
+    RoleService RoleService;
 
     @PostMapping
     public ApiResponse<RoleResponse> createRole(@RequestBody RoleRequest RoleRequest) {

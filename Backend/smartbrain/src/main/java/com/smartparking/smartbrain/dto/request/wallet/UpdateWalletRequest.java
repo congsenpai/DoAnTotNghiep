@@ -1,4 +1,5 @@
 package com.smartparking.smartbrain.dto.request.Wallet;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,8 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class UpdateWalletRequest {
-    private String currency; // USD, EUR, VND, ...
-    private String name;
+    String currency; // USD, EUR, VND, ...
+    String name;
+    @NotEmpty(message = "Wallet ID is required")
+    String walletID;
 }

@@ -16,6 +16,6 @@ public interface ParkingSlotMapper {
     @Mapping(target = "slotID", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     ParkingSlot toParkingSlot(CreatedParkingSlotRequest request);
-
+    
     ParkingSlotResponse toParkingSlotResponse(ParkingSlot parkingSlot);
 }

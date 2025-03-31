@@ -1,0 +1,46 @@
+package com.smartparking.smartbrain.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.smartparking.smartbrain.dto.request.Vehicle.VehicleRequest;
+import com.smartparking.smartbrain.dto.response.ApiResponse;
+import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
+import com.smartparking.smartbrain.service.VehicleService;
+
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@RestController
+@RequestMapping("/myparkingapp/vehicles")
+@RequiredArgsConstructor
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+public class VehicleController {
+
+    VehicleService vehicleService;
+
+    @PostMapping
+    public ApiResponse<VehicleResponse> createVehicle(@RequestBody @Valid VehicleRequest request) {
+        return ApiResponse.<VehicleResponse>builder()
+        .result(vehicleService.createVehicle(request))
+        .build();
+    }
+    @GetMapping("/{UserID}")
+    public ApiResponse<List<VehicleResponse>> getVehicleByUser(@PathVariable String UserID) {
+        return ApiResponse.<List<VehicleResponse>>builder()
+        .result(vehicleService.getVehicleByUserID(UserID))
+        .build();
+    }
+    
+}
