@@ -3,14 +3,14 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppEvent.dart';
-import 'package:myparkingappadmin/models/user.dart';
-import 'package:myparkingappadmin/models/wallet.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/dto/response/user.dart';
+import 'package:myparkingappadmin/dto/response/wallet.dart';
 
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
-import '../../bloc/MainApp/MainAppBloc.dart';
+import '../../bloc/main_app/MainAppBloc.dart';
 import 'WalletDetail.dart';
 
 class WalletList extends StatefulWidget {

@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:myparkingappadmin/models/wallet.dart';
+import 'package:myparkingappadmin/dto/response/wallet.dart';
 
 import '../apiResponse.dart';
-import '../models/transaction.dart';
+import '../dto/response/transaction.dart';
 
 class TransactionRepository {
   Future<APIResult> giveTransactionByPageAndSearch(int page, String token, Wallet wallet,String searchText) async{

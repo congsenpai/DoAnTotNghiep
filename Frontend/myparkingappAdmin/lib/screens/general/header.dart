@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 
 
 import '../../app/localization/app_localizations.dart';
-import '../../bloc/MainApp/MainAppBloc.dart';
-import '../../bloc/MainApp/MainAppEvent.dart';
+import '../../bloc/main_app/MainAppBloc.dart';
+import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
 import '../../controllers/menu_app_controller.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../../responsive.dart';
 
 class Header extends StatefulWidget {

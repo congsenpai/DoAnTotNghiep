@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import '../apiResponse.dart';
-import '../models/user.dart';
-import '../models/wallet.dart';
+import '../dto/response/user.dart';
+import '../dto/response/wallet.dart';
 
 class WalletRepository {
   Future<APIResult> giveWalletByPageAndSearch(int page, String token, User user,String searchText) async{

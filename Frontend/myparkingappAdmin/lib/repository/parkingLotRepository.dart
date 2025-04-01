@@ -2,8 +2,8 @@
 
 import 'package:myparkingappadmin/apiResponse.dart';
 
-import '../models/parkingLot.dart';
-import '../models/user.dart';
+import '../dto/response/parkingLot.dart';
+import '../dto/response/user.dart';
 
 class ParkingLotRepository {
   Future<APIResult> giveParkingLotByPageAndSearch(int page, String token, User user,String searchText) async{

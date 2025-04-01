@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import '../apiResponse.dart';
-import '../models/invoice.dart';
-import '../models/parkingSlot.dart';
+import '../dto/response/invoice.dart';
+import '../dto/response/parkingSlot.dart';
 
 class InvoiceRepository {
   Future<APIResult> giveInvoiceByPageAndSearch(int page, String token, ParkingSlot parkingSlot,String searchText) async{

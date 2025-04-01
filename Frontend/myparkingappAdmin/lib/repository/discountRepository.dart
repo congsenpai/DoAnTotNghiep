@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
-import 'package:myparkingappadmin/models/parkingLot.dart';
+import 'package:myparkingappadmin/dto/response/parkingLot.dart';
 import '../apiResponse.dart';
-import '../models/discount.dart';
+import '../dto/response/discount.dart';
 
 class DiscountRepository {
   Future<APIResult> giveDiscountByPageAndSearch(int page, String token, ParkingLot parkingLot,String searchText) async{

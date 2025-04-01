@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppEvent.dart';
-import 'package:myparkingappadmin/models/user.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/dto/response/user.dart';
 
 import '../../../../constants.dart';
 

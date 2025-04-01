@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import '../apiResponse.dart';
-import '../models/user.dart';
+import '../dto/response/user.dart';
 import 'package:http/http.dart' as http;
 
 class UserRepository {

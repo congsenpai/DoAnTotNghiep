@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../app/localization/app_localizations.dart';
-import '../../bloc/Register/RegistedBloc.dart';
-import '../../bloc/Register/RegistedEvent.dart';
-import '../../bloc/Register/RegistedState.dart';
+import '../../bloc/register/RegistedBloc.dart';
+import '../../bloc/register/RegistedEvent.dart';
+import '../../bloc/register/RegistedState.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../general/header.dart';
 import '../../responsive.dart';
 import '../main/components/side_menu.dart';

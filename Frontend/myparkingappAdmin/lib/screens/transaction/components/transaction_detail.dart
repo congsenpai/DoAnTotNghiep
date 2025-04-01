@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/models/transaction.dart';
+import 'package:myparkingappadmin/dto/response/transaction.dart';
 import '../../../../constants.dart';
 
 

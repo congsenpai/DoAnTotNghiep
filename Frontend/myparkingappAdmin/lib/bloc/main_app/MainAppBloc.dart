@@ -1,17 +1,17 @@
 // ignore_for_file: avoid_print, file_names
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/models/parkingLot.dart';
-import 'package:myparkingappadmin/models/transaction.dart';
-import 'package:myparkingappadmin/models/wallet.dart';
+import 'package:myparkingappadmin/dto/response/parkingLot.dart';
+import 'package:myparkingappadmin/dto/response/transaction.dart';
+import 'package:myparkingappadmin/dto/response/wallet.dart';
 import 'package:myparkingappadmin/repository/parkingLotRepository.dart';
 import 'package:myparkingappadmin/repository/transactionRepository.dart';
 import 'package:myparkingappadmin/repository/userRepository.dart';
 import '../../apiResponse.dart';
-import '../../models/discount.dart';
-import '../../models/invoice.dart';
-import '../../models/parkingSlot.dart';
-import '../../models/user.dart';
+import '../../dto/response/discount.dart';
+import '../../dto/response/invoice.dart';
+import '../../dto/response/parkingSlot.dart';
+import '../../dto/response/user.dart';
 import '../../repository/authRepository.dart';
 import '../../repository/discountRepository.dart';
 import '../../repository/invoiceRepository.dart';

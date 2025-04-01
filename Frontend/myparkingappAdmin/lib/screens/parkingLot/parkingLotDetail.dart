@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
-import '../../../models/parkingLot.dart';
+import '../../dto/response/parkingLot.dart';
 
 class ParkingSpotDetail extends StatefulWidget {
   final String title;

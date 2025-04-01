@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 

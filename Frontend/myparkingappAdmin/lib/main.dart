@@ -8,13 +8,13 @@ import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
-import 'bloc/Auth/AuthBloc.dart';
-import 'bloc/MainApp/MainAppBloc.dart';
-import 'bloc/Register/RegistedBloc.dart';
+import 'bloc/auth/auth_bloc.dart';
+import 'bloc/main_app/MainAppBloc.dart';
+import 'bloc/register/RegistedBloc.dart';
 import 'controllers/menu_app_controller.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'models/user.dart';
+import 'dto/response/user.dart';
 
 
 void main() {

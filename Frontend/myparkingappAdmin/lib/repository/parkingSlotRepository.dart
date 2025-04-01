@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:myparkingappadmin/models/parkingLot.dart';
-import 'package:myparkingappadmin/models/parkingSlot.dart';
+import 'package:myparkingappadmin/dto/response/parkingLot.dart';
+import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
 import '../apiResponse.dart';
 
 class ParkingSlotRepository {

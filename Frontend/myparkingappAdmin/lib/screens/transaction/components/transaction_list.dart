@@ -3,9 +3,9 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/models/transaction.dart';
+import 'package:myparkingappadmin/dto/response/transaction.dart';
 import 'package:intl/intl.dart';
-import 'package:myparkingappadmin/models/wallet.dart';
+import 'package:myparkingappadmin/dto/response/wallet.dart';
 import 'package:myparkingappadmin/screens/transaction/components/transaction_detail.dart';
 
 class TransactionList extends StatefulWidget {

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingappadmin/screens/main/components/classInitial.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 import '../dashboard/components/assets_details.dart';

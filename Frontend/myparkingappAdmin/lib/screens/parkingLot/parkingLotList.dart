@@ -3,14 +3,14 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppEvent.dart';
-import 'package:myparkingappadmin/models/user.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/dto/response/user.dart';
 
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
-import '../../../models/parkingLot.dart';
+import '../../dto/response/parkingLot.dart';
 import 'parkingLotDetail.dart';
 
 class ParkingLotList extends StatefulWidget {

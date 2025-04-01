@@ -1,17 +1,17 @@
 // ignore_for_file: unused_import, avoid_print
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppEvent.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppState.dart';
-import 'package:myparkingappadmin/models/invoice.dart';
-import 'package:myparkingappadmin/models/parkingLot.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppState.dart';
+import 'package:myparkingappadmin/dto/response/invoice.dart';
+import 'package:myparkingappadmin/dto/response/parkingLot.dart';
 import 'package:myparkingappadmin/screens/myprofile/myprofile_screen.dart';
-import 'package:myparkingappadmin/models/transaction.dart';
+import 'package:myparkingappadmin/dto/response/transaction.dart';
 import '../../controllers/menu_app_controller.dart';
-import '../../models/discount.dart';
-import '../../models/parkingSlot.dart';
-import '../../models/wallet.dart';
-import '../../models/user.dart';
+import '../../dto/response/discount.dart';
+import '../../dto/response/parkingSlot.dart';
+import '../../dto/response/wallet.dart';
+import '../../dto/response/user.dart';
 import '../authentication/register_screen.dart';
 import '../authentication/login_screen.dart';
 import '../customer/customerScreen.dart';

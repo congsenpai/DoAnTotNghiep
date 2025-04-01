@@ -4,12 +4,12 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/MainApp/MainAppEvent.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
+import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
 
-import '../../../models/user.dart';
+import '../../../dto/response/user.dart';
 import 'owner_detail.dart';
 class OwnerList extends StatefulWidget {
   final String token;

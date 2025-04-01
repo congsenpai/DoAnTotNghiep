@@ -6,12 +6,12 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import '../../bloc/MainApp/MainAppBloc.dart';
-import '../../bloc/MainApp/MainAppEvent.dart';
+import '../../bloc/main_app/MainAppBloc.dart';
+import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
-import '../../models/wallet.dart';
-import '../../models/transaction.dart';
-import '../../models/user.dart';
+import '../../dto/response/wallet.dart';
+import '../../dto/response/transaction.dart';
+import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 import '../main/components/classInitial.dart';
@@ -43,12 +43,6 @@ class CustomerScreen extends StatefulWidget {
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-  final HashSet<String> objectColumnNameOfCustomer = HashSet.from([
-    "FirstName",
-    "LastName",
-    "Detail",
-    "WalletList"
-  ]);
   final HashSet<String> objectColumnNameOfWallet = HashSet.from([
     "WalletName",
     "Type Money",
@@ -105,9 +99,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
     selectedWallet = wallet;
     SelectTranList = true;
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -131,12 +122,16 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             children: [
                               Expanded(
                                 flex : 1,
-                                child: CustomerList(
-                                      object: customer,
-                                      objectColumnName: objectColumnNameOfCustomer,
-                                      title: 'cusList',
-                                      onCustomer_Wallet: updateCustomer_Wallet,
-                                    ),
+                                child: Container(
+
+                                  child: Column(
+                                    children: [
+                                      CustomerList(
+                                            onCustomer_Wallet: updateCustomer_Wallet, token: widget.token,
+                                          ),
+                                    ],
+                                  ),
+                                ),
                               ),
                               if(Responsive.isDesktop(context) && SelectWalletList)
                                 SizedBox(width: defaultPadding),

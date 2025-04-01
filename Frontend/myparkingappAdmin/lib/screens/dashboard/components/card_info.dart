@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
-import '../../../models/wallet.dart';
+import '../../../dto/response/wallet.dart';
 
 class InforOfCard extends StatelessWidget {
   const InforOfCard({

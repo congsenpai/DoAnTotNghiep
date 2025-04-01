@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../app/localization/app_localizations.dart';
-import '../../models/discount.dart';
+import '../../dto/response/discount.dart';
 
 class DiscountDetail extends StatefulWidget {
   final String title;

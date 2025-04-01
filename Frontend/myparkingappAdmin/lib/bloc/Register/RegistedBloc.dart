@@ -4,7 +4,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../../repository/authRepository.dart';
 import 'RegistedEvent.dart';
 import 'RegistedState.dart';

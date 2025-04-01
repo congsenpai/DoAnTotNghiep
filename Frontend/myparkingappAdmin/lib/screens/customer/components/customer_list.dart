@@ -2,25 +2,26 @@
 
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/bloc/Customer_Wallet/customer_wallet_state.dart';
+import 'package:myparkingappadmin/bloc/customer_wallet/customer_wallet_bloc.dart';
+import 'package:myparkingappadmin/bloc/customer_wallet/customer_wallet_event.dart';
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
 
-import '../../../models/user.dart';
+import '../../../dto/response/user.dart';
 import 'customer_detail.dart';
 
+// ignore: must_be_immutable
 class CustomerList extends StatefulWidget {
-  final List<User> object;
-  final String title;
-  final HashSet<String> objectColumnName;
+  final String token;
   final Function(User) onCustomer_Wallet;
 
   const CustomerList({
     super.key,
-    required this.object,
-    required this.objectColumnName,
-    required this.title,
     required this.onCustomer_Wallet,
+    required this.token,
   });
 
   @override
@@ -28,14 +29,16 @@ class CustomerList extends StatefulWidget {
 }
 
 class _CustomerListState extends State<CustomerList> {
+  final HashSet<String> objectColumnNameOfCustomer = HashSet.from([
+    "FirstName",
+    "LastName",
+    "Detail",
+    "WalletList"
+  ]);
   final TextEditingController _searchController = TextEditingController();
-  List<User> _filteredCustomer = [];
+  List<User> customers = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _filteredCustomer = widget.object;
-  }
+
 
   @override
   void dispose() {
@@ -43,91 +46,72 @@ class _CustomerListState extends State<CustomerList> {
     super.dispose();
   }
 
-  void _searchUser() {
-    String query = _searchController.text.trim().toLowerCase();
-    if (query.isEmpty) {
-      setState(() => _filteredCustomer = widget.object);
-      return;
-    }
-    setState(() {
-      _filteredCustomer = widget.object.where((user) {
-        return user.firstName.toLowerCase().contains(query) ||
-               user.lastName.toLowerCase().contains(query);
-      }).toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height / 2,
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context).translate(widget.title),
-              style: Theme.of(context).textTheme.titleMedium,
+    return BlocConsumer<CustomerWalletBloc,CustomerWalletState>(
+      builder: (context,state){
+        if(state is CustomerWalletLoadingState){
+          Center(child: CircularProgressIndicator(),);
+        }
+        else if(state is CustomerWalletLoadedState){
+          return Container(
+            height: Get.height / 2,
+            padding: EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
-            SizedBox(height: defaultPadding),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context).translate("Finding..."),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    onSubmitted: (_) => _searchUser(),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context).translate("CustormerList"),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.search, color: Colors.blue),
-                  onPressed: _searchUser,
-                ),
-              ],
-            ),
-            SizedBox(height: defaultPadding),
-            _filteredCustomer.isEmpty
-                ? Center(
-                    child: Text(
-                      AppLocalizations.of(context).translate("There is no matching information"),
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                  SizedBox(height: defaultPadding),
+                  Container(
+                    child: customers.isEmpty
+                      ? Center(
+                          child: Text(
+                            AppLocalizations.of(context).translate("There is no matching information"),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        )
+                      : SizedBox(
+                          width: double.infinity,
+                          child: DataTable(
+                            columnSpacing: defaultPadding,
+                            columns: objectColumnNameOfCustomer
+                                .map(
+                                  (name) => DataColumn(
+                                    label: Text(
+                                      AppLocalizations.of(context).translate(name),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                            rows: customers.map((lotOwner) {
+                              return _buildDataRow(lotOwner, context);
+                            }).toList(),
+                          ),
+                        ),
                   )
-                : SizedBox(
-                    width: double.infinity,
-                    child: DataTable(
-                      columnSpacing: defaultPadding,
-                      columns: widget.objectColumnName
-                          .map(
-                            (name) => DataColumn(
-                              label: Text(
-                                AppLocalizations.of(context).translate(name),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      rows: _filteredCustomer.map((lotOwner) {
-                        return _buildDataRow(lotOwner, context);
-                      }).toList(),
-                    ),
-                  ),
-          ],
-        ),
-      ),
-    );
+                ],
+              ),
+            ),
+          
+          );
+  
+
+        }
+        return Center(child: CircularProgressIndicator(),);
+      }, listener: (context,state){
+
+      });
+    
   }
 
   DataRow _buildDataRow(User user, BuildContext context) {

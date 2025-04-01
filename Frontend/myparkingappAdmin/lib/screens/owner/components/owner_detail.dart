@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myparkingappadmin/models/user.dart';
+import 'package:myparkingappadmin/dto/response/user.dart';
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myparkingappadmin/models/wallet.dart';
+import 'package:myparkingappadmin/dto/response/wallet.dart';
 
 
 import '../../../../constants.dart';

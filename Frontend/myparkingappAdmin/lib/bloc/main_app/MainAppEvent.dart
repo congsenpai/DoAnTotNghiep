@@ -1,10 +1,10 @@
 // ignore_for_file: camel_case_types, file_names
 
-import 'package:myparkingappadmin/models/parkingSlot.dart';
+import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
 
-import '../../models/wallet.dart';
-import '../../models/parkingLot.dart';
-import '../../models/user.dart';
+import '../../dto/response/wallet.dart';
+import '../../dto/response/parkingLot.dart';
+import '../../dto/response/user.dart';
 
 abstract class MainAppEvent{}
 

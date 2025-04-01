@@ -1,7 +1,7 @@
 
 // ignore_for_file: file_names
 
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 
 abstract class AuthState{}
 

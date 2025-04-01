@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../app/localization/app_localizations.dart';
-import '../../bloc/Auth/AuthBloc.dart';
-import '../../bloc/Auth/AuthEvent.dart';
-import '../../bloc/Auth/AuthState.dart';
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/auth/auth_event.dart';
+import '../../bloc/auth/auth_state.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../general/header.dart';
 import '../../responsive.dart';
 import '../main/components/side_menu.dart';

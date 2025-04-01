@@ -1,12 +1,12 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore
-import 'package:myparkingappadmin/models/discount.dart';
-import 'package:myparkingappadmin/models/parkingSlot.dart';
+import 'package:myparkingappadmin/dto/response/discount.dart';
+import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
 
-import '../../models/invoice.dart';
-import '../../models/wallet.dart';
-import '../../models/parkingLot.dart';
-import '../../models/transaction.dart';
-import '../../models/user.dart';
+import '../../dto/response/invoice.dart';
+import '../../dto/response/wallet.dart';
+import '../../dto/response/parkingLot.dart';
+import '../../dto/response/transaction.dart';
+import '../../dto/response/user.dart';
 
 abstract class MainAppState{}
 

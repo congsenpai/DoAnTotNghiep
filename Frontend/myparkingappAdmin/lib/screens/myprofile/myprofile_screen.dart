@@ -8,7 +8,7 @@ import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.d
 
 
 import '../../constants.dart';
-import '../../models/user.dart';
+import '../../dto/response/user.dart';
 import '../general/header.dart';
 
 
