@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ac06cfe-a218-4051-816f-bb68f96d3dd6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/Customer_Wallet/customer_wallet_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/Register/RegistedBloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/Register/RegistedBloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/auth_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/auth_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/MainAppBloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/MainAppBloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/MainAppEvent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/MainAppEvent.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/MainAppState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/MainAppState.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/discount.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/invoice.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/monthlyTicket.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/parkingLot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/parkingSlot.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/transaction.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/user.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dto/response/wallet.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/authRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/authRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/discountRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/discountRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/userRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/userRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/walletRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/walletRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authentication/forget_password_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authentication/forget_password_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authentication/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authentication/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authentication/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authentication/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/customer_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/customer_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/dashboard/components/card_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/dashboard/components/card_info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/dashboard/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/dashboard/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/discount/discountDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/discount/discountDetail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/discount/discountList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/discount/discountList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/general/header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/general/header.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/main/components/classInitial.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/main/components/classInitial.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/myprofile/components/customer_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/myprofile/components/customer_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/myprofile/myprofile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/myprofile/myprofile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/owner/components/owner_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/owner/components/owner_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/owner/components/owner_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/owner/components/owner_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/owner/owner_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/owner/owner_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotDetail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/setting/setting_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/setting/setting_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/WalletDetail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/WalletList.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2tFXwEpwLR41GRVAZgxLe7DBGxt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "tuilaBao",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingappAdmin",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\repository" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\data" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens\parkingspot" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens\lotOwner\components" />
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens\Customer\components\parkingslot" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ac06cfe-a218-4051-816f-bb68f96d3dd6" name="Changes" comment="" />
+      <created>1739949040931</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739949040931</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart</url>
+          <line>2</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/repository/invoiceRepository.dart</url>
+          <line>5</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/authentication/forget_password_screen.dart</url>
+          <line>1</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/myprofile/components/customer_detail.dart</url>
+          <line>3</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/myprofile/myprofile_screen.dart</url>
+          <line>4</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
