@@ -1,17 +1,18 @@
 // ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
 
 
 
 import '../../../constants.dart';
 import '../../app/localization/app_localizations.dart';
-import '../../dto/response/discount.dart';
+
 
 class DiscountDetail extends StatefulWidget {
   final String title;
 
-  final Discount object;
+  final DiscountResponse object;
 
   const DiscountDetail({
     super.key,
@@ -69,7 +70,7 @@ class _DiscountDetailState extends State<DiscountDetail> {
 
 
 class ObjectDetailInfo extends StatefulWidget {
-  final Discount objectInfo;
+  final DiscountResponse objectInfo;
 
   const ObjectDetailInfo({super.key, required this.objectInfo});
 

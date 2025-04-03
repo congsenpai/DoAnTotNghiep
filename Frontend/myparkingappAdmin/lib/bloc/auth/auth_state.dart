@@ -1,7 +1,11 @@
 
 // ignore_for_file: file_names
 
-import '../../dto/response/user.dart';
+
+
+
+
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 
 abstract class AuthState{}
 
@@ -9,7 +13,7 @@ class AuthInitial extends AuthState{
 
 }
 class AuthSuccess extends AuthState{
-  final User user;
+  final UserResponse user;
   final String token;
   AuthSuccess(this.user, this.token);
 }

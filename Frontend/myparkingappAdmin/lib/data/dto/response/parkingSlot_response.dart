@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class ParkingSlot {
+class ParkingSlotResponse {
   String slotId;
   String slotName;
   String vehicleType;   // Loại xe (car, motorbike, etc.)
@@ -9,7 +9,7 @@ class ParkingSlot {
   double pricePerMonth; // Giá theo tháng
   String parkingLotId;  // Thuộc bãi đỗ nào
 
-  ParkingSlot({
+  ParkingSlotResponse({
     required this.slotId,
     required this.slotName,
     required this.vehicleType,
@@ -20,8 +20,8 @@ class ParkingSlot {
   });
 
   /// **Chuyển từ JSON sang `ParkingSlot` object**
-  factory ParkingSlot.fromJson(Map<String, dynamic> json) {
-    return ParkingSlot(
+  factory ParkingSlotResponse.fromJson(Map<String, dynamic> json) {
+    return ParkingSlotResponse(
       slotId: json["slotId"] ?? '',
       vehicleType: json["vehicleType"] ?? 'car',
       slotStatus: json["slotStatus"] ?? 'available',
@@ -51,8 +51,8 @@ class ParkingSlot {
 }
 
 /// **Danh sách mẫu các vị trí đỗ xe**
-List<ParkingSlot> parkingSlotList = [
-  ParkingSlot(
+List<ParkingSlotResponse> parkingSlotList = [
+  ParkingSlotResponse(
     slotId: "S001",
     vehicleType: "car",
     slotStatus: "available",
@@ -60,7 +60,7 @@ List<ParkingSlot> parkingSlotList = [
     pricePerMonth: 1500000.0,
     parkingLotId: "PL001", slotName: 'A1',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotId: "S002",
     vehicleType: "car",
     slotStatus: "occupied",
@@ -68,7 +68,7 @@ List<ParkingSlot> parkingSlotList = [
     pricePerMonth: 1500000.0,
     parkingLotId: "PL001", slotName: 'A2',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotId: "S003",
     vehicleType: "motorbike",
     slotStatus: "available",
@@ -76,7 +76,7 @@ List<ParkingSlot> parkingSlotList = [
     pricePerMonth: 500000.0,
     parkingLotId: "PL002", slotName: 'A3',
   ),
-  ParkingSlot(
+  ParkingSlotResponse(
     slotId: "S004",
     vehicleType: "motorbike",
     slotStatus: "reserved",

@@ -6,17 +6,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
-import '../../dto/response/discount.dart';
-import '../../dto/response/parkingLot.dart';
+
 import 'discountDetail.dart';
 
 class DiscountList extends StatefulWidget {
-  final List<Discount> object;
+  final List<DiscountResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final ParkingLot parkingLot;
+  final ParkingLotResponse parkingLot;
   final String token;
 
   const DiscountList({
@@ -33,8 +34,8 @@ class DiscountList extends StatefulWidget {
 
 class _DiscountListState extends State<DiscountList> {
   TextEditingController _searchController = TextEditingController();
-  List<Discount> _filteredDiscountInfos = [];
-  late ParkingLot _parkingLot;
+  List<DiscountResponse> _filteredDiscountInfos = [];
+  late ParkingLotResponse _parkingLot;
 
   @override
   void initState() {
@@ -148,7 +149,7 @@ class _DiscountListState extends State<DiscountList> {
       ),
     );
   }
-  DataRow recentFileDataRow(Discount fileInfo) {
+  DataRow recentFileDataRow(DiscountResponse fileInfo) {
   return DataRow(
     cells: [
       DataCell(Text(fileInfo.discountCode)),
@@ -169,7 +170,7 @@ class _DiscountListState extends State<DiscountList> {
     ],
   );
 }
-void _showDetailDialog(BuildContext context, Discount discount) {
+void _showDetailDialog(BuildContext context, DiscountResponse discount) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

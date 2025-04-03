@@ -1,7 +1,7 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-class Wallet {
+class WalletResponse {
   final String walletId;
   final String userId;
   final String svgSrc;
@@ -9,7 +9,7 @@ class Wallet {
   final double balance;
   final bool status;
   final String currency;
-  Wallet({
+  WalletResponse({
     required this.walletId,
     required this.userId,
     required this.svgSrc,
@@ -21,8 +21,8 @@ class Wallet {
   });
 
   /// **Chuyển từ JSON sang `Wallet` object**
-  factory Wallet.fromJson(Map<String, dynamic> json) {
-    return Wallet(
+  factory WalletResponse.fromJson(Map<String, dynamic> json) {
+    return WalletResponse(
       walletId: json["walletId"] ?? '',
       userId: json["userId"] ?? '',
       svgSrc: json["svgSrc"] ?? '',
@@ -51,8 +51,8 @@ class Wallet {
     return "Wallet(name: $name, balance: $balance, currency: $currency, status: $status)";
   }
 }
-final List<Wallet> WalletLists = [
-  Wallet(
+final List<WalletResponse> WalletLists = [
+  WalletResponse(
     walletId: "1",
     userId: "U003",
     svgSrc: "assets/icons/wallet.svg",
@@ -61,7 +61,7 @@ final List<Wallet> WalletLists = [
     status: true,
     currency: "USD",
   ),
-  Wallet(
+  WalletResponse(
     walletId: "2",
     userId: "U003",
     svgSrc: "assets/icons/wallet.svg",
@@ -70,7 +70,7 @@ final List<Wallet> WalletLists = [
     status: true,
     currency: "USD",
   ),
-  Wallet(
+  WalletResponse(
     walletId: "3",
     userId: "U003",
     svgSrc: "assets/icons/wallet.svg",

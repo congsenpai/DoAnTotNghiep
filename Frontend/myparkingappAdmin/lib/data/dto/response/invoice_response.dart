@@ -1,4 +1,4 @@
-class Invoice {
+class InvoiceResponse {
   String invoiceId;
   double totalAmount;
   String status;
@@ -8,7 +8,7 @@ class Invoice {
   String monthlyTicketId;
   DateTime updateAt;
 
-  Invoice({
+  InvoiceResponse({
     required this.invoiceId,
     required this.totalAmount,
     required this.status,
@@ -20,8 +20,8 @@ class Invoice {
   });
 
   /// **Chuyển từ JSON sang `Invoice` object**
-  factory Invoice.fromJson(Map<String, dynamic> json) {
-    return Invoice(
+  factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
+    return InvoiceResponse(
       invoiceId: json["invoiceId"] ?? '',
       totalAmount: (json["totalAmount"] ?? 0).toDouble(),
       status: json["status"] ?? '',
@@ -53,8 +53,8 @@ class Invoice {
   }
 }
 
-List<Invoice> demoInvoices = [
-  Invoice(
+List<InvoiceResponse> demoInvoices = [
+  InvoiceResponse(
     invoiceId: 'INV001',
     totalAmount: 150.0,
     status: 'Paid',
@@ -64,7 +64,7 @@ List<Invoice> demoInvoices = [
     monthlyTicketId: 'MT001',
     updateAt: DateTime.now(),
   ),
-  Invoice(
+  InvoiceResponse(
     invoiceId: 'INV002',
     totalAmount: 200.5,
     status: 'Pending',

@@ -6,17 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
 
-import '../../../dto/response/user.dart';
 import 'owner_detail.dart';
 class OwnerList extends StatefulWidget {
   final String token;
-  final List<User> object;
+  final List<UserResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final Function(User) onOwner_Lot;
+  final Function(UserResponse) onOwner_Lot;
   const OwnerList({
     super.key,
     required this.object,
@@ -29,7 +29,7 @@ class OwnerList extends StatefulWidget {
 }
 class _OwnerListState extends State<OwnerList> {
   final TextEditingController _searchController = TextEditingController();
-  late List<User> _filteredOwner =[];
+  late List<UserResponse> _filteredOwner =[];
   @override
   void initState() {
     super.initState();
@@ -141,7 +141,7 @@ class _OwnerListState extends State<OwnerList> {
     );
   }
 
-  DataRow _buildDataRow(User user, BuildContext context) {
+  DataRow _buildDataRow(UserResponse user, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(Text(user.firstName)),
@@ -162,7 +162,7 @@ class _OwnerListState extends State<OwnerList> {
     );
   }
 
-  void _showDetailDialog(BuildContext context, User user) {
+  void _showDetailDialog(BuildContext context, UserResponse user) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

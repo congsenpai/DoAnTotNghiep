@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myparkingappadmin/dto/response/wallet.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+
 
 
 import '../../../../constants.dart';
@@ -10,7 +11,7 @@ import '../../../app/localization/app_localizations.dart';
 
 class WalletDetail extends StatefulWidget {
   final String title;
-  final Wallet object;
+  final WalletResponse object;
 
   const WalletDetail({
     super.key,
@@ -92,7 +93,7 @@ class _WalletDetailState extends State<WalletDetail> {
 
 // Hiển thị thông tin hợp đồng
 class ObjectDetailInfo extends StatefulWidget {
-  final Wallet wallet;
+  final WalletResponse wallet;
   const ObjectDetailInfo({super.key, required this.wallet});
 
   @override

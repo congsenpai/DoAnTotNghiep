@@ -3,8 +3,9 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 
-import '../../dto/response/user.dart';
+
 import '../../repository/authRepository.dart';
 import 'RegistedEvent.dart';
 import 'RegistedState.dart';
@@ -18,7 +19,7 @@ class RegisterBloc extends Bloc<RegisterEvent,RegisterState>{
     try{
       AuthRepository userRepository = AuthRepository();
         if(event.password == event.repass){
-          User user = User(
+          UserResponse user = UserResponse(
               username: event.username,
               password: event.password,
               phoneNumber: event.phoneNumber,

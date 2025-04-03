@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/register_screen.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/auth/auth_state.dart';
 import '../../constants.dart';
-import '../../dto/response/user.dart';
 import '../general/header.dart';
 import '../../responsive.dart';
 import '../main/components/side_menu.dart';
@@ -25,7 +25,7 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
   final GlobalKey<ScaffoldState> _LoginscaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _usernameController = TextEditingController();
 
-  late User user = User(
+  late UserResponse user = UserResponse(
       username: "",
       password: "",
       phoneNumber: "",

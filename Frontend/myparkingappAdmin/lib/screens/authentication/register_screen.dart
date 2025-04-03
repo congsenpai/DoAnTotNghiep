@@ -2,13 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
 
 import '../../app/localization/app_localizations.dart';
 import '../../bloc/register/RegistedBloc.dart';
 import '../../bloc/register/RegistedEvent.dart';
 import '../../bloc/register/RegistedState.dart';
 import '../../constants.dart';
-import '../../dto/response/user.dart';
 import '../general/header.dart';
 import '../../responsive.dart';
 import '../main/components/side_menu.dart';
@@ -44,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
   }
-  late User user = User(
+  late UserResponse user = UserResponse(
     username: "",
     password: "",
     phoneNumber: "",

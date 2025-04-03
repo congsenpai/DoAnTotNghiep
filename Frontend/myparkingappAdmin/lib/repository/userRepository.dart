@@ -3,8 +3,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
 import '../apiResponse.dart';
-import '../dto/response/user.dart';
 import 'package:http/http.dart' as http;
 
 class UserRepository {
@@ -135,7 +136,7 @@ class UserRepository {
     try {
       print("user $searchText");
       String searchKey = searchText.toLowerCase().trim();
-      List<User> user = demoCustomersList.where((user) =>
+      List<UserResponse> user = demoCustomersList.where((user) =>
       user.roles.contains("OWNER") && // Sửa lỗi "ONWER" thành "OWNER"
           (searchKey.isEmpty || user.firstName.toLowerCase().contains(searchKey)) // Nếu searchKey rỗng, không lọc theo tên
       ).toList();
@@ -151,7 +152,7 @@ class UserRepository {
     try {
       try {
         String searchKey = searchText.toLowerCase().trim();
-        List<User> user = demoCustomersList.where((user) =>
+        List<UserResponse> user = demoCustomersList.where((user) =>
         user.roles.contains("CUSTOMER") && // Sửa lỗi "ONWER" thành "OWNER"
             (searchKey.isEmpty || user.firstName.toLowerCase().contains(searchKey)) // Nếu searchKey rỗng, không lọc theo tên
         ).toList();
@@ -164,7 +165,7 @@ class UserRepository {
       throw Exception("Lỗi kết nối: $e");
     }
   }
-  Future<APIResult> updatedUser(User user, String token) async{
+  Future<APIResult> updatedUser(UserResponse user, String token) async{
     final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
 
     try {
@@ -183,7 +184,7 @@ class UserRepository {
       String message = responseData["message"];
 
       if(response.statusCode == 200){
-        User user = User.fromJson(responseData["result"]);
+        UserResponse user = UserResponse.fromJson(responseData["result"]);
         APIResult apiResult= APIResult(0, code: code, message: message, result: user);
         return apiResult;
       }
@@ -196,7 +197,7 @@ class UserRepository {
       throw Exception("updatedUser_repo:  $e");
     }
   }
-  Future<APIResult> updatedStatusUser(User user, String token, String newStatus) async{
+  Future<APIResult> updatedStatusUser(UserResponse user, String token, String newStatus) async{
     final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
 
     try {
@@ -215,7 +216,7 @@ class UserRepository {
       String message = responseData["message"];
 
       if(response.statusCode == 200){
-        User user = User.fromJson(responseData["result"]);
+        UserResponse user = UserResponse.fromJson(responseData["result"]);
         APIResult apiResult= APIResult(0, code: code, message: message, result: user);
         return apiResult;
       }

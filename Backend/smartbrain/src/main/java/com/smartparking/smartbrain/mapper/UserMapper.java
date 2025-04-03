@@ -8,6 +8,7 @@ import org.mapstruct.Named;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
+import com.smartparking.smartbrain.dto.response.User.UserResponseUser_Slot;
 import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.model.User;
 

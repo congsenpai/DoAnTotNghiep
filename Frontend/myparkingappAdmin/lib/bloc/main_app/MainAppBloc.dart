@@ -1,17 +1,17 @@
 // ignore_for_file: avoid_print, file_names
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/dto/response/parkingLot.dart';
-import 'package:myparkingappadmin/dto/response/transaction.dart';
-import 'package:myparkingappadmin/dto/response/wallet.dart';
+import 'package:myparkingappadmin/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/dto/response/transaction_response.dart';
+import 'package:myparkingappadmin/dto/response/wallet_response.dart';
 import 'package:myparkingappadmin/repository/parkingLotRepository.dart';
 import 'package:myparkingappadmin/repository/transactionRepository.dart';
 import 'package:myparkingappadmin/repository/userRepository.dart';
 import '../../apiResponse.dart';
-import '../../dto/response/discount.dart';
-import '../../dto/response/invoice.dart';
-import '../../dto/response/parkingSlot.dart';
-import '../../dto/response/user.dart';
+import '../../dto/response/discount_response.dart';
+import '../../dto/response/invoice_response.dart';
+import '../../dto/response/parkingSlot_response.dart';
+import '../../dto/response/user_response.dart';
 import '../../repository/authRepository.dart';
 import '../../repository/discountRepository.dart';
 import '../../repository/invoiceRepository.dart';
@@ -23,7 +23,7 @@ import 'MainAppState.dart';
 class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
   MainAppBloc() : super(MainInitial()) {
     on<initializationEvent>(_initialList);
-    on<giveOwnerByPageAndSearchEvent>(_giveOwnerList);
+    
     on<giveCustomerByPageAndSearchEvent>(_giveCustomerList);
 
     on<UpdateUserInfoEvent>(_updatedUserInfo);
@@ -50,29 +50,12 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
       emit(MainAppErrorState("Cannot fetch user lists"));
     }
   }
-  void _giveOwnerList(giveOwnerByPageAndSearchEvent event, Emitter<MainAppState> emit) async {
-    UserRepository userRepository = UserRepository();
-    try {
-      APIResult userResult = await userRepository.giveAllUserByPage_BySearch_ByOWNER_ROLE(0,event.token,'ROLE_OWNER',event.search);
-      List<User> customer = [];
-      customer=userResult.result;
-      String message = userResult.message;
-      int code = userResult.code;
-      if(code == 200){
-        emit(giveOwnerListState(customer)); // Ensure a value is returned
-      }
-      else{
-        emit(MainAppErrorState(message));
-      }
-    } catch (e) {
-      emit(MainAppErrorState("Cannot give owner list")); // Ensure an exception is thrown
-    }
-  }
+  
   void _giveCustomerList(giveCustomerByPageAndSearchEvent event, Emitter<MainAppState> emit) async {
     UserRepository userRepository = UserRepository();
     try {
       APIResult userResult = await userRepository.giveAllUserByPage_BySearch_ByCUSTOMER_ROLE(0,event.token,'ROLE_OWNER',event.search);
-      List<User> customer = userResult.result;
+      List<UserResponse> customer = userResult.result;
       String message = userResult.message;
       int code = userResult.code;
       if(code == 200){
@@ -90,7 +73,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     ParkingLotRepository parkingLotRepository = ParkingLotRepository();
     try {
       APIResult parkingLotResult = await parkingLotRepository.giveParkingLotByPageAndSearch(event.page, event.token, event.owner, event.search);
-      List<ParkingLot> parkingLots = parkingLotResult.result;
+      List<ParkingLotResponse> parkingLots = parkingLotResult.result;
       String message = parkingLotResult.message;
       int code = parkingLotResult.code;
       if(code == 200){
@@ -107,7 +90,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     ParkingSlotRepository slotRepository = ParkingSlotRepository();
     try {
       APIResult slotResult = await slotRepository.giveParkingLotByPageAndSearch(event.page, event.token, event.parkingLot, event.search);
-      List<ParkingSlot> parkingSlots = slotResult.result;
+      List<ParkingSlotResponse> parkingSlots = slotResult.result;
       String message = slotResult.message;
       int code = slotResult.code;
       if(code == 200){
@@ -124,7 +107,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     InvoiceRepository invoiceRepository = InvoiceRepository();
     try {
       APIResult slotResult = await invoiceRepository.giveInvoiceByPageAndSearch(event.page, event.token, event.parkingSlot, event.search);
-      List<Invoice> invoices = slotResult.result;
+      List<InvoiceResponse> invoices = slotResult.result;
       String message = slotResult.message;
       int code = slotResult.code;
       if(code == 200){
@@ -141,7 +124,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     DiscountRepository discountRepository = DiscountRepository();
     try {
       APIResult discountResult = await discountRepository.giveDiscountByPageAndSearch(event.page, event.token, event.parkingLot, event.search);
-      List<Discount> discountSlots = discountResult.result;
+      List<Discount_Response> discountSlots = discountResult.result;
       String message = discountResult.message;
       int code = discountResult.code;
       if(code == 200){
@@ -175,7 +158,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     TransactionRepository transactionRepository = TransactionRepository();
     try {
       APIResult transResult = await transactionRepository.giveTransactionByPageAndSearch(event.page, event.token, event.wallet, event.search);
-      List<Transaction> trans = transResult.result;
+      List<TransactionResponse> trans = transResult.result;
       String message = transResult.message;
       int code = transResult.code;
       if(code == 200){
@@ -191,7 +174,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
 
   void _updatedUserInfo(UpdateUserInfoEvent event, Emitter<MainAppState> emit) async{
     try {
-      User user = event.user;
+      UserResponse user = event.user;
       final UserRepository userRepository = UserRepository();
       APIResult userResult = await userRepository.updatedUser(user,event.token);
       user = userResult.result;

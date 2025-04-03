@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myparkingappadmin/dto/response/user.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
 
@@ -13,7 +13,7 @@ class OwnerDetail extends StatefulWidget {
 
   final String title;
   final bool isImage;
-  final User object;
+  final UserResponse object;
 
   const OwnerDetail({
     super.key,
@@ -85,7 +85,7 @@ class _OwnerDetailState extends State<OwnerDetail> {
 
 
 class ObjectDetailInfor extends StatefulWidget {
-  final User objectInfo;
+  final UserResponse objectInfo;
 
   const ObjectDetailInfor({super.key, required this.objectInfo});
 
@@ -117,7 +117,7 @@ class _ObjectDetailInforState extends State<ObjectDetailInfor> {
     }
   }
 
-  void _initializeControllers(User objectInfo) {
+  void _initializeControllers(UserResponse objectInfo) {
     _lastnameController = TextEditingController(text: objectInfo.lastName);
     _firstnameController = TextEditingController(text: objectInfo.firstName);
     _emailController = TextEditingController(text: objectInfo.email);

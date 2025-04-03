@@ -4,18 +4,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:provider/provider.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
-import 'package:myparkingappadmin/dto/response/user.dart';
 
 import '../../../../constants.dart';
 
 class UserDetail extends StatefulWidget {
   final String token;
   final String title;
-  final User object;
+  final UserResponse object;
   
 
   const UserDetail({
@@ -53,7 +53,7 @@ class _UserDetailState extends State<UserDetail> {
 
 
 class ObjectDetailInfor extends StatefulWidget {
-  final User objectInfo;
+  final UserResponse objectInfo;
     final String token;
   final String title;
   
@@ -89,7 +89,7 @@ class _ObjectDetailInforState extends State<ObjectDetailInfor> {
     }
   }
 
-  void _initializeControllers(User objectInfo) {
+  void _initializeControllers(UserResponse objectInfo) {
     _lastnameController = TextEditingController(text: objectInfo.lastName);
     _firstnameController = TextEditingController(text: objectInfo.firstName);
     _emailController = TextEditingController(text: objectInfo.email);
@@ -142,7 +142,7 @@ class _ObjectDetailInforState extends State<ObjectDetailInfor> {
                         icon: Icon(Icons.save),
                         onPressed: () {
                           // Tạo một đối tượng User mới với các giá trị đã thay đổi
-                          final updatedUser = User(
+                          final updatedUser = UserResponse(
                             userId: widget.objectInfo.userId, // Giữ nguyên userId
                             lastName: _lastnameController.text,
                             firstName: _firstnameController.text,

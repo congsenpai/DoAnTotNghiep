@@ -2,7 +2,7 @@
 
 enum TransactionType { TOP_UP, PAYMENT }
 
-class Transaction {
+class TransactionResponse {
   final String icon;
   final String bankName;
   final double amount;
@@ -13,7 +13,7 @@ class Transaction {
   final String walletId;
   final String description;
 
-  Transaction({
+  TransactionResponse({
     required this.walletId,
     required this.transactionId,
     required this.icon,
@@ -26,8 +26,8 @@ class Transaction {
   });
 
   /// **Chuyển từ JSON sang `Transaction` object**
-  factory Transaction.fromJson(Map<String, dynamic> json) {
-    return Transaction(
+  factory TransactionResponse.fromJson(Map<String, dynamic> json) {
+    return TransactionResponse(
       walletId: json["walletId"] ?? '',
       transactionId: json["transactionId"] ?? '',
       icon: json["icon"] ?? '',
@@ -60,8 +60,8 @@ class Transaction {
     return "Transaction(transactionId: $transactionId, amount: $amount, type: $type)";
   }
 }
-List<Transaction> demoTransactionList = [
-  Transaction(
+List<TransactionResponse> demoTransactionList = [
+  TransactionResponse(
     icon: "assets/logos/zybank-rect.svg",
     bankName: "ZY Bank",
     date: DateTime.now(),
@@ -72,7 +72,7 @@ List<Transaction> demoTransactionList = [
     walletId: '2',
     description: 'Deposit into wallet',
   ),
-  Transaction(
+  TransactionResponse(
     icon: "assets/logos/zybank-rect.svg",
     bankName: "ZY Bank",
     date: DateTime.now(),

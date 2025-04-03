@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class MonthlyTicket {
+class MonthlyTicketResponse {
   String monthlyTicketId;
   String userId;
   String invoiceId;
@@ -8,7 +8,7 @@ class MonthlyTicket {
   DateTime createAt;
   DateTime expireAt;
 
-  MonthlyTicket({
+  MonthlyTicketResponse({
     required this.monthlyTicketId,
     required this.userId,
     required this.invoiceId,
@@ -18,8 +18,8 @@ class MonthlyTicket {
   });
 
   /// **Chuyển từ JSON sang `MonthlyTicket` object**
-  factory MonthlyTicket.fromJson(Map<String, dynamic> json) {
-    return MonthlyTicket(
+  factory MonthlyTicketResponse.fromJson(Map<String, dynamic> json) {
+    return MonthlyTicketResponse(
       monthlyTicketId: json["monthlyTicketId"] ?? '',
       userId: json["userId"] ?? '',
       invoiceId: json["invoiceId"] ?? '',

@@ -3,9 +3,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
 
 import '../../../constants.dart';
-import '../../../dto/response/wallet.dart';
+
 
 class InforOfCard extends StatelessWidget {
   const InforOfCard({
@@ -13,7 +14,7 @@ class InforOfCard extends StatelessWidget {
     required this.info,
   });
 
-  final Wallet info;
+  final WalletResponse info;
 
   @override
   Widget build(BuildContext context) {

@@ -6,12 +6,12 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
 import '../../bloc/main_app/MainAppBloc.dart';
 import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
-import '../../dto/response/wallet.dart';
-import '../../dto/response/transaction.dart';
-import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 import '../main/components/classInitial.dart';
@@ -22,11 +22,11 @@ import 'components/customer_list.dart';
 
 class CustomerScreen extends StatefulWidget {
 
-  final List<Transaction> trans;
-  final List<Wallet> wallet;
-  final List<User> customer;
+  final List<TransactionResponse> trans;
+  final List<WalletResponse> wallet;
+  final List<UserResponse> customer;
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   final String token;
   final Function(Locale) onLanguageChange;
   const CustomerScreen({
@@ -55,17 +55,16 @@ class _CustomerScreenState extends State<CustomerScreen> {
     "Amount",
     "Detail",
   ]);
-  User selectedUser = selectedUserInitial;
-  Wallet selectedWallet = selectedWalletInitial;
-  Transaction selectedTransaction = selectedTransactionInitial;
+  UserResponse selectedUser = selectedUserInitial;
+  WalletResponse selectedWallet = selectedWalletInitial;
+  TransactionResponse selectedTransaction = selectedTransactionInitial;
   bool SelectWalletList = false;
   bool SelectTranList = false;
 
-  List<User> customer = [];
+  List<UserResponse> customer = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     customer = widget.customer;
   }
@@ -83,7 +82,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
     });
   }
 
-  void updateCustomer_Wallet(User user) {
+  void updateCustomer_Wallet(UserResponse user) {
     setState(() {
       selectedUser = user;
       context.read<MainAppBloc>()
@@ -92,7 +91,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
       SelectWalletList = true;
     });
   }
-  void updateWallet_Transaction(Wallet wallet){
+  void updateWallet_Transaction(WalletResponse wallet){
     selectedWallet = wallet;
     context.read<MainAppBloc>().add(giveTransactionByPageAndSearchEvent(wallet,
         "", 0, widget.token));
@@ -122,15 +121,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
                             children: [
                               Expanded(
                                 flex : 1,
-                                child: Container(
-
-                                  child: Column(
-                                    children: [
-                                      CustomerList(
-                                            onCustomer_Wallet: updateCustomer_Wallet, token: widget.token,
-                                          ),
-                                    ],
-                                  ),
+                                child: Column(
+                                  children: [
+                                    CustomerList(
+                                          onCustomer_Wallet: updateCustomer_Wallet, token: widget.token,
+                                        ),
+                                  ],
                                 ),
                               ),
                               if(Responsive.isDesktop(context) && SelectWalletList)

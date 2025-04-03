@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
-import '../../dto/response/parkingLot.dart';
-import '../../dto/response/parkingSlot.dart';
 import 'parkingSlotDetail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ParkingSlotList extends StatefulWidget {
-  final List<ParkingSlot> object;
+  final List<ParkingSlotResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final ParkingLot parkingLot;
+  final ParkingLotResponse parkingLot;
   final String token;
 
   const ParkingSlotList({
@@ -33,8 +33,8 @@ class ParkingSlotList extends StatefulWidget {
 
 class _ParkingSlotListState extends State<ParkingSlotList> {
   TextEditingController _searchController = TextEditingController();
-  List<ParkingSlot> _filteredParkingSlot = [];
-  late ParkingLot _parkingSlot;
+  List<ParkingSlotResponse> _filteredParkingSlot = [];
+  late ParkingLotResponse _parkingSlot;
   DateTime? _selectedDate; // Biến lưu ngày tháng được chọn
 
   @override
@@ -145,7 +145,7 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
       ),
     );
   }
-  DataRow recentFileDataRow(ParkingSlot fileInfo) {
+  DataRow recentFileDataRow(ParkingSlotResponse fileInfo) {
   return DataRow(
     cells: [
       DataCell(Text(fileInfo.slotName)),
@@ -165,7 +165,7 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
     ],
   );
 }
-void _showDetailDialog(BuildContext context, ParkingSlot slot) {
+void _showDetailDialog(BuildContext context, ParkingSlotResponse slot) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -182,7 +182,7 @@ void _showDetailDialog(BuildContext context, ParkingSlot slot) {
     );
   }
 }
-void _showInvoiceList(BuildContext context, ParkingSlot slot){
+void _showInvoiceList(BuildContext context, ParkingSlotResponse slot){
   showDialog(
     context: context,
     builder: (BuildContext context) {

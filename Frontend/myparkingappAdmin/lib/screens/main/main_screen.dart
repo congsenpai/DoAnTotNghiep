@@ -3,15 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppState.dart';
-import 'package:myparkingappadmin/dto/response/invoice.dart';
-import 'package:myparkingappadmin/dto/response/parkingLot.dart';
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+
 import 'package:myparkingappadmin/screens/myprofile/myprofile_screen.dart';
-import 'package:myparkingappadmin/dto/response/transaction.dart';
+
 import '../../controllers/menu_app_controller.dart';
-import '../../dto/response/discount.dart';
-import '../../dto/response/parkingSlot.dart';
-import '../../dto/response/wallet.dart';
-import '../../dto/response/user.dart';
+
 import '../authentication/register_screen.dart';
 import '../authentication/login_screen.dart';
 import '../customer/customerScreen.dart';
@@ -25,7 +28,7 @@ import '../../responsive.dart';
 class MainScreen extends StatefulWidget {
   final String token;
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   final Function(Locale) onLanguageChange;
   const MainScreen({super.key,
     required this.isAuth, required this.user, required this.onLanguageChange, required this.token
@@ -35,17 +38,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late User selectedUsersLogin;
+  late UserResponse selectedUsersLogin;
   int _currentTab = 1;
-  List<User> owners = [];
-  List<ParkingLot> parkingLots = [];
-  List<ParkingSlot> parkingSlots = [];
-  List<Invoice> invoices = [];
-  List<Discount> discounts = [];
+  List<UserResponse> owners = [];
+  List<ParkingLotResponse> parkingLots = [];
+  List<ParkingSlotResponse> parkingSlots = [];
+  List<InvoiceResponse> invoices = [];
+  List<DiscountResponse> discounts = [];
 
-  List<User> customer = [];
-  List<Wallet> wallet = [];
-  List<Transaction> trans =[];
+  List<UserResponse> customer = [];
+  List<WalletResponse> wallet = [];
+  List<TransactionResponse> trans =[];
   @override
   void initState() {
     super.initState();

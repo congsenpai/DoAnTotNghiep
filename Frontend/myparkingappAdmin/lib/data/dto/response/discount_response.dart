@@ -2,7 +2,7 @@
 
 enum DiscountType { PERCENTAGE, FIXED }
 
-class Discount {
+class DiscountResponse {
   String discountId;
   String discountCode;
   DiscountType discountType;
@@ -10,7 +10,7 @@ class Discount {
   String description;
   String parkingLotId;
 
-  Discount({
+  DiscountResponse({
     required this.discountId,
     required this.discountCode,
     required this.discountType,
@@ -20,8 +20,8 @@ class Discount {
   });
 
   /// **Chuyển từ JSON sang `Discount` object**
-  factory Discount.fromJson(Map<String, dynamic> json) {
-    return Discount(
+  factory DiscountResponse.fromJson(Map<String, dynamic> json) {
+    return DiscountResponse(
       discountId: json["discountId"] ?? '',
       discountCode: json["discountCode"] ?? '',
       discountType: json["discountType"] == "PERCENTAGE" ? DiscountType.PERCENTAGE : DiscountType.FIXED,
@@ -48,8 +48,8 @@ class Discount {
         " discountCode: $discountCode, discountType: $discountType, discountValue: $discountValue, parkingLotId: $parkingLotId)";
   }
 }
-List<Discount> demoDiscounts = [
-  Discount(
+List<DiscountResponse> demoDiscounts = [
+  DiscountResponse(
     discountId: "D001",
     discountCode: "SAVE10",
     discountType: DiscountType.PERCENTAGE,
@@ -57,7 +57,7 @@ List<Discount> demoDiscounts = [
     description: "Giảm 10% cho đơn hàng đầu tiên",
     parkingLotId: "PL001",
   ),
-  Discount(
+  DiscountResponse(
     discountId: "PL001",
     discountCode: "FLAT50",
     discountType: DiscountType.FIXED,

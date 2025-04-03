@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/dto/response/transaction.dart';
+import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
 import '../../../../constants.dart';
 
 
 class TransactionDetail extends StatefulWidget {
   final String title;
-  final Transaction object;
+  final TransactionResponse object;
 
 
   const TransactionDetail({
@@ -60,7 +60,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
 
 
 class ObjectDetailInfor extends StatefulWidget {
-  final Transaction transaction; // Chỉ nhận 1 transaction
+  final TransactionResponse transaction; // Chỉ nhận 1 transaction
 
   const ObjectDetailInfor({super.key, required this.transaction});
 

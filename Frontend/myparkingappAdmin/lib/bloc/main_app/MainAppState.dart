@@ -1,49 +1,50 @@
 // ignore_for_file: file_names, camel_case_types, duplicate_ignore
-import 'package:myparkingappadmin/dto/response/discount.dart';
-import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
+import 'package:myparkingappadmin/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/dto/response/user_response.dart';
 
-import '../../dto/response/invoice.dart';
-import '../../dto/response/wallet.dart';
-import '../../dto/response/parkingLot.dart';
-import '../../dto/response/transaction.dart';
-import '../../dto/response/user.dart';
+import '../../dto/response/invoice_response.dart';
+import '../../dto/response/wallet_response.dart';
+import '../../dto/response/parkingLot_response.dart';
+import '../../dto/response/transaction_response.dart';
+
 
 abstract class MainAppState{}
 
 class MainInitial extends MainAppState{}
 
 class GiveUserListsState extends MainAppState {
-  final List<User> customers;
-  final List<User> owners;
+  final List<UserResponse> customers;
+  final List<UserResponse> owners;
 
   GiveUserListsState(this.customers, this.owners);
 }
 
 
 class giveOwnerListState extends MainAppState{
-  final List<User> owner;
+  final List<UserResponse> owner;
   giveOwnerListState(this.owner);
 }
 class giveParkingLotListState extends MainAppState{
-  final List<ParkingLot> parkingLots;
+  final List<ParkingLotResponse> parkingLots;
   giveParkingLotListState(this.parkingLots);
 }
 class giveParkingSlotListState extends MainAppState{
-  final List<ParkingSlot> parkingSlots;
+  final List<ParkingSlotResponse> parkingSlots;
   giveParkingSlotListState(this.parkingSlots);
 }
 class giveInvoiceListState extends MainAppState{
-  final List<Invoice> invoices;
+  final List<InvoiceResponse> invoices;
   giveInvoiceListState(this.invoices);
 }
 class giveDiscountListState extends MainAppState{
-  final List<Discount> discounts;
+  final List<Discount_Response> discounts;
   giveDiscountListState(this.discounts);
 }
 
 
 class giveCustomerListState extends MainAppState{
-  final List<User> customer;
+  final List<UserResponse> customer;
   giveCustomerListState(this.customer);
 }
 
@@ -54,13 +55,13 @@ class giveWalletListState extends MainAppState{
 }
 
 class giveTransactionState extends MainAppState{
-  final List<Transaction> trans;
+  final List<TransactionResponse> trans;
   giveTransactionState(this.trans);
 }
 
 
 class UpdateUserSuccessState extends MainAppState{
-  final User user;
+  final UserResponse user;
   UpdateUserSuccessState(this.user);
 }
 

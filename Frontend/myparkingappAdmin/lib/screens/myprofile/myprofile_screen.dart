@@ -4,18 +4,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.dart';
 
 
 import '../../constants.dart';
-import '../../dto/response/user.dart';
 import '../general/header.dart';
 
 
 class MyprofileScreen extends StatefulWidget {
 
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   final String token;
   final Function(Locale) onLanguageChange;
   const MyprofileScreen({super.key, required this.isAuth, required this.user, required this.onLanguageChange, required this.token});

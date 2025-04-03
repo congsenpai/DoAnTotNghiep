@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
@@ -14,7 +15,7 @@ import 'bloc/register/RegistedBloc.dart';
 import 'controllers/menu_app_controller.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'dto/response/user.dart';
+
 
 
 void main() {
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
   // This widget is the root of your application.
-  User u = User(
+  UserResponse u = UserResponse(
     userId: '1',
     username: 'john_doe',
     password: 'password123',

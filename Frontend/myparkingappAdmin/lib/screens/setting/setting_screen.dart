@@ -2,9 +2,9 @@
 // ignore_for_file: non_constant_identifier_names, avoid_types_as_parameter_names
 
 import 'package:flutter/material.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/main/components/classInitial.dart';
 import '../../constants.dart';
-import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 import '../dashboard/components/assets_details.dart';
@@ -12,12 +12,12 @@ import '../dashboard/components/assets_details.dart';
 
 class SettingScreen extends StatelessWidget {
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   SettingScreen({super.key,
     required this.isAuth,
     required this.user,
   });
-  final User selecteduser = selectedUserInitial;
+  final UserResponse selecteduser = selectedUserInitial;
   @override
   Widget build(BuildContext context) {
     return SafeArea(

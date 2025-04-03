@@ -1,4 +1,6 @@
-import 'package:myparkingappadmin/dto/response/user.dart';
+
+
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 
 abstract class  CustomerWalletState{}
 
@@ -13,7 +15,7 @@ class  CustomerWalletLoadingState extends CustomerWalletState{
 class  CustomerWalletLoadedState extends CustomerWalletState{
   int page;
   int pageTotal;
-  List<User> user;
+  List<UserResponse> user;
   CustomerWalletLoadedState(this.user, this.page, this.pageTotal);
 }
 

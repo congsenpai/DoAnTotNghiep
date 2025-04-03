@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
 
 
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
-import '../../dto/response/parkingLot.dart';
 
 class ParkingSpotDetail extends StatefulWidget {
   final String title;
-  final ParkingLot object;
+  final ParkingLotResponse object;
 
   const ParkingSpotDetail({
     super.key,
@@ -92,7 +92,7 @@ class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
 
 // Hiển thị thông tin hợp đồng
 class ObjectDetailInfo extends StatefulWidget {
-  final ParkingLot parkingLot;
+  final ParkingLotResponse parkingLot;
   const ObjectDetailInfo({super.key, required this.parkingLot});
 
   @override

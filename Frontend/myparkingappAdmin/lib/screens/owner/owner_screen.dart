@@ -8,16 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/dto/response/invoice.dart';
-import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/responsive.dart';
 import 'package:myparkingappadmin/screens/discount/discountList.dart';
 import '../../bloc/main_app/MainAppBloc.dart';
 import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
-import '../../dto/response/discount.dart';
-import '../../dto/response/parkingLot.dart';
-import '../../dto/response/user.dart';
 import '../general/header.dart';
 import '../main/components/classInitial.dart';
 import '../parkingLot/parkingLotList.dart';
@@ -27,13 +27,13 @@ import 'components/owner_list.dart';
 
 class OwnerScreen extends StatefulWidget {
   final String token;
-  final List<User> owner;
-  final List<ParkingLot> parkingLots;
-  final List<ParkingSlot> parkingSlots;
-  final List<Invoice> invoices;
-  final List<Discount> discount;
+  final List<UserResponse> owner;
+  final List<ParkingLotResponse> parkingLots;
+  final List<ParkingSlotResponse> parkingSlots;
+  final List<InvoiceResponse> invoices;
+  final List<DiscountResponse> discount;
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   final Function(Locale) onLanguageChange;
   const OwnerScreen({
     super.key, 
@@ -77,15 +77,15 @@ class _OwnerScreenState extends State<OwnerScreen> {
     "Add",
 
   ]);
-  User selectedUser = selectedUserInitial;
-  User selectedLotOwner = selectedLotOwnerInitial;
-  ParkingLot selectedParkingLot = selectedParkingLotInitial;
-  ParkingSlot selectedSlot = selectedParkingSlotInitial;
+  UserResponse selectedUser = selectedUserInitial;
+  UserResponse selectedLotOwner = selectedLotOwnerInitial;
+  ParkingLotResponse selectedParkingLot = selectedParkingLotInitial;
+  ParkingSlotResponse selectedSlot = selectedParkingSlotInitial;
 
   bool SelectParkingLotList = false;
   bool SelectParkingSlotList = false;
   bool SelectDiscountList = false;
-  List<User> owner = [];
+  List<UserResponse> owner = [];
 
   void initState() {
     // TODO: implement initState
@@ -106,14 +106,14 @@ class _OwnerScreenState extends State<OwnerScreen> {
     });
   }
 
-  void updateOwner_Lot(User user) {
+  void updateOwner_Lot(UserResponse user) {
     setState(() {
       context.read<MainAppBloc>().add(giveParkingLotByPageAndSearchEvent(user,0,'',widget.token));
       selectedLotOwner  = user;
       SelectParkingLotList = true;
     });
   }
-  void updateParkingLot_Slot(ParkingLot parkingLot){
+  void updateParkingLot_Slot(ParkingLotResponse parkingLot){
     setState(() {
       context.read<MainAppBloc>().add(giveParkingSlotByPageAndSearchEvent(parkingLot,0,'',widget.token));
       selectedParkingLot  = parkingLot;
@@ -123,7 +123,7 @@ class _OwnerScreenState extends State<OwnerScreen> {
   }
 
 
-  void updateParkingLot_Discount(ParkingLot parkingLot){
+  void updateParkingLot_Discount(ParkingLotResponse parkingLot){
     setState(() {
       context.read<MainAppBloc>().add(giveDiscountByPageAndSearchEvent(parkingLot,0,'',widget.token));
       selectedParkingLot  = parkingLot;

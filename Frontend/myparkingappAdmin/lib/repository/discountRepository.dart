@@ -1,13 +1,14 @@
 // ignore_for_file: file_names
 
-import 'package:myparkingappadmin/dto/response/parkingLot.dart';
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+
 import '../apiResponse.dart';
-import '../dto/response/discount.dart';
 
 class DiscountRepository {
-  Future<APIResult> giveDiscountByPageAndSearch(int page, String token, ParkingLot parkingLot,String searchText) async{
+  Future<APIResult> giveDiscountByPageAndSearch(int page, String token, ParkingLotResponse parkingLot,String searchText) async{
     try{
-      List<Discount> discounts = demoDiscounts
+      List<DiscountResponse> discounts = demoDiscounts
           .where((parkingSlot)=>parkingSlot.parkingLotId.contains(searchText)&&parkingSlot.parkingLotId == parkingLot.parkingLotId).toList();
       APIResult apiResult = APIResult(1, code: 200, message: "", result: discounts);
       return apiResult;

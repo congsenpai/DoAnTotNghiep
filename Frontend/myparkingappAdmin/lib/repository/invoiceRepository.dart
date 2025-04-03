@@ -1,13 +1,15 @@
 // ignore_for_file: file_names
 
+import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+
 import '../apiResponse.dart';
-import '../dto/response/invoice.dart';
-import '../dto/response/parkingSlot.dart';
+
 
 class InvoiceRepository {
-  Future<APIResult> giveInvoiceByPageAndSearch(int page, String token, ParkingSlot parkingSlot,String searchText) async{
+  Future<APIResult> giveInvoiceByPageAndSearch(int page, String token, ParkingSlotResponse parkingSlot,String searchText) async{
     try{
-      List<Invoice> invoices = demoInvoices
+      List<InvoiceResponse> invoices = demoInvoices
           .where((invoice)=>invoice.invoiceId.contains(searchText) && invoice.parkingSlotId == parkingSlot.parkingLotId).toList();
       APIResult apiResult = APIResult(1, code: 200, message: "", result: invoices);
       return apiResult;

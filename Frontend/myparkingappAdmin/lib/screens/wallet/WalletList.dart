@@ -4,8 +4,9 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
-import 'package:myparkingappadmin/dto/response/user.dart';
-import 'package:myparkingappadmin/dto/response/wallet.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+
 
 
 import '../../../app/localization/app_localizations.dart';
@@ -14,11 +15,11 @@ import '../../bloc/main_app/MainAppBloc.dart';
 import 'WalletDetail.dart';
 
 class WalletList extends StatefulWidget {
-  final List<Wallet> object;
+  final List<WalletResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final Function(Wallet) onWallet_Tran;
-  final User customer;
+  final Function(WalletResponse) onWallet_Tran;
+  final UserResponse customer;
   final String token;
 
   const WalletList({
@@ -35,7 +36,7 @@ class WalletList extends StatefulWidget {
 }
 
 class _WalletListState extends State<WalletList> {
-  List<Wallet> _filteredContracts = [];
+  List<WalletResponse> _filteredContracts = [];
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -135,7 +136,7 @@ class _WalletListState extends State<WalletList> {
     );
   }
 
-  DataRow _buildDataRow(Wallet wallet, BuildContext context) {
+  DataRow _buildDataRow(WalletResponse wallet, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(Text(wallet.name)),
@@ -156,7 +157,7 @@ class _WalletListState extends State<WalletList> {
     );
   }
 
-  void _showDetailDialog(BuildContext context, Wallet wallet) {
+  void _showDetailDialog(BuildContext context, WalletResponse wallet) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

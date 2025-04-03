@@ -2,6 +2,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:provider/provider.dart';
 
 
@@ -10,13 +11,12 @@ import '../../bloc/main_app/MainAppBloc.dart';
 import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
 import '../../controllers/menu_app_controller.dart';
-import '../../dto/response/user.dart';
 import '../../responsive.dart';
 
 class Header extends StatefulWidget {
   final Function(Locale) onLanguageChange;
 
-  final User user;
+  final UserResponse user;
   final String title; // Thêm biến title vào class
   final bool isAuth;
   const Header({
@@ -123,7 +123,7 @@ class _HeaderState extends State<Header> {
 
 class ProfileCard extends StatelessWidget {
 
-  final User user;
+  final UserResponse user;
   const ProfileCard({
     super.key, required this.user,
   });

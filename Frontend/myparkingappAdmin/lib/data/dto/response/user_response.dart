@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 
-class User {
+class UserResponse {
   final String userId;
   final String username;
   final String password;
@@ -15,7 +15,7 @@ class User {
   final bool status;
   final List<String> roles;
 
-  User( {
+  UserResponse( {
     required this.userId,
     required this.username,
     required this.password,
@@ -31,8 +31,8 @@ class User {
   });
 
   /// **Chuyển từ JSON sang `User` object**
-    factory User.fromJson(Map<String, dynamic> json) {
-      return User(
+    factory UserResponse.fromJson(Map<String, dynamic> json) {
+      return UserResponse(
         username: json["username"] ?? '',
         password: json["password"] ?? '',
         phoneNumber: json["phoneNumber"] ?? '',
@@ -71,8 +71,8 @@ class User {
 }
 
 /// **Danh sách người dùng mẫu**
-List<User> demoCustomersList = [
-  User(
+List<UserResponse> demoCustomersList = [
+  UserResponse(
     userId: 'U000',
     username: 'john_doe',
     password: 'password123',
@@ -86,7 +86,7 @@ List<User> demoCustomersList = [
     status: true,
     roles: ['ADMIN'],
   ),
-  User(
+  UserResponse(
     userId: 'U001',
     username: 'john_doe1',
     password: 'password1231',
@@ -100,7 +100,7 @@ List<User> demoCustomersList = [
     status: true,
     roles: ['OWNER'],
   ),
-  User(
+  UserResponse(
     userId: 'U002',
     username: 'john_doe2',
     password: 'password1231',
@@ -114,7 +114,7 @@ List<User> demoCustomersList = [
     status: true,
     roles: ['OWNER'],
   ),
-  User(
+  UserResponse(
     userId: 'U003',
     username: 'john_doe3',
     password: 'password123',
@@ -128,7 +128,7 @@ List<User> demoCustomersList = [
     status: true,
     roles: ['CUSTOMER'],
   ),
-  User(
+  UserResponse(
     userId: 'U004',
     username: 'john_doe4',
     password: 'password123',

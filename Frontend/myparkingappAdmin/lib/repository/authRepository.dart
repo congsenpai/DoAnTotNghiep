@@ -1,115 +1,105 @@
-// ignore_for_file: non_constant_identifier_names, file_names, avoid_print, depend_on_referenced_packages, unused_local_variable
+// ignore_for_file: file_names
 
-import 'dart:async';
-import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_owner_request.dart';
+import 'package:myparkingappadmin/data/network/api_client.dart';
+import 'package:myparkingappadmin/data/network/api_result.dart';
 
+class AuthRepository {
+  final FlutterSecureStorage storage = FlutterSecureStorage();
 
-import '../dto/response/user.dart';
-import 'package:http/http.dart' as http;
-
-class AuthResult {
-  final int code;
-  final String token;
-  final bool authenticated;
-
-  AuthResult({required this.code, required this.token, required this.authenticated});
-
-  factory AuthResult.fromJson(Map<String, dynamic> json) {
-    return AuthResult(
-      code: json["code"],
-      token: json["result"]["token"] ?? "",  // Lấy token từ result
-      authenticated: json["result"]["authenticated"] ?? false, // Tránh lỗi null
-    );
-  }
-}
-
-class AuthRepository{
-Future<AuthResult> authenticate(String password, String username) async {
-  String apiUrl = "http://localhost:8080/auth/login";
-
-  try {
-  
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"password": password, "username": username}),
-    );
-
-    Map<String, dynamic> responseData = json.decode(response.body);
-    print("responseData.length: ${responseData.length}");
-    
-    return AuthResult.fromJson(responseData);
-  } catch (e) {
-    return AuthResult(code: 0, token: "null", authenticated: false);
-  }
-}
-
-Future<User> giveUserByName(String userName, String token) async {
-  String apiUrl = "http://localhost:8080/myparkingapp/users/$userName/name";
-
-  try {
-    final response = await http.get(
-      Uri.parse(apiUrl),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    print("Response body: ${response.body}");
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> responseData = json.decode(response.body);
-      return User.fromJson(responseData["result"]);
-    } else {
-      Map<String, dynamic> errorData = json.decode(response.body);
-      throw Exception("Lỗi API: ${errorData["message"]}");
-    }
-  } catch (e) {
-    print("Lỗi kết nối: $e");
-    throw Exception("Lỗi kết nối: $e");
-  }
-}
-
-Future<String> Register_MPA(User user) async{
-    final String apiUrl = 'http://localhost:8080/myparkingapp/users';
-
+  Future<ApiResult> login(String username, String password) async {
     try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(user.toJson()),
-      );
-
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.login(username, password);
       if (response.statusCode == 200) {
-        return "200";
-
-      } else {
-        Map<String, dynamic> responseData = json.decode(response.body);
-        String code = responseData["code"];
-        return code;
+        String accessToken = response.data['result']['access_token'];
+        String refreshToken = response.data['result']['refresh_token'];
+        bool isAuth = response.data['result']["authentication"];
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'], isAuth);
+        await storage.write(key: 'access_token', value: accessToken);
+        await storage.write(key: 'refresh_token', value: refreshToken);
+        return apiResult;
+      }
+      else{
+        throw Exception("_AuthRepository:");
       }
     } catch (e) {
-      print('Exception occurred: $e');
-      return "Error";
+      throw Exception("_AuthRepository: $e");
     }
   }
 
-
-Future<void> logout() async{
-  final String apiUrl = 'http://localhost:8080/auth/logout';
-  try{
-    final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-
-        });
+  Future<ApiResult> register(CreateParkingOwnerRequest user) async {
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.register(user);
+      if (response.statusCode == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        return apiResult;
+      }
+      else{
+        throw Exception("_AuthRepository_register:");
+      }
+    } catch (e) {
+      throw Exception("_AuthRepository_register: $e");
+    }
   }
-  catch(e){
-    print(e);
+
+  Future<String?> getAccessToken() async {
+    return await storage.read(key: 'access_token');
+  }
+
+  Future<void> refreshAccessToken() async {
+    try {
+      ApiClient apiClient = ApiClient();
+      String? refreshToken = await storage.read(key: 'refresh_token');
+      if (refreshToken == null) return;
+
+      final response = await apiClient.refreshToken(refreshToken);
+      if (response.statusCode == 200) {
+        String newAccessToken = response.data['access_token'];
+        await storage.write(key: 'access_token', value: newAccessToken);
+      }
+    } catch (e) {
+      Exception("Token refresh failed: $e");
+    
+    }
+  }
+
+  Future<ApiResult> giveEmail(String email) async {
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.giveEmail(email);
+      if (response.statusCode == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],response.data['result']['token']);
+        return apiResult;
+      }
+      else{
+        throw Exception("_AuthRepository_giveEmail:");
+      }
+    } catch (e) {
+      throw Exception("_AuthRepository_giveEmail: $e");
+    }
+  }
+
+    Future<ApiResult> giveRePassWord(String newPass, String token) async {
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.giveRePassWord(newPass, token);
+      if (response.statusCode == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        return apiResult;
+      }
+      else{
+        throw Exception("_AuthRepository_giveEmail:");
+      }
+    } catch (e) {
+      throw Exception("_AuthRepository_giveEmail: $e");
+    }
+  }
+
+  Future<void> logout() async {
+    await storage.delete(key: 'access_token');
+    await storage.delete(key: 'refresh_token');
   }
 }
-}
-

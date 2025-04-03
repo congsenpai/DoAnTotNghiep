@@ -3,16 +3,18 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/dto/response/transaction.dart';
+import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
+
 import 'package:intl/intl.dart';
-import 'package:myparkingappadmin/dto/response/wallet.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+
 import 'package:myparkingappadmin/screens/transaction/components/transaction_detail.dart';
 
 class TransactionList extends StatefulWidget {
-  final List<Transaction> object;
+  final List<TransactionResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final Wallet wallet;
+  final WalletResponse wallet;
   final bool currentPage;
 
   const TransactionList({
@@ -31,7 +33,7 @@ class TransactionList extends StatefulWidget {
 class _TransactionListState extends State<TransactionList> {
   DateTime? _startDate;
   DateTime? _endDate;
-  List<Transaction> _filteredTrans = [];
+  List<TransactionResponse> _filteredTrans = [];
 
   @override
   void initState() {
@@ -164,7 +166,7 @@ class _TransactionListState extends State<TransactionList> {
     );
   }
 
-  DataRow _buildDataRow(Transaction tran) {
+  DataRow _buildDataRow(TransactionResponse tran) {
     return DataRow(
       cells: [
         DataCell(Text(tran.transactionId)),
@@ -180,7 +182,7 @@ class _TransactionListState extends State<TransactionList> {
     );
   }
 
-  void _showDetailDialog(BuildContext context, Transaction tran) {
+  void _showDetailDialog(BuildContext context, TransactionResponse tran) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

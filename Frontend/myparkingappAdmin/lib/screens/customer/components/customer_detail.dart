@@ -4,7 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myparkingappadmin/dto/response/user.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
 
@@ -13,7 +14,7 @@ class CustomerDetail extends StatefulWidget {
 
   final String title;
   final bool isImage;
-  final User object;
+  final UserResponse object;
 
   const CustomerDetail({
     super.key,
@@ -28,6 +29,10 @@ class CustomerDetail extends StatefulWidget {
 }
 
 class _CustomerDetailState extends State<CustomerDetail> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +64,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.lock),
                       onPressed: () {
                         // Add your delete functionality here
                       },
@@ -85,7 +90,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
 
 
 class ObjectDetailInfor extends StatefulWidget {
-  final User objectInfo;
+  final UserResponse objectInfo;
 
   const ObjectDetailInfor({super.key, required this.objectInfo});
 
@@ -117,7 +122,7 @@ class _ObjectDetailInforState extends State<ObjectDetailInfor> {
     }
   }
 
-  void _initializeControllers(User objectInfo) {
+  void _initializeControllers(UserResponse objectInfo) {
     _lastnameController = TextEditingController(text: objectInfo.lastName);
     _firstnameController = TextEditingController(text: objectInfo.firstName);
     _emailController = TextEditingController(text: objectInfo.email);

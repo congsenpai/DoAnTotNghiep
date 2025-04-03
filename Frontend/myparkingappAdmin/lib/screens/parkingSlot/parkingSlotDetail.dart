@@ -1,17 +1,18 @@
 // ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
 
 
 
 import '../../../constants.dart';
 import '../../app/localization/app_localizations.dart';
-import '../../dto/response/parkingSlot.dart';
+
 
 
 class ParkingSlotDetail extends StatefulWidget {
   final String title;
-  final ParkingSlot object;
+  final ParkingSlotResponse object;
   const ParkingSlotDetail({
     super.key,
     required this.object,
@@ -46,7 +47,7 @@ class _ParkingSlotDetailState extends State<ParkingSlotDetail> {
 
 
 class ObjectDetailInfo extends StatefulWidget {
-  final ParkingSlot objectInfo;
+  final ParkingSlotResponse objectInfo;
 
   const ObjectDetailInfo({super.key, required this.objectInfo});
 

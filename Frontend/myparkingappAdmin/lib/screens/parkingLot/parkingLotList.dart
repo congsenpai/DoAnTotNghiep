@@ -5,21 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
-import 'package:myparkingappadmin/dto/response/user.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
+
 
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
-import '../../dto/response/parkingLot.dart';
+
 import 'parkingLotDetail.dart';
 
 class ParkingLotList extends StatefulWidget {
-  final List<ParkingLot> object;
+  final List<ParkingLotResponse> object;
   final String title;
   final HashSet<String> objectColumnName;
-  final Function(ParkingLot) onLot_Slot;
-  final Function(ParkingLot) onLot_Discount;
-  final User owner;
+  final Function(ParkingLotResponse) onLot_Slot;
+  final Function(ParkingLotResponse) onLot_Discount;
+  final UserResponse owner;
   final String token;
 
   const ParkingLotList({
@@ -36,7 +39,7 @@ class ParkingLotList extends StatefulWidget {
 }
 
 class _ParkingLotListState extends State<ParkingLotList> {
-  List<ParkingLot> _filteredContracts = [];
+  List<ParkingLotResponse> _filteredContracts = [];
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -142,7 +145,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
     );
   }
 
-  DataRow _buildDataRow(ParkingLot parkingLot, BuildContext context) {
+  DataRow _buildDataRow(ParkingLotResponse parkingLot, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(Text(parkingLot.parkingLotId)),
@@ -169,7 +172,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
     );
   }
 
-  void _showDetailDialog(BuildContext context, ParkingLot contract) {
+  void _showDetailDialog(BuildContext context, ParkingLotResponse contract) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

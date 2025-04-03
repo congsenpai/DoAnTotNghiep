@@ -1,10 +1,10 @@
 // ignore_for_file: camel_case_types, file_names
 
-import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
+import 'package:myparkingappadmin/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/dto/response/user_response.dart';
 
-import '../../dto/response/wallet.dart';
-import '../../dto/response/parkingLot.dart';
-import '../../dto/response/user.dart';
+import '../../dto/response/wallet_response.dart';
+import '../../dto/response/parkingLot_response.dart';
 
 abstract class MainAppEvent{}
 
@@ -21,28 +21,28 @@ class giveOwnerByPageAndSearchEvent extends MainAppEvent{
 }
 class giveParkingLotByPageAndSearchEvent extends MainAppEvent{
   final String token;
-  final User owner;
+  final UserResponse owner;
   final int page;
   final String search;
   giveParkingLotByPageAndSearchEvent(this.owner, this.page, this.search, this.token);
 }
 class giveParkingSlotByPageAndSearchEvent extends MainAppEvent{
   final String token;
-  final ParkingLot parkingLot;
+  final ParkingLotResponse parkingLot;
   final int page;
   final String search;
   giveParkingSlotByPageAndSearchEvent(this.parkingLot, this.page, this.search, this.token);
 }
 class giveInvoiceByPageAndSearchEvent extends MainAppEvent{
   final String token;
-  final ParkingSlot parkingSlot;
+  final ParkingSlotResponse parkingSlot;
   final int page;
   final String search;
   giveInvoiceByPageAndSearchEvent(this.parkingSlot, this.page, this.search, this.token);
 }
 class giveDiscountByPageAndSearchEvent extends MainAppEvent{
   final String token;
-  final ParkingLot parkingLot;
+  final ParkingLotResponse parkingLot;
   final int page;
   final String search;
   giveDiscountByPageAndSearchEvent(this.parkingLot, this.page, this.search, this.token);
@@ -57,7 +57,7 @@ class giveCustomerByPageAndSearchEvent extends MainAppEvent{
 
 class giveWalletByPageAndSearchEvent extends MainAppEvent{
   final String token;
-  final User customer;
+  final UserResponse customer;
   final int page;
   final String search;
   giveWalletByPageAndSearchEvent(this.customer,this.page,this.search, this.token);
@@ -72,7 +72,7 @@ class giveTransactionByPageAndSearchEvent extends MainAppEvent{
 }
 
 class UpdateUserInfoEvent extends MainAppEvent{
-  final User user;
+  final UserResponse user;
   final String token;
   UpdateUserInfoEvent (this.user, this.token);
 }

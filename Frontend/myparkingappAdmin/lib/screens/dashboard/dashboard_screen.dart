@@ -2,12 +2,13 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
 
 
 
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
-import '../../dto/response/user.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
 
@@ -15,7 +16,7 @@ import 'components/assets_details.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isAuth;
-  final User user;
+  final UserResponse user;
   final Function(Locale) onLanguageChange;
   const DashboardScreen({super.key,
    required this.isAuth, required this.user, required this.onLanguageChange,

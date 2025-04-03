@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class ParkingLot {
+class ParkingLotResponse {
   String parkingLotId;
   String parkingLotName;
   String address;
@@ -12,7 +12,7 @@ class ParkingLot {
   String description;
   String userId;
 
-  ParkingLot({
+  ParkingLotResponse({
     required this.parkingLotId,
     required this.parkingLotName,
     required this.address,
@@ -26,8 +26,8 @@ class ParkingLot {
   });
 
   /// **Chuyển từ JSON sang `ParkingLot` object**
-  factory ParkingLot.fromJson(Map<String, dynamic> json) {
-    return ParkingLot(
+  factory ParkingLotResponse.fromJson(Map<String, dynamic> json) {
+    return ParkingLotResponse(
       parkingLotId: json["parkingLotId"] ?? '',
       parkingLotName: json["parkingLotName"] ?? '',
       address: json["address"] ?? '',
@@ -64,8 +64,8 @@ class ParkingLot {
 }
 
 /// **Danh sách bãi đỗ xe mẫu**
-List<ParkingLot> parkingLotList = [
-  ParkingLot(
+List<ParkingLotResponse> parkingLotList = [
+  ParkingLotResponse(
     parkingLotId: "PL001",
     parkingLotName: "Bãi đỗ xe trung tâm",
     address: "123 Đường ABC, Quận 1, TP.HCM",
@@ -77,7 +77,7 @@ List<ParkingLot> parkingLotList = [
     description: "Bãi đỗ xe an toàn, có mái che.",
     userId: "U001",
   ),
-  ParkingLot(
+  ParkingLotResponse(
     parkingLotId: "PL002",
     parkingLotName: "Bãi đỗ xe Vincom",
     address: "456 Đường XYZ, Quận 2, TP.HCM",

@@ -6,17 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/bloc/Customer_Wallet/customer_wallet_state.dart';
 import 'package:myparkingappadmin/bloc/customer_wallet/customer_wallet_bloc.dart';
-import 'package:myparkingappadmin/bloc/customer_wallet/customer_wallet_event.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
 
-import '../../../dto/response/user.dart';
 import 'customer_detail.dart';
 
 // ignore: must_be_immutable
 class CustomerList extends StatefulWidget {
   final String token;
-  final Function(User) onCustomer_Wallet;
+  final Function(UserResponse) onCustomer_Wallet;
 
   const CustomerList({
     super.key,
@@ -36,7 +36,7 @@ class _CustomerListState extends State<CustomerList> {
     "WalletList"
   ]);
   final TextEditingController _searchController = TextEditingController();
-  List<User> customers = [];
+  List<UserResponse> customers = [];
 
 
 
@@ -114,7 +114,7 @@ class _CustomerListState extends State<CustomerList> {
     
   }
 
-  DataRow _buildDataRow(User user, BuildContext context) {
+  DataRow _buildDataRow(UserResponse user, BuildContext context) {
     return DataRow(
       cells: [
         DataCell(Text(user.firstName)),
@@ -135,7 +135,7 @@ class _CustomerListState extends State<CustomerList> {
     );
   }
 
-  void _showDetailDialog(BuildContext context, User user) {
+  void _showDetailDialog(BuildContext context, UserResponse user) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

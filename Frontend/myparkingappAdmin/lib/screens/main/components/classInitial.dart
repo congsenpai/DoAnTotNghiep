@@ -2,13 +2,15 @@
 
 
 
-import 'package:myparkingappadmin/dto/response/parkingSlot.dart';
-import '../../../dto/response/wallet.dart';
-import '../../../dto/response/parkingLot.dart';
-import '../../../dto/response/transaction.dart';
-import '../../../dto/response/user.dart';
 
-User selectedUserInitial = User(
+
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+
+UserResponse selectedUserInitial = UserResponse(
     username: "",
     password: "",
     phoneNumber: "",
@@ -20,7 +22,7 @@ User selectedUserInitial = User(
     email: "", userId: '',
     status: true, roles: [],
   );
-  User selectedLotOwnerInitial = User(
+  UserResponse selectedLotOwnerInitial = UserResponse(
     phoneNumber: '',
     homeAddress: '',
     companyAddress: '',
@@ -30,7 +32,7 @@ User selectedUserInitial = User(
     email: '',
     status: true, username: '', roles: ['USER'], userId: '', password: '',
   );
-  Wallet selectedWalletInitial = Wallet(
+  WalletResponse selectedWalletInitial = WalletResponse(
     name: "",
     balance: 1328,
     svgSrc: "",
@@ -38,7 +40,7 @@ User selectedUserInitial = User(
     userId: '',
     status: true, currency: '',
   );
-  Transaction selectedTransactionInitial = Transaction(
+  TransactionResponse selectedTransactionInitial = TransactionResponse(
     icon: "",
     bankName: "",
     date: DateTime.now(),
@@ -47,8 +49,8 @@ User selectedUserInitial = User(
 
     transactionId: '', walletId: '', description: '', amount: 0, type: TransactionType.PAYMENT
   );
-  ParkingLot selectedParkingLotInitial =
-  ParkingLot(
+  ParkingLotResponse selectedParkingLotInitial =
+  ParkingLotResponse(
       userId: "1",
       status: true,
       description: "",
@@ -60,8 +62,8 @@ User selectedUserInitial = User(
       totalSlot: 0,
       rate: 0,
   );
-  ParkingSlot selectedParkingSlotInitial =
-      ParkingSlot(
+  ParkingSlotResponse selectedParkingSlotInitial =
+      ParkingSlotResponse(
           slotId: '',
           vehicleType: '',
           slotStatus: "",
