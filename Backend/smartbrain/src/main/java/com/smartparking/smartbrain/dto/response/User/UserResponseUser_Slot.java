@@ -3,6 +3,7 @@ package com.smartparking.smartbrain.dto.response.User;
 import java.util.List;
 import java.util.Set;
 
+import com.smartparking.smartbrain.enums.UserStatus;
 import com.smartparking.smartbrain.model.ParkingLot;
 
 import lombok.AccessLevel;
@@ -27,7 +28,7 @@ public class UserResponseUser_Slot
     private String homeAddress;
     private String companyAddress;
     private Set<String> roles;
-    private boolean status;
+    private UserStatus status;
     private String avatar;
     private List<ParkingLot> parkingLot;
 }

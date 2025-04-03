@@ -37,7 +37,7 @@ class LocationBloc extends Bloc<LocationEvent,LocationState>{
       emit(LoadingDistanceState(distance));
     }
     catch(e){
-      throw Exception("LocationBloc__getCurrentLocation");
+      throw Exception("LocationBloc__getCurrentLocation : $e");
     }
 
   }

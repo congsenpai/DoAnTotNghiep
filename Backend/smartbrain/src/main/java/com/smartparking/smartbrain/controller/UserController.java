@@ -51,14 +51,6 @@ public class UserController {
         .build();
     }
 
-    @GetMapping("/{page}/page")
-    ApiResponse <Page<UserResponse>> getContractPage(@PathVariable int page) {
-        return ApiResponse.<Page<UserResponse>>builder()
-        .result(userService.getUserPage(page))
-        .code(200)
-        .message("Page"+ page+"user fetched ").build();
-    }
-
 
     @GetMapping("/{id}")
     ApiResponse<UserResponse> getUserById(@PathVariable String id){

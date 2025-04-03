@@ -44,7 +44,6 @@ class InvoiceRepository{
             "InvoiceRepository_getInvoiceByUserWithSearchAndPage: $e"
         ); 
     }
-
   }
 
   Future<ApiResult> createdInvoice(CreatedInvoiceRequest invoice) async{
