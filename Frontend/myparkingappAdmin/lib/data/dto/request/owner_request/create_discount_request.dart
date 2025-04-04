@@ -27,13 +27,6 @@ class CreateDiscountResquest {
 
   @override
   String toString() {
-    return 
-        " discountCode: $discountCode, discountType: $discountType, discountValue: $discountValue)";
+    return "discountCode: $discountCode, discountType: $discountType, discountValue: $discountValue";
   }
 }
-CreateDiscountResquest demoCDR = CreateDiscountResquest(
-    discountCode: "",
-    discountType: DiscountType.PERCENTAGE,
-    discountValue: 10.0, // Giảm 10%
-    description: "Giảm 10% cho đơn hàng đầu tiên",
-  );

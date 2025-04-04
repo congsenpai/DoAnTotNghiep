@@ -5,12 +5,13 @@ import 'dart:collection';
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:myparkingappadmin/bloc/Customer_Wallet/customer_wallet_bloc.dart';
+import 'package:myparkingappadmin/bloc/Customer_Wallet/customer_wallet_event.dart';
 import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
-import '../../bloc/main_app/MainAppBloc.dart';
-import '../../bloc/main_app/MainAppEvent.dart';
 import '../../constants.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
@@ -22,21 +23,14 @@ import 'components/customer_list.dart';
 
 class CustomerScreen extends StatefulWidget {
 
-  final List<TransactionResponse> trans;
-  final List<WalletResponse> wallet;
-  final List<UserResponse> customer;
   final bool isAuth;
   final UserResponse user;
-  final String token;
   final Function(Locale) onLanguageChange;
   const CustomerScreen({
     super.key, 
     required this.isAuth,
     required this.user,  
-    required this.trans,
-    required this.wallet,
-    required this.customer,
-    required this.onLanguageChange, required this.token});
+    required this.onLanguageChange});
 
   @override
   _CustomerScreenState createState() => _CustomerScreenState();
@@ -66,37 +60,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
   @override
   void initState() {
     super.initState();
-    customer = widget.customer;
-  }
-  @override
-  void didUpdateWidget(covariant CustomerScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.customer != widget.customer) {
-      updateOwnerList();
-    }
-  }
-
-  void updateOwnerList() {
-    setState(() {
-      customer = widget.customer;
-    });
-  }
-
-  void updateCustomer_Wallet(UserResponse user) {
-    setState(() {
-      selectedUser = user;
-      context.read<MainAppBloc>()
-          .add(giveWalletByPageAndSearchEvent(selectedUser,0,'', widget.token));
-      SelectTranList = false;
-      SelectWalletList = true;
-    });
-  }
-  void updateWallet_Transaction(WalletResponse wallet){
-    selectedWallet = wallet;
-    context.read<MainAppBloc>().add(giveTransactionByPageAndSearchEvent(wallet,
-        "", 0, widget.token));
-    selectedWallet = wallet;
-    SelectTranList = true;
+    context.read<CustomerWalletBloc>().add(CWLoadingScreenEvent(token, page, search));
   }
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,9 @@
+enum InvoiceStatus { PENDING, PAID, CANCELLED }
+
 class InvoiceResponse {
   String invoiceId;
   double totalAmount;
-  String status;
+  InvoiceStatus status;
   String description;
   String parkingSlotId;
   String vehicle;
@@ -19,26 +21,26 @@ class InvoiceResponse {
     required this.updateAt,
   });
 
-  /// **Chuyển từ JSON sang `Invoice` object**
+  /// **Chuyển từ JSON sang `InvoiceResponse` object**
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
     return InvoiceResponse(
       invoiceId: json["invoiceId"] ?? '',
       totalAmount: (json["totalAmount"] ?? 0).toDouble(),
-      status: json["status"] ?? '',
+      status: _parseInvoiceStatus(json["status"]), // Sửa lỗi parsing status
       description: json["description"] ?? '',
       parkingSlotId: json["parkingSlotId"] ?? '',
       vehicle: json["vehicle"] ?? '',
       monthlyTicketId: json["monthlyTicketId"] ?? '',
-      updateAt: DateTime.parse(json["updateAt"] ?? DateTime.now().toIso8601String()),
+      updateAt: DateTime.tryParse(json["updateAt"] ?? "") ?? DateTime.now(),
     );
   }
 
-  /// **Chuyển từ `Invoice` object sang JSON**
+  /// **Chuyển từ `InvoiceResponse` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
       "invoiceId": invoiceId,
       "totalAmount": totalAmount,
-      "status": status,
+      "status": status.name, // Chuyển enum thành string
       "description": description,
       "parkingSlotId": parkingSlotId,
       "vehicle": vehicle,
@@ -51,28 +53,18 @@ class InvoiceResponse {
   String toString() {
     return "Invoice(invoiceId: $invoiceId, totalAmount: $totalAmount, status: $status)";
   }
+
+  /// **Hàm hỗ trợ chuyển đổi `status` từ String sang `InvoiceStatus`**
+  static InvoiceStatus _parseInvoiceStatus(String? status) {
+    switch (status?.toUpperCase()) {
+      case "PENDING":
+        return InvoiceStatus.PENDING;
+      case "PAID":
+        return InvoiceStatus.PAID;
+      case "CANCELLED":
+        return InvoiceStatus.CANCELLED;
+      default:
+        return InvoiceStatus.PENDING; // Giá trị mặc định nếu sai
+    }
+  }
 }
-
-List<InvoiceResponse> demoInvoices = [
-  InvoiceResponse(
-    invoiceId: 'INV001',
-    totalAmount: 150.0,
-    status: 'Paid',
-    description: 'Parking fee for January',
-    parkingSlotId: 'S001',
-    vehicle: 'Car - ABC123',
-    monthlyTicketId: 'MT001',
-    updateAt: DateTime.now(),
-  ),
-  InvoiceResponse(
-    invoiceId: 'INV002',
-    totalAmount: 200.5,
-    status: 'Pending',
-    description: 'Monthly parking subscription',
-    parkingSlotId: 'S002',
-    vehicle: 'Bike - XYZ456',
-    monthlyTicketId: 'MT002',
-    updateAt: DateTime.now(),
-  ),
-];
-

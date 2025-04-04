@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_owner_request.dart';
 import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
 import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
+import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'dio_client.dart';
 
 class ApiClient {
   
     //----------------------------- USER --------------------------------//
+
 
   Future<Response> login(String username, String password) async {
     final DioClient dioClient = DioClient();
@@ -13,6 +16,15 @@ class ApiClient {
     return await dioClient.dio.post(
       "auth/login",
       data: {"username": username, "password": password},
+    );
+  }
+
+  Future<Response> register(CreateParkingOwnerRequest request) async {
+    final DioClient dioClient = DioClient();
+
+    return await dioClient.dio.post(
+      "auth/register",
+      data: {"user": request},
     );
   }
 
@@ -28,6 +40,7 @@ class ApiClient {
         },
       );
     }
+
   Future<Response> giveRePassWord(String newPass, String token) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
@@ -54,15 +67,33 @@ class ApiClient {
     );
   }
 
+  Future<Response> getAllUserByUser(String search, int page) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+      "/user/filter?search=$search&page=$page",
+    );
+  }
+
   Future<Response> updateUser(UpdateInfoResquest user, String userId) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
+    return await dioClient.dio.put(
       "/user/$userId/update",
       data:{
         user.toJson()
       },
     );
   }
+
+  Future<Response> updateStatusUser(UserStatus newStatus, String userId) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.put(
+      "/user/$userId/update",
+      data:{
+        "newStatus":newStatus
+      },
+    );
+  }
+
   Future<Response> changePassWord(String userId, String oldPass, String newPass) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
@@ -75,17 +106,17 @@ class ApiClient {
     );
   }
 
-  Future<Response> getParkingLotByOwner(String userId,String search,int page) async {
+  Future<Response> getParkingLotByOwner(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/$userId/parkinglot/filter?search=$search&page=$page",
+      "/user/$userId/parkinglots",
     );
   }
 
-  Future<Response> getWalletByCustomer(String userId,String search,int page) async {
+  Future<Response> getWalletByCustomer(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "user/$userId/wallet/filter?search=$search&page=$page"
+      "user/$userId/wallets"
     );
   }
   
@@ -95,6 +126,16 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
       "paskingLot/$parkingLotID/parkingLot",
+    );
+  }
+
+  Future<Response> updateStatusParkingLot( newStatus, String userId) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.put(
+      "/user/$userId/update",
+      data:{
+        "newStatus":newStatus
+      },
     );
   }
 

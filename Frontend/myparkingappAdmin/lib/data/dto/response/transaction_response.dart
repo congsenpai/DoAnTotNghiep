@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 enum TransactionType { TOP_UP, PAYMENT }
+enum TransactionStatus { COMPLETED, PENDING, FAILED }
 
 class TransactionResponse {
   final String icon;
@@ -12,6 +13,7 @@ class TransactionResponse {
   final String transactionId;
   final String walletId;
   final String description;
+  final TransactionStatus status; // ✅ Thêm trường status
 
   TransactionResponse({
     required this.walletId,
@@ -23,24 +25,26 @@ class TransactionResponse {
     required this.type,
     required this.typeMoney,
     required this.description,
+    required this.status, // ✅ Thêm vào constructor
   });
 
-  /// **Chuyển từ JSON sang `Transaction` object**
+  /// **Chuyển từ JSON sang `TransactionResponse` object**
   factory TransactionResponse.fromJson(Map<String, dynamic> json) {
     return TransactionResponse(
       walletId: json["walletId"] ?? '',
       transactionId: json["transactionId"] ?? '',
       icon: json["icon"] ?? '',
       bankName: json["bankName"] ?? '',
-      date: DateTime.parse(json["date"] ?? DateTime.now().toIso8601String()),
-      amount: (json["amount"] ?? 0).toDouble(),
-      type: json["type"] == "TOP_UP" ? TransactionType.TOP_UP : TransactionType.PAYMENT,
+      date: DateTime.tryParse(json["date"] ?? '') ?? DateTime.now(),
+      amount: (json["amount"] ?? 0.0).toDouble(),
+      type: _parseTransactionType(json["type"]),
       typeMoney: json["typeMoney"] ?? '',
       description: json["description"] ?? '',
+      status: _parseTransactionStatus(json["status"]), // ✅ Thêm status
     );
   }
 
-  /// **Chuyển từ `Transaction` object sang JSON**
+  /// **Chuyển từ `TransactionResponse` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
       "walletId": walletId,
@@ -49,38 +53,41 @@ class TransactionResponse {
       "bankName": bankName,
       "date": date.toIso8601String(),
       "amount": amount,
-      "type": type == TransactionType.TOP_UP ? "TOP_UP" : "PAYMENT",
+      "type": type.name, // ✅ Chuyển enum thành string
       "typeMoney": typeMoney,
       "description": description,
+      "status": status.name, // ✅ Thêm status
     };
   }
 
   @override
   String toString() {
-    return "Transaction(transactionId: $transactionId, amount: $amount, type: $type)";
+    return "Transaction(transactionId: $transactionId, amount: $amount, type: $type, status: $status)";
+  }
+
+  /// **Chuyển `String` thành `TransactionType`**
+  static TransactionType _parseTransactionType(String? type) {
+    switch (type?.toUpperCase()) {
+      case "TOP_UP":
+        return TransactionType.TOP_UP;
+      case "PAYMENT":
+        return TransactionType.PAYMENT;
+      default:
+        return TransactionType.PAYMENT; // Mặc định nếu dữ liệu sai
+    }
+  }
+
+  /// **Chuyển `String` thành `TransactionStatus`**
+  static TransactionStatus _parseTransactionStatus(String? status) {
+    switch (status?.toUpperCase()) {
+      case "COMPLETED":
+        return TransactionStatus.COMPLETED;
+      case "PENDING":
+        return TransactionStatus.PENDING;
+      case "FAILED":
+        return TransactionStatus.FAILED;
+      default:
+        return TransactionStatus.PENDING; // Mặc định nếu dữ liệu sai
+    }
   }
 }
-List<TransactionResponse> demoTransactionList = [
-  TransactionResponse(
-    icon: "assets/logos/zybank-rect.svg",
-    bankName: "ZY Bank",
-    date: DateTime.now(),
-    amount: 100000.0,
-    typeMoney: "VNĐ",
-    type: TransactionType.TOP_UP, // Nạp tiền
-    transactionId: '1',
-    walletId: '2',
-    description: 'Deposit into wallet',
-  ),
-  TransactionResponse(
-    icon: "assets/logos/zybank-rect.svg",
-    bankName: "ZY Bank",
-    date: DateTime.now(),
-    amount: 200000.0,
-    typeMoney: "VNĐ",
-    type: TransactionType.PAYMENT, // Thanh toán
-    transactionId: '2',
-    walletId: '2',
-    description: 'Payment for parking fee',
-  ),
-];

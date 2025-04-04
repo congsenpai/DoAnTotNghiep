@@ -1,4 +1,5 @@
 // ignore_for_file: file_names
+enum LotStatus { ON, OFF, FULL_SLOT }
 
 class ParkingLotResponse {
   String parkingLotId;
@@ -7,7 +8,7 @@ class ParkingLotResponse {
   double latitude;   // Kinh độ
   double longitude;  // Vĩ độ
   int totalSlot;
-  bool status;
+  LotStatus status;
   double rate;
   String description;
   String userId;
@@ -25,7 +26,7 @@ class ParkingLotResponse {
     required this.userId,
   });
 
-  /// **Chuyển từ JSON sang `ParkingLot` object**
+  /// **Chuyển từ JSON sang `ParkingLotResponse` object**
   factory ParkingLotResponse.fromJson(Map<String, dynamic> json) {
     return ParkingLotResponse(
       parkingLotId: json["parkingLotId"] ?? '',
@@ -34,14 +35,14 @@ class ParkingLotResponse {
       latitude: (json["latitude"] ?? 0.0).toDouble(),
       longitude: (json["longitude"] ?? 0.0).toDouble(),
       totalSlot: json["totalSlot"] ?? 0,
-      status: json["status"] ?? false,
+      status: _parseLotStatus(json["status"]), // Sửa lỗi parse status
       rate: (json["rate"] ?? 0.0).toDouble(),
       description: json["description"] ?? '',
       userId: json["userId"] ?? '',
     );
   }
 
-  /// **Chuyển từ `ParkingLot` object sang JSON**
+  /// **Chuyển từ `ParkingLotResponse` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
       "parkingLotId": parkingLotId,
@@ -50,7 +51,7 @@ class ParkingLotResponse {
       "latitude": latitude,
       "longitude": longitude,
       "totalSlot": totalSlot,
-      "status": status,
+      "status": status.name, // Chuyển enum thành string
       "rate": rate,
       "description": description,
       "userId": userId,
@@ -61,32 +62,18 @@ class ParkingLotResponse {
   String toString() {
     return "ParkingLot(parkingLotName: $parkingLotName, address: $address, totalSlot: $totalSlot, rate: $rate)";
   }
-}
 
-/// **Danh sách bãi đỗ xe mẫu**
-List<ParkingLotResponse> parkingLotList = [
-  ParkingLotResponse(
-    parkingLotId: "PL001",
-    parkingLotName: "Bãi đỗ xe trung tâm",
-    address: "123 Đường ABC, Quận 1, TP.HCM",
-    latitude: 10.7769,
-    longitude: 106.7009,
-    totalSlot: 100,
-    status: true,
-    rate: 4.5,
-    description: "Bãi đỗ xe an toàn, có mái che.",
-    userId: "U001",
-  ),
-  ParkingLotResponse(
-    parkingLotId: "PL002",
-    parkingLotName: "Bãi đỗ xe Vincom",
-    address: "456 Đường XYZ, Quận 2, TP.HCM",
-    latitude: 10.7890,
-    longitude: 106.7101,
-    totalSlot: 150,
-    status: true,
-    rate: 4.8,
-    description: "Gần trung tâm thương mại, thuận tiện.",
-    userId: "U001",
-  ),
-];
+  /// **Hàm hỗ trợ chuyển đổi `status` từ String sang `LotStatus`**
+  static LotStatus _parseLotStatus(String? status) {
+    switch (status?.toUpperCase()) {
+      case "ON":
+        return LotStatus.ON;
+      case "OFF":
+        return LotStatus.OFF;
+      case "FULL_SLOT":
+        return LotStatus.FULL_SLOT;
+      default:
+        return LotStatus.OFF; // Giá trị mặc định nếu dữ liệu không hợp lệ
+    }
+  }
+}

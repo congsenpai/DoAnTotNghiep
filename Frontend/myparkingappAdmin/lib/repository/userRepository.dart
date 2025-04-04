@@ -3,230 +3,88 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-
-import '../apiResponse.dart';
+import 'package:myparkingappadmin/data/network/api_client.dart';
+import 'package:myparkingappadmin/data/network/api_result.dart';
 import 'package:http/http.dart' as http;
 
+class UserByPage{
+  List<UserResponse> users;
+  int page;
+  int pageTotal;
+  UserByPage(this.users,this.page,this.pageTotal);
+
+    // Chuyển từ JSON sang UserByPage
+  factory UserByPage.fromJson(Map<String, dynamic> json) {
+    return UserByPage(
+      (json['users'] as List<dynamic>)
+          .map((user) => UserResponse.fromJson(user))
+          .toList(),
+      json['page'] as int,
+      json['pageTotal'] as int,
+    );
+  }
+}
+
 class UserRepository {
-  // api version
-  // Future<APIResult> GiveAllUserByPage_BySearch_ByOWNER_ROLE(int page, String token, String ROLE, String searchText) async {
-  //   String apiURL = "http://localhost:8080/myparkingapp/users/$page/$ROLE";
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse(apiURL),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> responseData = json.decode(response.body);
-  //       int code = responseData["code"];
-  //       String message = responseData["message"];
-  //
-  //       List<dynamic> contentList = responseData["result"]["content"];
-  //       int pageAmount = responseData["result"]["content"]["amount"];
-  //       List<User> customers = contentList.map((userJson) =>
-  //           User.fromJson(userJson)).toList();
-  //       return APIResult(code: code, message: message, result: customers,pageAmount);
-  //     } else {
-  //       throw Exception("Lỗi server: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     throw Exception("Lỗi kết nối: $e");
-  //   }
-  // }
-  // Future<APIResult> GiveAllUserByPage_BySearch_ByCUSTOMER_ROLE(int page, String token, String ROLE, String searchText) async {
-  //   String apiURL = "http://localhost:8080/myparkingapp/users/$page/$ROLE";
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse(apiURL),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> responseData = json.decode(response.body);
-  //       int code = responseData["code"];
-  //       String message = responseData["message"];
-  //
-  //       List<dynamic> contentList = responseData["result"]["content"];
-  //       int pageAmount = responseData["result"]["content"]["amount"];
-  //       List<User> customers = contentList.map((userJson) =>
-  //           User.fromJson(userJson)).toList();
-  //       return APIResult(code: code, message: message, result: customers, pageAmount);
-  //     } else {
-  //       throw Exception("Lỗi server: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     throw Exception("Lỗi kết nối: $e");
-  //   }
-  // }
-  // Future<APIResult> updatedUser(User user, String token) async{
-  //   final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
-  //
-  //   try {
-  //     print("user $user");
-  //     final response = await http.put(
-  //       Uri.parse(apiUrl),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //       body: jsonEncode(user.toJson()),
-  //     );
-  //
-  //     Map<String, dynamic> responseData = json.decode(response.body);
-  //     int code = responseData["code"];
-  //     String message = responseData["message"];
-  //
-  //     if(response.statusCode == 200){
-  //       User user = User.fromJson(responseData["result"]);
-  //       APIResult apiResult= APIResult(0, code: code, message: message, result: user);
-  //       return apiResult;
-  //     }
-  //     else {
-  //       APIResult apiResult= APIResult(0, code: code, message: message, result: "null");
-  //       return apiResult;
-  //     }
-  //   }
-  //   catch(e){
-  //     throw Exception("updatedUser_repo:  $e");
-  //   }
-  // }
-  // Future<APIResult> updatedStatusUser(User user, String token, String newStatus) async{
-  //   final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
-  //
-  //   try {
-  //     print("user $user");
-  //     final response = await http.put(
-  //       Uri.parse(apiUrl),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //       body: jsonEncode({"newStatus": newStatus,}),
-  //     );
-  //
-  //     Map<String, dynamic> responseData = json.decode(response.body);
-  //     int code = responseData["code"];
-  //     String message = responseData["message"];
-  //
-  //     if(response.statusCode == 200){
-  //       User user = User.fromJson(responseData["result"]);
-  //       APIResult apiResult= APIResult(0, code: code, message: message, result: user);
-  //       return apiResult;
-  //     }
-  //     else {
-  //       APIResult apiResult= APIResult(0, code: code, message: message, result: "null");
-  //       return apiResult;
-  //     }
-  //   }
-  //   catch(e){
-  //     throw Exception("updatedUser_repo:  $e");
-  //   }
-  //
-  // }
-  // mockup version
-  Future<APIResult> giveAllUserByPage_BySearch_ByOWNER_ROLE(int page, String token, String ROLE, String searchText) async {
+  Future<ApiResult> giveAllUserByPage_BySearch_By(int page, String searchText) async {
     try {
+
+      ApiClient apiClient = ApiClient();
       print("user $searchText");
       String searchKey = searchText.toLowerCase().trim();
-      List<UserResponse> user = demoCustomersList.where((user) =>
-      user.roles.contains("OWNER") && // Sửa lỗi "ONWER" thành "OWNER"
-          (searchKey.isEmpty || user.firstName.toLowerCase().contains(searchKey)) // Nếu searchKey rỗng, không lọc theo tên
-      ).toList();
-      print("user ${user.length}");
-      APIResult apiResult = APIResult(1, code: 200, message: "", result: user);
-      return apiResult;
-    } catch (e) {
-      throw Exception("Lỗi kết nối: $e");
-    }
-  }
-  Future<APIResult> giveAllUserByPage_BySearch_ByCUSTOMER_ROLE(int page, String token, String ROLE, String searchText) async {
-    String apiURL = "http://localhost:8080/myparkingapp/users/$page/$ROLE";
-    try {
-      try {
-        String searchKey = searchText.toLowerCase().trim();
-        List<UserResponse> user = demoCustomersList.where((user) =>
-        user.roles.contains("CUSTOMER") && // Sửa lỗi "ONWER" thành "OWNER"
-            (searchKey.isEmpty || user.firstName.toLowerCase().contains(searchKey)) // Nếu searchKey rỗng, không lọc theo tên
-        ).toList();
-        APIResult apiResult = APIResult(1, code: 200, message: "", result: user);
-        return apiResult;
-      } catch (e) {
-        throw Exception("Lỗi kết nối: $e");
-      }
-    } catch (e) {
-      throw Exception("Lỗi kết nối: $e");
-    }
-  }
-  Future<APIResult> updatedUser(UserResponse user, String token) async{
-    final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
-
-    try {
-      print("user $user");
-      final response = await http.put(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode(user.toJson()),
-      );
-
-      Map<String, dynamic> responseData = json.decode(response.body);
-      int code = responseData["code"];
-      String message = responseData["message"];
-
+      final response = await apiClient.getAllUserByUser(searchText, page);
+      int code = response.data["code"];
+      String mess = response.data["mess"];
       if(response.statusCode == 200){
-        UserResponse user = UserResponse.fromJson(responseData["result"]);
-        APIResult apiResult= APIResult(0, code: code, message: message, result: user);
+        UserByPage userByPage = UserByPage.fromJson(response.data["result"]);
+        ApiResult apiResult = ApiResult(
+           code, mess, userByPage
+        );
         return apiResult;
       }
-      else {
-        APIResult apiResult= APIResult(0, code: code, message: message, result: "null");
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
+    } catch (e) {
+      throw Exception("UserRepository_giveAllUserByPage_BySearch_By: $e");
+    }
+  }
+  Future<ApiResult> updatedUser(UpdateInfoResquest user, String userId) async{
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.updateUser(user, userId);
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
         return apiResult;
       }
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
+
+
     }
     catch(e){
-      throw Exception("updatedUser_repo:  $e");
+      throw Exception("UserRepository_updatedUser:  $e");
     }
   }
-  Future<APIResult> updatedStatusUser(UserResponse user, String token, String newStatus) async{
-    final String apiUrl = 'http://localhost:8080/smartwalletapp/users/${user.userId}';
-
+  Future<ApiResult> updatedStatusUser(UserResponse user,  String newStatus) async{
     try {
-      print("user $user");
-      final response = await http.put(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode({"newStatus": newStatus,}),
-      );
-
-      Map<String, dynamic> responseData = json.decode(response.body);
-      int code = responseData["code"];
-      String message = responseData["message"];
-
-      if(response.statusCode == 200){
-        UserResponse user = UserResponse.fromJson(responseData["result"]);
-        APIResult apiResult= APIResult(0, code: code, message: message, result: user);
-        return apiResult;
-      }
-      else {
-        APIResult apiResult= APIResult(0, code: code, message: message, result: "null");
-        return apiResult;
-      }
     }
     catch(e){
-      throw Exception("updatedUser_repo:  $e");
+      throw Exception("UserRepository_updatedStatusUser:  $e");
     }
 
   }

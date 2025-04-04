@@ -1,10 +1,11 @@
 // ignore_for_file: file_names
+enum SlotStatus { AVAILABLE, OCCUPIED, RESERVED }
 
 class ParkingSlotResponse {
   String slotId;
   String slotName;
   String vehicleType;   // Loại xe (car, motorbike, etc.)
-  String slotStatus;    // Trạng thái (available, occupied, reserved)
+  SlotStatus slotStatus; // Trạng thái (AVAILABLE, OCCUPIED, RESERVED)
   double pricePerHour;  // Giá theo giờ
   double pricePerMonth; // Giá theo tháng
   String parkingLotId;  // Thuộc bãi đỗ nào
@@ -19,28 +20,29 @@ class ParkingSlotResponse {
     required this.parkingLotId,
   });
 
-  /// **Chuyển từ JSON sang `ParkingSlot` object**
+  /// **Chuyển từ JSON sang `ParkingSlotResponse` object**
   factory ParkingSlotResponse.fromJson(Map<String, dynamic> json) {
     return ParkingSlotResponse(
       slotId: json["slotId"] ?? '',
+      slotName: json["slotName"] ?? '',
       vehicleType: json["vehicleType"] ?? 'car',
-      slotStatus: json["slotStatus"] ?? 'available',
+      slotStatus: _parseSlotStatus(json["slotStatus"]), // Sửa lỗi parse slotStatus
       pricePerHour: (json["pricePerHour"] ?? 0.0).toDouble(),
       pricePerMonth: (json["pricePerMonth"] ?? 0.0).toDouble(),
-      parkingLotId: json["parkingLotId"] ?? '', slotName: json["slotName"],
+      parkingLotId: json["parkingLotId"] ?? '',
     );
   }
 
-  /// **Chuyển từ `ParkingSlot` object sang JSON**
+  /// **Chuyển từ `ParkingSlotResponse` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
       "slotId": slotId,
+      "slotName": slotName,
       "vehicleType": vehicleType,
-      "slotStatus": slotStatus,
+      "slotStatus": slotStatus.name, // Chuyển enum thành string
       "pricePerHour": pricePerHour,
       "pricePerMonth": pricePerMonth,
       "parkingLotId": parkingLotId,
-      "slotName":slotName
     };
   }
 
@@ -48,40 +50,18 @@ class ParkingSlotResponse {
   String toString() {
     return "ParkingSlot(slotId: $slotId, vehicleType: $vehicleType, status: $slotStatus, pricePerHour: $pricePerHour, parkingLotId: $parkingLotId)";
   }
-}
 
-/// **Danh sách mẫu các vị trí đỗ xe**
-List<ParkingSlotResponse> parkingSlotList = [
-  ParkingSlotResponse(
-    slotId: "S001",
-    vehicleType: "car",
-    slotStatus: "available",
-    pricePerHour: 20000.0,
-    pricePerMonth: 1500000.0,
-    parkingLotId: "PL001", slotName: 'A1',
-  ),
-  ParkingSlotResponse(
-    slotId: "S002",
-    vehicleType: "car",
-    slotStatus: "occupied",
-    pricePerHour: 20000.0,
-    pricePerMonth: 1500000.0,
-    parkingLotId: "PL001", slotName: 'A2',
-  ),
-  ParkingSlotResponse(
-    slotId: "S003",
-    vehicleType: "motorbike",
-    slotStatus: "available",
-    pricePerHour: 5000.0,
-    pricePerMonth: 500000.0,
-    parkingLotId: "PL002", slotName: 'A3',
-  ),
-  ParkingSlotResponse(
-    slotId: "S004",
-    vehicleType: "motorbike",
-    slotStatus: "reserved",
-    pricePerHour: 5000.0,
-    pricePerMonth: 500000.0,
-    parkingLotId: "PL002", slotName: 'A4',
-  ),
-];
+  /// **Hàm hỗ trợ chuyển đổi `slotStatus` từ String sang `SlotStatus`**
+  static SlotStatus _parseSlotStatus(String? status) {
+    switch (status?.toUpperCase()) {
+      case "AVAILABLE":
+        return SlotStatus.AVAILABLE;
+      case "OCCUPIED":
+        return SlotStatus.OCCUPIED;
+      case "RESERVED":
+        return SlotStatus.RESERVED;
+      default:
+        return SlotStatus.AVAILABLE; // Giá trị mặc định nếu dữ liệu không hợp lệ
+    }
+  }
+}
