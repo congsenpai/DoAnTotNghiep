@@ -1,8 +1,8 @@
 // ignore_for_file: unused_import, avoid_print
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppState.dart';
+import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
+import 'package:myparkingappadmin/bloc/main_app/main_app_event.dart';
+import 'package:myparkingappadmin/bloc/main_app/main_app_state.dart';
 import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
 import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
@@ -10,28 +10,25 @@ import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
 import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 
 import 'package:myparkingappadmin/screens/myprofile/myprofile_screen.dart';
 
 import '../../controllers/menu_app_controller.dart';
-
-import '../authentication/register_screen.dart';
 import '../authentication/login_screen.dart';
 import '../customer/customerScreen.dart';
 import '../dashboard/dashboard_screen.dart';
-import '../owner/owner_screen.dart';
 import '../setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'components/side_menu.dart';
 import '../../responsive.dart';
 
 class MainScreen extends StatefulWidget {
-  final String token;
   final bool isAuth;
-  final UserResponse user;
+  final String userName;
   final Function(Locale) onLanguageChange;
   const MainScreen({super.key,
-    required this.isAuth, required this.user, required this.onLanguageChange, required this.token
+    required this.isAuth, required this.onLanguageChange, required this.userName,
 });
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -40,21 +37,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late UserResponse selectedUsersLogin;
   int _currentTab = 1;
-  List<UserResponse> owners = [];
-  List<ParkingLotResponse> parkingLots = [];
-  List<ParkingSlotResponse> parkingSlots = [];
-  List<InvoiceResponse> invoices = [];
-  List<DiscountResponse> discounts = [];
-
-  List<UserResponse> customer = [];
-  List<WalletResponse> wallet = [];
-  List<TransactionResponse> trans =[];
   @override
   void initState() {
     super.initState();
-    selectedUsersLogin = widget.user;
     context.read<MainAppBloc>()
-        .add(initializationEvent(widget.token));
+        .add(initializationEvent(widget.userName));
   }
 
 
@@ -69,67 +56,41 @@ class _MainScreenState extends State<MainScreen> {
       }, isAuth: widget.isAuth,),
       body: BlocConsumer<MainAppBloc,MainAppState>(
         builder: (context,state){
-          if(state is giveCustomerListState){
-            customer = state.customer;
-            print("customer ${customer.length}");
+          if(state is MainLoading){
+            return Center(
+          child: CircularProgressIndicator(),
+             );
           }
-          else if(state is GiveUserListsState){
-            customer = state.customers;
-            owners = state.owners;
-          }
-          else if(state is giveWalletListState){
-            wallet = state.wallets;
-            print("wallet $wallet");
-          }
-          else if(state is giveTransactionState){
-            trans = state.trans;
-            print("trans $trans");
-          }
-          else if(state is giveOwnerListState){
-            owners = state.owner;
-            print("owner: ${owners.length}");
-          }
-          else if(state is giveParkingLotListState){
-            parkingLots = state.parkingLots;
-            print("parkingLot: $parkingLots");
-          }
-          else if(state is giveParkingSlotListState){
-            parkingSlots = state.parkingSlots;
-            print("Slots: $parkingSlots");
-          }
-          else if(state is giveInvoiceListState){
-            invoices = state.invoices;
-            print("Invoice: $invoices");
-          }
-          else if(state is giveDiscountListState){
-            discounts = state.discounts;
-            print("Discount: $discounts");
-          }
-          else if(state is UpdateUserSuccessState){
-            selectedUsersLogin = state.user;
-          }
-        return SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // We want this side menu only for large screen
-            if (Responsive.isDesktop(context))
-              Expanded(child: SideMenu(onMenuTap: (int index) {
-                setState(() {
-                  _currentTab = index;
-                });
-              }, isAuth: widget.isAuth,)),
-            Expanded(
-              // It takes 5/6 part of the screen
-              flex: 8,
-              child: _getScreen(_currentTab),
+          
+          else if(state is MainAppLoadedState){
+            selectedUsersLogin = state.userResponse;
+            return SafeArea(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // We want this side menu only for large screen
+                if (Responsive.isDesktop(context))
+                  Expanded(child: SideMenu(onMenuTap: (int index) {
+                    setState(() {
+                      _currentTab = index;
+                    });
+                  }, isAuth: widget.isAuth,)),
+                Expanded(
+                  // It takes 5/6 part of the screen
+                  flex: 8,
+                  child: _getScreen(_currentTab),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+          );
+          }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       }, listener: (context,state){
         if(state is MainAppErrorState){
-          print(state.error);
+          AppDialog.showErrorEvent(context, state.mess);
+          
         }
         else if(state is LogoutSuccess){
           Navigator.pushReplacement(
@@ -139,43 +100,30 @@ class _MainScreenState extends State<MainScreen> {
               ),
             );
         }
+        else if(state is MainAppSuccessState){
+          AppDialog.showSuccessEvent(context,state.mess);
+
+        }
       })
     );
   }
   Widget _getScreen(int tab) {
     switch (tab) {
       case 1:
-        return DashboardScreen(isAuth: widget.isAuth, user: selectedUsersLogin, onLanguageChange: widget.onLanguageChange);
+        return DashboardScreen( user: selectedUsersLogin, onLanguageChange: widget.onLanguageChange);
+        
       case 2:
-        return OwnerScreen(
-          isAuth: widget.isAuth,
+        return CustomerOwnerScreen(
           user: selectedUsersLogin,
-          owner: owners,
           onLanguageChange: widget.onLanguageChange,
-          token: widget.token,
-          parkingLots: parkingLots,
-          parkingSlots: parkingSlots,
-          invoices: invoices,
-          discount: discounts,
-        );
-      case 3:
-        return CustomerScreen(
-          isAuth: widget.isAuth,
-          user: selectedUsersLogin,
-          customer: customer,
-          onLanguageChange: widget.onLanguageChange,
-          token: widget.token, trans: trans, wallet: wallet,
         );
       case 4:
         return MyprofileScreen(
-          isAuth: widget.isAuth,
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,
-          token: widget.token,
         );
       default:
         return DashboardScreen(
-          isAuth: widget.isAuth,
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,
         );

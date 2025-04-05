@@ -1,22 +1,23 @@
 // ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 
 
 
 import '../../../constants.dart';
-import '../../app/localization/app_localizations.dart';
 
 
 
 class ParkingSlotDetail extends StatefulWidget {
-  final String title;
   final ParkingSlotResponse object;
+  final VoidCallback onEdit;
+  
   const ParkingSlotDetail({
     super.key,
-    required this.object,
-    required this.title,
+    required this.object, required this.onEdit,
   });
 
   @override
@@ -24,81 +25,95 @@ class ParkingSlotDetail extends StatefulWidget {
 }
 
 class _ParkingSlotDetailState extends State<ParkingSlotDetail> {
+  bool isEdit = false; // ✅ Đặt ở đây để không bị reset mỗi lần build lại
+
+  late final TextEditingController nameController;
+  late final TextEditingController vehicleController;
+  late final TextEditingController pricePerHourController;
+  late final TextEditingController pricePerMonthController;
+  late final TextEditingController slotStatusController;
+
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: Get.width/1.2,
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ObjectDetailInfo(objectInfo: widget.object)
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.object.slotName);
+    vehicleController = TextEditingController(text: widget.object.vehicleType);
+    pricePerHourController =
+        TextEditingController(text: widget.object.pricePerHour.toString());
+    pricePerMonthController =
+        TextEditingController(text: widget.object.pricePerMonth.toString());
+    slotStatusController =
+        TextEditingController(text: widget.object.slotStatus.name.toUpperCase());
   }
-}
-
-
-class ObjectDetailInfo extends StatefulWidget {
-  final ParkingSlotResponse objectInfo;
-
-  const ObjectDetailInfo({super.key, required this.objectInfo});
 
   @override
-  State<ObjectDetailInfo> createState() => _ObjectDetailInfoState();
-}
-
-class _ObjectDetailInfoState extends State<ObjectDetailInfo> {
+  void dispose() {
+    nameController.dispose();
+    vehicleController.dispose();
+    pricePerHourController.dispose();
+    pricePerMonthController.dispose();
+    slotStatusController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: defaultPadding),
-          // Dropdown thay thế TextField
-          Table(
-            border: TableBorder.all(color: Theme.of(context).colorScheme.onPrimary),
-            columnWidths: const {
-              0: FlexColumnWidth(2), // Cột 1 rộng hơn
-              1: FlexColumnWidth(3), // Cột 2 rộng hơn để chứa dữ liệu
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            Text("${widget.object.slotName} / ${AppLocalizations.of(context).translate("Parking Lot Detail")}"),
+        actions: [
+          IconButton(
+            icon: Icon(isEdit ? Icons.save : Icons.edit),
+            onPressed: () {
+              setState(() {
+                isEdit = !isEdit; // ✅ Toggle giữa chế độ xem và chỉnh sửa
+              });
             },
-            children: [
-              _buildTableRow('SlotName', widget.objectInfo.slotName),
-              _buildTableRow('Status', widget.objectInfo.slotStatus),
-              _buildTableRow('Vehicle Type', widget.objectInfo.vehicleType),
-              _buildTableRow('Price Per Hour', widget.objectInfo.pricePerHour.toString()),
-              _buildTableRow('Price Per Month', widget.objectInfo.pricePerMonth.toString()),
-            ],
           ),
-
-          SizedBox(height: defaultPadding),
+          
         ],
       ),
-    );
-  }
-  TableRow _buildTableRow(String field, String value) {
-    return TableRow(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-              AppLocalizations.of(context).translate(field)
-              , style: TextStyle( color: Theme.of(context).colorScheme.onPrimary)),
+      body: Container(
+        height: Get.height,
+        padding: EdgeInsets.all(defaultPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value,style: TextStyle( color: Theme.of(context).colorScheme.onPrimary)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFieldCustom(
+                  editController: nameController,
+                  title: "Slot Name",
+                  isEdit: false),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                  editController: vehicleController,
+                  title: "Vehicle Type",
+                  isEdit: false),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                  editController: pricePerHourController,
+                  title: "Price Per Hour",
+                  isEdit: isEdit),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                  editController: pricePerMonthController,
+                  title: "Price Per Month",
+                  isEdit: isEdit),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                  editController: slotStatusController,
+                  title: "Slot Status",
+                  isEdit: false),
+              SizedBox(height: defaultPadding),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }

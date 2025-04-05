@@ -1,6 +1,13 @@
 // ignore_for_file: file_names
 enum SlotStatus { AVAILABLE, OCCUPIED, RESERVED }
 
+class SLotByFloor {
+  String floorName;
+  List<String> floorNames;
+  List<ParkingSlotResponse> parkingSlots;
+  SLotByFloor(this.floorName,this.floorNames,this.parkingSlots);
+}
+
 class ParkingSlotResponse {
   String slotId;
   String slotName;

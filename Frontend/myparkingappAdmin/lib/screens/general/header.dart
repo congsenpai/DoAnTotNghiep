@@ -1,14 +1,14 @@
 
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:provider/provider.dart';
 
 
 import '../../app/localization/app_localizations.dart';
-import '../../bloc/main_app/MainAppBloc.dart';
-import '../../bloc/main_app/MainAppEvent.dart';
+import '../../bloc/main_app/main_app_event.dart';
 import '../../constants.dart';
 import '../../controllers/menu_app_controller.dart';
 import '../../responsive.dart';
@@ -16,11 +16,10 @@ import '../../responsive.dart';
 class Header extends StatefulWidget {
   final Function(Locale) onLanguageChange;
 
-  final UserResponse user;
+  UserResponse? user;
   final String title; // Thêm biến title vào class
-  final bool isAuth;
-  const Header({
-    super.key, required this.title, required this.user, required this.isAuth, required this.onLanguageChange,
+  Header({
+    super.key, required this.title, this.user, required this.onLanguageChange,
   });
 
   @override
@@ -69,7 +68,11 @@ class _HeaderState extends State<Header> {
           ),
         ),
 
-        if(widget.isAuth)ProfileCard(user: widget.user,)
+        if(widget.user != null)
+          ProfileCard(user: widget.user!,),
+        SizedBox(
+          width: defaultPadding,
+        ),
       ],
     );
   }

@@ -1,21 +1,21 @@
-// ignore_for_file: must_be_immutable, unrelated_type_equality_checks
-
+// ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
-import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
-import '../../../../constants.dart';
+import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 
+import '../../../constants.dart';
+import '../../../data/dto/response/transaction_response.dart';
 
 class TransactionDetail extends StatefulWidget {
-  final String title;
   final TransactionResponse object;
+  final VoidCallback onEdit;
 
 
   const TransactionDetail({
     super.key,
     required this.object,
-    required this.title, 
+    required this.onEdit,
   });
 
   @override
@@ -23,100 +23,137 @@ class TransactionDetail extends StatefulWidget {
 }
 
 class _TransactionDetailState extends State<TransactionDetail> {
-  
+  late final TextEditingController iconController;
+  late final TextEditingController bankNameController;
+  late final TextEditingController amountController;
+  late final TextEditingController typeMoneyController;
+  late final TextEditingController typeController;
+  late final TextEditingController dateController;
+  late final TextEditingController transactionIdController;
+  late final TextEditingController walletIdController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController statusController;
+
+  @override
+  void initState() {
+    super.initState();
+    iconController = TextEditingController(text: widget.object.icon);
+    bankNameController = TextEditingController(text: widget.object.bankName);
+    amountController = TextEditingController(text: widget.object.amount.toString());
+    typeMoneyController = TextEditingController(text: widget.object.typeMoney);
+    typeController = TextEditingController(text: widget.object.type.toString().split('.').last); // Enum to String
+    dateController = TextEditingController(text: widget.object.date.toString());
+    transactionIdController = TextEditingController(text: widget.object.transactionId);
+    walletIdController = TextEditingController(text: widget.object.walletId);
+    descriptionController = TextEditingController(text: widget.object.description);
+    statusController = TextEditingController(text: widget.object.status.toString().split('.').last); // Enum to String
+  }
+
+  @override
+  void dispose() {
+    iconController.dispose();
+    bankNameController.dispose();
+    amountController.dispose();
+    typeMoneyController.dispose();
+    typeController.dispose();
+    dateController.dispose();
+    transactionIdController.dispose();
+    walletIdController.dispose();
+    descriptionController.dispose();
+    statusController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width/1.2,
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${widget.object.transactionId} / ${AppLocalizations.of(context).translate("Transaction Detail")}"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.cancel,color: Colors.red,),
+            onPressed: () {
+              widget.onEdit(); // Call the callback to close the detail view
+              // Refresh action can be added here if needed
+            },
+          ),
+        ],
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.of(context).translate(widget.title),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            ObjectDetailInfor(transaction: widget.object)
-          ],
+      body: Container(
+        height: Get.height,
+        padding: EdgeInsets.all(defaultPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFieldCustom(
+                editController: iconController,
+                title: "Icon",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: bankNameController,
+                title: "Bank Name",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: amountController,
+                title: "Amount",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: typeMoneyController,
+                title: "Type of Money",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: typeController,
+                title: "Transaction Type",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: dateController,
+                title: "Date",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: transactionIdController,
+                title: "Transaction ID",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: walletIdController,
+                title: "Wallet ID",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: descriptionController,
+                title: "Description",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: statusController,
+                title: "Transaction Status",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-class ObjectDetailInfor extends StatefulWidget {
-  final TransactionResponse transaction; // Chỉ nhận 1 transaction
-
-  const ObjectDetailInfor({super.key, required this.transaction});
-
-  @override
-  State<ObjectDetailInfor> createState() => _ObjectDetailInforState();
-}
-
-
-
-class _ObjectDetailInforState extends State<ObjectDetailInfor> {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Table(
-          border: TableBorder.all(color: Theme.of(context).colorScheme.onPrimary),
-          columnWidths: const {
-            0: FlexColumnWidth(2), // Cột 1 rộng hơn
-            1: FlexColumnWidth(3), // Cột 2 rộng hơn để chứa dữ liệu
-          },
-          children: [
-            _buildTableRow('TransactionID', widget.transaction.transactionId.toString()),
-            _buildTableRow('budget', widget.transaction.amount.toString()),
-            _buildTableRow('typeMoney', widget.transaction.typeMoney),
-            _buildTableRow('bankName', widget.transaction.bankName.toString()),
-            _buildTableRow('typeTran', 
-                widget.transaction.type ==0 ? "Deposit" :
-                widget.transaction.type == 1
-                ?"Cash out":"Transfer"),
-            _buildTableRow('note', widget.transaction.description.toString()),
-            _buildTableRow('CardId', widget.transaction.walletId.toString()),
-          ],
-        ),
-      ),
-    );
-  }
-
-  TableRow _buildTableRow(String field, String value) {
-    return TableRow(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            AppLocalizations.of(context).translate(field)
-            , style: TextStyle( color: Theme.of(context).colorScheme.onPrimary)),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value,style: TextStyle( color: Theme.of(context).colorScheme.onPrimary)),
-        ),
-      ],
-    );
-  }
-}
-
-

@@ -12,6 +12,7 @@ class ParkingLotResponse {
   double rate;
   String description;
   String userId;
+  List<String> images;
 
   ParkingLotResponse({
     required this.parkingLotId,
@@ -24,6 +25,7 @@ class ParkingLotResponse {
     required this.rate,
     required this.description,
     required this.userId,
+    required this.images, // ✅ Đừng quên thêm dòng này
   });
 
   /// **Chuyển từ JSON sang `ParkingLotResponse` object**
@@ -35,10 +37,11 @@ class ParkingLotResponse {
       latitude: (json["latitude"] ?? 0.0).toDouble(),
       longitude: (json["longitude"] ?? 0.0).toDouble(),
       totalSlot: json["totalSlot"] ?? 0,
-      status: _parseLotStatus(json["status"]), // Sửa lỗi parse status
+      status: _parseLotStatus(json["status"]),
       rate: (json["rate"] ?? 0.0).toDouble(),
       description: json["description"] ?? '',
       userId: json["userId"] ?? '',
+      images: (json["images"] as List<dynamic>? ?? []).map((e) => e.toString()).toList(), // ✅ Xử lý images từ JSON
     );
   }
 
@@ -51,19 +54,19 @@ class ParkingLotResponse {
       "latitude": latitude,
       "longitude": longitude,
       "totalSlot": totalSlot,
-      "status": status.name, // Chuyển enum thành string
+      "status": status.name,
       "rate": rate,
       "description": description,
       "userId": userId,
+      "images": images, // ✅ Đừng quên serialize lại images
     };
   }
 
   @override
   String toString() {
-    return "ParkingLot(parkingLotName: $parkingLotName, address: $address, totalSlot: $totalSlot, rate: $rate)";
+    return "ParkingLot(parkingLotName: $parkingLotName, address: $address, totalSlot: $totalSlot, rate: $rate, images: ${images.length})";
   }
 
-  /// **Hàm hỗ trợ chuyển đổi `status` từ String sang `LotStatus`**
   static LotStatus _parseLotStatus(String? status) {
     switch (status?.toUpperCase()) {
       case "ON":
@@ -73,7 +76,7 @@ class ParkingLotResponse {
       case "FULL_SLOT":
         return LotStatus.FULL_SLOT;
       default:
-        return LotStatus.OFF; // Giá trị mặc định nếu dữ liệu không hợp lệ
+        return LotStatus.OFF;
     }
   }
 }

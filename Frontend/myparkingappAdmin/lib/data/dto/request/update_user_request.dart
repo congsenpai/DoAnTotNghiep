@@ -11,7 +11,6 @@ class UpdateInfoResquest {
   final String firstName;
   final String avatar;
   final String email;
-  final bool status;
 
   UpdateInfoResquest( {
     required this.username,
@@ -23,7 +22,6 @@ class UpdateInfoResquest {
     required this.firstName,
     required this.avatar,
     required this.email,
-    required this.status,
   });
 
 
@@ -39,7 +37,6 @@ class UpdateInfoResquest {
       'firstName': firstName,
       'avatar': avatar,
       'email': email,
-      'status': status,
     };
   }
   @override

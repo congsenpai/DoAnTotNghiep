@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-import 'package:myparkingappadmin/screens/main/components/classInitial.dart';
 import '../../constants.dart';
 import '../../responsive.dart';
 import '../general/header.dart';
@@ -13,11 +12,10 @@ import '../dashboard/components/assets_details.dart';
 class SettingScreen extends StatelessWidget {
   final bool isAuth;
   final UserResponse user;
-  SettingScreen({super.key,
+  const SettingScreen({super.key,
     required this.isAuth,
     required this.user,
   });
-  final UserResponse selecteduser = selectedUserInitial;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +24,7 @@ class SettingScreen extends StatelessWidget {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(title: "Setting",user: user, isAuth: isAuth, onLanguageChange: (Locale ) {  },),
+            Header(title: "Setting",user: user, onLanguageChange: (Locale ) {  },),
             SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
-class ParkingSlotResponse {
+class UpdateParkingSlotResponse {
   String slotId;
   double pricePerHour;  // Giá theo giờ
   double pricePerMonth; // Giá theo tháng
 
-  ParkingSlotResponse({
+  UpdateParkingSlotResponse({
     required this.slotId,
     required this.pricePerHour,
     required this.pricePerMonth,

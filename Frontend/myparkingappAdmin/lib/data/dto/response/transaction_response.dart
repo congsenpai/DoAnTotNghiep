@@ -40,7 +40,7 @@ class TransactionResponse {
       type: _parseTransactionType(json["type"]),
       typeMoney: json["typeMoney"] ?? '',
       description: json["description"] ?? '',
-      status: _parseTransactionStatus(json["status"]), // ✅ Thêm status
+      status: _parseTransactionStatus(json["createdAt"]), // ✅ Thêm status
     );
   }
 

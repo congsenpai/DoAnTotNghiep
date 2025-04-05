@@ -1,9 +1,12 @@
 abstract class InvoiceEvent{}
 
 
-class InvoiceLoadingScreenEvent extends InvoiceEvent{
-  String token;
-  int page;
-  String search;
-  InvoiceLoadingScreenEvent(this.token, this.page, this.search);
+class GetInvoiceByLotEvent extends InvoiceEvent{
+  String parkingLotId;
+  GetInvoiceByLotEvent(this.parkingLotId);
+}
+
+class GetInvoiceBySlotEvent extends InvoiceEvent{
+  String parkingSlotId;
+  GetInvoiceBySlotEvent(this.parkingSlotId);
 }

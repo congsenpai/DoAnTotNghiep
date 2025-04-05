@@ -1,22 +1,20 @@
-// ignore_for_file: must_be_immutable, avoid_print, file_names
-
+// ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 
-
-
-import '../../../../constants.dart';
-import '../../../app/localization/app_localizations.dart';
+import '../../../constants.dart';
+import '../../../data/dto/response/wallet_response.dart';
 
 class WalletDetail extends StatefulWidget {
-  final String title;
   final WalletResponse object;
+  final VoidCallback onEdit;
 
   const WalletDetail({
     super.key,
     required this.object,
-    required this.title,
+    required this.onEdit,
   });
 
   @override
@@ -24,122 +22,120 @@ class WalletDetail extends StatefulWidget {
 }
 
 class _WalletDetailState extends State<WalletDetail> {
-  late bool _parkinglotStatus; // Biến để lưu trạng thái hợp đồng
+  bool isEdit = false;
+
+  late final TextEditingController walletIdController;
+  late final TextEditingController userIdController;
+  late final TextEditingController svgSrcController;
+  late final TextEditingController nameController;
+  late final TextEditingController balanceController;
+  late final TextEditingController statusController;
+  late final TextEditingController currencyController;
 
   @override
   void initState() {
     super.initState();
-    _parkinglotStatus = widget.object.status; // Gán trạng thái ban đầu từ hợp đồng
+    walletIdController = TextEditingController(text: widget.object.walletId);
+    userIdController = TextEditingController(text: widget.object.userId);
+    svgSrcController = TextEditingController(text: widget.object.svgSrc);
+    nameController = TextEditingController(text: widget.object.name);
+    balanceController =
+        TextEditingController(text: widget.object.balance.toString());
+    statusController =
+        TextEditingController(text: widget.object.status ? "ACTIVE" : "INACTIVE");
+    currencyController = TextEditingController(text: widget.object.currency);
   }
 
-  void _toggleparkinglotStatus() {
-    setState(() {
-      _parkinglotStatus = !_parkinglotStatus;
-    });
+  @override
+  void dispose() {
+    walletIdController.dispose();
+    userIdController.dispose();
+    svgSrcController.dispose();
+    nameController.dispose();
+    balanceController.dispose();
+    statusController.dispose();
+    currencyController.dispose();
+    super.dispose();
+  }
 
-    // Thực hiện hành động khóa/mở hợp đồng tại đây (nếu cần lưu vào backend)
-    print("Hợp đồng ${_parkinglotStatus ? "được mở" : "đã khóa"}");
+  void _onSave() {
+    widget.onEdit(); // Gọi callback khi lưu
+    Get.snackbar("Success", "Wallet updated");
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width/1.2,
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${widget.object.name} / ${AppLocalizations.of(context).translate("Wallet Detail")}"),
+        actions: [
+          IconButton(
+            icon: Icon(isEdit ? Icons.save : Icons.edit),
+            onPressed: () {
+              if (isEdit) _onSave();
+              setState(() {
+                isEdit = !isEdit;
+              });
+            },
+          ),
+        ],
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Tiêu đề
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.of(context).translate(widget.title),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                ElevatedButton(
-                onPressed: _toggleparkinglotStatus,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _parkinglotStatus ? Colors.red : Colors.green,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                ),
-                child: Icon(_parkinglotStatus ? Icons.lock : Icons.face_unlock_outlined),
+      body: Container(
+        height: Get.height,
+        padding: EdgeInsets.all(defaultPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFieldCustom(
+                editController: walletIdController,
+                title: "Wallet ID",
+                isEdit: false,
               ),
-              ],
-            ),
-            SizedBox(height: 16),
-
-            // Chi tiết hợp đồng
-            ObjectDetailInfo(wallet: widget.object),
-
-            SizedBox(height: 16),
-
-            // Button khóa/mở hợp đồng
-          
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// Hiển thị thông tin hợp đồng
-class ObjectDetailInfo extends StatefulWidget {
-  final WalletResponse wallet;
-  const ObjectDetailInfo({super.key, required this.wallet});
-
-  @override
-  State<ObjectDetailInfo> createState() => _ObjectDetailInfoState();
-}
-
-class _ObjectDetailInfoState extends State<ObjectDetailInfo> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Table(
-          border: TableBorder.all(color: Theme.of(context).colorScheme.onPrimary),
-          columnWidths: const {
-            0: FlexColumnWidth(2), // Cột 1 rộng hơn
-            1: FlexColumnWidth(3), // Cột 2 rộng hơn để chứa dữ liệu
-          },
-          children: [
-            _buildTableRow('Name', widget.wallet.name),
-            _buildTableRow('note', widget.wallet.balance.toString()),
-            _buildTableRow('totalSlot', widget.wallet.currency),
-            _buildTableRow('status', widget.wallet.status.toString()),
-
-          ],
-        ),
-      ),
-    );
-  }
-
-  TableRow _buildTableRow(String field, String value) {
-    return TableRow(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            AppLocalizations.of(context).translate(field),
-            style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: userIdController,
+                title: "User ID",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: svgSrcController,
+                title: "SVG Icon URL",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: nameController,
+                title: "Name",
+                isEdit: isEdit,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: balanceController,
+                title: "Balance",
+                isEdit: isEdit,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: statusController,
+                title: "Status",
+                isEdit: isEdit, // Có thể đổi qua Switch cũng được
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: currencyController,
+                title: "Currency",
+                isEdit: false,
+              ),
+            ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary)),
-        ),
-      ],
+      ),
     );
   }
 }

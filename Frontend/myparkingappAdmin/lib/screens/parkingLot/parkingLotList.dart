@@ -1,15 +1,15 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print, non_constant_identifier_names, file_names, unused_element
 
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppBloc.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_event.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_state.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-
-
-
+import 'package:myparkingappadmin/screens/discount/discount_list.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
+import 'package:myparkingappadmin/screens/parkingSlot/parkingSlotList.dart';
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
@@ -17,115 +17,137 @@ import '../../../constants.dart';
 import 'parkingLotDetail.dart';
 
 class ParkingLotList extends StatefulWidget {
-  final List<ParkingLotResponse> object;
-  final String title;
-  final HashSet<String> objectColumnName;
-  final Function(ParkingLotResponse) onLot_Slot;
-  final Function(ParkingLotResponse) onLot_Discount;
-  final UserResponse owner;
-  final String token;
+  final UserResponse user;
 
-  const ParkingLotList({
-    super.key,
-    required this.object,
-    required this.objectColumnName,
-    required this.title,
-    required this.onLot_Slot,
-    required this.owner, required this.onLot_Discount, required this.token,
-  });
+  const ParkingLotList({super.key, required this.user});
 
   @override
   _ParkingLotListState createState() => _ParkingLotListState();
 }
 
 class _ParkingLotListState extends State<ParkingLotList> {
-  List<ParkingLotResponse> _filteredContracts = [];
-  final TextEditingController _searchController = TextEditingController();
+  bool isDetail = false;
+  ParkingLotResponse lot = ParkingLotResponse(
+    parkingLotId: '',
+    parkingLotName: '',
+    address: '',
+    latitude: 0.0,
+    longitude: 0.0,
+    totalSlot: 0,
+    status: LotStatus.OFF,
+    rate: 0.0,
+    description: '',
+    userId: '',
+    images: [],
+  );
+
+  Set<String> objectColumnNameOfParkingLot = {
+    "ParkingLotName",
+    "Status",
+    "Detail",
+  };
+  List<ParkingLotResponse> parkingLots = [];
 
   @override
   void initState() {
+    context.read<ParkingLotBloc>().add(
+          GetParkingLotByOwnerEvent(
+            widget.user.userId,
+          ),
+        );
     super.initState();
-    _filteredContracts = widget.object;
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-      @override
-  void didUpdateWidget(covariant ParkingLotList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.owner.userId != widget.owner.userId || oldWidget.object !=widget.object) {
-      setState(() {
-        _filteredContracts = widget.object;
-      });
-    }
-  }
-  void _filterByValue(){
-
-    print("parking Slot text: ${_searchController.text}");
-    setState(() {
-      String search = _searchController.text;
-      context.read<MainAppBloc>().add(giveParkingLotByPageAndSearchEvent(widget.owner, 0, search, widget.token));
-    });
-
-  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 1.5,
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context).translate(widget.title),
-              style: Theme.of(context).textTheme.titleMedium,
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+              "${widget.user.firstName} ${widget.user.lastName}/ ${AppLocalizations.of(context).translate("Parking Lot List")}"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                context.read<ParkingLotBloc>().add(
+                      GetParkingLotByOwnerEvent(
+                        widget.user.userId,
+                      ),
+                    );
+              },
             ),
-            const SizedBox(height: 16.0),
-            _buildSearchField(),
-            SizedBox(height: defaultPadding),
-            _filteredContracts.isEmpty
-              ? Center(
-                  child: Text(
-                    AppLocalizations.of(context).translate("There is no matching information"),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                )
-              : _buildDataTable(context),
           ],
         ),
-      ),
-    );
-  }
-  Widget _buildSearchField() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              hintText: AppLocalizations.of(context).translate("Finding..."),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            onSubmitted: (_) => _filterByValue(),
-          ),
-        ),
-        const SizedBox(width: 8),
-        IconButton(
-          icon: const Icon(Icons.search, color: Colors.blue),
-          onPressed: _filterByValue,
-        ),
-      ],
-    );
+        body: BlocConsumer<ParkingLotBloc, ParkingLotState>(
+            builder: (context, state) {
+          if (state is ParkingLotLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ParkingLotLoadedState) {
+            parkingLots = state.parkingLotList;
+            return Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)
+                                .translate("ParkingLot"),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 16.0),
+                          SizedBox(height: defaultPadding),
+                          parkingLots.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    AppLocalizations.of(context).translate(
+                                        "There is no matching information"),
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                )
+                              : _buildDataTable(context),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                isDetail
+                    ? Expanded(
+                        flex: 1,
+                        child: ParkingSpotDetail(parkingLot: lot, onEdit: () { setState(() {
+                          isDetail = false;
+                        }); },),
+                      )
+                    : SizedBox(
+                        width: 0,
+                      ),
+              ],
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }, listener: (context, state) {
+          if (state is ParkingLotSuccessState) {
+            AppDialog.showSuccessEvent(context, state.mess);
+          } else if (state is ParkingLotErrorState) {
+            AppDialog.showErrorEvent(context, state.mess);
+          }
+        }));
   }
 
   Widget _buildDataTable(BuildContext context) {
@@ -133,13 +155,14 @@ class _ParkingLotListState extends State<ParkingLotList> {
       width: double.infinity,
       child: DataTable(
         columnSpacing: 16.0,
-        columns: widget.objectColumnName
+        columns: objectColumnNameOfParkingLot
             .map((name) => DataColumn(
-                  label: Text(AppLocalizations.of(context).translate(name), overflow: TextOverflow.ellipsis, maxLines: 1),
+                  label: Text(AppLocalizations.of(context).translate(name),
+                      overflow: TextOverflow.ellipsis, maxLines: 1),
                 ))
             .toList(),
-        rows: _filteredContracts.map((contract) {
-          return _buildDataRow(contract, context);
+        rows: parkingLots.map((lot) {
+          return _buildDataRow(lot, context);
         }).toList(),
       ),
     );
@@ -148,40 +171,74 @@ class _ParkingLotListState extends State<ParkingLotList> {
   DataRow _buildDataRow(ParkingLotResponse parkingLot, BuildContext context) {
     return DataRow(
       cells: [
-        DataCell(Text(parkingLot.parkingLotId)),
         DataCell(Text(parkingLot.parkingLotName)),
-        DataCell(
-          IconButton(
-            icon: const Icon(Icons.details, color: Colors.green),
-            onPressed: () => _showDetailDialog(context, parkingLot),
-          ),
-        ),
-        DataCell(
-          IconButton(
-            icon: const Icon(Icons.content_paste_search_outlined, color: Colors.blueAccent),
-            onPressed: () => widget.onLot_Slot(parkingLot),
-          ),
-        ),
-        DataCell(
-          IconButton(
-            icon: const Icon(Icons.content_paste_search_outlined, color: Colors.blueAccent),
-            onPressed: () => widget.onLot_Discount(parkingLot),
-          ),
-        ),
+        DataCell(Text(parkingLot.status.toString())),
+        DataCell(Row(
+          children: [
+            Expanded(
+              child: IconButton(
+                  icon: const Icon(Icons.details, color: Colors.green),
+                  onPressed: () => setState(() {
+                        isDetail = true;
+                        lot = parkingLot;
+                      })),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: IconButton(
+                icon: const Icon(Icons.discount, color: Colors.orangeAccent),
+                onPressed: () => _showDiscountDialog(context, parkingLot),
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: IconButton(
+                icon: const Icon(Icons.location_on, color: Colors.blue),
+                onPressed: () => _showSlotDialog(context, parkingLot),
+              ),
+            ),
+            SizedBox(width: 10),
+          ],
+        )),
       ],
     );
   }
 
-  void _showDetailDialog(BuildContext context, ParkingLotResponse contract) {
+  void _showDiscountDialog(BuildContext context, ParkingLotResponse lot) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: ParkingSpotDetail(object: contract, title: "ParkingLot"), // Thay thế bằng widget chi tiết hợp đồng của bạn
+          content: DiscountList(
+            parkingLot: lot,
+          ), // Thay thế bằng widget chi tiết hợp đồng của bạn
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child:Icon(Icons.cancel, color: Colors.red,),
+              child: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showSlotDialog(BuildContext context, ParkingLotResponse lot) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: ParkingSlotList(parkingLot: lot), // Thay thế bằng widget chi tiết hợp đồng của bạn
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
             ),
           ],
         );

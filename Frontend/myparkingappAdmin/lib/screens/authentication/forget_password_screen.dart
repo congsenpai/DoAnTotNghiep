@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-import 'package:myparkingappadmin/screens/authentication/register_screen.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/auth/auth_state.dart';
@@ -24,18 +22,6 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
   int _currentTab = 0;
   final GlobalKey<ScaffoldState> _LoginscaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _usernameController = TextEditingController();
-
-  late UserResponse user = UserResponse(
-      username: "",
-      password: "",
-      phoneNumber: "",
-      homeAddress: "",
-      companyAddress: "",
-      lastName: "",
-      firstName: "",
-      avatar: "", email: '', userId: '',
-      status: true, roles: [],
-  );
   @override
   void initState() {
     super.initState();
@@ -51,9 +37,6 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
       }, isAuth: widget.isAuth,),
       body: BlocConsumer<AuthBloc,AuthState>(
         builder: (context,state){
-          if(state is AuthSuccess){
-            user = state.user;
-          }
           return
             SafeArea(
               child: Row(
@@ -79,7 +62,7 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
                       padding: EdgeInsets.all(defaultPadding),
                       child: Column(
                         children: [
-                          Header(title: AppLocalizations.of(context).translate("Login"),user: user, isAuth: widget.isAuth,onLanguageChange: widget.onLanguageChange),
+                          Header(title: AppLocalizations.of(context).translate("Login"),onLanguageChange: widget.onLanguageChange),
                           SizedBox(height: defaultPadding),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,29 +133,7 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
                                                             ),
                                                           ),
                                                           SizedBox(height: defaultPadding),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-              
-                                                              Row(
-                                                                children: [
-                                                                  TextButton(
-                                                                    style: TextButton.styleFrom(
-                                                                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                                                      disabledForegroundColor: Theme.of(context).colorScheme.onPrimary, // Màu khi bị vô hiệu hóa
-                                                                    ),
-                                                                    onPressed: () {
-                                                                      Navigator.pushReplacement(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                          builder: (context) => RegisterScreen(isAuth: widget.isAuth,onLanguageChange: widget.onLanguageChange,),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                    child: Text(AppLocalizations.of(context).translate("Register")),
-                                                                  ),
-                                                                  SizedBox(width: defaultPadding),
-                                                                  ElevatedButton(
+                                                          ElevatedButton(
                                                                     style: ElevatedButton.styleFrom(
                                                                       foregroundColor: Theme.of(context).colorScheme.secondary,
                                                                       backgroundColor: Theme.of(context).colorScheme.onPrimary, // Màu chữ trên nền chính
@@ -182,11 +143,6 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
                                                                     },
                                                                     child: Text(AppLocalizations.of(context).translate("Login")),
                                                                   ),
-                                                                ],
-                                                              ),
-
-                                                            ],
-                                                          )
                                                         ],
                                                       )
                                                     ],

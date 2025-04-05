@@ -1,21 +1,14 @@
 
 // ignore_for_file: file_names
 
-
-
-
-
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-
 abstract class AuthState{}
 
 class AuthInitial extends AuthState{
 
 }
 class AuthSuccess extends AuthState{
-  final UserResponse user;
-  final String token;
-  AuthSuccess(this.user, this.token);
+  final String userName;
+  AuthSuccess(this.userName);
 }
 
 class AuthError extends AuthState{

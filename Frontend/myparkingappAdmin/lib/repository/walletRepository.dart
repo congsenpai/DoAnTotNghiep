@@ -1,23 +1,76 @@
 // ignore_for_file: file_names
-
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
-
-
-import '../apiResponse.dart';
+import 'package:myparkingappadmin/data/network/api_client.dart';
+import 'package:myparkingappadmin/data/network/api_result.dart';
 
 
 class WalletRepository {
-  Future<APIResult> giveWalletByPageAndSearch(int page, String token, UserResponse user,String searchText) async{
+  Future<ApiResult>  getAllWallet() async{
     try{
-      List<WalletResponse> walletLists = WalletLists
-          .where((parkingLot)=>parkingLot.walletId.contains(searchText)
-          && parkingLot.userId == user.userId).toList();
-      APIResult apiResult = APIResult(1, code: 200, message: "", result: walletLists);
-      return apiResult;
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient. getAllWallet();
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
     }
     catch(e){
-      throw Exception("Lỗi kết nối: $e");
+      throw Exception(" WalletRepository _getAllWallet: $e");
+    }
+  }
+  Future<ApiResult>  unlockOrUnlockWallet(String walletId, bool newState) async{
+    try{
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.unlockOrUnlockWallet(walletId, newState);
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
+    }
+    catch(e){
+      throw Exception(" WalletRepository _unlockOrUnlockWallet: $e");
+    }
+  }
+  Future<ApiResult> getWalletByCustomer(String userId) async{
+    try{
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.getWalletByCustomer(userId);
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
+    }
+    catch(e){
+      throw Exception(" WalletRepository_getWalletByCustomer: $e");
     }
   }
 }

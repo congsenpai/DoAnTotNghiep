@@ -30,6 +30,20 @@ class UserResponse {
     required this.status,
     required this.roles,
   });
+  UserResponse.empty({
+    this.userId = '',
+    this.username = '',
+    this.password = '',
+    this.phoneNumber = '',
+    this.homeAddress = '',
+    this.companyAddress = '',
+    this.lastName = '',
+    this.firstName = '',
+    this.avatar = 'default-avatar.png',
+    this.email = '',
+    this.status = UserStatus.INACTIVE,
+    this.roles = const [],
+  });
 
   /// **Chuyển từ JSON sang `UserResponse` object**
   factory UserResponse.fromJson(Map<String, dynamic> json) {

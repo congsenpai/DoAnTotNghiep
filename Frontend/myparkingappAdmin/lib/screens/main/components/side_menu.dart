@@ -24,19 +24,14 @@ class SideMenu extends StatelessWidget {
             press: () => onMenuTap(1),
           ),
           DrawerListTile(
-            title: AppLocalizations.of(context).translate("Owner"),
+            title: AppLocalizations.of(context).translate("Customer"),
             svgSrc: "assets/icons/menu_tran.svg",
             press: () => onMenuTap(2),
           ),
           DrawerListTile(
-            title: AppLocalizations.of(context).translate("Customer"),
-            svgSrc: "assets/icons/menu_tran.svg",
-            press: () => onMenuTap(3),
-          ),
-          DrawerListTile(
             title: AppLocalizations.of(context).translate("My Profile"),
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () => onMenuTap(4),
+            press: () => onMenuTap(3),
           ),
         ],
       ):ListView(

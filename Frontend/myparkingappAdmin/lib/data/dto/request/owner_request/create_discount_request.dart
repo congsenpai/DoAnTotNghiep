@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-enum DiscountType { PERCENTAGE, FIXED }
+import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
 
 class CreateDiscountResquest {
   String discountCode;

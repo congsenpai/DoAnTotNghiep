@@ -1,121 +1,139 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print, non_constant_identifier_names, file_names, unused_element
 
 import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/bloc/main_app/MainAppEvent.dart';
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
+import 'package:myparkingappadmin/bloc/wallet/wallet_event.dart';
+import 'package:myparkingappadmin/bloc/wallet/wallet_state.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
-
-
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
+import 'package:myparkingappadmin/screens/transaction/components/transaction_list.dart';
+import 'package:myparkingappadmin/screens/wallet/WalletDetail.dart';
+ // Màn hình danh sách giao dịch của ví
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
-import '../../bloc/main_app/MainAppBloc.dart';
-import 'WalletDetail.dart';
 
 class WalletList extends StatefulWidget {
-  final List<WalletResponse> object;
-  final String title;
-  final HashSet<String> objectColumnName;
-  final Function(WalletResponse) onWallet_Tran;
-  final UserResponse customer;
-  final String token;
-
-  const WalletList({
-    super.key,
-    required this.object,
-    required this.objectColumnName,
-    required this.title,
-    required this.onWallet_Tran,
-    required this.customer, required this.token,
-  });
+  final String customerId;
+  const WalletList({super.key, required this.customerId});
 
   @override
   _WalletListState createState() => _WalletListState();
 }
 
 class _WalletListState extends State<WalletList> {
-  List<WalletResponse> _filteredContracts = [];
-  final TextEditingController _searchController = TextEditingController();
+  bool isDetail = false;
+  WalletResponse wallet = WalletResponse(
+    walletId: '',
+    balance: 0.0,
+ userId: '', svgSrc: '', name: '', status: true, currency: '',
+  );
+
+  Set<String> objectColumnNameOfWallet = HashSet.from([
+    "WalletName",
+    "Type Money",
+    "Detail",
+    "TranList",
+  ]);
+
+  List<WalletResponse> wallets = [];
 
   @override
   void initState() {
     super.initState();
-    _filteredContracts = widget.object;
+    context.read<WalletBloc>().add(GetWalletByCustomerEvent(widget.customerId));
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-      @override
-  void didUpdateWidget(covariant WalletList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.customer.userId != widget.customer.userId) {
-      setState(() {
-        _filteredContracts = widget.object;
-      });
-    }
-  }
-  void _filterByValue(){
-    context.read<MainAppBloc>().add(giveWalletByPageAndSearchEvent
-      (widget.customer, 0, _searchController.text, widget.token));
-  }
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 1.5,
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context).translate(widget.title),
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            SizedBox(height: defaultPadding),
-            _filteredContracts.isEmpty
-              ? Center(
-                  child: Text(
-                    AppLocalizations.of(context).translate("There is no matching information"),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                )
-              : _buildDataTable(context),
-          ],
-        ),
-      ),
-    );
-  }
-  Widget _buildSearchField() {
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              hintText: AppLocalizations.of(context).translate("Finding..."),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            onSubmitted: (_) => _filterByValue(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).translate("Wallet List")),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              context.read<WalletBloc>().add(GetWalletByCustomerEvent(widget.customerId));
+            },
           ),
-        ),
-        const SizedBox(width: 8),
-        IconButton(
-          icon: const Icon(Icons.search, color: Colors.blue),
-          onPressed: _filterByValue,
-        ),
-      ],
+        ],
+      ),
+      body: BlocConsumer<WalletBloc, WalletState>(
+        builder: (context, state) {
+          if (state is WalletLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is WalletLoadedState) {
+            wallets = state.walletResponse;
+            return Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).translate("Wallets"),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 16.0),
+                          SizedBox(height: defaultPadding),
+                          wallets.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    AppLocalizations.of(context).translate(
+                                        "There is no matching information"),
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                )
+                              : _buildDataTable(context),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                isDetail
+                    ? Expanded(
+                        flex: 1,
+                        child: WalletDetail(
+                          object: wallet,
+                          onEdit: () {
+                            setState(() {
+                              isDetail = false;
+                            });
+                          },
+                        ),
+                      )
+                    : SizedBox(width: 0),
+              ],
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        listener: (context, state) {
+          if (state is WalletSuccessState) {
+            AppDialog.showSuccessEvent(context, state.mess);
+          } else if (state is WalletErrorState) {
+            AppDialog.showErrorEvent(context, state.mess);
+          }
+        },
+      ),
     );
   }
 
@@ -124,13 +142,14 @@ class _WalletListState extends State<WalletList> {
       width: double.infinity,
       child: DataTable(
         columnSpacing: 16.0,
-        columns: widget.objectColumnName
+        columns: objectColumnNameOfWallet
             .map((name) => DataColumn(
-                  label: Text(AppLocalizations.of(context).translate(name), overflow: TextOverflow.ellipsis, maxLines: 1),
+                  label: Text(AppLocalizations.of(context).translate(name),
+                      overflow: TextOverflow.ellipsis, maxLines: 1),
                 ))
             .toList(),
-        rows: _filteredContracts.map((contract) {
-          return _buildDataRow(contract, context);
+        rows: wallets.map((wallet) {
+          return _buildDataRow(wallet, context);
         }).toList(),
       ),
     );
@@ -141,32 +160,42 @@ class _WalletListState extends State<WalletList> {
       cells: [
         DataCell(Text(wallet.name)),
         DataCell(Text(wallet.currency)),
-        DataCell(
-          IconButton(
-            icon: const Icon(Icons.details, color: Colors.green),
-            onPressed: () => _showDetailDialog(context, wallet ),
-          ),
-        ),
-        DataCell(
-          IconButton(
-            icon: const Icon(Icons.content_paste_search_outlined, color: Colors.blueAccent),
-            onPressed: () => widget.onWallet_Tran(wallet),
-          ),
-        ),
+        DataCell(Row(
+          children: [
+            Expanded(
+              child: IconButton(
+                  icon: const Icon(Icons.details, color: Colors.green),
+                  onPressed: () => setState(() {
+                        isDetail = true;
+                        this.wallet = wallet;
+                      })),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: IconButton(
+                icon: const Icon(Icons.list, color: Colors.blue),
+                onPressed: () => _showTransactionListDialog(context, wallet),
+              ),
+            ),
+          ],
+        )),
       ],
     );
   }
 
-  void _showDetailDialog(BuildContext context, WalletResponse wallet) {
+  void _showTransactionListDialog(BuildContext context, WalletResponse wallet) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: WalletDetail(object: wallet, title: "ParkingLot"), // Thay thế bằng widget chi tiết hợp đồng của bạn
+          content: TransactionList( walletId: wallet.walletId,), // Màn hình danh sách giao dịch của ví
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child:Icon(Icons.cancel, color: Colors.red,),
+              child: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
             ),
           ],
         );

@@ -4,14 +4,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
 import 'bloc/auth/auth_bloc.dart';
-import 'bloc/main_app/MainAppBloc.dart';
-import 'bloc/register/RegistedBloc.dart';
 import 'controllers/menu_app_controller.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -27,7 +26,6 @@ void main() {
               create: (context) => MenuAppController(),
             ),
             BlocProvider(create: (context)=>AuthBloc()),
-            BlocProvider(create: (context)=>RegisterBloc()),
             BlocProvider(create: (context)=>MainAppBloc()),
           ]
           )
@@ -63,7 +61,8 @@ class _MyAppState extends State<MyApp> {
     firstName: 'John',
     avatar: 'assets/images/profile_pic.png',
     email: 'john.doe@example.com',
-    status: true, roles: [],
+    roles: [], status: UserStatus.ACTIVE,
+    
   );
   @override
   Widget build(BuildContext context) {
@@ -85,9 +84,9 @@ class _MyAppState extends State<MyApp> {
           Locale('vi', ''), // Vietnamese
         ],
         home:
-        MainScreen(isAuth: true, user: u, onLanguageChange: (Locale newLocale) {
+        MainScreen(isAuth: true, onLanguageChange: (Locale newLocale) {
           Get.updateLocale(newLocale);
-        }, token: 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzbWFydHBhcmtpbmdhcHAiLCJzdWIiOiJhZG1pbjEiLCJleHAiOjE3NDAwMzY4MDgsImlhdCI6MTc0MDAzMDgwOCwic2NvcGUiOiJBRE1JTiJ9.Kx8yihyNT4SSZyNNZsgSflvDhLiqHazyIt9LD3ZOReY',)
+        }, userName: '',)
         // LoginScreen(isAuth: false, onLanguageChange: (Locale newLocale) {
         //   Get.updateLocale(newLocale);
         // },)

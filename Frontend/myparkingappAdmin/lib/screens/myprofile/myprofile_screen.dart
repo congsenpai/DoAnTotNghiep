@@ -14,11 +14,9 @@ import '../general/header.dart';
 
 class MyprofileScreen extends StatefulWidget {
 
-  final bool isAuth;
   final UserResponse user;
-  final String token;
   final Function(Locale) onLanguageChange;
-  const MyprofileScreen({super.key, required this.isAuth, required this.user, required this.onLanguageChange, required this.token});
+  const MyprofileScreen({super.key, required this.user, required this.onLanguageChange,});
 
   @override
   _MyprofileScreenState createState() => _MyprofileScreenState();
@@ -36,7 +34,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
           children: [
             Header(title: AppLocalizations.of(context).translate("My Profile"),
             user: widget.user,
-            isAuth: widget.isAuth, onLanguageChange: widget.onLanguageChange,),
+            onLanguageChange: widget.onLanguageChange,),
             SizedBox(height: defaultPadding),
             Row(
               children: [
@@ -44,8 +42,7 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
                 Expanded(
               flex: 1,
               child: UserDetail(
-              object: widget.user,
-              title: 'My Profile', token: widget.token,
+              user: widget.user,
             ),),
             SizedBox(width: defaultPadding*2),
             ],

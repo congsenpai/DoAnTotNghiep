@@ -15,11 +15,9 @@ import '../general/header.dart';
 import 'components/assets_details.dart';
 
 class DashboardScreen extends StatefulWidget {
-  final bool isAuth;
   final UserResponse user;
   final Function(Locale) onLanguageChange;
-  const DashboardScreen({super.key,
-   required this.isAuth, required this.user, required this.onLanguageChange,
+  const DashboardScreen({super.key, required this.user, required this.onLanguageChange,
 });
 
   @override
@@ -43,7 +41,7 @@ final HashSet<String> objectColumnName = HashSet.from([
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(title: AppLocalizations.of(context).translate("Dashboard"),user: widget.user, isAuth: widget.isAuth, onLanguageChange: widget.onLanguageChange),
+            Header(title: AppLocalizations.of(context).translate("Dashboard"),user: widget.user, onLanguageChange: widget.onLanguageChange),
             SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

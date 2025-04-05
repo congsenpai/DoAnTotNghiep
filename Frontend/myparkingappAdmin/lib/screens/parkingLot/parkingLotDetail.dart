@@ -2,20 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_lot_request.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
-
+import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
 
 class ParkingSpotDetail extends StatefulWidget {
-  final String title;
-  final ParkingLotResponse object;
+  final ParkingLotResponse parkingLot;
+    final VoidCallback onEdit;
+  
 
   const ParkingSpotDetail({
     super.key,
-    required this.object,
-    required this.title,
+    required this.parkingLot, required this.onEdit
   });
 
   @override
@@ -23,123 +24,170 @@ class ParkingSpotDetail extends StatefulWidget {
 }
 
 class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
-  late bool _parkinglotStatus; // Biến để lưu trạng thái hợp đồng
+  bool isEdit = false; // Biến để lưu trạng thái hợp đồng
+  List<String> images = []; // Danh sách hình ảnh
+  late TextEditingController _nameController;
+  late TextEditingController _addressController;
+  late TextEditingController _latitudeController;
+  late TextEditingController _longitudeController;
+  late TextEditingController _totalSlotController;
+  late TextEditingController _rateController;
+  late TextEditingController _descriptionController;
 
+  @override
   @override
   void initState() {
     super.initState();
-    _parkinglotStatus = widget.object.status; // Gán trạng thái ban đầu từ hợp đồng
-  }
 
-  void _toggleparkinglotStatus() {
-    setState(() {
-      _parkinglotStatus = !_parkinglotStatus;
-    });
-
-    // Thực hiện hành động khóa/mở hợp đồng tại đây (nếu cần lưu vào backend)
-    print("Hợp đồng ${_parkinglotStatus ? "được mở" : "đã khóa"}");
+    // Giả sử bạn có biến widget.parkingLot chứa dữ liệu
+    _nameController =
+        TextEditingController(text: widget.parkingLot.parkingLotName);
+    _addressController = TextEditingController(text: widget.parkingLot.address);
+    _latitudeController =
+        TextEditingController(text: widget.parkingLot.latitude.toString());
+    _longitudeController =
+        TextEditingController(text: widget.parkingLot.longitude.toString());
+    _totalSlotController =
+        TextEditingController(text: widget.parkingLot.totalSlot.toString());
+    _rateController =
+        TextEditingController(text: widget.parkingLot.rate.toString());
+    _descriptionController =
+        TextEditingController(text: widget.parkingLot.description);
+    images = widget.parkingLot
+        .images; // Giả sử bạn có danh sách hình ảnh từ đối tượng ParkingLotResponse
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width/1.2,
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            Text(AppLocalizations.of(context).translate("Parking Lot Detail")),
+        actions: [
+          isEdit
+              ? IconButton(
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    UpdateParkingLotRequest request = UpdateParkingLotRequest(
+                      parkingLotName: _nameController.text,
+                      address: _addressController.text,
+                      latitude: double.parse(_latitudeController.text),
+                      longitude: double.parse(_longitudeController.text),
+                      description: _descriptionController.text,
+                    );
+                  
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    setState(() {
+                      isEdit = true; // Chuyển sang chế độ chỉnh sửa
+                    });
+                  },
+                ),
+        ],
       ),
-      child: SingleChildScrollView(
+      body: Container(
+        width: Get.width / 1.2,
+        padding: EdgeInsets.all(defaultPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Tiêu đề
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: images
+                    .map((e) => Container(
+                          width: 100,
+                          height: 100,
+                          margin: EdgeInsets.only(right: defaultPadding),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(e),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+            SizedBox(height: defaultPadding),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  AppLocalizations.of(context).translate(widget.title),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                ElevatedButton(
-                onPressed: _toggleparkinglotStatus,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _parkinglotStatus ? Colors.red : Colors.green,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                ),
-                child: Icon(_parkinglotStatus ? Icons.lock : Icons.face_unlock_outlined),
-              ),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        SizedBox(height: defaultPadding),
+                        TextFieldCustom(
+                          editController: _nameController,
+                          title: 'ParkingLotName',
+                          isEdit: isEdit,
+                        ),
+                        SizedBox(height: defaultPadding),
+                        TextFieldCustom(
+                          editController: _latitudeController,
+                          title: 'Lattitude',
+                          isEdit: false,
+                        ),
+                        SizedBox(height: defaultPadding),
+                        TextFieldCustom(
+                          editController: _longitudeController,
+                          title: 'Longtitude',
+                          isEdit: false,
+                        ),
+                        SizedBox(height: defaultPadding),
+                      ],
+                    )),
+                SizedBox(width: defaultPadding),
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        TextFieldCustom(
+                          editController: _addressController,
+                          title: 'Address',
+                          isEdit: isEdit,
+                        ),
+                        SizedBox(height: defaultPadding),
+                        TextFieldCustom(
+                          editController: _rateController,
+                          title: 'Rate',
+                          isEdit: false,
+                        ),
+                        SizedBox(height: defaultPadding),
+                        TextFieldCustom(
+                          editController: _totalSlotController,
+                          title: 'Total Slot',
+                          isEdit: false,
+                        ),
+                        SizedBox(height: defaultPadding),
+                      ],
+                    )),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: defaultPadding),
 
-            // Chi tiết hợp đồng
-            ObjectDetailInfo(parkingLot: widget.object),
+            TextFieldCustom(
+              editController: _descriptionController,
+              title: 'Description',
+              isEdit: isEdit,
+            ),
 
-            SizedBox(height: 16),
-
-            // Button khóa/mở hợp đồng
-          
+            SizedBox(height: defaultPadding),
+            // Tiêu đề
           ],
         ),
       ),
-    );
-  }
-}
-
-// Hiển thị thông tin hợp đồng
-class ObjectDetailInfo extends StatefulWidget {
-  final ParkingLotResponse parkingLot;
-  const ObjectDetailInfo({super.key, required this.parkingLot});
-
-  @override
-  State<ObjectDetailInfo> createState() => _ObjectDetailInfoState();
-}
-
-class _ObjectDetailInfoState extends State<ObjectDetailInfo> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Table(
-          border: TableBorder.all(color: Theme.of(context).colorScheme.onPrimary),
-          columnWidths: const {
-            0: FlexColumnWidth(2), // Cột 1 rộng hơn
-            1: FlexColumnWidth(3), // Cột 2 rộng hơn để chứa dữ liệu
-          },
-          children: [
-            _buildTableRow('latitude', widget.parkingLot.parkingLotName.toString()),
-            _buildTableRow('status', widget.parkingLot.status.toString()),
-            _buildTableRow('note', widget.parkingLot.description.toString()),
-            _buildTableRow('totalSlot', widget.parkingLot.totalSlot.toString()),
-            _buildTableRow('longitude', widget.parkingLot.longitude.toString()),
-            _buildTableRow('latitude', widget.parkingLot.latitude.toString()),
-          ],
-        ),
-      ),
-    );
-  }
-
-  TableRow _buildTableRow(String field, String value) {
-    return TableRow(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            AppLocalizations.of(context).translate(field),
-            style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary)),
-        ),
-      ],
     );
   }
 }
