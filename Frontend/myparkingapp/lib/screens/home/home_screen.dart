@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       version: 1.0,
       press: () {
         // Viết logic điều hướng ở đây hoặc pass từ ngoài vào
-        Get.to(ChatScreen(title: 'Gemini',));
+        Get.to(ChatScreen());
       },
     ),
     Service(

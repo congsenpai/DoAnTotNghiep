@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
 class TransactionInfo extends StatefulWidget {
@@ -90,9 +91,9 @@ class _TransactionInfoState extends State<TransactionInfo> {
             ): responseCode == '00' 
             ?  ElevatedButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen(user: widget.user,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(user: widget.user,)));
               },
-              child: Text(AppLocalizations.of(context).translate('Return profile')),
+              child: Text(AppLocalizations.of(context).translate('Return Main Screen')),
             ) : SizedBox(height: 20)
             
           ],

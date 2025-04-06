@@ -1,14 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 const String _apiKey = 'AIzaSyC4BcWF9-2Ji07EghWdmcKJ163XYAHu8wE';
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.title});
-  final String title;
+  const ChatScreen({super.key});
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -17,7 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(widget.title)),
+        title: Center(child: Text("Parking Chatbot")),
       ),
       body: const ChatWidget(apiKey: _apiKey),
     );
@@ -134,19 +132,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                   ),
                 ),
                 const SizedBox.square(dimension: 15),
-                IconButton(
-                  onPressed: !_loading
-                      ? () async {
-                    _sendImagePrompt(_textController.text);
-                  }
-                      : null,
-                  icon: Icon(
-                    Icons.image,
-                    color: _loading
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context).colorScheme.primary,
-                  ),
-                ),
                 if (!_loading)
                   IconButton(
                     onPressed: () async {
@@ -165,58 +150,6 @@ class _ChatWidgetState extends State<ChatWidget> {
         ],
       ),
     );
-  }
-
-  Future<void> _sendImagePrompt(String message) async {
-    setState(() {
-      _loading = true;
-    });
-    try {
-      ByteData catBytes = await rootBundle.load('assets/images/cat.jpg');
-      ByteData sconeBytes = await rootBundle.load('assets/images/scones.jpg');
-      final content = [
-        Content.multi([
-          TextPart(message),
-          // The only accepted mime types are image/*.
-          DataPart('image/jpeg', catBytes.buffer.asUint8List()),
-          DataPart('image/jpeg', sconeBytes.buffer.asUint8List()),
-        ])
-      ];
-      _generatedContent.add((
-      image: Image.asset("assets/images/cat.jpg"),
-      text: message,
-      fromUser: true
-      ));
-      _generatedContent.add((
-      image: Image.asset("assets/images/scones.jpg"),
-      text: null,
-      fromUser: true
-      ));
-      var response = await _model.generateContent(content);
-      var text = response.text;
-      _generatedContent.add((image: null, text: text, fromUser: false));
-
-      if (text == null) {
-        _showError('No response from API.');
-        return;
-      } else {
-        setState(() {
-          _loading = false;
-          _scrollDown();
-        });
-      }
-    } catch (e) {
-      _showError(e.toString());
-      setState(() {
-        _loading = false;
-      });
-    } finally {
-      _textController.clear();
-      setState(() {
-        _loading = false;
-      });
-      _textFieldFocus.requestFocus();
-    }
   }
 
   Future<void> _sendChatMessage(String message) async {

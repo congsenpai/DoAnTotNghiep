@@ -50,7 +50,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
           type = state.type;
           return Scaffold(
             appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate("Your Orders")),
+              title: Text(AppLocalizations.of(context).translate("Your Transactions")),
               actions: [
                 IconButton(onPressed: (){
                   setState(() {
