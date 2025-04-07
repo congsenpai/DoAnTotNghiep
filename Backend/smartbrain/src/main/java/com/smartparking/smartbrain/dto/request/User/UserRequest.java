@@ -27,6 +27,6 @@ public class UserRequest {
     String homeAddress;
     String companyAddress;
     Set<String> roles;
-    boolean status;
+    String status;
     String images;
 }

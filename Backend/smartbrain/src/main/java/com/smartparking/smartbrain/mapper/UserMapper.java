@@ -51,6 +51,9 @@ public interface UserMapper {
     
     @Named("imageToString")
     default String imageToString(Image image) {
+        if (image == null) {
+            return null;
+        }
         return image.getUrl();
     }
 }

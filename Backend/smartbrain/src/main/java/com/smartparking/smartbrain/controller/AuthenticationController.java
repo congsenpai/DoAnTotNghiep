@@ -12,27 +12,41 @@ import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequ
 import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.LogoutRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.RefreshRequest;
+import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
+import com.smartparking.smartbrain.dto.response.User.UserResponse;
 import com.smartparking.smartbrain.service.AuthenticationSevice;
+import com.smartparking.smartbrain.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
     AuthenticationSevice authenticationSevice;
-    public AuthenticationController(AuthenticationSevice authenticationSevice) {
-        this.authenticationSevice = authenticationSevice;
-    }
+    UserService userService;
+
     @PostMapping("/login")
     ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         var result = authenticationSevice.authenticate(request);
         return ApiResponse.<AuthenticationResponse>builder()
         .result(result)
         .build();
+    }
+    @PostMapping("/register")
+    public ApiResponse<UserResponse> createRequestUser(@RequestBody @Valid UserRequest request){
+        return ApiResponse.<UserResponse>builder()
+        .result(userService.createReqUser(request))
+        .code(200)
+        .message("create user successfully")
+        .build();
+        
     }
 
     @PostMapping("/introspect")

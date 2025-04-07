@@ -75,7 +75,6 @@ public class User {
     // Relationship
     @Column(nullable = false)
     @NotNull(message = "Role cannot be null")
-
     // Relationship with Role Many to Many - User can have multiple roles
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
@@ -101,7 +100,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Rating> ratings;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     Image image;
 
     @CreationTimestamp
