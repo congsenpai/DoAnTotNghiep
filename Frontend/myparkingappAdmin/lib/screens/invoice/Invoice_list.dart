@@ -9,6 +9,7 @@ import 'package:myparkingappadmin/bloc/invoice/event.dart';
 import 'package:myparkingappadmin/bloc/invoice/state.dart';
 import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
 
@@ -30,7 +31,6 @@ class _InvoiceListState extends State<InvoiceList> {
   List<InvoiceResponse> invoiceList = [];
   List<String> objectColumnName = [
     'InvoiceId',
-    'TotalAmount',
     'Details',
   ];
 
@@ -105,7 +105,13 @@ class _InvoiceListState extends State<InvoiceList> {
               child: CircularProgressIndicator(),
             ); // Handle other states
         },
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is InvoiceSuccessState) {
+            AppDialog.showSuccessEvent(context, state.mess);
+          } else if (state is InvoiceErrorState) {
+            AppDialog.showErrorEvent(context, state.mess);
+          }
+        },
       ),
     );
   }
@@ -133,8 +139,12 @@ class _InvoiceListState extends State<InvoiceList> {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(AppLocalizations.of(context).translate("Discount Detail")),
-        content: InvoiceDetail(object: discountInfo),
+        title: Text(AppLocalizations.of(context).translate("Invoice Detail")),
+        content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/2,
+            child: InvoiceDetail(object: discountInfo),
+          ),
         actions: <Widget>[
           TextButton(
             child: Text(AppLocalizations.of(context).translate("Close")),

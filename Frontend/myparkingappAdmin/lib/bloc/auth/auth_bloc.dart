@@ -2,7 +2,6 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 
 import '../../repository/authRepository.dart';
@@ -14,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     on<AuthenticateEvent>(_Authenticate);
     // on<ForgetPassWordEvent>(_CheckAndChangePass);
   }
-  Future<UserResponse?> _Authenticate(AuthenticateEvent event,Emitter<AuthState> emit) async{
+  void _Authenticate(AuthenticateEvent event,Emitter<AuthState> emit) async{
     try{
       AuthRepository userRepository = AuthRepository();
       ApiResult result = await userRepository.login(event.username, event.password);

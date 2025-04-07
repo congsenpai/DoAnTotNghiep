@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, prefer_final_fields, avoid_print, unused_field
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'package:myparkingappadmin/bloc/parking_slot/slot_bloc.dart';
 import 'package:myparkingappadmin/bloc/parking_slot/slot_event.dart';
@@ -107,7 +109,7 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
                                         onDetailTap: (slot) {
                                           setState(() {
                                             object = slot;
-                                            isDetail = true;
+                                            _showSlotDetail(context,slot);
                                           });
                                         },
                                       );
@@ -119,13 +121,7 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
                           ),
                         ),  
                         const SizedBox(width: 10),
-                        !isDetail ? Expanded(
-                          flex: 1,
-                          child: ParkingSlotDetail(object: object, onEdit: () { 
-                            setState(() {
-                              isDetail = false; // Chuyển về chế độ xem
-                            });
-                           },)) : SizedBox(width: 0,),
+                    
                         
                       ],
                     )
@@ -145,15 +141,16 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
           }
         }));
   }
-  }
-
-
-void _showInvoiceList(BuildContext context, ParkingSlotResponse slot){
+  void _showInvoiceList(BuildContext context, ParkingSlotResponse slot){
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        content: InvoiceList(parkingSlot: slot,),
+        content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: InvoiceList(parkingSlot: slot,),
+          ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -164,6 +161,36 @@ void _showInvoiceList(BuildContext context, ParkingSlotResponse slot){
     },
   );
 }
+void _showSlotDetail(BuildContext context, ParkingSlotResponse slot){
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SizedBox(
+            height: Get.height/1.1,
+            width: Get.width/2,
+            child:ParkingSlotDetail(object: object, onEdit: () { 
+                            setState(() {
+                              isDetail = false; // Chuyển về chế độ xem
+                            });
+            })
+            
+            
+             ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Icon(Icons.cancel, color: Colors.red,),
+          ),
+        ],
+      );
+    },
+  );
+}
+  }
+
+
+
 
 // Hàm tạo hàng dữ liệu
 class SlotGraphic extends StatelessWidget {

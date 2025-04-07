@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, file_names
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/utils.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/customer/components/owner_list.dart';
@@ -44,12 +46,20 @@ class _CustomerOwnerScreenState extends State<CustomerOwnerScreen> {
         SizedBox(height: defaultPadding),
         Column(
           children: [
-            OwnerList(),
+            Container(
+              height: Get.height * 1.1,
+              width: Get.width,
+              color: Theme.of(context).colorScheme.surface,
+              child: OwnerList()
+              ),
             SizedBox(height: defaultPadding),
-            CustomerList()
+            Container(
+              height: Get.height * 1.1,
+              width: Get.width,
+              color: Theme.of(context).colorScheme.surface,
+              child: CustomerList()
+              ),
           ],
-
-
         ),
       ]),
     ));

@@ -4,6 +4,8 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_event.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_state.dart';
@@ -35,8 +37,7 @@ class _WalletListState extends State<WalletList> {
   Set<String> objectColumnNameOfWallet = HashSet.from([
     "WalletName",
     "Type Money",
-    "Detail",
-    "TranList",
+    "Action",
   ]);
 
   List<WalletResponse> wallets = [];
@@ -188,7 +189,12 @@ class _WalletListState extends State<WalletList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: TransactionList( walletId: wallet.walletId,), // Màn hình danh sách giao dịch của ví
+          content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: TransactionList( walletId: wallet.walletId,),
+          ),
+           // Màn hình danh sách giao dịch của ví
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

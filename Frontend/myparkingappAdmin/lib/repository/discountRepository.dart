@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:myparkingappadmin/data/dto/request/owner_request/create_discount_request.dart';
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_discount_request.dart';
-import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_slot_request.dart';
 import 'package:myparkingappadmin/data/network/api_client.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 

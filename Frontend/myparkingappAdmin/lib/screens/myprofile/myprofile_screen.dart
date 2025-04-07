@@ -3,6 +3,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.dart';
@@ -36,18 +38,15 @@ class _MyprofileScreenState extends State<MyprofileScreen> {
             user: widget.user,
             onLanguageChange: widget.onLanguageChange,),
             SizedBox(height: defaultPadding),
-            Row(
-              children: [
-                SizedBox(width: defaultPadding*2),
-                Expanded(
-              flex: 1,
+            Container(
+              height: Get.height,
               child: UserDetail(
-              user: widget.user,
-            ),),
+                user: widget.user,),
+            ),
             SizedBox(width: defaultPadding*2),
-            ],
-            )
             
+            
+          
           ]
         ),
       ) 

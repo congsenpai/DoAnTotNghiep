@@ -4,65 +4,53 @@ enum TransactionType { TOP_UP, PAYMENT }
 enum TransactionStatus { COMPLETED, PENDING, FAILED }
 
 class TransactionResponse {
-  final String icon;
-  final String bankName;
-  final double amount;
-  final String typeMoney;
-  final TransactionType type;
-  final DateTime date;
-  final String transactionId;
-  final String walletId;
-  final String description;
-  final TransactionStatus status; // ✅ Thêm trường status
+  String transactionId;
+  double currentBalance;
+  String description;
+  TransactionType type;
+  TransactionStatus status;
+  String walletId;
+  DateTime createAt;
 
   TransactionResponse({
-    required this.walletId,
     required this.transactionId,
-    required this.icon,
-    required this.bankName,
-    required this.date,
-    required this.amount,
-    required this.type,
-    required this.typeMoney,
+    required this.currentBalance,
     required this.description,
-    required this.status, // ✅ Thêm vào constructor
+    required this.type,
+    required this.status,
+    required this.walletId,
+    required this.createAt,
   });
 
   /// **Chuyển từ JSON sang `TransactionResponse` object**
   factory TransactionResponse.fromJson(Map<String, dynamic> json) {
     return TransactionResponse(
-      walletId: json["walletId"] ?? '',
       transactionId: json["transactionId"] ?? '',
-      icon: json["icon"] ?? '',
-      bankName: json["bankName"] ?? '',
-      date: DateTime.tryParse(json["date"] ?? '') ?? DateTime.now(),
-      amount: (json["amount"] ?? 0.0).toDouble(),
-      type: _parseTransactionType(json["type"]),
-      typeMoney: json["typeMoney"] ?? '',
+      currentBalance: (json["currentBalance"] ?? 0.0).toDouble(),
       description: json["description"] ?? '',
-      status: _parseTransactionStatus(json["createdAt"]), // ✅ Thêm status
+      type: _parseTransactionType(json["type"]),
+      status: _parseTransactionStatus(json["status"]), // Fixed status mapping
+      walletId: json["walletId"] ?? '',
+      createAt: DateTime.tryParse(json["createAt"] ?? '') ?? DateTime.now(), // Corrected field name
     );
   }
 
   /// **Chuyển từ `TransactionResponse` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
-      "walletId": walletId,
       "transactionId": transactionId,
-      "icon": icon,
-      "bankName": bankName,
-      "date": date.toIso8601String(),
-      "amount": amount,
-      "type": type.name, // ✅ Chuyển enum thành string
-      "typeMoney": typeMoney,
+      "currentBalance": currentBalance,
       "description": description,
+      "type": type.name, // ✅ Chuyển enum thành string
       "status": status.name, // ✅ Thêm status
+      "walletId": walletId,
+      "createAt": createAt.toIso8601String(),
     };
   }
 
   @override
   String toString() {
-    return "Transaction(transactionId: $transactionId, amount: $amount, type: $type, status: $status)";
+    return "Transaction(transactionId: $transactionId, amount: $currentBalance, type: $type, status: $status)";
   }
 
   /// **Chuyển `String` thành `TransactionType`**

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
@@ -45,6 +47,7 @@ class _UserDetailState extends State<UserDetail> {
     _initializeFields();
   }
 
+
   void _initializeFields() {
     _userNameController = TextEditingController(text: widget.user.username);
     _lastnameController = TextEditingController(text: widget.user.lastName);
@@ -57,6 +60,13 @@ class _UserDetailState extends State<UserDetail> {
     _roleController = TextEditingController(text: widget.user.roles.join(", "));
     _statusController = TextEditingController(text: widget.user.status.name);
   }
+  @override
+void didUpdateWidget(covariant UserDetail oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  if (widget.user != oldWidget.user) {
+    _initializeFields(); // cập nhật lại controller khi user thay đổi
+  }
+}
 
   Future<void> _pickImage(bool isEdit) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);

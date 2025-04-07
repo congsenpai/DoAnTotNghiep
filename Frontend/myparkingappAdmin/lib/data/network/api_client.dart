@@ -5,7 +5,6 @@ import 'package:myparkingappadmin/data/dto/request/owner_request/update_discount
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_lot_request.dart';
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_slot_request.dart';
 import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
-import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'dio_client.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_event.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_state.dart';
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
+import 'package:myparkingappadmin/demodata.dart';
 import 'package:myparkingappadmin/repository/userRepository.dart';
 
 class  CustomerBloc extends Bloc< UserEvent, UserState>{
@@ -16,31 +16,44 @@ class  CustomerBloc extends Bloc< UserEvent, UserState>{
    }
   void _loadedCustomerScreen(LoadedCustomerScreenEvent event, Emitter<UserState> emit)async{
      emit(CustomerLoadingState());
-     UserRepository userRepository = UserRepository();
-     try{
-      ApiResult apiResult = await userRepository.getAllCustomerUser(event.searchCustomer);
-      if(apiResult.code == 200){
-        List<UserResponse> customerList = apiResult.result;
-        emit(CustomerLoadedState(customerList));
-      }else{
-        emit(CustomerErrorState(apiResult.message));
-     }}catch(e){
-       emit(CustomerErrorState(e.toString()));
-     }
+    //  UserRepository userRepository = UserRepository();
+    //  try{
+    //   ApiResult apiResult = await userRepository.getAllCustomerUser(event.searchCustomer);
+    //   if(apiResult.code == 200){
+    //     List<UserResponse> customerList = apiResult.result;
+    //     emit(CustomerLoadedState(customerList));
+    //   }else{
+    //     emit(CustomerErrorState(apiResult.message));
+    //  }}catch(e){
+    //    emit(CustomerErrorState(e.toString()));
+    //  }
+
+     emit(CustomerLoadedState(
+      users.where(
+        (i)=>
+        i.lastName.toLowerCase().contains(event.searchCustomer.toLowerCase())
+        || i.firstName.toLowerCase().contains(event.searchCustomer.toLowerCase())
+        ).toList()));
    }
 
   void _loadedOwnerScreen(LoadedOwnerScreenEvent event, Emitter<UserState> emit)async{
      emit(CustomerLoadingState());
-     UserRepository userRepository = UserRepository();
-     try{
-      ApiResult apiResult = await userRepository.getAllOwnerUser(event.searchOwner);
-      if( apiResult.code == 200){
-        List<UserResponse> ownerList = apiResult.result;
-        emit(CustomerLoadedState(ownerList));
-      }else{
-        emit(OwnerErrorState(apiResult.message));
-     }}catch(e){
-       emit(OwnerErrorState(e.toString()));
+    //  UserRepository userRepository = UserRepository();
+    //  try{
+    //   ApiResult apiResult = await userRepository.getAllOwnerUser(event.searchOwner);
+    //   if( apiResult.code == 200){
+    //     List<UserResponse> ownerList = apiResult.result;
+    //     emit(CustomerLoadedState(ownerList));
+    //   }else{
+    //     emit(OwnerErrorState(apiResult.message));
+    //  }}catch(e){
+    //    emit(OwnerErrorState(e.toString()));
+    emit(CustomerLoadedState(
+      owners.where(
+        (i)=>
+        i.lastName.toLowerCase().contains(event.searchOwner.toLowerCase())
+        || i.firstName.toLowerCase().contains(event.searchOwner.toLowerCase())
+        ).toList()));
      }
    }
 
@@ -85,4 +98,3 @@ class  CustomerBloc extends Bloc< UserEvent, UserState>{
        emit(UserErrorState(e.toString()));
      }
    }
-}

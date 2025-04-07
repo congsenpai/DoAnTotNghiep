@@ -57,14 +57,17 @@ class _AddDiscountState extends State<AddDiscount> {
         ),
         child: Column(
           children: [
+            SizedBox(height: defaultPadding),
             TextFieldCustom(
                 editController: _discountCodeController,
                 title: "Discount code",
                 isEdit: true),
+            SizedBox(height: defaultPadding),
             TextFieldCustom(
                 editController: _discountValueController,
                 title: "Discount Value",
                 isEdit: true),
+            SizedBox(height: defaultPadding),
             TextFieldCustom2(
               title: 'Discount type',
               isEdit: true,
@@ -78,6 +81,7 @@ class _AddDiscountState extends State<AddDiscount> {
                 });
               },
             ),
+            SizedBox(height: defaultPadding),
             Expanded(
               child: TextFieldCustom(
                 editController: _descriptionController,

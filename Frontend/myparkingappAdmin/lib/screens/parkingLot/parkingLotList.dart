@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
 import 'package:myparkingappadmin/bloc/parking_lot/lot_event.dart';
 import 'package:myparkingappadmin/bloc/parking_lot/lot_state.dart';
@@ -209,9 +211,13 @@ class _ParkingLotListState extends State<ParkingLotList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: DiscountList(
-            parkingLot: lot,
-          ), // Thay thế bằng widget chi tiết hợp đồng của bạn
+          content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: DiscountList(
+              parkingLot: lot,
+            ),
+          ),// Thay thế bằng widget chi tiết hợp đồng của bạn
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -231,7 +237,12 @@ class _ParkingLotListState extends State<ParkingLotList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: ParkingSlotList(parkingLot: lot), // Thay thế bằng widget chi tiết hợp đồng của bạn
+          content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: ParkingSlotList(parkingLot: lot),
+          ),
+ // Thay thế bằng widget chi tiết hợp đồng của bạn
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

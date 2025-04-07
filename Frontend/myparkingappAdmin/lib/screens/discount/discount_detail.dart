@@ -13,10 +13,11 @@ import '../../../constants.dart';
 
 class DiscountDetail extends StatefulWidget {
   final DiscountResponse object;
+  final VoidCallback onEdit;
 
   const DiscountDetail({
     super.key,
-    required this.object,
+    required this.object, required this.onEdit,
   });
 
   @override
@@ -63,6 +64,11 @@ class _DiscountDetailState extends State<DiscountDetail> {
         title: Text(
             "${widget.object.discountCode} / ${AppLocalizations.of(context).translate("Discount Detail")}"),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: widget.onEdit,
+          ),
+
           isEdit
               ? IconButton(
                   icon: Icon(Icons.save),
@@ -96,10 +102,12 @@ class _DiscountDetailState extends State<DiscountDetail> {
         ),
         child: Column(
           children: [
+            SizedBox(height: defaultPadding),
             TextFieldCustom(
                 editController: _discountCodeController,
                 title: "Discount code",
                 isEdit: isEdit),
+            SizedBox(height: defaultPadding),
             TextFieldCustom2(
               title: 'Discount type',
               isEdit: isEdit,
@@ -113,10 +121,12 @@ class _DiscountDetailState extends State<DiscountDetail> {
                 });
               },
             ),
+            SizedBox(height: defaultPadding),
             TextFieldCustom(
                 editController: _discountValueController,
                 title: "Discount value",
                 isEdit: isEdit),
+            SizedBox(height: defaultPadding),   
             Expanded(
               child: TextFieldCustom(
                   editController: _descriptionController,

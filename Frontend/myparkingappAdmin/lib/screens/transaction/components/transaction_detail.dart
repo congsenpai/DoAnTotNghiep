@@ -11,7 +11,6 @@ class TransactionDetail extends StatefulWidget {
   final TransactionResponse object;
   final VoidCallback onEdit;
 
-
   const TransactionDetail({
     super.key,
     required this.object,
@@ -23,44 +22,56 @@ class TransactionDetail extends StatefulWidget {
 }
 
 class _TransactionDetailState extends State<TransactionDetail> {
-  late final TextEditingController iconController;
-  late final TextEditingController bankNameController;
-  late final TextEditingController amountController;
-  late final TextEditingController typeMoneyController;
-  late final TextEditingController typeController;
-  late final TextEditingController dateController;
   late final TextEditingController transactionIdController;
-  late final TextEditingController walletIdController;
+  late final TextEditingController currentBalanceController;
   late final TextEditingController descriptionController;
+  late final TextEditingController typeController;
   late final TextEditingController statusController;
+  late final TextEditingController walletIdController;
+  late final TextEditingController dateController;
 
   @override
-  void initState() {
-    super.initState();
-    iconController = TextEditingController(text: widget.object.icon);
-    bankNameController = TextEditingController(text: widget.object.bankName);
-    amountController = TextEditingController(text: widget.object.amount.toString());
-    typeMoneyController = TextEditingController(text: widget.object.typeMoney);
-    typeController = TextEditingController(text: widget.object.type.toString().split('.').last); // Enum to String
-    dateController = TextEditingController(text: widget.object.date.toString());
-    transactionIdController = TextEditingController(text: widget.object.transactionId);
-    walletIdController = TextEditingController(text: widget.object.walletId);
-    descriptionController = TextEditingController(text: widget.object.description);
-    statusController = TextEditingController(text: widget.object.status.toString().split('.').last); // Enum to String
+  @override
+void initState() {
+  super.initState();
+  transactionIdController = TextEditingController();
+  currentBalanceController = TextEditingController();
+  descriptionController = TextEditingController();
+  typeController = TextEditingController();
+  statusController = TextEditingController();
+  walletIdController = TextEditingController();
+  dateController = TextEditingController();
+
+  _initializeFields();
+}
+
+void _initializeFields() {
+  transactionIdController.text = widget.object.transactionId;
+  currentBalanceController.text = widget.object.currentBalance.toString();
+  descriptionController.text = widget.object.description;
+  typeController.text = widget.object.type.toString().split('.').last;
+  statusController.text = widget.object.status.toString().split('.').last;
+  walletIdController.text = widget.object.walletId;
+  dateController.text = widget.object.createAt.toString();
+}
+
+  @override
+void didUpdateWidget(covariant TransactionDetail  oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  if (widget.object != oldWidget.object) {
+    _initializeFields(); // cập nhật lại controller khi user thay đổi
   }
+}
 
   @override
   void dispose() {
-    iconController.dispose();
-    bankNameController.dispose();
-    amountController.dispose();
-    typeMoneyController.dispose();
-    typeController.dispose();
-    dateController.dispose();
     transactionIdController.dispose();
-    walletIdController.dispose();
+    currentBalanceController.dispose();
     descriptionController.dispose();
+    typeController.dispose();
     statusController.dispose();
+    walletIdController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -71,7 +82,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
         title: Text("${widget.object.transactionId} / ${AppLocalizations.of(context).translate("Transaction Detail")}"),
         actions: [
           IconButton(
-            icon: const Icon(Icons.cancel,color: Colors.red,),
+            icon: const Icon(Icons.cancel, color: Colors.red),
             onPressed: () {
               widget.onEdit(); // Call the callback to close the detail view
               // Refresh action can be added here if needed
@@ -91,50 +102,14 @@ class _TransactionDetailState extends State<TransactionDetail> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFieldCustom(
-                editController: iconController,
-                title: "Icon",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: bankNameController,
-                title: "Bank Name",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: amountController,
-                title: "Amount",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: typeMoneyController,
-                title: "Type of Money",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: typeController,
-                title: "Transaction Type",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: dateController,
-                title: "Date",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
                 editController: transactionIdController,
                 title: "Transaction ID",
                 isEdit: false,
               ),
               SizedBox(height: defaultPadding),
               TextFieldCustom(
-                editController: walletIdController,
-                title: "Wallet ID",
+                editController: currentBalanceController,
+                title: "Current Balance",
                 isEdit: false,
               ),
               SizedBox(height: defaultPadding),
@@ -145,8 +120,26 @@ class _TransactionDetailState extends State<TransactionDetail> {
               ),
               SizedBox(height: defaultPadding),
               TextFieldCustom(
+                editController: typeController,
+                title: "Transaction Type",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
                 editController: statusController,
                 title: "Transaction Status",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: walletIdController,
+                title: "Wallet ID",
+                isEdit: false,
+              ),
+              SizedBox(height: defaultPadding),
+              TextFieldCustom(
+                editController: dateController,
+                title: "Date",
                 isEdit: false,
               ),
               SizedBox(height: defaultPadding),

@@ -7,6 +7,8 @@ import 'package:myparkingappadmin/bloc/discount/discount_event.dart';
 import 'package:myparkingappadmin/bloc/discount/discount_state.dart';
 import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+import 'package:myparkingappadmin/screens/discount/add_discount.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
 
@@ -56,6 +58,23 @@ class _DiscountListState extends State<DiscountList> {
       appBar: AppBar(
         title: Text(
             "${widget.parkingLot.parkingLotName} / ${AppLocalizations.of(context).translate("Discount List")}"),
+            actions: [IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              context.read<DiscountBloc>().add(
+                    DiscountLoadingScreenEvent(
+                      widget.parkingLot.parkingLotId,
+                    ),
+                  );
+            },
+            
+          ),
+          IconButton(
+              icon: Icon(Icons.add, color: Colors.purple),
+              onPressed: () => {
+                    _showAddDialog(context),
+                  }),
+          ],
       ),
       body: BlocConsumer<DiscountBloc, DiscountState>(
         builder: (context, state) {
@@ -121,7 +140,9 @@ class _DiscountListState extends State<DiscountList> {
                     isDetail
                         ? Expanded(
                             child: DiscountDetail(
-                              object: discountResponse,
+                              object: discountResponse, onEdit: () { setState(() {
+                                isDetail = false;
+                              }); },
                             ),
                           )
                         : SizedBox(
@@ -134,7 +155,13 @@ class _DiscountListState extends State<DiscountList> {
             child: CircularProgressIndicator(),
           ); // Handle other states
         },
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is DiscountSuccessState) {
+            AppDialog.showSuccessEvent(context, state.mess);
+          } else if (state is DiscountErrorState) {
+            AppDialog.showErrorEvent(context, state.mess);
+          }
+        },
       ),
     );
   }
@@ -149,28 +176,26 @@ class _DiscountListState extends State<DiscountList> {
               onPressed: () => {
                     setState(() {
                       discountResponse = discountInfo;
+                      isDetail = true;
                     }),
-                  }),
-        ),
-        DataCell(
-          IconButton(
-              icon: Icon(Icons.add, color: Colors.purple),
-              onPressed: () => {
-                    _showAddDialog(context, discountInfo),
                   }),
         ),
       ],
     );
   }
 
-  void _showAddDialog(BuildContext context, DiscountResponse discountInfo) {
+  void _showAddDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title:
               Text(AppLocalizations.of(context).translate("Discount Detail")),
-          content: DiscountDetail(object: discountInfo),
+          content: SizedBox(
+            height: Get.height/2,
+            width: Get.width/1.2,
+            child: AddDiscount()
+          ),
           actions: <Widget>[
             TextButton(
               child: Text(AppLocalizations.of(context).translate("Close")),

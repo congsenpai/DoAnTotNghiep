@@ -42,7 +42,7 @@ class _CustomerListState extends State<CustomerList> {
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent("_"));
+    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent(""));
   }
 
   @override
@@ -190,7 +190,11 @@ class _CustomerListState extends State<CustomerList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: WalletList(customerId: user.userId,),
+          content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: WalletList(customerId: user.userId,),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

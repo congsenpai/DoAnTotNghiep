@@ -31,7 +31,7 @@ class _OwnerListState extends State<OwnerList> {
   List<UserResponse> customers = [];
   UserResponse user = UserResponse.empty();
   final HashSet<String> objectColumnNameOfCustomer =
-      HashSet.from(["FullName", "Detail", "ParkingLots"]);
+      HashSet.from(["FullName", "Actions"]);
   final TextEditingController _searchController = TextEditingController();
   @override
   void dispose() {
@@ -42,7 +42,7 @@ class _OwnerListState extends State<OwnerList> {
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent("_"));
+    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
   }
 
   @override
@@ -82,7 +82,7 @@ class _OwnerListState extends State<OwnerList> {
                       onPressed: () {
                         context
                             .read<CustomerBloc>()
-                            .add(LoadedOwnerScreenEvent("_"));
+                            .add(LoadedOwnerScreenEvent(""));
                       },
                     ),
                     IconButton(
@@ -98,17 +98,15 @@ class _OwnerListState extends State<OwnerList> {
             ],
           )),
           body: Container(
-            height: Get.height / 2,
+            height: Get.height,
             padding: EdgeInsets.all(defaultPadding),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
-            child: SingleChildScrollView(
-              child: Column(
+            child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: defaultPadding),
                   Expanded(
                     flex: 1,
                     child: Container(
@@ -157,7 +155,7 @@ class _OwnerListState extends State<OwnerList> {
                         )
                 ],
               ),
-            ),
+  
           ),
         );
       }
@@ -184,19 +182,21 @@ class _OwnerListState extends State<OwnerList> {
             children: [
               IconButton(
                   icon: const Icon(Icons.details, color: Colors.green),
-                  onPressed: () => () {
+                  onPressed: () => {
                         setState(() {
-                          user = user;
+                          this.user = user;
                           isDetail = true;
-                        });
+                          print(user.userId);
+                        })
                       }),
               IconButton(
                 icon: const Icon(Icons.content_paste_search_outlined,
                     color: Colors.blueAccent),
                 onPressed: () => {
                   setState(() {
-                    user = user;
+                    this.user = user;
                     isDetail = false;
+                    print(user.userId);
                   }),
                   _showParkingLotDialog(context, user),
                 },

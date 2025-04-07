@@ -48,21 +48,3 @@ class DiscountResponse {
         " discountCode: $discountCode, discountType: $discountType, discountValue: $discountValue, parkingLotId: $parkingLotId)";
   }
 }
-List<DiscountResponse> demoDiscounts = [
-  DiscountResponse(
-    discountId: "D001",
-    discountCode: "SAVE10",
-    discountType: DiscountType.PERCENTAGE,
-    discountValue: 10.0, // Giảm 10%
-    description: "Giảm 10% cho đơn hàng đầu tiên",
-    parkingLotId: "PL001",
-  ),
-  DiscountResponse(
-    discountId: "PL001",
-    discountCode: "FLAT50",
-    discountType: DiscountType.FIXED,
-    discountValue: 50000.0, // Giảm 50.000 VNĐ
-    description: "Giảm 50.000 VNĐ cho đơn từ 500.000 VNĐ",
-    parkingLotId: "P002",
-  ),
-];

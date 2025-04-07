@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
+import 'package:myparkingappadmin/demodata.dart';
 import 'package:myparkingappadmin/repository/userRepository.dart';
 import '../../repository/authRepository.dart';
 import 'main_app_event.dart';
@@ -17,18 +18,22 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
 
   void _getUserByUserName(initializationEvent event, Emitter<MainAppState> emit) async{
     try {
-      final UserRepository userRepository = UserRepository();
-      ApiResult userResult = await userRepository.getUserByUserName(event.userName);
-      String message = userResult.message;
-      int code = userResult.code;
-      if(code == 200){
-        emit(
-            MainAppLoadedState(userResult.result)
-        );
-      }
-      else{
-        emit(MainAppErrorState(message));
-      }
+      // final UserRepository userRepository = UserRepository();
+      // ApiResult userResult = await userRepository.getUserByUserName(event.userName);
+      // String message = userResult.message;
+      // int code = userResult.code;
+      // if(code == 200){
+      //   emit(
+      //       MainAppLoadedState(userResult.result)
+      //   );
+      // }
+      // else{
+      //   emit(MainAppErrorState(message));
+      // }
+      
+      emit(
+      MainAppLoadedState(users[0])
+      );
 
     }
     catch(e){

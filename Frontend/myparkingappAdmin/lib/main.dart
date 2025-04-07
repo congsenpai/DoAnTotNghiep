@@ -4,7 +4,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/bloc/customer/customer_bloc.dart';
+import 'package:myparkingappadmin/bloc/discount/discount_bloc.dart';
+import 'package:myparkingappadmin/bloc/invoice/bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
+import 'package:myparkingappadmin/bloc/parking_slot/slot_bloc.dart';
+import 'package:myparkingappadmin/bloc/transaction/tran_bloc.dart';
+import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +34,15 @@ void main() {
             ),
             BlocProvider(create: (context)=>AuthBloc()),
             BlocProvider(create: (context)=>MainAppBloc()),
+            BlocProvider(create: (context)=>CustomerBloc()),
+            BlocProvider(create: (context)=>ParkingLotBloc()),
+            BlocProvider(create: (context)=>ParkingSlotBloc()),
+            BlocProvider(create: (context)=>WalletBloc()),
+            BlocProvider(create: (context)=>DiscountBloc()),
+            BlocProvider(create: (context)=>InvoiceBloc()),
+            BlocProvider(create: (context)=>TransactionBloc()),
+
+            
           ]
           )
         ],

@@ -24,16 +24,11 @@ class TransactionList extends StatefulWidget {
 class _TransactionListState extends State<TransactionList> {
   bool isDetail = false;
   TransactionResponse transaction = TransactionResponse(
-    icon: '',
-    bankName: '',
-    amount: 0,
-    typeMoney: '',
     type: TransactionType.PAYMENT,
-    date: DateTime.now(),
     transactionId: '',
     walletId: '',
     description: '',
-    status: TransactionStatus.COMPLETED,
+    status: TransactionStatus.COMPLETED, currentBalance: 0, createAt: DateTime.now(), // Initialize with default values
   );
 
   Set<String> objectColumnNameOfTransaction = HashSet.from([
@@ -160,9 +155,9 @@ class _TransactionListState extends State<TransactionList> {
   DataRow _buildDataRow(TransactionResponse transaction, BuildContext context) {
     return DataRow(
       cells: [
-        DataCell(Text(transaction.transactionId)),
-        DataCell(Text(transaction.date.toString())),
-        DataCell(Text(transaction.amount.toString())),
+        DataCell(Text(transaction.status.name)),
+        DataCell(Text(transaction.currentBalance.toString())),
+        DataCell(Text(transaction.createAt.toString())),
         DataCell(Row(
           children: [
             Expanded(

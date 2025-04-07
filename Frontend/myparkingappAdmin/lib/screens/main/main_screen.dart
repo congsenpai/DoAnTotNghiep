@@ -117,7 +117,7 @@ class _MainScreenState extends State<MainScreen> {
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,
         );
-      case 4:
+      case 3:
         return MyprofileScreen(
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,
