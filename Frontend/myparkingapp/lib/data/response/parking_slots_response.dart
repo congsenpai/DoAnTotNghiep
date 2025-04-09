@@ -12,7 +12,6 @@ class ParkingSlotResponse {
   SlotStatus slotStatus;
   double pricePerHour;
   double pricePerMonth;
-  String floorName;
   String lotId; // sau bỏ
 
   ParkingSlotResponse({
@@ -23,7 +22,6 @@ class ParkingSlotResponse {
     required this.pricePerHour,
     required this.pricePerMonth,
     required this.lotId,
-    required this.floorName,
   });
 
   // Parse Slot from JSON
@@ -35,7 +33,6 @@ class ParkingSlotResponse {
     pricePerHour: (json['pricePerHour'] as num).toDouble(),
     pricePerMonth: (json['pricePerMonth'] as num).toDouble(),
     lotId: "",
-    floorName: json['floorName'],
   );
 
   @override
@@ -53,7 +50,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.RESERVED,
     pricePerHour: 5.0,
     pricePerMonth: 100.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001', 
   ),
   ParkingSlotResponse(
     slotID: 'S002',
@@ -62,7 +59,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.OCCUPIED,
     pricePerHour: 2.0,
     pricePerMonth: 50.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001', 
   ),
   ParkingSlotResponse(
     slotID: 'S003',
@@ -71,7 +68,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 1.0,
     pricePerMonth: 20.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001',
   ),
   ParkingSlotResponse(
     slotID: 'S004',
@@ -80,7 +77,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 5.0,
     pricePerMonth: 100.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001',
   ),
   ParkingSlotResponse(slotID: 'S011',
     slotName: 'Slot A1',
@@ -88,7 +85,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 5.0,
     pricePerMonth: 100.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001', 
   ),
   ParkingSlotResponse(
     slotID: 'S012',
@@ -97,7 +94,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 2.0,
     pricePerMonth: 50.0,
-    lotId: 'PL001', floorName: '1',
+    lotId: 'PL001',
   ),
   ParkingSlotResponse(
     slotID: 'S005',
@@ -106,7 +103,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 2.0,
     pricePerMonth: 50.0,
-    lotId: 'PL001', floorName: '2',
+    lotId: 'PL001',
   ),
   ParkingSlotResponse(
     slotID: 'S006',
@@ -115,7 +112,7 @@ List<ParkingSlotResponse> demoSlots = [
     slotStatus: SlotStatus.AVAILABLE,
     pricePerHour: 1.0,
     pricePerMonth: 20.0,
-    lotId: 'PL001', floorName: '2',
+    lotId: 'PL001',
   ),
 ];
 

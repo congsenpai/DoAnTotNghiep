@@ -18,6 +18,10 @@ class Items extends StatelessWidget {
     // Split demoData into 2 parts for 2 columns
     List<ParkingSlotResponse> firstColumnData = slots.where((slot)=>slot.vehicleType.name == 'CAR').toList();
     List<ParkingSlotResponse> secondColumnData = slots.where((slot)=>slot.vehicleType.name == 'MOTORCYCLE').toList();
+    int middle = (secondColumnData.length / 2).ceil();
+
+    List<ParkingSlotResponse> firstHalf = secondColumnData.sublist(0, middle);
+    List<ParkingSlotResponse> secondHalf = secondColumnData.sublist(middle);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -51,7 +55,7 @@ class Items extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/20),)),
+                            Expanded(flex: 1, child: Text(firstColumnData[index].slotName,style: TextStyle(fontSize: Get.width/20),)),
                             Expanded(flex: 2, child: Image.asset("assets/icons/icon_car.png",fit: BoxFit.cover,),)
                           ],
                         ),)
@@ -65,28 +69,28 @@ class Items extends StatelessWidget {
             flex: 4,
             child: Column(
               children: List.generate(
-                secondColumnData.length,
+                firstHalf.length,
                     (index) => Container(
                         padding: EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
                         height: Get.width / 6, width: Get.width/4,// Tăng chiều cao để chứa đầy đủ nội dung
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(secondColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
-                            secondColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
+                            backgroundColor: WidgetStateProperty.all(firstHalf[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
+                            firstHalf[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
                           ),
                           onPressed:(){
-                            secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
+                            firstHalf[index].slotStatus == SlotStatus.AVAILABLE
                                 ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], user: user),
+                                builder: (context) => BookingScreen(lot: lot, slot: firstHalf[index], user: user),
                               ),
                             ):AppDialog.showErrorEvent(context, "This Slot was not available");
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/40),)),
+                              Expanded(flex: 1, child: Text(firstHalf[index].slotName,style: TextStyle(fontSize: Get.width/40),)),
                               Expanded(flex: 2, child: Image.asset("assets/icons/icon_moto.png",fit: BoxFit.cover,),)
                             ],
                           ),)
@@ -98,28 +102,28 @@ class Items extends StatelessWidget {
             flex: 4,
             child: Column(
               children: List.generate(
-                secondColumnData.length,
+                secondHalf.length,
                     (index) => Container(
                     padding: EdgeInsets.only(left: 0, right: 8, top: 8, bottom: 8),
                     height: Get.width / 6, width: Get.width/4,// Tăng chiều cao để chứa đầy đủ nội dung
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(secondColumnData[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
-                        secondColumnData[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
+                        backgroundColor: WidgetStateProperty.all(secondHalf[index].slotStatus == SlotStatus.AVAILABLE ? Colors.green[300] :
+                        secondHalf[index].slotStatus == SlotStatus.RESERVED ? Colors.amber : Colors.red),
                       ),
                       onPressed:(){
-                        secondColumnData[index].slotStatus == SlotStatus.AVAILABLE
+                        secondHalf[index].slotStatus == SlotStatus.AVAILABLE
                             ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BookingScreen(lot: lot, slot: secondColumnData[index], user: user),
+                            builder: (context) => BookingScreen(lot: lot, slot: secondHalf[index], user: user),
                           ),
                         ):AppDialog.showErrorEvent(context, "This Slot was not available");
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(flex: 1, child: Text("A1",style: TextStyle(fontSize: Get.width/40),)),
+                          Expanded(flex: 1, child: Text(secondHalf[index].slotName,style: TextStyle(fontSize: Get.width/40),)),
                           Expanded(flex: 2, child: Image.asset("assets/icons/icon_moto.png",fit: BoxFit.cover,),)
                         ],
                       ),)

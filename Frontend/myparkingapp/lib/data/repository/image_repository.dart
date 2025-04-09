@@ -22,7 +22,6 @@ class ImageRepository {
       //     cloudName: cloudName,
       //   );
       //   return (cloudinary);
-
         
       // } else {
       //   throw Exception("Imagerepository_getApiCloud :");

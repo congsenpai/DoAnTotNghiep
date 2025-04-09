@@ -75,21 +75,6 @@
         "There is no matching information": "There is no matching information",
 
 
-"6":"Card",
-
-        "balance":"Balance",
-        "bankName":"Bank Name",
-        "DebitCard":"DebitCard",
-        "CreditCard":"CreditCard",
-        "PrepaidCard":"PrepaidCard",
-        "CardDetail":"Card Detail",
-        "CardId":"Card ID",
-        "limit": "Limit",
-        "TypeCard":"Type Card",
-        "cardList":"Cards List",
-        "Pick Date":"Pick Date",
-
-
 "7":"Transaction",
         "budget":"Budget",
         "typeMoney":"Type Money",
@@ -115,4 +100,6 @@
         "updatedDate":"Updated Date",
 "9":"ParkingSpot",
         "ParkingSpot": "ParkingSpot"
+
+          
 }

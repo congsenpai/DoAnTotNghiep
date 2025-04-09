@@ -81,7 +81,6 @@ class _MyAppState extends State<MyApp> {
     avatar: Images("", null, null),
     email: 'john.doe@example.com',
     roles: [], status: UserStatus.ACTIVE,
-    
   );
   @override
   Widget build(BuildContext context) {

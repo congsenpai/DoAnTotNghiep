@@ -31,15 +31,15 @@ class InforOfParkingLot extends StatelessWidget {
         children: [
           Container(
                 padding: EdgeInsets.all(2),
-                height: 40,
-                width: 40,
+                height: 60,
+                width: 120,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondary,
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   
                 ),
                 child: Image.network(
-                  info.images[0].url!,
+                  info.images.isEmpty ? "https://i.redd.it/4u7d077sznld1.png" : info.images[0].url!,
                   fit: BoxFit.cover,)
                 ),
               

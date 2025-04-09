@@ -75,18 +75,6 @@
         "Finding...":"Tìm kiếm...",
         "There is no matching information": "Không có bất cứ thông tin trùng khớp",
         
-"6":"Card",
-        "balance":"Số dư",
-        "bankName":"Tên ngân hàng",
-        "DebitCard":"Thẻ ghi nợ",
-        "CreditCard":"Thẻ tín dụng",
-        "PrepaidCard":"Thẻ trả trước",
-        "CardDetail":"Chi tiết thẻ",
-        "CardId":"Mã số thẻ",
-        "limit": "Hạn mức",
-        "TypeCard":"Loại thẻ",
-        "cardList":"Danh sách thẻ",
-        "Pick Date":"Chọn ngày",
 
 "7":"Transaction",
         "budget":"Số tiền",

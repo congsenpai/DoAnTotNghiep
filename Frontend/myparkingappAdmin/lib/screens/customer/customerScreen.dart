@@ -43,18 +43,18 @@ class _CustomerOwnerScreenState extends State<CustomerOwnerScreen> {
             title: AppLocalizations.of(context).translate("Customer"),
             user: widget.user,
             onLanguageChange: widget.onLanguageChange),
-        SizedBox(height: defaultPadding),
+        SizedBox(height: 10),
         Column(
           children: [
             Container(
-              height: Get.height * 1.1,
+              height: Get.height,
               width: Get.width,
               color: Theme.of(context).colorScheme.surface,
               child: OwnerList()
               ),
             SizedBox(height: defaultPadding),
             Container(
-              height: Get.height * 1.1,
+              height: Get.height,
               width: Get.width,
               color: Theme.of(context).colorScheme.surface,
               child: CustomerList()

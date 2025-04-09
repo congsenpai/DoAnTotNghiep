@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
 
@@ -117,7 +116,7 @@ class _InvoiceBarChartWidgetState extends State<InvoiceBarChartWidget> {
         ),
         SizedBox(width: 20,),
         SizedBox(
-          height: Get.height/2,
+          height: Get.height*0.3,
           child: BarChart(
                   BarChartData(
                     barTouchData: BarTouchData(

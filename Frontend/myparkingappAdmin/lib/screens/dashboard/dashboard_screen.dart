@@ -35,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Header(title: AppLocalizations.of(context).translate("Dashboard"),user: widget.user, onLanguageChange: widget.onLanguageChange),
             SizedBox(height: defaultPadding),
             Container(
-              height: Get.height,
+              height: Get.height*1.1,
               width: Get.width,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,

@@ -83,8 +83,8 @@ class _TransactionBarChartWidgetState extends State<TransactionBarChartWidget> {
                   );
                   if (picked != null) setState(() => start = picked);
                 },
-                icon: const Icon(Icons.calendar_today),
-                label: Text("From: ${start.day}/${start.month}"),
+                icon: const Icon(Icons.calendar_today, color: Colors.white,),
+                label: Text("From: ${start.day}/${start.month}, " ,style: TextStyle(color: Colors.white),),
               ),
               TextButton.icon(
                 onPressed: () async {
@@ -96,8 +96,8 @@ class _TransactionBarChartWidgetState extends State<TransactionBarChartWidget> {
                   );
                   if (picked != null) setState(() => end = picked);
                 },
-                icon: const Icon(Icons.calendar_today),
-                label: Text("to: ${end.day}/${end.month}"),
+                icon: const Icon(Icons.calendar_today, color: Colors.white,),
+                label: Text("to: ${end.day}/${end.month}",style: TextStyle(color: Colors.white),),
               ),
               const SizedBox(width: 10),
               DropdownButton<TransactionType>(
@@ -114,7 +114,7 @@ class _TransactionBarChartWidgetState extends State<TransactionBarChartWidget> {
           ),
         ),
         SizedBox(
-          height: Get.height / 2,
+          height: Get.height*0.3,
           child: BarChart(
                   BarChartData(
                     barTouchData: BarTouchData(

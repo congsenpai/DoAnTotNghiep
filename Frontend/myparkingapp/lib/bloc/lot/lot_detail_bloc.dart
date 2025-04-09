@@ -14,10 +14,12 @@ class LotDetailBloc extends Bloc<LotDetailEvent,LotDetailState>{
 
   Future<List<DataOnFloor>> loadDataOnFloor() async{
     List<ParkingSlotResponse> slots = demoSlots;
-      Set<String> floorNames = slots.map((i)=>i.floorName).toSet();
+    Set<String> floorNames = demoSlots
+        .map((slot) => slot.slotName.split('-').first)
+        .toSet();
       List<DataOnFloor> datas = [];
       for(var name in floorNames){
-        List<ParkingSlotResponse> slot = slots.where((i)=>i.floorName == name).toList();
+        List<ParkingSlotResponse> slot = slots.where((i)=>i.slotName.contains(name)).toList();
         DataOnFloor dataOnFloor = DataOnFloor(name, slot, floorNames.toList());
         datas.add(dataOnFloor);
       }
