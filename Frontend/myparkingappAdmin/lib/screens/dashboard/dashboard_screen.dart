@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/dashboard/components/graphic.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 
 
 
@@ -23,10 +24,20 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  void _showCamera(){
+    AppDialog.camera(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed:_showCamera, icon: Icon(Icons.camera_alt_outlined, color: Colors.redAccent,))
+        ],
+
+      ),
+      body: SafeArea(
       child: SingleChildScrollView(
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
@@ -46,6 +57,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ),
+    )
     );
   }
+  
 }

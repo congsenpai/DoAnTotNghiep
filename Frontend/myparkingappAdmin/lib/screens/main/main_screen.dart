@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, avoid_print
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_event.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_state.dart';
@@ -109,6 +110,18 @@ class _MainScreenState extends State<MainScreen> {
                 context.read<MainAppBloc>()
                 .add(initializationEvent(widget.userName));
           },);
+        }
+        else if(state is ErrorQrScanner){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context).translate(state.mess)),
+            ),
+          );
+        }
+        else if(state is SuccessQrScanner){
+          SnackBar(
+              content: Text(AppLocalizations.of(context).translate(state.mess)),
+          );
         }
       })
     );

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
+import 'package:myparkingappadmin/screens/qr_scan.dart';
 
 class AppDialog {
   /// Hàm hiển thị dialog với nội dung truyền vào
@@ -81,6 +82,20 @@ class AppDialog {
           height: Get.height/1.5,
           width: Get.width/1.5,
           child: Image.network(image.url!,fit: BoxFit.contain,),
+          
+          )
+        )
+        
+    );
+  }
+      static void camera(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: SizedBox(
+          height: Get.height/1.5,
+          width: Get.width/1.5,
+          child: QRScannerPage()
           
           )
         )

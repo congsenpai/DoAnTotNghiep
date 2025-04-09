@@ -146,12 +146,6 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "flutter_dotenv",
-      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-5.0.0",
       "packageUri": "lib/",
@@ -366,6 +360,12 @@
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "mobile_scanner",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mobile_scanner-6.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "nested",
@@ -602,10 +602,10 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-04-08T04:28:39.298062Z",
+  "generated": "2025-04-09T14:03:04.236707Z",
   "generator": "pub",
-  "generatorVersion": "3.7.0",
+  "generatorVersion": "3.7.2",
   "flutterRoot": "file:///D:/android_Studio_setting/flutter_windows_3.29.1-stable/flutter",
-  "flutterVersion": "3.29.1",
+  "flutterVersion": "3.29.2",
   "pubCache": "file:///C:/Users/hagia/AppData/Local/Pub/Cache"
 }

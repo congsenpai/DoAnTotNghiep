@@ -15,6 +15,12 @@ class UpdatesUserInforEvent extends MainAppEvent{
   UpdatesUserInforEvent(this.userId,this.request);
 }
 
+class ScannerEvent extends MainAppEvent{
+  String qrString;
+  ScannerEvent(this.qrString);
+}
+
+
 class UpdatesPassEvent extends MainAppEvent{
   String userId;
   String oldderPass;

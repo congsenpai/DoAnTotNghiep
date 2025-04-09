@@ -2,10 +2,12 @@
 
 import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingappadmin/data/dto/request/entry_request.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 import 'package:myparkingappadmin/demodata.dart';
 import 'package:myparkingappadmin/repository/imageRepository.dart';
+import 'package:myparkingappadmin/repository/qr_repository.dart';
 import 'package:myparkingappadmin/repository/userRepository.dart';
 import '../../repository/authRepository.dart';
 import 'main_app_event.dart';
@@ -92,6 +94,21 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
       }
     } catch (e) {
       print("_updatesPass $e");
+    }
+  }
+  void _scannerQr(ScannerEvent event, Emitter<MainAppState> emit) async {
+    try {
+      QrRepository qrs = QrRepository();
+      EntryRequest request = EntryRequest(event.qrString);
+      ApiResult qr = await qrs.giveQrIntoCode(request);
+      if(qr.code == 200){
+        SuccessQrScanner("WELCOME");
+      }
+      else{
+        ErrorQrScanner("SORRY, YOUR QR MAY BE EXPIRED");
+      }
+    } catch (e) {
+      print("_updatedUserInfo $e");
     }
   }
 

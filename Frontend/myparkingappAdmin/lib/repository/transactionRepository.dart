@@ -16,7 +16,7 @@ class TransactionRepository {
       String mess = response.data["mess"];
       if(response.statusCode == 200){
         ApiResult apiResult = ApiResult(
-           code, mess, null
+           code, mess, response.data["result"]
         );
         return apiResult;
       }
@@ -40,7 +40,7 @@ class TransactionRepository {
       String mess = response.data["mess"];
       if(response.statusCode == 200){
         ApiResult apiResult = ApiResult(
-           code, mess, null
+           code, mess, response.data["result"]
         );
         return apiResult;
       }

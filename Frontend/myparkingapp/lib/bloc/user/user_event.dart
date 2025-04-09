@@ -11,8 +11,8 @@ class UpdateUserInfo extends UserEvent{
 }
 
 class LoadUserDataEvent extends UserEvent{
-  String userId;
-  LoadUserDataEvent(this.userId);
+  UserResponse user;
+  LoadUserDataEvent(this.user);
 }
 
 class ChangePassword extends UserEvent{

@@ -21,10 +21,10 @@ class UserBloc extends Bloc<UserEvent,UserState>{
 
   void _loadStateInitial(LoadUserDataEvent event, Emitter<UserState> emit) async{
     try{
-      UserRepository userRepository = UserRepository();
-      ApiResult userAPI = await userRepository.getUserById(event.userId);
-      UserResponse user =  userAPI.result;
-      emit(UserLoadedState(user.vehicles,user));
+      // UserRepository userRepository = UserRepository();
+      // ApiResult userAPI = await userRepository.getUserById(event.user.userID);
+      // UserResponse user =  userAPI.result;
+      emit(UserLoadedState(event.user.vehicles,event.user));
     }
     catch(e){
       throw Exception("UserBloc_updateUser : $e");

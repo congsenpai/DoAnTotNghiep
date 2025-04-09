@@ -24,7 +24,7 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   image_picker_web: ^4.0.0
   cloudinary: ^1.2.0
-  flutter_dotenv: ^5.2.1
+  mobile_scanner: ^6.0.7
 
 
 dev_dependencies:

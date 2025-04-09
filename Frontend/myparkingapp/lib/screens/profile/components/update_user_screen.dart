@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
@@ -16,7 +15,6 @@ import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
-import 'package:myparkingapp/screens/profile/profile_screen.dart';
 
 
 class EditProfileScreen extends StatefulWidget {
@@ -56,7 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _startInit(){
-    context.read<UserBloc>().add(LoadUserDataEvent(user.userID));
+    context.read<UserBloc>().add(LoadUserDataEvent(user));
     usernameController = TextEditingController(text: user.username);
     firstNameController = TextEditingController(text: user.firstName);
     lastNameController = TextEditingController(text: user.lastName);
@@ -74,17 +72,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _pickImage() async {
-    final bytes = await ImagePickerWeb.getImageAsBytes();
-    if (bytes != null) {
-      setState(() {
-        _imageBytes = bytes;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Không có ảnh nào được chọn")),
-      );
-    }
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+  if (image != null) {
+    final bytes = await image.readAsBytes();
+    setState(() {
+      _imageBytes = bytes;
+    });
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Không có ảnh nào được chọn")),
+    );
   }
+}
 
   void _showVehicleEditOrAdd(BuildContext context, VehicleResponse? vehicle) {
     VehicleType? selectedVehicleType = vehicle?.vehicleType ?? VehicleType.MOTORCYCLE;
@@ -155,6 +156,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: BlocConsumer<UserBloc, UserState>(
         builder: (context, state) {
+          if(state is UserLoadingState){
+            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent, size: 18));
+          }
           if (state is UserLoadedState) {
             vehicles = state.vehicles;
             user = state.user;

@@ -6,6 +6,7 @@ import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_slot_request.dart';
 import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import '../dto/request/entry_request.dart';
 import 'dio_client.dart';
 
 class ApiClient {
@@ -30,11 +31,8 @@ class ApiClient {
     );
   }
 
-  Future<Response> giveEmail(
-    String gmail,
-    ) async {
+  Future<Response> giveEmail(String gmail) async {
       final DioClient dioClient = DioClient();
-
       return await dioClient.dio.post(
         "auth/giveEmail",
         data: {
@@ -269,10 +267,25 @@ class ApiClient {
     return await dioClient.dio.get(url);
   }
   //--------------------------Image------------------------------------//
-  Future<Response> getApiClound() async{
+  Future<Response> getApiCloud() async{
     final DioClient dioClient = DioClient();
     // Tạo URL động tùy theo tham số truyền vào
     String url = "getAPICLoundinary";
     return await dioClient.dio.get(url);
+  }
+
+  Future<Response> giveQrIntoCode(EntryRequest request) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "entry",
+      data: {"request": request},
+    );
+  }
+  Future<Response> giveQrOutCode(EntryRequest request) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "leave",
+      data: {"request": request},
+    );
   }
 }

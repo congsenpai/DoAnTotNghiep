@@ -22,9 +22,8 @@ class DioClient {
         }
         handler.next(options);
       },
-
       onError: (DioException err, ErrorInterceptorHandler handler) async {
-        if (err.response?.statusCode == 401) {
+        if (err.response?.data["code"]==1010) {
           print("Token expired, refreshing...");
           await authRepository.refreshAccessToken();
           String? newToken = await authRepository.getAccessToken();
@@ -49,6 +48,7 @@ class DioClient {
         }
         handler.next(err);
       },
-    ));
+    )
+    );
   }
 }

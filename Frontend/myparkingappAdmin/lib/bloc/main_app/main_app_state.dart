@@ -21,6 +21,17 @@ class MainAppErrorState extends MainAppState{
   MainAppErrorState(this.mess);
 }
 
+class ErrorQrScanner extends MainAppState{
+  final String mess;
+  ErrorQrScanner(this.mess);
+  
+}
+class SuccessQrScanner extends MainAppState{
+  final String mess;
+  SuccessQrScanner (this.mess);
+  
+}
+
 class MainAppLoadedState extends MainAppState{
   final UserResponse userResponse;
   MainAppLoadedState(this.userResponse);
