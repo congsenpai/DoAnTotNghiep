@@ -1,5 +1,5 @@
 package com.smartparking.smartbrain.config;
-import java.util.List;
+import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
@@ -28,14 +29,18 @@ public class SecurityConfig {
     private CustomJwtDecoder customJwtDecoder;
 
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-        .authorizeHttpRequests(request ->
-        request.requestMatchers(HttpMethod.POST, "/myparkingapp/users").permitAll().
-        requestMatchers(HttpMethod.POST, PostList_public).permitAll()
+        .authorizeHttpRequests(request ->request
+        .requestMatchers(HttpMethod.POST, "/myparkingapp/users").permitAll()
+        .requestMatchers(HttpMethod.POST, PostList_public).permitAll()
+        .requestMatchers(
+                    "/v3/api-docs/**", // Tài liệu OpenAPI JSON
+                    "/swagger-ui/**",   // Trang Swagger UI
+                    "/swagger-ui.html"  // Trang Swagger chính
+                ).permitAll()
         .anyRequest().authenticated());
         http.oauth2ResourceServer(
             oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(customJwtDecoder).jwtAuthenticationConverter(jwtAuthenticationConverter())
@@ -46,6 +51,7 @@ public class SecurityConfig {
         );
 
         http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));// use bean config cors
         return http.build();
     }
 

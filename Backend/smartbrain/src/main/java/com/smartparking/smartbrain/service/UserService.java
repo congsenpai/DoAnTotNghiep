@@ -3,6 +3,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.PageRequest;
@@ -53,6 +55,14 @@ public class UserService {
         }
         user.setRoles(new HashSet<>(roles));
         userRepository.save(user);
+        return userMapper.toUserResponse(user);
+    }
+    public UserResponse getMe() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = (String) authentication.getName();  // Lấy userId từ authentication (JWT token)
+        log.info("User ID: {}", userId);
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         return userMapper.toUserResponse(user);
     }
 
