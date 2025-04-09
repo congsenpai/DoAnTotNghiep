@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 
 class ObjectRow extends StatelessWidget {
   const ObjectRow({
@@ -20,7 +21,7 @@ class ObjectRow extends StatelessWidget {
           style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         Text(
-          content.toString(),
+          AppLocalizations.of(context).translate(content.toString()),
           style: const TextStyle(color: Colors.white, fontSize: 16),
         )
       ],

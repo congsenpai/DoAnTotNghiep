@@ -5,6 +5,7 @@ import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class InvociceDetailsScreen extends StatelessWidget {
   final InvoiceResponse invoice;
@@ -17,7 +18,12 @@ class InvociceDetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(AppLocalizations.of(context).translate("Your Orders")),
+        title: Text(AppLocalizations.of(context).translate("Your Invoice")),
+        actions: [
+          IconButton(onPressed: (){
+
+          }, icon: Icon(Icons.map_outlined)),
+        ],
       ),
       body: Stack(
         children: [
@@ -53,7 +59,7 @@ class InvociceDetailsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: Get.width/30),
                 PrimaryButton(
-                      text: "Discount",
+                      text: AppLocalizations.of(context).translate("Discount"),
                       press: () {
                         AppDialog.showDetailDiscount(context, invoice.discount);
                       },
@@ -68,7 +74,7 @@ class InvociceDetailsScreen extends StatelessWidget {
                       child: Column(  // Dùng Column để chứa danh sách nút bấm
                         children: List.generate(invoice.transaction.length, (index) {
                           return PrimaryButton(
-                            text: "Transaction ${index + 1} ${invoice.transaction[index].type.name}",
+                            text: "${AppLocalizations.of(context).translate("Transaction")} ${index + 1} ${invoice.transaction[index].type.name}",
                             press: () {
                               AppDialog.showDetailTransaction(context, invoice.transaction[index]);
                             },
@@ -79,18 +85,30 @@ class InvociceDetailsScreen extends StatelessWidget {
                     SizedBox(width: 8,),
                     Expanded(
                       flex: 1,
-                      child: PrimaryButton(
-                        text: "Vehicle",
-                        press: () {
-                          AppDialog.showDetailVehicle(context, invoice.vehicle);
-                        },
+                      child: Column(
+                        children: [
+                          PrimaryButton(
+                            text: AppLocalizations.of(context).translate("Vehicle"),
+                            press: () {
+                              AppDialog.showDetailVehicle(context, invoice.vehicle);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
                 
-                SizedBox(height: Get.width/10),
-                
+                SizedBox(height: 10),
+                Center(child: Text(AppLocalizations.of(context).translate("QR IN - OUR "),style: TextStyle(color: Colors.white),),),
+                Center(
+                  child: QrImageView(
+                    backgroundColor: Colors.white,
+                    data: invoice.objectDecrypt,
+                    version: QrVersions.auto,
+                    size: 200.0,
+                  ),
+                ),
                 Spacer(),
                 TotalPrice(price: invoice.totalAmount),
                 SizedBox(height: Get.width/10),

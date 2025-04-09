@@ -2,7 +2,7 @@
 
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
 import 'package:myparkingapp/data/response/discount_response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 class CreatedInvoiceRequest {
   double totalAmount;

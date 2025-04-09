@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/components/cards/big/service_info_big_card.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/service.dart';
 import 'package:myparkingapp/screens/details_parkinglot/details_screen.dart';
 import '../../../components/cards/big/parkingLot_info_big_card.dart';

@@ -1,7 +1,7 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 class VehicleRepository{
   Future<ApiResult> addVehicle(VehicleResponse vehicle, UserResponse user) async{

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/profile/components/update_password_screen.dart';
 import 'package:myparkingapp/screens/profile/components/update_user_screen.dart';
 import 'package:myparkingapp/screens/wallet/wallet_screen.dart';

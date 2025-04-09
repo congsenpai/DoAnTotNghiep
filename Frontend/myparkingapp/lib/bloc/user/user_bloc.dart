@@ -7,6 +7,7 @@ import 'package:myparkingapp/data/repository/image_repository.dart';
 import 'package:myparkingapp/data/repository/user_repository.dart';
 import 'package:myparkingapp/data/repository/vehicle_repository.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 class UserBloc extends Bloc<UserEvent,UserState>{
   UserBloc():super(UserInitialState()){
@@ -20,8 +21,10 @@ class UserBloc extends Bloc<UserEvent,UserState>{
 
   void _loadStateInitial(LoadUserDataEvent event, Emitter<UserState> emit) async{
     try{
-      emit(UserLoadedState(event.vehicles));
-
+      UserRepository userRepository = UserRepository();
+      ApiResult userAPI = await userRepository.getUserById(event.userId);
+      UserResponse user =  userAPI.result;
+      emit(UserLoadedState(user.vehicles,user));
     }
     catch(e){
       throw Exception("UserBloc_updateUser : $e");

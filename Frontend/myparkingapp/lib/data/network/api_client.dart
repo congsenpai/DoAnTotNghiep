@@ -6,8 +6,8 @@ import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'dio_client.dart';
 
 class ApiClient {
@@ -70,7 +70,13 @@ class ApiClient {
   Future<Response> getUserByUserName(String userName) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/$userName",
+      "/user/name/$userName",
+    );
+  }
+  Future<Response> getUserById(String userId) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+      "/user/id/$userId",
     );
   }
 

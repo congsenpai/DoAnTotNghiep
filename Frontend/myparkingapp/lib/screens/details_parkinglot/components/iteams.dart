@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import '../../../constants.dart';
 import '../../../data/response/parking_slots_response.dart';
 import '../../booking/booking_screen.dart';

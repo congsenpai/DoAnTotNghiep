@@ -1,7 +1,7 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 class UserRepository{
 
@@ -69,6 +69,29 @@ class UserRepository{
   } catch (e) {
     throw Exception("UserRepository_changePass: $e");
   }
+  
+
+  }
+  Future<ApiResult> getUserById(String userId) async{
+    try {
+    ApiClient apiClient = ApiClient();
+    final response = await apiClient.getUserById(userId);
+
+    if (response.statusCode == 200) {
+      // Không cần jsonDecode vì response.data đã là JSON
+      Map<String, dynamic> jsonData = response.data;
+
+      int code = jsonData['code'];
+      String mess = jsonData['mess'];
+      UserResponse user = UserResponse.fromJson(jsonData['result']);
+      return ApiResult(code, mess, user);
+    } else {
+      throw Exception("UserRepository_getUserById");
+    }
+  } catch (e) {
+    throw Exception("UserRepository_getUserById: $e");
+  }
+  
 
   }
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
 class TransactionInfo extends StatefulWidget {

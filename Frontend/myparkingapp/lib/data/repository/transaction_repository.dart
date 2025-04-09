@@ -1,8 +1,8 @@
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/network/api_client.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class TransactionRepository{
     Future<ApiResult> getTransactionByWalletDateTypePage(WalletResponse wallet, int page,Transactions? tranType, DateTime? start, DateTime? end) async{

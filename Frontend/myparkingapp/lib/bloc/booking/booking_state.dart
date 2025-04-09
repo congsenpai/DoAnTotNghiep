@@ -1,7 +1,7 @@
 import 'package:myparkingapp/data/request/created_invoice_request.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 import '../../data/response/discount_response.dart';
 import '../../demo_data.dart';

@@ -1,6 +1,6 @@
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 abstract class TransactionEvent {}
 

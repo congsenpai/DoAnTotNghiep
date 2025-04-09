@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/welcome_text.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class WalletItem extends StatelessWidget {
   final VoidCallback detailCard;

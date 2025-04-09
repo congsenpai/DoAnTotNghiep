@@ -6,7 +6,7 @@ import 'package:myparkingapp/bloc/location/location_bloc.dart';
 import 'package:myparkingapp/bloc/location/location_event.dart';
 import 'package:myparkingapp/bloc/location/location_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
 import '../../app/locallization/app_localizations.dart';
 import '../../main_screen.dart';

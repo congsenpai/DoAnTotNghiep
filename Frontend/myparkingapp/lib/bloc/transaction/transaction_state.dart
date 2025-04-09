@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
 
 abstract class TransactionState {}
 class TransactionLoadedState extends TransactionState{

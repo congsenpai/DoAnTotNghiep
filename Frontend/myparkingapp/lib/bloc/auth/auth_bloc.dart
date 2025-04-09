@@ -5,7 +5,7 @@ import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/repository/auth_repository.dart';
 import 'package:myparkingapp/data/repository/user_repository.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 class AuthBloc extends Bloc<AuthEvent,AuthState>{
   AuthBloc():super(AuthInitialState()){

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 import '../../../components/cards/medium/lot_info_medium_card.dart';
 import '../../../components/scalton/medium_card_scalton.dart';

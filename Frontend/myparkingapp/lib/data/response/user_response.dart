@@ -1,6 +1,6 @@
 import 'package:myparkingapp/data/response/images_response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 class UserResponse {
   final String userID;
   final String username;

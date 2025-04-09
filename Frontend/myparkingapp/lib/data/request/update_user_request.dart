@@ -1,5 +1,5 @@
 import 'package:myparkingapp/data/response/images_response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 class UpdateUserRequest {
   final String userID;

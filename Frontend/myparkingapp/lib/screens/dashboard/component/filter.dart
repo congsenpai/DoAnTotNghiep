@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_bloc.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_event.dart';
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 class FilterTransactionDBoard extends StatefulWidget {
   final UserResponse user;

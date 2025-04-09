@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
 import 'package:myparkingapp/data/response/discount_response.dart';
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class AppDialog {
   /// Hàm hiển thị dialog với nội dung truyền vào

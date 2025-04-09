@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:typed_data';
 
@@ -11,10 +11,12 @@ import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_event.dart';
 import 'package:myparkingapp/bloc/user/user_state.dart';
+import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/screens/profile/profile_screen.dart';
 
 
 class EditProfileScreen extends StatefulWidget {
@@ -38,6 +40,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<VehicleResponse> vehicles = [
 
   ];
+  late UserResponse user;
   Uint8List? _imageBytes;
   String uploadedImageUrl = ""; // URL từ Cloudinary
   String publicId = "";
@@ -48,14 +51,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(LoadUserDataEvent(widget.user.vehicles));
-    usernameController = TextEditingController(text: widget.user.username);
-    firstNameController = TextEditingController(text: widget.user.firstName);
-    lastNameController = TextEditingController(text: widget.user.lastName);
-    emailController = TextEditingController(text: widget.user.email);
-    phoneController = TextEditingController(text: widget.user.phone);
-    homeAddressController = TextEditingController(text: widget.user.homeAddress);
-    companyAddressController = TextEditingController(text: widget.user.companyAddress);
+    user = widget.user;
+    _startInit();
+  }
+
+  void _startInit(){
+    context.read<UserBloc>().add(LoadUserDataEvent(user.userID));
+    usernameController = TextEditingController(text: user.username);
+    firstNameController = TextEditingController(text: user.firstName);
+    lastNameController = TextEditingController(text: user.lastName);
+    emailController = TextEditingController(text: user.email);
+    phoneController = TextEditingController(text: user.phone);
+    homeAddressController = TextEditingController(text: user.homeAddress);
+    companyAddressController = TextEditingController(text: user.companyAddress);
         if(widget.user.avatar.url != null){
     uploadedImageUrl = widget.user.avatar.url!;
     publicId = widget.user.avatar.imageID;
@@ -116,7 +124,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 vehicle.licensePlate = licensePlateController.text;
                 vehicle.description = descriptionController.text;
               }
-              context.read<UserBloc>().add(LoadUserDataEvent(vehicles));
               Navigator.pop(context);
             },
             child: Text(AppLocalizations.of(context).translate("Save")),
@@ -142,7 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: EdgeInsets.zero,
               ),
               child: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context)
             ),
           ),
       ),
@@ -150,6 +157,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         builder: (context, state) {
           if (state is UserLoadedState) {
             vehicles = state.vehicles;
+            user = state.user;
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -170,7 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         onPressed: () => _pickImage(),
                         icon: Icon(Icons.image),
-                        label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.white)), 
+                        label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.black)), 
                       ),
                   ],
                 ),
@@ -236,9 +244,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         },
         listener: (context, state) {
           if (state is UserSuccessState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.mess)));
+            AppDialog.showSuccessEvent(context, state.mess,onPress: (){
+              _startInit();
+            });
           } else if (state is UserErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.mess)));
+            AppDialog.showErrorEvent(context, state.mess);
           }
         },
       ),

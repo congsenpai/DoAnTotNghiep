@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
-import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
 
 class DailyTotals {
   int number;

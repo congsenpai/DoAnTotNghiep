@@ -4,7 +4,7 @@ import 'package:myparkingapp/bloc/wallet/wallet_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/repository/wallet_repository.dart';
 import 'package:myparkingapp/data/request/created_wallet_request.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class WalletBloc extends Bloc<WalletEvent,WalletState>{
   WalletBloc():super(WalletInitialState()){

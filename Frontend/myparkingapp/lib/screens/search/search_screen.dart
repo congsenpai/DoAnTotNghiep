@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 import '../../bloc/search/search_bloc.dart';
 import '../../bloc/search/search_event.dart';

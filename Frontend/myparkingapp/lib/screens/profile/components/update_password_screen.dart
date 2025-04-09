@@ -9,7 +9,7 @@ import 'package:myparkingapp/bloc/user/user_event.dart';
 import 'package:myparkingapp/bloc/user/user_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/constants.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 class UpdatePassword extends StatelessWidget {
   final UserResponse user;

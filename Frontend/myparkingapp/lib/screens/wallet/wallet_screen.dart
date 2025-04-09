@@ -10,8 +10,8 @@ import 'package:myparkingapp/bloc/wallet/wallet_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/api_service/vn_pay/vn_pay_service.dart';
 
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/screens/transaction/transaction_screen.dart';
 import 'package:myparkingapp/screens/wallet/component/wallet_item.dart';
 

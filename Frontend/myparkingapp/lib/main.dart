@@ -13,7 +13,7 @@ import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
 import 'package:myparkingapp/bloc/transaction/transaction_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
 import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import 'package:myparkingapp/screens/onboarding/onboarding_scrreen.dart';

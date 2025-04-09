@@ -1,6 +1,6 @@
 
 
-import 'package:myparkingapp/data/response/transaction__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
 
 class CreatedTransactionRequest {
   double currentBalance;

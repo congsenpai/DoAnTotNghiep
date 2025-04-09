@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:myparkingapp/data/response/transaction__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'discount_response.dart';
 
 class InvoiceOnPage {
@@ -31,6 +31,7 @@ class InvoiceResponse {
   VehicleResponse vehicle;
   String userID;
   bool isMonthlyTicket;
+  String objectDecrypt;
 
   InvoiceResponse({
     required this.invoiceID,
@@ -44,6 +45,7 @@ class InvoiceResponse {
     required this.userID,
     required this.parkingLotName,
     required this.isMonthlyTicket,
+    required this.objectDecrypt
   });
 
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
@@ -64,6 +66,8 @@ class InvoiceResponse {
       parkingSlotName: json['parkingSlotName'] ?? '',
       parkingLotName: json['parkingLotName'] ?? '',
       isMonthlyTicket: json['isMonthlyTicket'] ?? false,
+      objectDecrypt:json['objectDecrypt']?? ''
+
     );
   }
 
@@ -102,7 +106,7 @@ final List<InvoiceResponse> invoicesPage1 = [
     totalAmount: 100.0,
     parkingSlotName: 'Slot A1',
     parkingLotName: 'Lot 1',
-    isMonthlyTicket: false,
+    isMonthlyTicket: false, objectDecrypt: 'INV001',
   ),
   InvoiceResponse(
     invoiceID: "INV002",
@@ -115,7 +119,7 @@ final List<InvoiceResponse> invoicesPage1 = [
     totalAmount: 150.0,
     parkingSlotName: 'Slot B2',
     parkingLotName: 'Lot 2',
-    isMonthlyTicket: false,
+    isMonthlyTicket: false, objectDecrypt: 'INV002',
   ),
 ];
 
@@ -131,7 +135,7 @@ final List<InvoiceResponse> invoicesPage2 = [
     totalAmount: 200.0,
     parkingSlotName: 'Slot C3',
     parkingLotName: 'Lot 3',
-    isMonthlyTicket: true,
+    isMonthlyTicket: true, objectDecrypt: 'INV003',
   ),
   InvoiceResponse(
     invoiceID: "INV004",
@@ -144,6 +148,6 @@ final List<InvoiceResponse> invoicesPage2 = [
     totalAmount: 180.0,
     parkingSlotName: 'Slot D4',
     parkingLotName: 'Lot 4',
-    isMonthlyTicket: false,
+    isMonthlyTicket: false, objectDecrypt: 'INV004',
   ),
 ];

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 
 import 'constants.dart';
@@ -13,8 +13,6 @@ import 'screens/search/search_screen.dart';
 class MainScreen extends StatefulWidget {
   final UserResponse user;
   const MainScreen({super.key, required this.user});
-
-
   @override
   State<MainScreen> createState() => _MainScreenState();
 }

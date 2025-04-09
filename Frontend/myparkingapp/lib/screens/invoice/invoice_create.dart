@@ -10,7 +10,7 @@ import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/request/created_invoice_request.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';

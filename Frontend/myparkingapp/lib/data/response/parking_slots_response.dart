@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 enum SlotStatus {
   AVAILABLE, OCCUPIED, RESERVED

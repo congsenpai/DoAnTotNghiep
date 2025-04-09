@@ -5,7 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_bloc.dart';
 import 'package:myparkingapp/bloc/lot/lot_detail_state.dart';
 import 'package:myparkingapp/data/response/parking_slots_response.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
 import '../../bloc/lot/lot_detail_event.dart';

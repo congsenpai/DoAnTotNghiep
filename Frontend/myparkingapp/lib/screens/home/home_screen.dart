@@ -5,7 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 
-import 'package:myparkingapp/data/response/user__response.dart';import 'package:myparkingapp/data/response/service.dart';
+import 'package:myparkingapp/data/response/user_response.dart';import 'package:myparkingapp/data/response/service.dart';
 import 'package:myparkingapp/screens/chatbot/chat_bot.dart';
 import 'package:myparkingapp/screens/dashboard/dash_board_screen.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';

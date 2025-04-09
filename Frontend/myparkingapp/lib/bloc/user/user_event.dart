@@ -1,6 +1,6 @@
 import 'package:myparkingapp/data/request/update_user_request.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 abstract class UserEvent {}
 
@@ -11,8 +11,8 @@ class UpdateUserInfo extends UserEvent{
 }
 
 class LoadUserDataEvent extends UserEvent{
-  List<VehicleResponse> vehicles;
-  LoadUserDataEvent(this.vehicles);
+  String userId;
+  LoadUserDataEvent(this.userId);
 }
 
 class ChangePassword extends UserEvent{

@@ -7,7 +7,7 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
 import '../../constants.dart';

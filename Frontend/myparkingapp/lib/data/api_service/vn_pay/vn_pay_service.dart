@@ -9,8 +9,8 @@ import 'package:myparkingapp/bloc/payment/payment_bloc.dart';
 import 'package:myparkingapp/bloc/payment/payment_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/api_service/vn_pay/info_vnpay.dart';
-import 'package:myparkingapp/data/response/user__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class DepositFormScreen extends StatefulWidget {
 

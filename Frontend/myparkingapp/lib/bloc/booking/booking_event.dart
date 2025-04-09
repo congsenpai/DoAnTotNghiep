@@ -1,8 +1,8 @@
 import 'package:myparkingapp/data/response/discount_response.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/parking_slots_response.dart';
-import 'package:myparkingapp/data/response/vehicle__response.dart';
-import 'package:myparkingapp/data/response/wallet__response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/demo_data.dart';
 
 abstract class BookingEvent{}

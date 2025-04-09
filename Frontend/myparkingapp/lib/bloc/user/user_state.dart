@@ -1,4 +1,5 @@
-import 'package:myparkingapp/data/response/vehicle__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 abstract class UserState {}
 
@@ -12,8 +13,9 @@ class UserLoadingState extends UserState{
 }
 
 class UserLoadedState extends UserState{
+  UserResponse user;
   List<VehicleResponse> vehicles;
-  UserLoadedState(this.vehicles);
+  UserLoadedState(this.vehicles, this.user);
 
 }
 

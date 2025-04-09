@@ -1,4 +1,4 @@
-import 'package:myparkingapp/data/response/user__response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 
 abstract class AuthState {}
 
