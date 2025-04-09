@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:myparkingappadmin/data/dto/response/images.dart';
+
 enum UserStatus { ACTIVE, INACTIVE, DELETED }
 
 class UserResponse {
@@ -11,7 +13,7 @@ class UserResponse {
   final String companyAddress;
   final String lastName;
   final String firstName;
-  final String avatar;
+  final Images avatar;
   final String email;
   final UserStatus status;
   final List<String> roles;
@@ -31,19 +33,19 @@ class UserResponse {
     required this.roles,
   });
   UserResponse.empty({
-    this.userId = '',
-    this.username = '',
-    this.password = '',
-    this.phoneNumber = '',
-    this.homeAddress = '',
-    this.companyAddress = '',
-    this.lastName = '',
-    this.firstName = '',
-    this.avatar = 'default-avatar.png',
-    this.email = '',
-    this.status = UserStatus.INACTIVE,
-    this.roles = const [],
-  });
+  this.userId = '',
+  this.username = '',
+  this.password = '',
+  this.phoneNumber = '',
+  this.homeAddress = '',
+  this.companyAddress = '',
+  this.lastName = '',
+  this.firstName = '',
+  Images? avatar,
+  this.email = '',
+  this.status = UserStatus.INACTIVE,
+  this.roles = const [],
+}) : avatar = avatar ?? Images('', '', null);
 
   /// **Chuyển từ JSON sang `UserResponse` object**
   factory UserResponse.fromJson(Map<String, dynamic> json) {
@@ -56,7 +58,7 @@ class UserResponse {
       companyAddress: json["companyAddress"] ?? '',
       lastName: json["lastName"] ?? '',
       firstName: json["firstName"] ?? '',
-      avatar: json["avatar"] ?? 'default-avatar.png',
+      avatar: Images.fromJson(json["avatar"]),
       email: json["email"] ?? '',
       status: _parseUserStatus(json["status"]), // ✅ Chuyển từ String sang enum
       roles: List<String>.from(json["roles"] ?? []),
@@ -74,7 +76,7 @@ class UserResponse {
       'companyAddress': companyAddress,
       'lastName': lastName,
       'firstName': firstName,
-      'avatar': avatar,
+      'avatar': avatar.toJson(),
       'email': email,
       'status': status.name, // ✅ Chuyển enum thành String
       'roles': roles, // ✅ Lưu danh sách roles đúng

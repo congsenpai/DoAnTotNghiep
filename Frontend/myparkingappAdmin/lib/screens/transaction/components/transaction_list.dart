@@ -50,8 +50,9 @@ class _TransactionListState extends State<TransactionList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
           title: Text(
-              AppLocalizations.of(context).translate("Transaction List")),
+            "${widget.walletId} / ${AppLocalizations.of(context).translate("Transaction List")}"),
           actions: [
             IconButton(
               icon: const Icon(Icons.refresh),

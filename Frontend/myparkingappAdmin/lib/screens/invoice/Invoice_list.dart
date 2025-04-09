@@ -46,7 +46,8 @@ class _InvoiceListState extends State<InvoiceList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate("Invoice List")),
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
+        title: Text("${widget.parkingSlot.slotName} / ${AppLocalizations.of(context).translate("Invoice List")}"),
       ),
       body: BlocConsumer<InvoiceBloc,InvoiceState>(
         builder: (context, state) {

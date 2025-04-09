@@ -27,3 +27,10 @@ class  ParkingLotSuccessState extends ParkingLotState{
 
 
 }
+
+class  ParkingLotUpdateImageState extends ParkingLotState{
+  String mess;
+  ParkingLotUpdateImageState(this.mess);
+
+
+}

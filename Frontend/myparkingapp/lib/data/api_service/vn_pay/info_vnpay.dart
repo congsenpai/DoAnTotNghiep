@@ -1,12 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/response/user__response.dart';
 import 'package:myparkingapp/main_screen.dart';
-import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
 class TransactionInfo extends StatefulWidget {
   final UserResponse user;

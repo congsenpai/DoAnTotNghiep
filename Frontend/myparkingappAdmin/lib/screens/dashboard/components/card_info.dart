@@ -2,23 +2,24 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
+
 
 import '../../../constants.dart';
 
 
-class InforOfCard extends StatelessWidget {
-  const InforOfCard({
+class InforOfParkingLot extends StatelessWidget {
+  const InforOfParkingLot({
     super.key,
     required this.info,
   });
 
-  final WalletResponse info;
+  final ParkingLotResponse info;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: secondaryColor,
@@ -28,10 +29,7 @@ class InforOfCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
+          Container(
                 padding: EdgeInsets.all(2),
                 height: 40,
                 width: 40,
@@ -40,19 +38,13 @@ class InforOfCard extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   
                 ),
-                child: SvgPicture.asset(
-                  info.svgSrc,
-                  // colorFilter: ColorFilter.mode(
-                  //     info.color ?? Colors.black, BlendMode.srcIn),
-                  fit: BoxFit.fill,
-                      
+                child: Image.network(
+                  info.images[0].url!,
+                  fit: BoxFit.cover,)
                 ),
-              ),
-              Icon(Icons.more_vert, color: Colors.white54)
-            ],
-          ),
+              
           Text(
-            info.name,
+            info.parkingLotName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -64,7 +56,7 @@ class InforOfCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${info.balance} VNĐ",
+                info.status.name.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!

@@ -48,7 +48,7 @@ class _ParkingLotCardListState extends State<ParkingLotCardList> {
                       right: (widget.lots.length - 1) == index ? defaultPadding : 0,
                     ),
                     child: LotInfoMediumCard(
-                      image: widget.lots[index].images[0].url,
+                      image: widget.lots[index].images[0].url!,
                       name:  widget.lots[index].parkingLotName,
                       location:  widget.lots[index].address,
                       gotoTime: 25,

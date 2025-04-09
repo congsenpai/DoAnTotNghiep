@@ -1,8 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/user/user_bloc.dart';
@@ -35,13 +38,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<VehicleResponse> vehicles = [
 
   ];
-  String? avatar;
+  Uint8List? _imageBytes;
+  String uploadedImageUrl = ""; // URL từ Cloudinary
+  String publicId = "";
+  final String defaultImageUrl =
+    "https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg";
+
 
   @override
   void initState() {
     super.initState();
     context.read<UserBloc>().add(LoadUserDataEvent(widget.user.vehicles));
-    
     usernameController = TextEditingController(text: widget.user.username);
     firstNameController = TextEditingController(text: widget.user.firstName);
     lastNameController = TextEditingController(text: widget.user.lastName);
@@ -49,13 +56,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     phoneController = TextEditingController(text: widget.user.phone);
     homeAddressController = TextEditingController(text: widget.user.homeAddress);
     companyAddressController = TextEditingController(text: widget.user.companyAddress);
-    avatar = widget.user.avatar.url;
+        if(widget.user.avatar.url != null){
+    uploadedImageUrl = widget.user.avatar.url!;
+    publicId = widget.user.avatar.imageID;
+    }
+    else{
+      publicId = DateTime.now().millisecondsSinceEpoch.toString();
+    }
   }
 
-  Future<String?> pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    return image?.path;
+  Future<void> _pickImage() async {
+    final bytes = await ImagePickerWeb.getImageAsBytes();
+    if (bytes != null) {
+      setState(() {
+        _imageBytes = bytes;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Không có ảnh nào được chọn")),
+      );
+    }
   }
 
   void _showVehicleEditOrAdd(BuildContext context, VehicleResponse? vehicle) {
@@ -66,7 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(vehicle == null ? "Add Vehicle" : "Edit Vehicle"),
+        title: Text(vehicle == null ? AppLocalizations.of(context).translate("Add Vehicle") : AppLocalizations.of(context).translate("Edit Vehicle")),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -81,12 +101,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 return DropdownMenuItem(value: type, child: Text(type.toString().split('.').last));
               }).toList(),
             ),
-            TextFormField(controller: licensePlateController, decoration: InputDecoration(labelText: "License Plate")),
-            TextFormField(controller: descriptionController, decoration: InputDecoration(labelText: "Description")),
+            TextFormField(controller: licensePlateController, decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("License Plate"))),
+            TextFormField(controller: descriptionController, decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("Description"))),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text("Cancel")),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text(AppLocalizations.of(context).translate("Cancel"))),
           ElevatedButton(
             onPressed: () {
               if (vehicle == null) {
@@ -99,7 +119,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               context.read<UserBloc>().add(LoadUserDataEvent(vehicles));
               Navigator.pop(context);
             },
-            child: Text("Save"),
+            child: Text(AppLocalizations.of(context).translate("Save")),
           ),
         ],
       ),
@@ -134,18 +154,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () async {
-                      final newAvatar = await pickImage();
-                      if (newAvatar != null) {
-                        setState(() => avatar = newAvatar);
-                      }
-                    },
-                    child: CircleAvatar(
+                  Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
                       radius: 50,
-                      backgroundImage: avatar != null ? NetworkImage(avatar!) : AssetImage("assets/images/Banner.png") as ImageProvider,
+                      child: _imageBytes != null
+                      ? Image.memory(_imageBytes!, fit: BoxFit.scaleDown)
+                      : Image.network(defaultImageUrl, fit: BoxFit.scaleDown),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    TextButton.icon(
+                        style: ButtonStyle(
+                          iconColor: WidgetStateProperty.all(Colors.red),
+                        ),
+                        onPressed: () => _pickImage(),
+                        icon: Icon(Icons.image),
+                        label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.white)), 
+                      ),
+                  ],
+                ),
+              ),
                   Divider(),
                   ...[
                     usernameController, firstNameController, lastNameController,
@@ -192,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         phone: phoneController.text.trim(),
                         homeAddress: homeAddressController.text.trim(),
                         companyAddress: companyAddressController.text.trim(),
-                        avatar: avatar != null ? ImagesResponse(url: avatar!) : widget.user.avatar,
+                        avatar: ImagesResponse(publicId, "", _imageBytes),
                         vehicles: vehicles,
                       );
                       context.read<UserBloc>().add(UpdateUserInfo(widget.user, userUpdate));

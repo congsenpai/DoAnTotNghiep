@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 
+import 'package:myparkingappadmin/data/dto/response/images.dart';
+
 class UpdateInfoResquest {
   final String username;
   final String password;
@@ -9,7 +11,7 @@ class UpdateInfoResquest {
   final String companyAddress;
   final String lastName;
   final String firstName;
-  final String avatar;
+  final Images avatar;
   final String email;
 
   UpdateInfoResquest( {
@@ -35,7 +37,7 @@ class UpdateInfoResquest {
       'companyAddress': companyAddress,
       'lastName': lastName,
       'firstName': firstName,
-      'avatar': avatar,
+      'avatar': avatar.toJson(),
       'email': email,
     };
   }

@@ -37,7 +37,6 @@ class _WalletDetailState extends State<WalletDetail> {
     super.initState();
     walletIdController = TextEditingController(text: widget.object.walletId);
     userIdController = TextEditingController(text: widget.object.userId);
-    svgSrcController = TextEditingController(text: widget.object.svgSrc);
     nameController = TextEditingController(text: widget.object.name);
     balanceController =
         TextEditingController(text: widget.object.balance.toString());
@@ -66,7 +65,9 @@ class _WalletDetailState extends State<WalletDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title: Text("${widget.object.name} / ${AppLocalizations.of(context).translate("Wallet Detail")}"),
         actions: [
           IconButton(

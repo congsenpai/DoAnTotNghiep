@@ -9,12 +9,11 @@ class ObjectHorizontal extends StatelessWidget {
     super.key,
     required this.title,
     required this.svgSrc,
-    required this.amountOfObject,
     required this.numOfObject,
   });
 
-  final String title, svgSrc, amountOfObject;
-  final int numOfObject;
+  final String title, svgSrc;
+  final double numOfObject;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,6 @@ class ObjectHorizontal extends StatelessWidget {
               ),
             ),
           ),
-          Text(amountOfObject)
         ],
       ),
     );

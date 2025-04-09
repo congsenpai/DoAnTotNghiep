@@ -56,6 +56,7 @@ class _DiscountListState extends State<DiscountList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title: Text(
             "${widget.parkingLot.parkingLotName} / ${AppLocalizations.of(context).translate("Discount List")}"),
             actions: [IconButton(

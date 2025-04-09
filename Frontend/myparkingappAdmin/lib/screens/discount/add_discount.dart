@@ -31,7 +31,7 @@ class _AddDiscountState extends State<AddDiscount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Discount Detail"),
+        title: Text("Add Discount"),
         actions: [
           IconButton(
             icon: Icon(Icons.save),

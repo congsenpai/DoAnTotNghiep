@@ -51,8 +51,9 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
           title:
-              Text(AppLocalizations.of(context).translate("Parking Lot List")),
+              Text("${widget.parkingLot.parkingLotName}/${AppLocalizations.of(context).translate("Parking Lot List")}"),
         ),
         body: BlocConsumer<ParkingSlotBloc,ParkingSlotState>(builder: (context, state) {
           if (state is ParkingSlotLoadingState) {

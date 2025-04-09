@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
 import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
 import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
@@ -69,7 +70,8 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Invoice Detail"),
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
+        title: Text("${widget.object.invoiceId}/${AppLocalizations.of(context).translate("Invoice Detail")}"),
       ),
       body: Container(
         height: Get.height,

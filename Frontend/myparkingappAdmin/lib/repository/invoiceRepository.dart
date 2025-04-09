@@ -50,4 +50,53 @@ class InvoiceRepository {
       throw Exception("InvoiceRepository_getInvoiceBySlot : $e");
     }
   }
+  Future<ApiResult> getAllInvoiceByOwner(String userId) async{
+    try{
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.getAllInvoiceByOwner(userId);
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+          code, mess, null
+        );
+        return apiResult;
+      }
+      else{
+        ApiResult apiResult = ApiResult(
+          code, mess, null
+        );
+        return apiResult;
+      }      
+          
+      
+    }
+    catch(e){
+      throw Exception("InvoiceRepository_getAllInvoiceByOwner : $e");
+    }
+  }
+    Future<ApiResult> getAllInvoiceByAdmin() async{
+    try{
+      ApiClient apiClient = ApiClient();
+
+        final response = await apiClient.getAllInvoiceByAdmin();
+        int code = response.data["code"];
+        String mess = response.data["mess"];
+        if(response.statusCode == 200){
+          ApiResult apiResult = ApiResult(
+            code, mess, null
+          );
+          return apiResult;
+        }
+        else{
+          ApiResult apiResult = ApiResult(
+            code, mess, null
+          );
+          return apiResult;
+        }    
+      }
+    catch(e){
+      throw Exception("InvoiceRepository_getAllInvoiceByAdmin: $e");
+    }
+  }
 }

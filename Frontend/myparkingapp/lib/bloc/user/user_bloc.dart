@@ -1,9 +1,12 @@
+import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/user/user_event.dart';
 import 'package:myparkingapp/bloc/user/user_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
+import 'package:myparkingapp/data/repository/image_repository.dart';
 import 'package:myparkingapp/data/repository/user_repository.dart';
 import 'package:myparkingapp/data/repository/vehicle_repository.dart';
+import 'package:myparkingapp/data/response/images_response.dart';
 
 class UserBloc extends Bloc<UserEvent,UserState>{
   UserBloc():super(UserInitialState()){
@@ -36,6 +39,22 @@ class UserBloc extends Bloc<UserEvent,UserState>{
       }
       else{
         emit(UserErrorState(useApi.message));
+      }
+      ImageRepository imagerepository = ImageRepository();
+      Cloudinary cloudinary = await imagerepository.getApiCloud();
+      CloudinaryResponse uploadResponse = await imagerepository.uploadImage(
+          cloudinary,
+          event.newUser.avatar.imageBytes!,
+          "myparkingapp/avatars",
+          event.newUser.avatar.imageID,
+          event.newUser.avatar.imageID);
+      if (uploadResponse.isSuccessful) {
+        ImagesResponse image = ImagesResponse(event.newUser.avatar.imageID, uploadResponse.url, null);
+        emit(UserSuccessState(
+            "Successful Upload"));
+      } else {
+        emit(UserErrorState(
+            "Falsed Upload : ${uploadResponse.error}"));
       }
     }
     catch(e){

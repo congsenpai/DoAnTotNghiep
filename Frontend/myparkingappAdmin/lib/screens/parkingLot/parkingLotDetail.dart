@@ -1,10 +1,19 @@
 // ignore_for_file: must_be_immutable, avoid_print, file_names
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_event.dart';
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_lot_request.dart';
+import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
 import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
+import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 
 import '../../../../constants.dart';
 import '../../../app/localization/app_localizations.dart';
@@ -24,8 +33,32 @@ class ParkingSpotDetail extends StatefulWidget {
 }
 
 class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
+
+  final ImagePicker _picker = ImagePicker();
+  List<Images> deletesImage = [];
+  List<Images> addImages = [];
+
+Future<void> _pickImageWeb() async {
+  final bytes = await ImagePickerWeb.getImageAsBytes();
+  if (bytes != null) {
+    final imageID = DateTime.now().millisecondsSinceEpoch.toString();
+    setState(() {
+      images.add(Images(imageID, "",bytes));
+      addImages.add(Images(imageID, "",bytes));
+    });
+  }
+}
+
+void _deleteImage(Images image) {
+  setState(() {
+    images.removeWhere((img) => img.imageID == image.imageID);
+    deletesImage.add(image);
+  });
+}
   bool isEdit = false; // Biến để lưu trạng thái hợp đồng
-  List<String> images = []; // Danh sách hình ảnh
+  List<Images> images = [
+
+  ]; // Danh sách hình ảnh
   late TextEditingController _nameController;
   late TextEditingController _addressController;
   late TextEditingController _latitudeController;
@@ -61,8 +94,9 @@ class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title:
-            Text(AppLocalizations.of(context).translate("Parking Lot Detail")),
+            Text("${widget.parkingLot.parkingLotName} / ${AppLocalizations.of(context).translate("Parking Lot Detail")}"),
         actions: [
           isEdit
               ? IconButton(
@@ -73,8 +107,9 @@ class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
                       address: _addressController.text,
                       latitude: double.parse(_latitudeController.text),
                       longitude: double.parse(_longitudeController.text),
-                      description: _descriptionController.text,
+                      description: _descriptionController.text, images: images,
                     );
+                    context.read<ParkingLotBloc>().add(UpdateParkingLotEvent(widget.parkingLot.parkingLotId,request,deletesImage,addImages));
                   
                   },
                 )
@@ -82,10 +117,11 @@ class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
                   icon: Icon(Icons.edit),
                   onPressed: () {
                     setState(() {
-                      isEdit = true; // Chuyển sang chế độ chỉnh sửa
+                      isEdit = true;
                     });
                   },
                 ),
+          IconButton(onPressed: widget.onEdit, icon: Icon(Icons.cancel,color: Colors.red,))
         ],
       ),
       body: Container(
@@ -99,25 +135,46 @@ class _ParkingSpotDetailState extends State<ParkingSpotDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: images
-                    .map((e) => Container(
-                          width: 100,
-                          height: 100,
-                          margin: EdgeInsets.only(right: defaultPadding),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(e),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ))
-                    .toList(),
+            if (isEdit)
+              Padding(
+                padding: EdgeInsets.only(bottom: defaultPadding),
+                child: ElevatedButton.icon(
+                  onPressed: _pickImageWeb,
+                  icon: Icon(Icons.add),
+                  label: Text("Add Image"),
+                ),
               ),
-            ),
+            Row(
+                children: images.map((e) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    margin: EdgeInsets.only(right: defaultPadding),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: e.imageBytes != null 
+                          ? MemoryImage(e.imageBytes!) // nếu là ảnh mới chọn
+                          : NetworkImage(e.url!) as ImageProvider, // nếu là ảnh đã có
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: isEdit
+                        ? IconButton(
+                            onPressed: () {
+                              _deleteImage(e);
+                            },
+                            icon: Icon(Icons.delete, color: Colors.red),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              AppDialog.showImage(context, e);
+                            },
+                            icon: Icon(Icons.search, color: Colors.green),
+                          ),
+                  );
+                }).toList(),
+              ),
             SizedBox(height: defaultPadding),
 
             Row(

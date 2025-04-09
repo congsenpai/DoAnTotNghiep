@@ -38,6 +38,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "cloudinary",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/cloudinary-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "collection",
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.19.1",
       "packageUri": "lib/",
@@ -138,6 +144,12 @@
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_bloc-9.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "flutter_dotenv",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_lints",
@@ -282,6 +294,12 @@
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_platform_interface-2.10.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "image_picker_web",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_web-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "image_picker_windows",
@@ -584,7 +602,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-04-06T17:38:13.602636Z",
+  "generated": "2025-04-08T04:28:39.298062Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///D:/android_Studio_setting/flutter_windows_3.29.1-stable/flutter",

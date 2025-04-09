@@ -1,4 +1,5 @@
   import 'package:myparkingappadmin/data/dto/response/discount_response.dart';
+import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/invoice_response.dart';
 import 'package:myparkingappadmin/data/dto/response/monthlyTicket_response.dart';
 import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
@@ -18,7 +19,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       companyAddress: '456 Đường B',
       lastName: 'Doe',
       firstName: 'John',
-      avatar: 'avatar_url',
+      avatar: Images("", null, null),
       email: 'john@example.com',
       status: UserStatus.ACTIVE,
       roles: ['USER'],
@@ -32,7 +33,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
       firstName: 'Jane',
-      avatar: 'avatar_url',
+      avatar: Images("", null, null),
       email: 'jane@example.com',
       status: UserStatus.INACTIVE,
       roles: ['USER'],
@@ -50,7 +51,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
       firstName: 'Jane',
-      avatar: 'avatar_url',
+      avatar: Images("", null, null),
       email: 'jane@example.com',
       status: UserStatus.INACTIVE,
       roles: ['OWNER'],
@@ -64,7 +65,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
       firstName: 'Jane',
-      avatar: 'avatar_url',
+      avatar: Images("", null, null),
       email: 'jane@example.com',
       status: UserStatus.INACTIVE,
       roles: ['USER'],
@@ -76,7 +77,6 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     WalletResponse(
       walletId: 'wallet123',
       userId: 'user123',
-      svgSrc: 'wallet_icon.svg',
       name: 'Ví chính',
       balance: 500000.0,
       status: true,
@@ -85,7 +85,6 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     WalletResponse(
       walletId: 'wallet124',
       userId: 'user124',
-      svgSrc: 'wallet_icon.svg',
       name: 'Ví phụ',
       balance: 300000.0,
       status: true,
@@ -106,7 +105,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       rate: 4.5,
       description: 'Bãi đỗ xe có mái che',
       userId: 'user123',
-      images: ['img1.jpg', 'img2.jpg'],
+      images: []
     ),
     ParkingLotResponse(
       parkingLotId: 'lot002',
@@ -119,7 +118,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       rate: 3.5,
       description: 'Bãi đỗ xe ngoài trời',
       userId: 'user124',
-      images: ['img3.jpg', 'img4.jpg'],
+      images: [ ],
     ),
   ];
 
@@ -136,7 +135,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     ),
     ParkingSlotResponse(
       slotId: 'slotA2',
-      slotName: '1-A2',
+      slotName: '1-A2''assets/images/abc.png',
       vehicleType: 'motorbike',
       slotStatus: SlotStatus.OCCUPIED,
       pricePerHour: 10000,

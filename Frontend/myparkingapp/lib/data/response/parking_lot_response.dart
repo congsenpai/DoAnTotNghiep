@@ -96,8 +96,8 @@ List<ParkingLotResponse> parkingLotsDemoPage1 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_1.png'),
-      ImagesResponse( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( "",'assets/images/featured _items_1.png',null),
+      ImagesResponse( "",'assets/images/featured _items_1.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -111,8 +111,8 @@ List<ParkingLotResponse> parkingLotsDemoPage1 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
-      ImagesResponse(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -126,8 +126,8 @@ List<ParkingLotResponse> parkingLotsDemoPage1 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
 ];
@@ -143,8 +143,8 @@ List<ParkingLotResponse> parkingLotsDemoPage2 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_1.png'),
-      ImagesResponse(url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -158,8 +158,8 @@ List<ParkingLotResponse> parkingLotsDemoPage2 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      ImagesResponse(url: 'assets/images/featured _items_2.png'),
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -173,8 +173,8 @@ List<ParkingLotResponse> parkingLotsDemoPage2 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
 ];
@@ -190,8 +190,8 @@ List<ParkingLotResponse> parkingLotsDemoPage3 = [
     rate: 5.0,
     description: 'Bãi đỗ xe gần trung tâm thương mại, an ninh 24/7.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_1.png'),
-      ImagesResponse( url: 'assets/images/featured _items_1.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -205,8 +205,8 @@ List<ParkingLotResponse> parkingLotsDemoPage3 = [
     rate: 4.0,
     description: 'Bãi đỗ xe dành cho bệnh nhân và nhân viên y tế.',
     images: [
-      ImagesResponse(url: 'assets/images/featured _items_2.png'),
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
   ParkingLotResponse(
@@ -220,8 +220,8 @@ List<ParkingLotResponse> parkingLotsDemoPage3 = [
     rate: 10.0,
     description: 'Bãi đỗ xe sân bay, phù hợp cho gửi dài ngày.',
     images: [
-      ImagesResponse( url: 'assets/images/featured _items_2.png'),
-      ImagesResponse(url: 'assets/images/featured _items_2.png'),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
+      ImagesResponse( "", 'assets/images/featured _items_2.png',null),
     ], userID: '',
   ),
 ];

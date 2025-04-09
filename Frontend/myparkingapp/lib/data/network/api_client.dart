@@ -271,6 +271,13 @@ class ApiClient {
     );
   }
 
+  Future<Response> getApiClound() async{
+    final DioClient dioClient = DioClient();
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "getAPICLoundinary";
+    return await dioClient.dio.get(url);
+  }
+
 
 
 }

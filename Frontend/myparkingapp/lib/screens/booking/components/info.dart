@@ -20,7 +20,7 @@ class Info extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1.33,
           child: Image.asset(
-            lot.images[0].url,
+            lot.images[0].url!,
             fit: BoxFit.cover,
           ),
         ),

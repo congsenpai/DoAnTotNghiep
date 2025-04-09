@@ -31,4 +31,28 @@ class TransactionRepository {
       throw Exception("ParkingSlotRepository_getParkingSlotByLot: $e");
     }
   }
+  Future<ApiResult> getAllTransactions(
+    ) async{
+    try{
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.getAllTransaction();
+      int code = response.data["code"];
+      String mess = response.data["mess"];
+      if(response.statusCode == 200){
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }
+      else{
+        ApiResult apiResult = ApiResult(
+           code, mess, null
+        );
+        return apiResult;
+      }      
+    }
+    catch(e){
+      throw Exception("ParkingSlotRepository_getParkingSlotByLot: $e");
+    }
+  }
 }

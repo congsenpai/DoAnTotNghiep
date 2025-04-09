@@ -1,18 +1,16 @@
-
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/screens/dashboard/components/graphic.dart';
 
 
 
 
 import '../../app/localization/app_localizations.dart';
 import '../../constants.dart';
-import '../../responsive.dart';
 import '../general/header.dart';
 
-import 'components/assets_details.dart';
 
 class DashboardScreen extends StatefulWidget {
   final UserResponse user;
@@ -25,13 +23,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-final HashSet<String> objectColumnName = HashSet.from([
-  "File Name",
-  "Date",
-  "Budget",
-  "Type Money",
-  "Type"
-]);
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +34,15 @@ final HashSet<String> objectColumnName = HashSet.from([
           children: [
             Header(title: AppLocalizations.of(context).translate("Dashboard"),user: widget.user, onLanguageChange: widget.onLanguageChange),
             SizedBox(height: defaultPadding),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      SizedBox(height: defaultPadding),
-                      // TableObject(object: demoTransactionList, objectColumnName: objectColumnName, title: 'RecentTrans',),
-                      if (Responsive.isMobile(context))
-                        SizedBox(height: defaultPadding),
-                      if (Responsive.isMobile(context)) AssetsDetails(),
-                    ],
-                  ),
-                ),
-                if (!Responsive.isMobile(context))
-                  SizedBox(width: defaultPadding),
-                // On Mobile means if the screen is less than 850 we don't want to show it
-                if (!Responsive.isMobile(context))
-                  Expanded(
-                    flex: 2,
-                    child: AssetsDetails(),
-                  ),
-              ],
-            )
+            Container(
+              height: Get.height,
+              width: Get.width,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Graphic(user: widget.user,),
+            ),
           ],
         ),
       ),

@@ -79,6 +79,7 @@ void didUpdateWidget(covariant TransactionDetail  oldWidget) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title: Text("${widget.object.transactionId} / ${AppLocalizations.of(context).translate("Transaction Detail")}"),
         actions: [
           IconButton(

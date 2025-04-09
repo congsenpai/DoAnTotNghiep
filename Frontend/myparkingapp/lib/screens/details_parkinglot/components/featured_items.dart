@@ -36,9 +36,9 @@ class FeaturedItems extends StatelessWidget {
                   padding: const EdgeInsets.only(left: defaultPadding),
                   child: FeaturedItemCard(
                     title: "", // có thể truyền động nếu cần
-                    image: item.url,
+                    image: item.url!,
                     press: () {
-                      showImageDialog(context, item.url);
+                      showImageDialog(context, item.url!);
                     }, isDetailScreen: false,
                   ),
                 ),

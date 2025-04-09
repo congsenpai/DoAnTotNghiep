@@ -1,10 +1,12 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_event.dart';
 import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
+import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 import 'package:provider/provider.dart';
@@ -35,15 +37,26 @@ class _UserDetailState extends State<UserDetail> {
   late TextEditingController _homeAddressController;
   late TextEditingController _companyAddressController;
   late TextEditingController _numberPhoneController;
-  late TextEditingController _avatarController;
   late TextEditingController _roleController;
   late TextEditingController _statusController;
+  Uint8List? _imageBytes;
+  String uploadedImageUrl = ""; // URL từ Cloudinary
+  String publicId = "";
+  final String defaultImageUrl =
+      "https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg";
 
-  final ImagePicker _picker = ImagePicker();
+
 
   @override
   void initState() {
     super.initState();
+    if(widget.user.avatar.url != null){
+    uploadedImageUrl = widget.user.avatar.url!;
+    publicId = widget.user.avatar.imageID;
+  }
+  else{
+    publicId = DateTime.now().millisecondsSinceEpoch.toString();
+  }
     _initializeFields();
   }
 
@@ -56,9 +69,21 @@ class _UserDetailState extends State<UserDetail> {
     _homeAddressController = TextEditingController(text: widget.user.homeAddress);
     _companyAddressController = TextEditingController(text: widget.user.companyAddress);
     _numberPhoneController = TextEditingController(text: widget.user.phoneNumber);
-    _avatarController = TextEditingController(text: widget.user.avatar);
     _roleController = TextEditingController(text: widget.user.roles.join(", "));
     _statusController = TextEditingController(text: widget.user.status.name);
+  }
+
+  Future<void> _pickImage() async {
+    final bytes = await ImagePickerWeb.getImageAsBytes();
+    if (bytes != null) {
+      setState(() {
+        _imageBytes = bytes;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Không có ảnh nào được chọn")),
+      );
+    }
   }
   @override
 void didUpdateWidget(covariant UserDetail oldWidget) {
@@ -67,15 +92,6 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
     _initializeFields(); // cập nhật lại controller khi user thay đổi
   }
 }
-
-  Future<void> _pickImage(bool isEdit) async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null && isEdit) {
-      setState(() {
-        _avatarController.text = pickedFile.path;
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -86,7 +102,6 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
     _homeAddressController.dispose();
     _companyAddressController.dispose();
     _numberPhoneController.dispose();
-    _avatarController.dispose();
     super.dispose();
   }
 
@@ -103,6 +118,7 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
               ? IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () {
+                    Images image = Images(publicId, "", _imageBytes);
                     final UpdateInfoResquest request = UpdateInfoResquest(
                       username: _userNameController.text,
                       password: widget.user.password,
@@ -111,14 +127,13 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
                       companyAddress: _companyAddressController.text,
                       lastName: _lastnameController.text,
                       firstName: _firstnameController.text,
-                      avatar: _avatarController.text,
+                      avatar: image,
                       email: _emailController.text,
                     );
 
                     context.read<MainAppBloc>().add(
                           UpdatesUserInforEvent(widget.user.userId, request),
                         );
-
                     setState(() {
                       isEdit = false;
                     });
@@ -146,9 +161,27 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: defaultPadding),
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(widget.user.avatar),
+              Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      child: _imageBytes != null
+                      ? Image.memory(_imageBytes!, fit: BoxFit.scaleDown)
+                      : Image.network(defaultImageUrl, fit: BoxFit.scaleDown),
+                    ),
+                    SizedBox(height: 10),
+                    if(isEdit)
+                      TextButton.icon(
+                          style: ButtonStyle(
+                            iconColor: WidgetStateProperty.all(Colors.red),
+                          ),
+                          onPressed: () => _pickImage(),
+                          icon: Icon(Icons.image),
+                          label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.white)), 
+                        ),
+                  ],
+                ),
               ),
               SizedBox(height: defaultPadding),
               Row(
@@ -184,31 +217,6 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
               TextFieldCustom(title: 'Email', editController: _emailController, isEdit: isEdit),
               SizedBox(height: defaultPadding),
               TextFieldCustom(title: 'Phone', editController: _numberPhoneController, isEdit: isEdit),
-              SizedBox(height: defaultPadding),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: TextFieldCustom(
-                      title: 'Avatar URL',
-                      editController: _avatarController,
-                      isEdit: isEdit,
-                    ),
-                  ),
-                  SizedBox(width: defaultPadding),
-                  Expanded(
-                    flex: 1,
-                    child: TextButton.icon(
-                      style: ButtonStyle(
-                        iconColor: WidgetStateProperty.all(Colors.red),
-                      ),
-                      onPressed: () => _pickImage(isEdit),
-                      icon: Icon(Icons.image),
-                      label: Text(AppLocalizations.of(context).translate("Choose Image")),
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(height: defaultPadding),
             ],
           ),

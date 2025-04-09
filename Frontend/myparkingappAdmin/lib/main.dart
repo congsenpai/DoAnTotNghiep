@@ -3,8 +3,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_bloc.dart';
+import 'package:myparkingappadmin/bloc/dashboard/dashboard_bloc.dart';
 import 'package:myparkingappadmin/bloc/discount/discount_bloc.dart';
 import 'package:myparkingappadmin/bloc/invoice/bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
@@ -12,7 +14,9 @@ import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
 import 'package:myparkingappadmin/bloc/parking_slot/slot_bloc.dart';
 import 'package:myparkingappadmin/bloc/transaction/tran_bloc.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
+import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/data/network/image_dart/port_get_image.dart';
 import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
@@ -41,8 +45,7 @@ void main() {
             BlocProvider(create: (context)=>DiscountBloc()),
             BlocProvider(create: (context)=>InvoiceBloc()),
             BlocProvider(create: (context)=>TransactionBloc()),
-
-            
+            BlocProvider(create: (context)=>DashboardBloc()),
           ]
           )
         ],
@@ -75,7 +78,7 @@ class _MyAppState extends State<MyApp> {
     companyAddress: '456 Business Blvd',
     lastName: 'Doe',
     firstName: 'John',
-    avatar: 'assets/images/profile_pic.png',
+    avatar: Images("", null, null),
     email: 'john.doe@example.com',
     roles: [], status: UserStatus.ACTIVE,
     

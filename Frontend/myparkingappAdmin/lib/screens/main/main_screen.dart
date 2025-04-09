@@ -18,7 +18,7 @@ import '../../controllers/menu_app_controller.dart';
 import '../authentication/login_screen.dart';
 import '../customer/customerScreen.dart';
 import '../dashboard/dashboard_screen.dart';
-import '../setting/setting_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'components/side_menu.dart';
 import '../../responsive.dart';
@@ -89,7 +89,10 @@ class _MainScreenState extends State<MainScreen> {
         );
       }, listener: (context,state){
         if(state is MainAppErrorState){
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context, state.mess,onPress: () {
+                context.read<MainAppBloc>()
+                .add(initializationEvent(widget.userName));
+          },);
           
         }
         else if(state is LogoutSuccess){
@@ -97,12 +100,15 @@ class _MainScreenState extends State<MainScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) => LoginScreen(isAuth: false, onLanguageChange: widget.onLanguageChange, ),
+                
               ),
             );
         }
         else if(state is MainAppSuccessState){
-          AppDialog.showSuccessEvent(context,state.mess);
-
+          AppDialog.showSuccessEvent(context,state.mess,onPress: () {
+                context.read<MainAppBloc>()
+                .add(initializationEvent(widget.userName));
+          },);
         }
       })
     );

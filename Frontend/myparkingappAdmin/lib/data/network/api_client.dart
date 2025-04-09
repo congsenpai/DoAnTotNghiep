@@ -196,10 +196,16 @@ class ApiClient {
 
   //--------------------------INVOICE------------------------------------//
 
-  Future<Response> getInvoiceByTimeByLot(String parkingLotID) async {
+  Future<Response> getAllInvoiceByOwner(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "paskingLot/$parkingLotID/invoice"
+      "user/$userId/parkingslot/invoice"
+    );
+  }
+  Future<Response> getAllInvoiceByAdmin() async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+      "invoice",
     );
   }
   Future<Response> getInvoiceBySlot(String parkingSlotId) async {
@@ -252,6 +258,21 @@ class ApiClient {
     // Tạo URL động tùy theo tham số truyền vào
     String url = "wallet/$walletId/transactions";
 
+    return await dioClient.dio.get(url);
+  }
+  Future<Response> getAllTransaction() async {
+    final DioClient dioClient = DioClient();
+    
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "transaction";
+
+    return await dioClient.dio.get(url);
+  }
+  //--------------------------Image------------------------------------//
+  Future<Response> getApiClound() async{
+    final DioClient dioClient = DioClient();
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "getAPICLoundinary";
     return await dioClient.dio.get(url);
   }
 }

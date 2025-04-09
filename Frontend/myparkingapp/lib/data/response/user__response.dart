@@ -84,7 +84,7 @@ final UserResponse demoUser = UserResponse(
   homeAddress: "123 Main Street, Cityville",
   companyAddress: "456 Company Blvd, Worktown",
   avatar: ImagesResponse(
-    url: 'assets/images/Header-image.png',
+    "",null,null
   ),
   vehicles: vehiclesdemo,
   wallets: walletdemo

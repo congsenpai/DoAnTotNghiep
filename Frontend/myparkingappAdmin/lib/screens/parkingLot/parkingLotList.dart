@@ -64,6 +64,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
           title: Text(
               "${widget.user.firstName} ${widget.user.lastName}/ ${AppLocalizations.of(context).translate("Parking Lot List")}"),
           actions: [

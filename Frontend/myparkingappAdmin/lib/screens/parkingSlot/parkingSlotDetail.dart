@@ -60,6 +60,7 @@ class _ParkingSlotDetailState extends State<ParkingSlotDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title:
             Text("${widget.object.slotName} / ${AppLocalizations.of(context).translate("Parking Lot Detail")}"),
         actions: [

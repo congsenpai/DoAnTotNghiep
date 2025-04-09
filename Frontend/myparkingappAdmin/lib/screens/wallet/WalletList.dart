@@ -31,7 +31,7 @@ class _WalletListState extends State<WalletList> {
   WalletResponse wallet = WalletResponse(
     walletId: '',
     balance: 0.0,
- userId: '', svgSrc: '', name: '', status: true, currency: '',
+ userId: '', name: '', status: true, currency: '',
   );
 
   Set<String> objectColumnNameOfWallet = HashSet.from([
@@ -52,6 +52,7 @@ class _WalletListState extends State<WalletList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 🔒 Ẩn nút quay về
         title: Text(AppLocalizations.of(context).translate("Wallet List")),
         actions: [
           IconButton(

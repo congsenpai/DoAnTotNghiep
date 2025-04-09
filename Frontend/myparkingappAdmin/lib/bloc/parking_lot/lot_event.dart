@@ -1,4 +1,5 @@
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_lot_request.dart';
+import 'package:myparkingappadmin/data/dto/response/images.dart';
 
 abstract class ParkingLotEvent{}
 
@@ -17,5 +18,7 @@ class UpdateStatusParkingLot extends ParkingLotEvent{
 class UpdateParkingLotEvent extends ParkingLotEvent{
   String parkingLotId;
   UpdateParkingLotRequest request;
-  UpdateParkingLotEvent(this.parkingLotId, this.request);
+  List<Images> deleteImage;
+  List<Images> addImage;
+  UpdateParkingLotEvent(this.parkingLotId, this.request, this.deleteImage, this.addImage);
 }
