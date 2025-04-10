@@ -15,9 +15,9 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
   }
   void _Authenticate(AuthenticateEvent event,Emitter<AuthState> emit) async{
     try{
-      AuthRepository userRepository = AuthRepository();
-      ApiResult result = await userRepository.login(event.username, event.password);
-      if(result.code == 0){
+      AuthRepository auth = AuthRepository();
+      ApiResult result = await auth.login(event.username, event.password);
+      if(result.code == 200){
         emit(AuthSuccess(event.username));
       }
       else{

@@ -15,6 +15,7 @@ import 'package:myparkingappadmin/bloc/transaction/tran_bloc.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/screens/authentication/login_screen.dart';
 import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
@@ -99,13 +100,8 @@ class _MyAppState extends State<MyApp> {
           Locale('en', ''), // English
           Locale('vi', ''), // Vietnamese
         ],
-        home:
-        MainScreen(isAuth: true, onLanguageChange: (Locale newLocale) {
-          Get.updateLocale(newLocale);
-        }, userName: '',)
-        // LoginScreen(isAuth: false, onLanguageChange: (Locale newLocale) {
-        //   Get.updateLocale(newLocale);
-        // },)
+        home: LoginScreen(isAuth: false, onLanguageChange: _changeLanguage)
+        
     );
   }
 }
