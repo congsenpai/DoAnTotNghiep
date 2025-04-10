@@ -24,8 +24,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  void _showCamera(){
-    AppDialog.camera(context);
+  void _showCamera(bool isEntry){
+    AppDialog.camera(context,isEntry);
   }
 
   @override
@@ -33,7 +33,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed:_showCamera, icon: Icon(Icons.camera_alt_outlined, color: Colors.redAccent,))
+          Row(
+            children: [
+          ElevatedButton.icon(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+            onPressed: () => _showCamera(true),
+            icon: Icon(Icons.camera_alt_outlined, color: Colors.black,), 
+            label: Text("ENTRY",style: TextStyle(color: Colors.lightGreen,),)),
+          SizedBox(width: 10,),
+          ElevatedButton.icon(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+            onPressed: ()=> _showCamera(false),
+            icon: Icon(Icons.camera_alt_outlined, color: Colors.black,), 
+            label: Text("LEAVE",style: TextStyle(color: Colors.redAccent,),)),],
+          )
         ],
 
       ),

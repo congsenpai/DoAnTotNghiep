@@ -16,8 +16,9 @@ class UpdatesUserInforEvent extends MainAppEvent{
 }
 
 class ScannerEvent extends MainAppEvent{
+  bool isEntry;
   String qrString;
-  ScannerEvent(this.qrString);
+  ScannerEvent(this.qrString, this.isEntry);
 }
 
 

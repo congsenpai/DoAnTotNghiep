@@ -19,6 +19,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     on<LogoutEvent>(_logout);
     on<UpdatesUserInforEvent>(_updatesUserInfo);
     on<UpdatesPassEvent>(_updatesPass);
+    on<ScannerEvent>(_scannerQr);
   }
 
   void _getUserByUserName(
@@ -100,7 +101,13 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     try {
       QrRepository qrs = QrRepository();
       EntryRequest request = EntryRequest(event.qrString);
-      ApiResult qr = await qrs.giveQrIntoCode(request);
+      late ApiResult qr;
+      if(event.isEntry){
+        qr = await qrs.giveQrIntoCode(request);
+      }
+      else{
+        qr = await qrs.giveQrOutCode(request);
+      }
       if(qr.code == 200){
         SuccessQrScanner("WELCOME");
       }

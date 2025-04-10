@@ -67,9 +67,7 @@ class InvoiceRepository {
           code, mess, null
         );
         return apiResult;
-      }      
-          
-      
+      }  
     }
     catch(e){
       throw Exception("InvoiceRepository_getAllInvoiceByOwner : $e");

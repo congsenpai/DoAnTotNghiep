@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
-import 'package:myparkingappadmin/screens/qr_scan.dart';
+import 'package:myparkingappadmin/screens/qr_screen/qr_scan.dart';
 
 class AppDialog {
   /// Hàm hiển thị dialog với nội dung truyền vào
@@ -88,14 +88,14 @@ class AppDialog {
         
     );
   }
-      static void camera(BuildContext context) {
+      static void camera(BuildContext context, bool isEntry) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: SizedBox(
           height: Get.height/1.5,
           width: Get.width/1.5,
-          child: QRScannerPage()
+          child: QRScannerPage(isEntry: isEntry,)
           
           )
         )
