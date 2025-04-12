@@ -1,43 +1,68 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use, avoid_web_libraries_in_flutter
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:html' as html;
 import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_owner_request.dart';
 import 'package:myparkingappadmin/data/network/api_client.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 
 class AuthRepository {
-  final FlutterSecureStorage storage = FlutterSecureStorage();
+  // Lưu token vào sessionStorage
+  void saveToken(String key, String value) {
+    html.window.sessionStorage[key] = value;
+  }
 
+  // Lấy token từ sessionStorage
+  String? getToken(String key) {
+    return html.window.sessionStorage[key];
+  }
+
+  // Xóa token
+  void clearToken(String key) {
+    html.window.sessionStorage.remove(key);
+  }
+
+  // Xóa toàn bộ session
+  void clearSession() {
+    html.window.sessionStorage.clear();
+  }
+
+  // Hàm đăng nhập
   Future<ApiResult> login(String username, String password) async {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.login(username, password);
+      print(response.data);
+
       if (response.statusCode == 200) {
-        String accessToken = response.data['result']['access_token'];
-        String refreshToken = response.data['result']['refresh_token'];
-        bool isAuth = response.data['result']["authentication"];
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'], isAuth);
-        await storage.write(key: 'access_token', value: accessToken);
-        await storage.write(key: 'refresh_token', value: refreshToken);
-        return apiResult;
-      }
-      else{
-        throw Exception("_AuthRepository:");
+        String accessToken = response.data['result']['accessToken'];
+        String refreshToken = response.data['result']['refreshToken'];
+        bool isAuth = response.data['result']['authenticated'] ?? false; 
+
+        // Lưu token vào sessionStorage
+        saveToken('access_token', accessToken);
+        saveToken('refresh_token', refreshToken);
+
+        return ApiResult(
+          response.data['code'],
+          isAuth.toString() ,
+          isAuth,
+        );
+      } else {
+        throw Exception("_AuthRepository: login failed");
       }
     } catch (e) {
       throw Exception("_AuthRepository: $e");
     }
   }
 
+  // Hàm đăng ký
   Future<ApiResult> register(CreateParkingOwnerRequest user) async {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.register(user);
       if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
-        return apiResult;
-      }
-      else{
+        return ApiResult(response.data['code'], response.data['mess'], '');
+      } else {
         throw Exception("_AuthRepository_register:");
       }
     } catch (e) {
@@ -45,36 +70,35 @@ class AuthRepository {
     }
   }
 
-  Future<String?> getAccessToken() async {
-    return await storage.read(key: 'access_token');
-  }
-
+  // Hàm làm mới access token
   Future<void> refreshAccessToken() async {
     try {
       ApiClient apiClient = ApiClient();
-      String? refreshToken = await storage.read(key: 'refresh_token');
+      String? refreshToken = getToken('refresh_token');
       if (refreshToken == null) return;
 
       final response = await apiClient.refreshToken(refreshToken);
       if (response.statusCode == 200) {
         String newAccessToken = response.data['access_token'];
-        await storage.write(key: 'access_token', value: newAccessToken);
+        saveToken('access_token', newAccessToken);
       }
     } catch (e) {
-      Exception("Token refresh failed: $e");
-    
+      print("Token refresh failed: $e");
     }
   }
 
+  // Gửi email
   Future<ApiResult> giveEmail(String email) async {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveEmail(email);
       if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],response.data['result']['token']);
-        return apiResult;
-      }
-      else{
+        return ApiResult(
+          response.data['code'],
+          response.data['mess'],
+          response.data['result']['token'],
+        );
+      } else {
         throw Exception("_AuthRepository_giveEmail:");
       }
     } catch (e) {
@@ -82,24 +106,23 @@ class AuthRepository {
     }
   }
 
-    Future<ApiResult> giveRePassWord(String newPass, String token) async {
+  // Cập nhật mật khẩu mới
+  Future<ApiResult> giveRePassWord(String newPass, String token) async {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveRePassWord(newPass, token);
       if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
-        return apiResult;
-      }
-      else{
-        throw Exception("_AuthRepository_giveEmail:");
+        return ApiResult(response.data['code'], response.data['mess'], '');
+      } else {
+        throw Exception("_AuthRepository_giveRePassWord:");
       }
     } catch (e) {
-      throw Exception("_AuthRepository_giveEmail: $e");
+      throw Exception("_AuthRepository_giveRePassWord: $e");
     }
   }
 
+  // Đăng xuất
   Future<void> logout() async {
-    await storage.delete(key: 'access_token');
-    await storage.delete(key: 'refresh_token');
+    clearSession();
   }
 }

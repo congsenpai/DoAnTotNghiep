@@ -11,6 +11,7 @@ import 'package:myparkingappadmin/data/dto/response/parkingLot_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/discount/discount_list.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
+import 'package:myparkingappadmin/screens/parkingLot/createParkingLot.dart';
 import 'package:myparkingappadmin/screens/parkingSlot/parkingSlotList.dart';
 
 import '../../../app/localization/app_localizations.dart';
@@ -76,6 +77,13 @@ class _ParkingLotListState extends State<ParkingLotList> {
                         widget.user.userId,
                       ),
                     );
+              },
+            ),
+
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                _showAddParkingSlotDialog(context,widget.user);
               },
             ),
           ],
@@ -242,6 +250,30 @@ class _ParkingLotListState extends State<ParkingLotList> {
             height: Get.height/1.2,
             width: Get.width/1.2,
             child: ParkingSlotList(parkingLot: lot),
+          ),
+ // Thay thế bằng widget chi tiết hợp đồng của bạn
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+    void _showAddParkingSlotDialog(BuildContext context, UserResponse user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: Get.height/1.2,
+            width: Get.width/1.2,
+            child: CreateParkingLotScreen(user: user,)
           ),
  // Thay thế bằng widget chi tiết hợp đồng của bạn
           actions: [

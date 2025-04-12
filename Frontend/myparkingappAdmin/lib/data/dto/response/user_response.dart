@@ -58,10 +58,10 @@ class UserResponse {
       companyAddress: json["companyAddress"] ?? '',
       lastName: json["lastName"] ?? '',
       firstName: json["firstName"] ?? '',
-      avatar: Images.fromJson(json["avatar"]),
+      avatar: Images("", json["image"] ?? '', null),
       email: json["email"] ?? '',
       status: _parseUserStatus(json["status"]), // ✅ Chuyển từ String sang enum
-      roles: List<String>.from(json["roles"] ?? []),
+      roles: List<String>.from(json['roles'].map((role) => role['roleName'])),
     );
   }
 

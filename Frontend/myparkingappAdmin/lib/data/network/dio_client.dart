@@ -3,52 +3,72 @@
 import 'package:dio/dio.dart';
 import 'package:myparkingappadmin/repository/authRepository.dart';
 
-
 class DioClient {
   final Dio dio = Dio();
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {
-    dio.options.baseUrl = "https://localhost/myparkingapp/";
+    dio.options.baseUrl = "http://localhost:8080/myparkingapp/";
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 10);
 
-    // Interceptor để tự động gắn token
-    dio.interceptors.add(InterceptorsWrapper(
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => print(obj),
+      ),
+    );
+
+    dio.interceptors.add(
+      InterceptorsWrapper(
       onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-        String? token = await authRepository.getAccessToken();
-        if (token != null) {
-          options.headers['Authorization'] = 'Bearer $token';
+        try {
+          String? token = authRepository.getToken('access_token'); // Dùng hàm getToken()
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+        } catch (e) {
+          print("Error getting access token: $e");
         }
         handler.next(options);
       },
+
       onError: (DioException err, ErrorInterceptorHandler handler) async {
-        if (err.response?.data["code"]==1010) {
-          print("Token expired, refreshing...");
-          await authRepository.refreshAccessToken();
-          String? newToken = await authRepository.getAccessToken();
+        try {
+          if (err.response?.data != null &&
+              err.response?.data["code"] == 1010) {
+            print("Token expired. Attempting to refresh...");
 
-          if (newToken != null) {
-            err.requestOptions.headers['Authorization'] = 'Bearer $newToken';
+            await authRepository.refreshAccessToken();
+            String? newToken = authRepository.getToken('access_token');
 
-            // Thực hiện lại request sau khi có token mới
-            final clonedRequest = await dio.request(
-              err.requestOptions.path,
-              options: Options(
-                method: err.requestOptions.method,
-                headers: err.requestOptions.headers,
-              ),
-              data: err.requestOptions.data,
-              queryParameters: err.requestOptions.queryParameters,
-            );
+            if (newToken != null) {
+              final requestOptions = err.requestOptions;
+              requestOptions.headers['Authorization'] = 'Bearer $newToken';
 
-            handler.resolve(clonedRequest);
-            return;
+              final clonedResponse = await dio.request(
+                requestOptions.path,
+                data: requestOptions.data,
+                queryParameters: requestOptions.queryParameters,
+                options: Options(
+                  method: requestOptions.method,
+                  headers: requestOptions.headers,
+                ),
+              );
+              return handler.resolve(clonedResponse);
+            }
           }
+        } catch (e) {
+          print("Error during token refresh: $e");
         }
-        handler.next(err);
+
+        handler.next(err); // Nếu không refresh được thì vẫn đẩy lỗi
       },
-    )
-    );
+    ));
   }
 }

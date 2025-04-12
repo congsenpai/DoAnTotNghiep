@@ -26,10 +26,9 @@ import '../../responsive.dart';
 
 class MainScreen extends StatefulWidget {
   final bool isAuth;
-  final String userName;
   final Function(Locale) onLanguageChange;
   const MainScreen({super.key,
-    required this.isAuth, required this.onLanguageChange, required this.userName,
+    required this.isAuth, required this.onLanguageChange,
 });
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -42,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     context.read<MainAppBloc>()
-        .add(initializationEvent(widget.userName));
+        .add(initializationEvent());
   }
 
 
@@ -92,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
         if(state is MainAppErrorState){
           AppDialog.showErrorEvent(context, state.mess,onPress: () {
                 context.read<MainAppBloc>()
-                .add(initializationEvent(widget.userName));
+                .add(initializationEvent());
           },);
           
         }
@@ -100,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginScreen(isAuth: false, onLanguageChange: widget.onLanguageChange, ),
+                builder: (context) => LoginScreen( onLanguageChange: widget.onLanguageChange, ),
                 
               ),
             );
@@ -108,7 +107,7 @@ class _MainScreenState extends State<MainScreen> {
         else if(state is MainAppSuccessState){
           AppDialog.showSuccessEvent(context,state.mess,onPress: () {
                 context.read<MainAppBloc>()
-                .add(initializationEvent(widget.userName));
+                .add(initializationEvent());
           },);
         }
         else if(state is ErrorQrScanner){

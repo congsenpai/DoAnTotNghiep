@@ -2,62 +2,80 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 
 class TextFieldCustom extends StatelessWidget {
   final TextEditingController editController;
   final String title;
-  final bool isEdit; 
-  int? height;
+  final bool isEdit;
+  final int? height;
+  final FormFieldValidator<String>? validator;
 
-  TextFieldCustom({
+  const TextFieldCustom({
     super.key,
     required this.editController,
-    required this.title, required this.isEdit,
+    required this.title,
+    required this.isEdit,
     this.height,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height?.toDouble() ?? 50, // ✅ Chiều cao của TextField
+      height: height?.toDouble() ?? 70,
       child: TextFormField(
-        enabled: isEdit, // ✅ Cho phép chỉnh sửa hay khôn
+        enabled: isEdit,
         controller: editController,
-        cursorColor: Theme.of(context).colorScheme.primary, // ✅ Màu con trỏ
+        validator: validator, // ✅ THÊM VALIDATION TẠI ĐÂY
+        cursorColor: Theme.of(context).colorScheme.primary,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary, // ✅ Màu chữ trong ô nhập
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         decoration: InputDecoration(
-          labelText: title,
+          labelText: AppLocalizations.of(context).translate(title),
           labelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary, // ✅ Màu label khi chưa focus
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           filled: true,
-          fillColor: Theme.of(context).colorScheme.surface, // ✅ Màu nền
+          fillColor: Theme.of(context).colorScheme.surface,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.onPrimary, // ✅ Border khi chưa focus
+              color: Theme.of(context).colorScheme.onPrimary,
               width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary, // ✅ Border khi focus
+              color: Theme.of(context).colorScheme.primary,
               width: 2,
             ),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: Colors.grey.shade400, // ✅ Border khi TextField bị disabled
+              color: Colors.grey.shade400,
               width: 1,
             ),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.5,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 2,
+            ),
+          ),
         ),
-      )
-
+      ),
     );
   }
 }

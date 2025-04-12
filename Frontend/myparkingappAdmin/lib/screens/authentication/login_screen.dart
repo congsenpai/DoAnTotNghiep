@@ -8,16 +8,12 @@ import '../../bloc/auth/auth_event.dart';
 import '../../bloc/auth/auth_state.dart';
 import '../../constants.dart';
 import '../general/header.dart';
-import '../../responsive.dart';
-import '../main/components/side_menu.dart';
 import '../main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  final bool isAuth;
   final Function(Locale) onLanguageChange;
   const LoginScreen({
     super.key,
-    required this.isAuth,
     required this.onLanguageChange,
   });
   @override
@@ -37,113 +33,145 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
-          return SafeArea(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  // It takes 5/6 part of the screen
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(defaultPadding),
-                    child: Column(
-                      children: [
-                        Header(
-                            title:
-                                AppLocalizations.of(context).translate("Login"),
-                            onLanguageChange: widget.onLanguageChange),
-                        SizedBox(height: defaultPadding),
-                        Column(
+          return Center(
+            child: Container(
+              padding: EdgeInsets.all(20),
+              height: Get.height / 1.1,
+              width: Get.width / 1.5,
+              color: Theme.of(context).colorScheme.primary,
+              child: Column(
+                children: [
+                  Header(
+                      title: AppLocalizations.of(context).translate(""),
+                      onLanguageChange: widget.onLanguageChange),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    children: [
+                      Expanded(
+                          // It takes 5/6 part of the screen
+                          flex: 2,
+                          child: SizedBox(
+                            height: Get.height / 1.5,
+                            child: Image.asset(
+                              "assets/images/login_banner.jpg",
+                              fit: BoxFit.fitWidth,
+                            ),
+                          )),
+                      Expanded(
+                        // It takes 5/6 part of the screen
+                        flex: 3,
+                        child: Column(
                           children: [
-                            TextField(
-                              controller: _usernameController,
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)
-                                    .translate("Email"),
-                                labelStyle: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary), // Viền khi focus
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: defaultPadding),
-                            TextField(
-                              controller: _passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)
-                                    .translate("Password"),
-                                labelStyle: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary), // Viền khi focus
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: defaultPadding),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    disabledForegroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary, // Màu khi bị vô hiệu hóa
+                            Container(
+                              padding: EdgeInsets.all(20),
+                              height: Get.height / 1.5,
+                              width: Get.width / 2,
+                              color: Theme.of(context).colorScheme.secondary,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: Get.height/10),
+                                  Center(
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .translate("Login"),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25),
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    
-                                  },
-                                  child: Text(AppLocalizations.of(context)
-                                      .translate("Forget Password")),
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary, // Màu chữ trên nền chính
+                                  Spacer(),
+                                  TextField(
+                                    controller: _usernameController,
+                                    decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)
+                                          .translate("Email"),
+                                      labelStyle: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary),
+                                      border: OutlineInputBorder(),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary), // Viền khi focus
+                                      ),
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    context.read<AuthBloc>().add(
-                                        AuthenticateEvent(
-                                            _usernameController.text,
-                                            _passwordController.text));
-                                  },
-                                  child: Text(AppLocalizations.of(context)
-                                      .translate("Login")),
-                                ),
-                              ],
+                                  SizedBox(height: defaultPadding),
+                                  TextField(
+                                    controller: _passwordController,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)
+                                          .translate("Password"),
+                                      labelStyle: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary),
+                                      border: OutlineInputBorder(),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary), // Viền khi focus
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: defaultPadding),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                          disabledForegroundColor: Theme.of(
+                                                  context)
+                                              .colorScheme
+                                              .onPrimary, // Màu khi bị vô hiệu hóa
+                                        ),
+                                        onPressed: () {},
+                                        child: Text(AppLocalizations.of(
+                                                context)
+                                            .translate("Forget Password")),
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary, // Màu chữ trên nền chính
+                                        ),
+                                        onPressed: () {
+                                          context.read<AuthBloc>().add(
+                                              AuthenticateEvent(
+                                                  _usernameController.text,
+                                                  _passwordController.text));
+                                        },
+                                        child: Text(
+                                            AppLocalizations.of(context)
+                                                .translate("Login")),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: Get.height/5),
+                                
+                                ],
+                              ),
                             )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                    // It takes 5/6 part of the screen
-                    flex: 1,
-                    child: SizedBox(
-                      height: Get.height,
-                      child: Image.asset("assets/images/login_banner.jpg"),
-                    )),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -154,8 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialPageRoute(
                   builder: (context) => MainScreen(
                         isAuth: true,
-                        onLanguageChange: widget.onLanguageChange,
-                        userName: state.userName,
+                        onLanguageChange: widget.onLanguageChange
                       )),
             );
           } else if (state is AuthError) {

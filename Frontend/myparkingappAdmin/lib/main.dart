@@ -16,7 +16,6 @@ import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/login_screen.dart';
-import 'package:myparkingappadmin/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
@@ -68,19 +67,19 @@ class _MyAppState extends State<MyApp> {
     });
   }
   // This widget is the root of your application.
-  UserResponse u = UserResponse(
-    userId: '1',
-    username: 'john_doe',
-    password: 'password123',
-    phoneNumber: '123-456-7890',
-    homeAddress: '123 Main St',
-    companyAddress: '456 Business Blvd',
-    lastName: 'Doe',
-    firstName: 'John',
-    avatar: Images("", null, null),
-    email: 'john.doe@example.com',
-    roles: [], status: UserStatus.ACTIVE,
-  );
+  // UserResponse u = UserResponse(
+  //   userId: '1',
+  //   username: 'john_doe',
+  //   password: 'password123',
+  //   phoneNumber: '123-456-7890',
+  //   homeAddress: '123 Main St',
+  //   companyAddress: '456 Business Blvd',
+  //   lastName: 'Doe',
+  //   firstName: 'John',
+  //   avatar: Images("", null, null),
+  //   email: 'john.doe@example.com',
+  //   roles: [], status: UserStatus.ACTIVE,
+  // );
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -100,7 +99,7 @@ class _MyAppState extends State<MyApp> {
           Locale('en', ''), // English
           Locale('vi', ''), // Vietnamese
         ],
-        home: LoginScreen(isAuth: false, onLanguageChange: _changeLanguage)
+        home: LoginScreen( onLanguageChange: _changeLanguage)
         
     );
   }

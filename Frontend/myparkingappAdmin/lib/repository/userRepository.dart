@@ -147,21 +147,22 @@ class UserRepository {
     }
 
   }
-  Future<ApiResult> getUserByUserName(String userName) async{
+  Future<ApiResult> getMe() async{
     try {
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.getUserByUserName(userName);
+      final response = await apiClient.getMe();
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
+      UserResponse userResponse = UserResponse.fromJson(response.data["result"]);
       if(response.statusCode == 200){
         ApiResult apiResult = ApiResult(
-           code, mess, null
+           code, mess, userResponse
         );
         return apiResult;
       }
       else{
         ApiResult apiResult = ApiResult(
-           code, mess, null
+           code, mess, userResponse
         );
         return apiResult;
       }      

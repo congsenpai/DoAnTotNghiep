@@ -60,12 +60,14 @@ class ApiClient {
     );
   }
 
-  Future<Response> getUserByUserName(String userName) async {
+  Future<Response> getMe() async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/$userName",
+      "users/profile",
     );
   }
+
+
 
   Future<Response> getAllCustomerUser(String search) async {
     final DioClient dioClient = DioClient();

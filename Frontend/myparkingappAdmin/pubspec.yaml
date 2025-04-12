@@ -38,6 +38,5 @@ flutter:
     - assets/icons/
     - assets/lang/en.json
     - assets/lang/vi.json
-    - assets/mockup/UserMockup.json
     - assets/logos/
 

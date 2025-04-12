@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
     try{
       AuthRepository auth = AuthRepository();
       ApiResult result = await auth.login(event.username, event.password);
-      if(result.code == 200){
+      if(result.code == 200 || result.code == 0){
         emit(AuthSuccess(event.username));
       }
       else{

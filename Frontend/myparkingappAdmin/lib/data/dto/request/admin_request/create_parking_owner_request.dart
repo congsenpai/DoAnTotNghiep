@@ -11,8 +11,7 @@ class CreateParkingOwnerRequest {
   final String firstName;
   final String avatar;
   final String email;
-  final bool status;
-  final List<String> roles;
+
 
   CreateParkingOwnerRequest( {
     required this.username,
@@ -24,8 +23,6 @@ class CreateParkingOwnerRequest {
     required this.firstName,
     required this.avatar,
     required this.email,
-    required this.status,
-    required this.roles,
   });
 
   /// **Chuyển từ `User` object sang JSON**
@@ -40,8 +37,8 @@ class CreateParkingOwnerRequest {
       'firstName': firstName,
       'avatar': avatar,
       'email': email,
-      'status': status,
-      'roles':'roles'
+      'status': "ACTIVE",
+      'roles': ['PARKING_OWNER']
     };
   }
   @override

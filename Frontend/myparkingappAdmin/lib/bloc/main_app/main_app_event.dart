@@ -5,8 +5,7 @@ import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
 abstract class MainAppEvent{}
 
 class initializationEvent extends MainAppEvent{
-  String userName;
-  initializationEvent(this.userName);
+  initializationEvent();
 }
 
 class UpdatesUserInforEvent extends MainAppEvent{
