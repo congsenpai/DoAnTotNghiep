@@ -1,5 +1,4 @@
-package com.smartparking.smartbrain.dto.response;
-import com.fasterxml.jackson.annotation.JsonInclude;
+package com.smartparking.smartbrain.dto.response.Image;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,13 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ApiResponse <T>{
-    int code;
-    String message;
-    T result;
+public class ImageResponse {
+    String imageURL;
 }

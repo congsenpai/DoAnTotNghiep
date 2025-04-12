@@ -1,18 +1,16 @@
-package com.smartparking.smartbrain.dto.request.ImageSpot;
-
-import lombok.AccessLevel;
+package com.smartparking.smartbrain.dto.request.Authentication;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.AccessLevel;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UpdateStatusImageRequest {
-    private boolean status;
+public class ForgotPassRequest {
+    String email;
 }
-

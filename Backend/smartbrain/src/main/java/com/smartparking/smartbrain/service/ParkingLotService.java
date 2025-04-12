@@ -3,10 +3,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.ParkingLot.CreatedParkingLotRequest;
 import com.smartparking.smartbrain.dto.request.ParkingLot.LocationConfig;
 import com.smartparking.smartbrain.dto.request.ParkingLot.VehicleSlotConfig;
+import com.smartparking.smartbrain.dto.response.PagedResponse;
 import com.smartparking.smartbrain.dto.response.ParkingLot.ParkingLotResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
@@ -131,5 +135,18 @@ public class ParkingLotService {
             response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
             return response;
         }).collect(Collectors.toList());
+    }
+    public PagedResponse<ParkingLotResponse> getAllParkingLot(Pageable pageable) {
+        var parkingLotPage=parkingLotRepository.findAllPage(pageable);
+        List<ParkingLotResponse> parkingLotResponses = parkingLotPage.getContent().stream()
+                .map(parkingLot -> {
+                    ParkingLotResponse response = parkingLotMapper.toParkingLotResponse(parkingLot);
+                    response.setUserID(parkingLot.getUser().getUserID());
+                    response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
+                    return response;
+                })
+                .collect(Collectors.toList());
+        return new PagedResponse<>(parkingLotResponses, parkingLotPage.getNumber(), parkingLotPage.getSize(),
+                parkingLotPage.getTotalElements(), parkingLotPage.getTotalPages(), parkingLotPage.isLast());
     }
 }

@@ -35,37 +35,49 @@ public class InvoiceController {
     @PostMapping("/daily/deposit")
     public ApiResponse<InvoiceResponse> depositDailyInvoice(@Valid @RequestBody InvoiceCreatedDailyRequest request) {
         return ApiResponse.<InvoiceResponse>builder()
+        .code(200)
         .result(invoiceService.depositDailyInvoice(request))
+        .message("Invoice deposited successfully")
         .build();
     }
     @PostMapping("/daily/payment")
     public ApiResponse<InvoiceResponse> paymentDailyInvoice(@Valid @RequestBody PaymentDailyRequest request) {
         return ApiResponse.<InvoiceResponse>builder()
+        .code(200)
         .result(invoiceService.paymentDailyInvoice(request))
+        .message("Invoice payment successfully")
         .build();
     }
     @PostMapping("/monthly")
     public ApiResponse<InvoiceResponse> createMonthlyInvoice(@Valid @RequestBody InvoiceCreatedMonthlyRequest request) {
         return ApiResponse.<InvoiceResponse>builder()
+        .code(200)
         .result(invoiceService.createMonthlyInvoice(request))
+        .message("Invoice payment successfully")
         .build();
     }
     @GetMapping("/{InvoiceID}")
     public ApiResponse<InvoiceResponse> getInvoiceByID(@PathVariable String InvoiceID) {
         return ApiResponse.<InvoiceResponse>builder()
+        .code(200)
         .result(invoiceService.getInvoiceByID(InvoiceID))
+        .message("Invoice retrieved successfully")
         .build();
     }
     @GetMapping("/{UserID}")
     public ApiResponse<List<InvoiceResponse>> getInvoiceByUserID(@PathVariable String UserID) {
         return ApiResponse.<List<InvoiceResponse>>builder()
+        .code(200)
         .result(invoiceService.getInvoiceByUserID(UserID))
+        .message("Invoice retrieved successfully")
         .build();
     }
     @GetMapping("")
     public ApiResponse<List<InvoiceResponse>> getAll() {
         return ApiResponse.<List<InvoiceResponse>>builder()
+        .code(200)
         .result(invoiceService.getAllInvoice())
+        .message("Invoice retrieved successfully")
         .build();
     }
     

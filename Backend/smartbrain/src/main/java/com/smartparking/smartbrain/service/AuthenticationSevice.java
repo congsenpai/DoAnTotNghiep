@@ -15,8 +15,12 @@ import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequ
 import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.LogoutRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.RefreshRequest;
+import com.smartparking.smartbrain.dto.request.Authentication.ResetPassRequest;
+import com.smartparking.smartbrain.dto.request.User.UserRegisterRequest;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
+import com.smartparking.smartbrain.dto.response.ChangePasswordResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
+import com.smartparking.smartbrain.encoder.AESEncryption;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.InvalidToken;
@@ -34,10 +38,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationSevice {
-    final UserRepository userReponsitory;
+    final UserRepository userRepository;
     final PasswordEncoder passwordEncoder;
     final JwtTokenProvider jwtTokenProvider;
     final InvalidatedRepository invalidatedRepository;
+
 
     @Value("${jwt.signerKey}")
     protected String SECRET_KEY;
@@ -59,14 +64,15 @@ public class AuthenticationSevice {
             .build();
     }
 
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        User user = userReponsitory.findByUsername(request.getUsername()).orElseThrow(
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow(
             () -> new AppException(ErrorCode.USER_NOT_FOUND)
         );
     
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if(!authenticated)
-            throw new AppException(ErrorCode.UNAUTHORIZED);
+            throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         return AuthenticationResponse.builder()
             .accessToken(jwtTokenProvider.generateAccessToken(user))
             .refreshToken(jwtTokenProvider.generateRefreshToken(user))
@@ -89,14 +95,14 @@ public class AuthenticationSevice {
 
         Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
         boolean isVerified = signedJWT.verify(verifier);
+        if (invalidatedRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
+            throw new AppException(ErrorCode.TOKEN_EXPIRED);
+        }
         if(!isVerified || !expirationTime.after(new Date())){
             System.out.println("Token is invalid");
             System.out.println("isVerified: "+isVerified);
             System.out.println("expirationTime: "+expirationTime);
             throw new AppException(ErrorCode.UNAUTHORIZED);
-        }
-        if (invalidatedRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
-            throw new AppException(ErrorCode.TOKEN_EXPIRED);
         }
         return signedJWT;
     }
@@ -121,7 +127,7 @@ public class AuthenticationSevice {
             .build();
         invalidatedRepository.save(invalidRefreshToken);
         // generate a new access token
-        User user= userReponsitory.findById(signedJWT.getJWTClaimsSet().getClaim("userId").toString()).orElseThrow(
+        User user= userRepository.findById(signedJWT.getJWTClaimsSet().getClaim("userId").toString()).orElseThrow(
             () -> new AppException(ErrorCode.USER_NOT_FOUND)
         );
         
@@ -132,5 +138,33 @@ public class AuthenticationSevice {
             .build();
 
     }
-
+    public ChangePasswordResponse forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+        log.info("User found: {}", user);
+        try {
+            String token = AESEncryption.encryptObject(user, SECRET_KEY);
+            return ChangePasswordResponse.builder()
+            .userToken(token)
+            .build();
+        } catch (Exception e) {
+                throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+        }
+    }
+    public void resetPassword(ResetPassRequest request) {
+        try {
+            User user = AESEncryption.decryptObject(request.getUserToken(), SECRET_KEY, User.class);
+            if (user == null) {
+                throw new AppException(ErrorCode.ERROR_NOT_FOUND,"User not found");
+            }else{
+            User user1=userRepository.findById(user.getUserID()).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_FOUND)
+            );
+                user1.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                userRepository.save(user1);
+            }
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when decrypt invoice");
+        }
+    }
 }

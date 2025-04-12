@@ -2,6 +2,8 @@ package com.smartparking.smartbrain.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,7 @@ public interface ParkingLotRepository extends JpaRepository<ParkingLot, String> 
     List<ParkingLot> findNearestParkingLots(@Param("lat") double latitude, @Param("lon") double longitude);
 
     List<ParkingLot> findByParkingLotName(String parkingLotName);
+    
+    @Query("SELECT p FROM ParkingLot p")
+    Page<ParkingLot> findAllPage(Pageable pageable);
 }

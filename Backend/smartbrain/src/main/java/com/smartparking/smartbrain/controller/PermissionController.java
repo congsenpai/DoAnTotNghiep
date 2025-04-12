@@ -31,7 +31,9 @@ public class PermissionController {
     @PostMapping
     public ApiResponse<PermissionResponse> createPermission(@RequestBody PermissionRequest permissionRequest) {
         return ApiResponse.<PermissionResponse>builder()
+        .code(200)
         .result(permissionService.createPermission(permissionRequest))
+        .message("Permission created successfully")
         .build();
         
     }
@@ -39,7 +41,9 @@ public class PermissionController {
     @GetMapping
     public ApiResponse<List<PermissionResponse>>getAllPermission() {
         return ApiResponse.<List<PermissionResponse>>builder()
+        .code(200)
         .result(permissionService.getAllPermissions())
+        .message("Permissions retrieved successfully")
         .build();
     }
 
@@ -47,6 +51,8 @@ public class PermissionController {
     public ApiResponse<Void> deletePermission(@PathVariable String permissionName) {
         permissionService.deletePermission(permissionName);
         return ApiResponse.<Void>builder()
+        .code(200)
+        .message("Permission deleted successfully")
         .build();
     }
     
