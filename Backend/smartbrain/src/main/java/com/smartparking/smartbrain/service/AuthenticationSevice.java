@@ -16,7 +16,6 @@ import com.smartparking.smartbrain.dto.request.Authentication.IntrospectRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.LogoutRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.RefreshRequest;
 import com.smartparking.smartbrain.dto.request.Authentication.ResetPassRequest;
-import com.smartparking.smartbrain.dto.request.User.UserRegisterRequest;
 import com.smartparking.smartbrain.dto.response.AuthenticationResponse;
 import com.smartparking.smartbrain.dto.response.ChangePasswordResponse;
 import com.smartparking.smartbrain.dto.response.IntrospectResponse;
@@ -167,4 +166,5 @@ public class AuthenticationSevice {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when decrypt invoice");
         }
     }
+
 }

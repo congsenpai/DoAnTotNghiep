@@ -1,17 +1,12 @@
 package com.smartparking.smartbrain.service;
 import java.util.HashSet;
 import java.util.List;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.smartparking.smartbrain.dto.request.User.UserRequest;
-import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
@@ -24,8 +19,6 @@ import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.repository.ImagesRepository;
 import com.smartparking.smartbrain.repository.RoleRepository;
 import com.smartparking.smartbrain.repository.UserRepository;
-
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

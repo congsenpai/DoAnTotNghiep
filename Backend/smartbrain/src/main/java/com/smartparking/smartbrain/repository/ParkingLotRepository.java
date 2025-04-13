@@ -23,7 +23,8 @@ public interface ParkingLotRepository extends JpaRepository<ParkingLot, String> 
     """, nativeQuery = true)
     List<ParkingLot> findNearestParkingLots(@Param("lat") double latitude, @Param("lon") double longitude);
 
-    List<ParkingLot> findByParkingLotName(String parkingLotName);
+    @Query("SELECT p FROM ParkingLot p WHERE p.parkingLotName LIKE %:parkingLotName%")
+    Page<ParkingLot> searchByParkingLotName(String parkingLotName, Pageable pageable);
     
     @Query("SELECT p FROM ParkingLot p")
     Page<ParkingLot> findAllPage(Pageable pageable);

@@ -39,6 +39,5 @@ public interface ImageMapper {
             .map(url -> from(url, request.getParkingLotID()))
             .collect(Collectors.toList());
     }
-    @Mapping(source = "url", target = "imageURL")
     ImageResponse fromImageToImageResponse(Image image);
 }

@@ -8,6 +8,7 @@ public enum ErrorCode {
     NOT_ACCESS_TOKEN(0003,"Not access token"),
     INVALID_TOKEN(0004,"Invalid token"),
     SLOT_NOT_VALID_WITH_VEHICLE_TYPE(0005,"Slot not valid with vehicle type"),
+    INVALID_DATE_TIME_FORMAT(0006,"Invalid date time format"),
 
 
     // User errors

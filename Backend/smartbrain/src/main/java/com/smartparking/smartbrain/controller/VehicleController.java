@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -46,5 +47,14 @@ public class VehicleController {
         .message("Vehicle fetched successfully")
         .build();
     }
+    @PatchMapping("/{VehicleID}")
+    public ApiResponse<Void> deleteVehicle(@PathVariable String VehicleID) {
+        vehicleService.deletedByID(VehicleID);
+        return ApiResponse.<Void>builder()
+        .code(200)
+        .message("Vehicle deleted successfully")
+        .build();
+    }
+
     
 }

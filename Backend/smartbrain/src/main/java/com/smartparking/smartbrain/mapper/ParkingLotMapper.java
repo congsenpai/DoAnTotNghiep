@@ -19,7 +19,7 @@ public interface ParkingLotMapper {
     @Mapping(target = "ratings", ignore = true)
     ParkingLot toParkingLot(CreatedParkingLotRequest createdParkingLotRequest);
     
-    @Mapping(target = "images",ignore = true)
+
     @Mapping(target = "userID", ignore = true)
     ParkingLotResponse toParkingLotResponse(ParkingLot parkingLot);
 }

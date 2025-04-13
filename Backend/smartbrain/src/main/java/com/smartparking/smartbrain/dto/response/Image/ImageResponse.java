@@ -13,5 +13,6 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ImageResponse {
-    String imageURL;
+    String imagesID;
+    String url;
 }

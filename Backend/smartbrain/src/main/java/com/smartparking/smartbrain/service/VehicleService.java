@@ -44,9 +44,11 @@ public class VehicleService {
         return vehicles.stream().map(vehicleMapper::toVehicleResponse).toList();
     }
     public void deletedByID(String vehicleID){
-        if (!vehicleRepository.existsById(vehicleID)) {
-            throw new AppException(ErrorCode.VEHICLE_NOT_EXISTS);
-        }
-        vehicleRepository.deleteById(vehicleID);
+            Vehicle vehicle = vehicleRepository.findById(vehicleID)
+            .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
+            vehicle.setDeleted(true);
+            vehicleRepository.save(vehicle);
     }
+
 }
+

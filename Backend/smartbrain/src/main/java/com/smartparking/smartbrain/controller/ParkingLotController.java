@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +51,7 @@ public class ParkingLotController {
         .build();
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ApiResponse<List<ParkingLotResponse>> getAllParkingLot() {
         return ApiResponse.<List<ParkingLotResponse>>builder()
         .code(200)
@@ -97,13 +96,21 @@ public class ParkingLotController {
         .build();
     }
     @GetMapping("/search")
-    public ApiResponse<List<ParkingLotResponse>> findParkingLotByName(@RequestParam String name) {
-        return ApiResponse.<List<ParkingLotResponse>>builder()
-        .code(200)
-        .result(parkingLotService.findByParkingLotName(name))
-        .message("Parking lots retrieved successfully")
-        .build();
+    public ApiResponse<PagedResponse<ParkingLotResponse>> findParkingLotByName(
+            @RequestParam String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        PagedResponse<ParkingLotResponse> response = parkingLotService
+            .findByParkingLotName(name, PageRequest.of(page, size));
+        
+        return ApiResponse.<PagedResponse<ParkingLotResponse>>builder()
+            .code(200)
+            .result(response)
+            .message("Parking lots retrieved successfully")
+            .build();
     }
+    
     @GetMapping("/nearby")
     public ApiResponse<List<ParkingLotResponse>> findNearestParkingLot(@RequestParam double lat, @RequestParam double lon) {
         return ApiResponse.<List<ParkingLotResponse>>builder()
@@ -112,7 +119,7 @@ public class ParkingLotController {
         .message("Parking lots retrieved successfully")
         .build();
     }
-    @GetMapping("/parking-lots")
+    @GetMapping()
     public ApiResponse<PagedResponse<ParkingLotResponse>> getParkingLots(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.nimbusds.jose.JOSEException;
 import com.smartparking.smartbrain.dto.request.Authentication.AuthenticationRequest;
@@ -101,6 +100,13 @@ public class AuthenticationController {
         return ApiResponse.<Void>builder()
         .code(200)
         .message("Change password successfully")
+        .build();
+    }
+    @GetMapping("/error")
+    public ApiResponse<Void> error() {
+        return ApiResponse.<Void>builder()
+        .code(200)
+        .message("Has error occur")
         .build();
     }
 }

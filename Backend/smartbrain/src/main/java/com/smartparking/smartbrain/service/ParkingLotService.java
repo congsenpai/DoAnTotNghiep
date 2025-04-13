@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.dto.request.ParkingLot.CreatedParkingLotRequest;
@@ -82,7 +81,6 @@ public class ParkingLotService {
         // create reponse
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
         response.setUserID(parkingLot.getUser().getUserID());
-        response.setImages(createdParkingLotRequest.getImages());
         return response;
     }
 
@@ -91,7 +89,6 @@ public class ParkingLotService {
         .orElseThrow(() -> new AppException(ErrorCode.PARKING_LOT_NOT_FOUND));
         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
         response.setUserID(parkingLot.getUser().getUserID());
-        response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
         return response;
     }
 
@@ -100,7 +97,6 @@ public class ParkingLotService {
         return parkingLotRepository.findAll().stream().map(parkingLot -> {
             ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
             response.setUserID(parkingLot.getUser().getUserID());
-            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
             return response;
         }).collect(Collectors.toList());
     }
@@ -112,18 +108,41 @@ public class ParkingLotService {
         parkingLotRepository.deleteById(parkingLotID);
     }
 
-    public List<ParkingLotResponse> findByParkingLotName(String name) {
-        var parkingLotList=parkingLotRepository.findByParkingLotName(name);
-        if (!parkingLotList.isEmpty()) {
+    // public List<ParkingLotResponse> findByParkingLotName(String name) {
+    //     var parkingLotList=parkingLotRepository.findByParkingLotName(name);
+    //     if (!parkingLotList.isEmpty()) {
+    //         throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+    //     }
+    //     return parkingLotList.stream().map(parkingLot -> {
+    //         ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
+    //         response.setUserID(parkingLot.getUser().getUserID());
+    //         return response;
+    //     }).collect(Collectors.toList());
+    // }
+    public PagedResponse<ParkingLotResponse> findByParkingLotName(String name, Pageable pageable) {
+        var page= parkingLotRepository.searchByParkingLotName(name, pageable);
+
+        if (page.isEmpty()) {
             throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
         }
-        return parkingLotList.stream().map(parkingLot -> {
-            ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
-            response.setUserID(parkingLot.getUser().getUserID());
-            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
-            return response;
-        }).collect(Collectors.toList());
+
+        List<ParkingLotResponse> content = page.getContent().stream()
+            .map(parkingLot -> {
+                ParkingLotResponse response = parkingLotMapper.toParkingLotResponse(parkingLot);
+                response.setUserID(parkingLot.getUser().getUserID());
+                return response;
+            }).collect(Collectors.toList());
+
+        return new PagedResponse<>(
+            content,
+            page.getNumber(),
+            page.getSize(),
+            page.getTotalElements(),
+            page.getTotalPages(),
+            page.isLast()
+        );
     }
+
     public List<ParkingLotResponse> findNearestParkingLot(double lat,double lon){
         var parkingLotList=parkingLotRepository.findNearestParkingLots(lat,lon);
         if (!parkingLotList.isEmpty()) {
@@ -132,7 +151,6 @@ public class ParkingLotService {
         return parkingLotList.stream().map(parkingLot -> {
             ParkingLotResponse response= parkingLotMapper.toParkingLotResponse(parkingLot);
             response.setUserID(parkingLot.getUser().getUserID());
-            response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
             return response;
         }).collect(Collectors.toList());
     }
@@ -142,7 +160,6 @@ public class ParkingLotService {
                 .map(parkingLot -> {
                     ParkingLotResponse response = parkingLotMapper.toParkingLotResponse(parkingLot);
                     response.setUserID(parkingLot.getUser().getUserID());
-                    response.setImages(parkingLot.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
                     return response;
                 })
                 .collect(Collectors.toList());
