@@ -40,26 +40,21 @@ class _BookingScreenState extends State<BookingScreen> {
   bool isShowWallet = false;
   bool isVehicle = false;
 
-  // DiscountResponse discount = emptyDiscount;
-  late DiscountResponse discount;
+  DiscountResponse? discount;
   List<DiscountResponse> discounts = [];
-  // DateTime start = DateTime.now();
-  late DateTime start;
+  DateTime start = DateTime.now();
   List<MonthInfo> monthSelect = [];
   List<WalletResponse> wallets = [];
-  // WalletResponse wallet = walletdemo[0];
-  late WalletResponse wallet;
-  // VehicleResponse vehicle = vehiclesdemo[0];
-  late VehicleResponse vehicle;
+  WalletResponse? wallet;
+  VehicleResponse? vehicle;
   List<VehicleResponse> vehicles = [];
-  // MonthInfo selectMonth = MonthInfo("March", DateTime(1, 3, 2025), DateTime(31, 3, 2025));
-  late MonthInfo selectMonth;
+  MonthInfo selectMonth = MonthInfo("March", DateTime(1, 3, 2025), DateTime(31, 3, 2025));
 
   @override
   void initState() {
     super.initState();
     context.read<BookingBloc>().add(
-        BookingInitialInvoiceEvent(discount, start, widget.lot, widget.slot, selectMonth,wallet,vehicle,widget.user));
+        BookingInitialInvoiceEvent(widget.lot, widget.slot,widget.user));
   }
 
   List<List<T>> splitList<T>(List<T> list, int chunkSize) {
@@ -93,17 +88,10 @@ class _BookingScreenState extends State<BookingScreen> {
           if (state is BookingLoadingState) {
             return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
           } else if (state is BookingLoadedState) {
-            discount = state.discount;
-            selectMonth = state.month;
             monthSelect = state.monthLists;
-            start = state.start;
             discounts = state.discounts;
-            wallet = state.wallet;
             wallets = state.wallets;
-            vehicle = state.vehicle;
             vehicles = state.vehicles;
-            
-
             return SafeArea(
               top: false,
               child: SingleChildScrollView(
@@ -118,8 +106,6 @@ class _BookingScreenState extends State<BookingScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-
                           RequiredSectionTitle(title: "Choice"),
                           const SizedBox(height: defaultPadding),
                           ...List.generate(
@@ -152,8 +138,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                               isActive: (selectMonth.monthName == month.monthName),
                                               text: AppLocalizations.of(context).translate(month.monthName),
                                               press: () {
-                                                context.read<BookingBloc>().add(
-                                                    BookingInitialInvoiceEvent(discount, start, widget.lot, widget.slot, month,wallet,vehicle,widget.user));
+                                                setState(() {
+                                                  selectMonth = month;
+                                                });
                                               },
                                             ))
                                         .toList(),
@@ -182,7 +169,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                 isVehicle = !isVehicle;
                               });
                             },
-                            child: Text(vehicles.isNotEmpty ? "Choice a vehicle : ${vehicle.licensePlate}" :"You haven't added vehicle" ),
+                            child: Text(
+                              vehicles.isEmpty
+                                  ? "You haven't added vehicle"
+                                  : vehicle != null
+                                  ? "Choice a vehicle : ${vehicle!.licensePlate}"
+                                  : "Choice a vehicle",
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           Visibility(
@@ -191,12 +184,12 @@ class _BookingScreenState extends State<BookingScreen> {
                               children: [
                                 
                                 ...vehicles.map((v) => RoundedCheckboxListTile(
-                                      isActive: (vehicle.licensePlate == v.licensePlate),
+                                      isActive: (vehicle!.licensePlate == v.licensePlate),
                                       text: "${v.licensePlate} ${  AppLocalizations.of(context).translate(v.vehicleType.name)}",
                                       press: () {
-                                        // context.read<BookingBloc>().add(
-                                        //     BookingInitialInvoiceEvent(discount, start, widget.lot, widget.slot, selectMonth,wallet, v,widget.user));
-                                        vehicle = v;
+                                        setState(() {
+                                          vehicle = v;
+                                        });
                                       },
                                     )),
                               ],
@@ -212,7 +205,13 @@ class _BookingScreenState extends State<BookingScreen> {
                                 isShowDiscount = !isShowDiscount;
                               });
                             },
-                            child: Text(discounts.isNotEmpty ? "Choice a favorite discount : ${discount.discountCode}" : "There wasn't any suitable discount" ),
+                            child: Text(
+                              discounts.isEmpty
+                                  ? "There wasn't any suitable discount"
+                                  : discount != null
+                                  ? "Choice a favorite discount : ${discount!.discountCode}"
+                                  : "Choice a favorite discount :",
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           Visibility(
@@ -224,9 +223,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                       isActive: (discount == d),
                                       text: "${d.discountCode} ${  AppLocalizations.of(context).translate(d.discountValue.toString())} ${d.discountType == DiscountType.FIXED ? "VNĐ" : "%"}",
                                       press: () {
-                                        // context.read<BookingBloc>().add(
-                                        //     BookingInitialInvoiceEvent(d, start, widget.lot, widget.slot, selectMonth,wallet, vehicle,widget.user));
-                                        discount = d;
+                                        setState(() {
+                                          discount = d;
+                                        });
                                       },
                                     )),
                               ],
@@ -243,7 +242,14 @@ class _BookingScreenState extends State<BookingScreen> {
                                 isShowWallet = !isShowWallet;
                               });
                             },
-                            child: Text(wallets.isNotEmpty ? "Choice a wallet : ${wallet.name}" : "You haven't added a wallet"),
+                            child: Text(
+                              wallets.isEmpty
+                                  ? "You haven't added a wallet"
+                                  : wallet != null
+                                  ? "Choice a wallet : ${wallet!.name}"
+                                  : "Choice a wallet :",
+                            ),
+
                           ),
                           const SizedBox(height: defaultPadding),
                           Visibility(
@@ -255,7 +261,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                         text: "${AppLocalizations.of(context).translate(w.name)} ${w.currency}",
                                         press: () {
                                           // context.read<BookingBloc>().add(BookingInitialInvoiceEvent(discount, start, widget.lot, widget.slot, selectMonth, w, vehicle,widget.user));
-                                          wallet = w;
+                                          setState(() {
+                                            wallet = w;
+                                          });
                                         },
                                       ))
                                   .toList(),
@@ -271,14 +279,24 @@ class _BookingScreenState extends State<BookingScreen> {
                             child: ElevatedButton(
                               
                               onPressed: () {
-                                isMonthly ? context.read<BookingBloc>().add(GetMonthOderEvent(widget.lot,widget.slot, discount,selectMonth, wallet, vehicle)):
-                                context.read<BookingBloc>().add(GetDateOderEvent(widget.user,widget.slot, discount,start, wallet, vehicle))
-                                ;
+                                if(wallet != null && vehicle != null){
+                                  isMonthly ? context.read<BookingBloc>().add(GetMonthOderEvent(widget.lot,widget.slot, discount,selectMonth, wallet!, vehicle!,widget.user)):
+                                  context.read<BookingBloc>().add(GetDateOderEvent(widget.user,widget.slot, discount,start, wallet!, vehicle!));
+                                }
+                                else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(AppLocalizations.of(context).translate("Lack info (wallet or vehicle")),
+                                        duration: Duration(seconds: 3), // thời gian hiển thị
+                                        backgroundColor: Colors.green,
+                                      ));
+                                }
+
                               },
                               child:  Text(AppLocalizations.of(context).translate("Booking Now")),
                             ),
                           ),
-                        ),
+                        ),const SizedBox(height: defaultPadding),
                         ],
                       ),
                     ),
@@ -293,7 +311,7 @@ class _BookingScreenState extends State<BookingScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>InvoiceCreateScreen(state.invoiceD, state.invoiceM, widget.slot,widget.lot, wallet, widget.user, vehicle, discount),
+                    builder: (context) =>InvoiceCreateScreen(state.invoiceD, state.invoiceM, widget.slot,widget.lot, wallet!, widget.user, vehicle!, discount!),
                   ),
                 );
             }

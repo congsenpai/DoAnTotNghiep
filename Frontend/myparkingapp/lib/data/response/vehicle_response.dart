@@ -51,7 +51,7 @@ class VehicleResponse {
   // Convert JSON to Vehicle object
   factory VehicleResponse.fromJson(Map<String, dynamic> json) {
     return VehicleResponse(
-      vehicleId: json['vehicleId'] as String,
+      vehicleId: json['vehicleID'] as String,
       vehicleType: VehicleTypeExtension.fromString(json['vehicleType']),
       licensePlate: json['licensePlate'] as String,
       description: json['description'] as String,

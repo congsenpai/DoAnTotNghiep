@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:myparkingapp/data/network/api_client.dart';
 import 'package:myparkingapp/data/repository/auth_repository.dart';
 
 
@@ -9,7 +10,7 @@ class DioClient {
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {
-    dio.options.baseUrl = "http://192.168.36.102:8080/myparkingapp/";
+    dio.options.baseUrl = "http://192.168.43.152:8080/myparkingapp/";
     dio.options.connectTimeout = const Duration(seconds: 20);
     dio.options.receiveTimeout = const Duration(seconds: 20);
     dio.options.headers['Content-Type'] = 'application/json';
@@ -58,6 +59,10 @@ class DioClient {
             handler.resolve(clonedRequest);
             return;
           }
+        }
+        if (err.response?.statusCode == 404 || err.response?.statusCode == 405 ||err.response?.statusCode ==400 ) {
+          ApiClient apiClient = ApiClient();
+          apiClient.getError();
         }
         handler.next(err);
       },

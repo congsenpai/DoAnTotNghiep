@@ -26,16 +26,15 @@ class DiscountResponse {
   // Convert from JSON
   factory DiscountResponse.fromJson(Map<String, dynamic> json) {
     return DiscountResponse(
-      discountId: json['discountId'],
+      discountId: json['discountID'], // Khớp đúng key JSON
       discountCode: json['discountCode'],
-      discountType: DiscountType.values.firstWhere(
-            (e) => e.toString().split('.').last == json['discountType'],
-        orElse: () => DiscountType.FIXED, // default if not found
-      ),
+      discountType: json['discountType'] == 'PERCENTAGE'
+          ? DiscountType.PERCENTAGE
+          : DiscountType.FIXED,
       discountValue: (json['discountValue'] as num).toDouble(),
       description: json['description'],
-      parkingLotId: '',
       expiredAt: json['expiredAt'],
+      parkingLotId: '', // Tạm thời để trống
     );
   }
 

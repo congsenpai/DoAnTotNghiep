@@ -17,29 +17,25 @@ class BookingInitialInvoiceEvent extends BookingEvent{
   final UserResponse user;
   final ParkingLotResponse lot;
   final ParkingSlotResponse slot;
-  final DiscountResponse discount;
-  final DateTime start;
-  final MonthInfo month;
-  final WalletResponse wallet;
-  final VehicleResponse vehicle;
-  BookingInitialInvoiceEvent(this.discount, this.start, this.lot,
-      this.slot,this.month, this.wallet, this.vehicle, this.user);
+  BookingInitialInvoiceEvent( this.lot,
+      this.slot, this.user);
 }
 class GetMonthOderEvent extends BookingEvent{
+  final UserResponse user;
   final ParkingLotResponse lot;
   final ParkingSlotResponse slot;
-  final DiscountResponse discount;
+  DiscountResponse? discount;
   final MonthInfo monthList;
   final WalletResponse wallet;
   final VehicleResponse vehicle;
   GetMonthOderEvent( this.lot,this.slot,this.discount,
-      this.monthList, this.wallet, this.vehicle);
+      this.monthList, this.wallet, this.vehicle,this.user);
 }
 
 class GetDateOderEvent extends BookingEvent{
   final UserResponse user;
   final ParkingSlotResponse slot;
-  final DiscountResponse discount;
+  DiscountResponse? discount;
   final DateTime start;
   final WalletResponse wallet;
    final VehicleResponse vehicle;

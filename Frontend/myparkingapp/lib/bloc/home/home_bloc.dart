@@ -26,6 +26,7 @@ class HomeBloc extends Bloc<HomeEvent,HomeState>{
       print("________________________________0_____________________");
       ApiResult userApi =  await userRepository.getMe();
       UserResponse user = userApi.result;
+      print("________________________________2_____________________");
       ApiResult apiResult1 = await lotRepository.getParkingLotBySearchAndPage('', 1,5);
 
       late ApiResult apiResult2;

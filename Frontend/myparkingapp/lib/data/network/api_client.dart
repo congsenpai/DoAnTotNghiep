@@ -5,6 +5,7 @@ import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
+import 'package:myparkingapp/data/response/add_vehicle_request.dart';
 import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
 import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
@@ -229,10 +230,10 @@ class ApiClient {
   Future<Response> createWallet(CreatedWalletRequest wallet) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "wallet",
-      data:{
+      "wallets",
+      data:
         wallet.toJson()
-      }
+
     );
   }
 
@@ -250,28 +251,31 @@ class ApiClient {
 
   //--------------------------Vehicle-----------------------------//
 
-  Future<Response> addVehicle(VehicleResponse request, String userID) async{
+  Future<Response> addVehicle(CreateVehicleRequest request) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "vehicle",
-      data:{
-        'VehicleResponse':request,
-        'userID':userID
-      }
+      "vehicles",
+      data:request.toJson(),
     );
   }
 
   Future<Response> deleteVehicle(String vehicleID) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.patch(
-      "vehicle/$vehicleID/lock",
+      "vehicles/$vehicleID",
     );
   }
 
-  Future<Response> getApiClound() async{
+  Future<Response> getApiCloud() async{
     final DioClient dioClient = DioClient();
     // Tạo URL động tùy theo tham số truyền vào
     String url = "getAPICLoundinary";
+    return await dioClient.dio.get(url);
+  }
+
+  Future<Response> getError() async{
+    final DioClient dioClient = DioClient();
+    String url = "auth/error";
     return await dioClient.dio.get(url);
   }
 

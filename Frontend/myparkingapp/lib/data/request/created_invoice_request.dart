@@ -7,15 +7,23 @@ import 'package:myparkingapp/data/response/vehicle_response.dart';
 class InvoiceCreatedDailyRequest {
   double total;
   String description;
-  String discountCode;
+  String? discountCode;
   String parkingSlotID;
   String vehicleID;
   String userID;
   String walletID;
 
+  InvoiceCreatedDailyRequest({
+    required this.description,
+    this.discountCode,  // discountCode là tùy chọn, có thể là null
+    required this.parkingSlotID,
+    required this.vehicleID,
+    required this.userID,
+    required this.walletID,
+    required this.total,
+  });
 
-  InvoiceCreatedDailyRequest(this.description, this.discountCode, this.parkingSlotID,
-this.vehicleID, this.userID, this.walletID,this.total);
+
 
   Map<String, dynamic> toJson() {
   return {
@@ -36,35 +44,39 @@ this.vehicleID, this.userID, this.walletID,this.total);
 
 class PaymentDailyRequest {
   String invoiceID;
-  String discountID;
+  String? discountID;  // discountID có thể là null
   String parkingSlotID;
   String walletID;
   double total;
 
-
-  PaymentDailyRequest(this.invoiceID, this.discountID, this.parkingSlotID,
-      this.walletID,this.total);
+  // Constructor không bắt buộc discountID
+  PaymentDailyRequest({
+    required this.invoiceID,
+    this.discountID,  // discountID là tùy chọn, có thể là null
+    required this.parkingSlotID,
+    required this.walletID,
+    required this.total,
+  });
 
   Map<String, dynamic> toJson() {
     return {
+      'invoiceID': invoiceID,
+      'discountID': discountID,  // Nếu discountID là null thì nó sẽ là null trong JSON
       'parkingSlotID': parkingSlotID,
-      'walletID':walletID,
-      'invoiceID':invoiceID,
-      'discountID':discountID
+      'walletID': walletID,
+      'total': total,
     };
   }
 
   @override
   String toString() {
-    return 'PaymentDailyRequest{invoiceID: $invoiceID, discountID: $discountID, parkingSlotID: $parkingSlotID, walletID: $walletID}';
+    return 'PaymentDailyRequest{invoiceID: $invoiceID, discountID: $discountID, parkingSlotID: $parkingSlotID, walletID: $walletID, total: $total}';
   }
-
-
 }
 
 class InvoiceCreatedMonthlyRequest {
   String description;
-  String discountCode;
+  String? discountCode;
   String parkingSlotID;
   String vehicleID;
   String userID;
@@ -74,9 +86,17 @@ class InvoiceCreatedMonthlyRequest {
   double total;
 
 
-  InvoiceCreatedMonthlyRequest(this.description, this.discountCode,
-      this.parkingSlotID, this.vehicleID, this.userID, this.walletID,
-      this.startedAt, this.expiredAt,this.total);
+  InvoiceCreatedMonthlyRequest({
+    required this.description,
+    this.discountCode,
+    required this.parkingSlotID,
+    required this.vehicleID,
+    required this.userID,
+    required this.walletID,
+    required this.startedAt,
+    required this.expiredAt,
+    required this.total,
+  });
 
   Map<String, dynamic> toJson() {
     return {

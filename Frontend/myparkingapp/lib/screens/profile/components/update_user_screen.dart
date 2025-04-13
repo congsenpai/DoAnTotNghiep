@@ -12,6 +12,7 @@ import 'package:myparkingapp/bloc/user/user_event.dart';
 import 'package:myparkingapp/bloc/user/user_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
+import 'package:myparkingapp/data/response/add_vehicle_request.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
@@ -41,9 +42,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Uint8List? _imageBytes;
   String uploadedImageUrl = ""; // URL từ Cloudinary
   String publicId = "";
-  final String defaultImageUrl =
-    "https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg";
-
 
   @override
   void initState() {
@@ -67,15 +65,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 
-  void _showVehicleEditOrAdd(BuildContext context, VehicleResponse? vehicle) {
-    VehicleType? selectedVehicleType = vehicle?.vehicleType ?? VehicleType.MOTORCYCLE;
-    TextEditingController licensePlateController = TextEditingController(text: vehicle?.licensePlate ?? "");
-    TextEditingController descriptionController = TextEditingController(text: vehicle?.description ?? "");
+  void _showVehicleAdd(BuildContext context, VehicleResponse? vehicle) {
+    VehicleType selectedVehicleType = VehicleType.MOTORCYCLE;
+    TextEditingController licensePlateController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(vehicle == null ? AppLocalizations.of(context).translate("Add Vehicle") : AppLocalizations.of(context).translate("Edit Vehicle")),
+        title: Text(AppLocalizations.of(context).translate("Add Vehicle")),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -87,24 +85,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }
               },
               items: VehicleType.values.map((type) {
-                return DropdownMenuItem(value: type, child: Text(type.toString().split('.').last));
+                return DropdownMenuItem(
+                  value: type,
+                  child: Text(type.toString().split('.').last),
+                );
               }).toList(),
             ),
-            TextFormField(controller: licensePlateController, decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("License Plate"))),
-            TextFormField(controller: descriptionController, decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("Description"))),
+            TextFormField(
+              controller: licensePlateController,
+              decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("License Plate")),
+            ),
+            TextFormField(
+              controller: descriptionController,
+              decoration: InputDecoration(labelText: AppLocalizations.of(context).translate("Description")),
+            ),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text(AppLocalizations.of(context).translate("Cancel"))),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(AppLocalizations.of(context).translate("Cancel")),
+          ),
           ElevatedButton(
             onPressed: () {
-              if (vehicle == null) {
-                vehicles.add(VehicleResponse(vehicleId: "", vehicleType: selectedVehicleType!, licensePlate: licensePlateController.text, description: descriptionController.text));
-              } else {
-                vehicle.vehicleType = selectedVehicleType!;
-                vehicle.licensePlate = licensePlateController.text;
-                vehicle.description = descriptionController.text;
-              }
+              CreateVehicleRequest request = CreateVehicleRequest(
+                userId: user.userID, // Bạn có thể sinh ID mới nếu cần
+                vehicleType: selectedVehicleType,
+                licensePlate: licensePlateController.text,
+                description: descriptionController.text,
+              );
+              // vehicles.add(request);
+              context.read<UserBloc>().add(AddNewVehicle( request));
               Navigator.pop(context);
             },
             child: Text(AppLocalizations.of(context).translate("Save")),
@@ -113,6 +124,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +152,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent, size: 18));
           }
           if (state is UserLoadedState) {
+            user = state.user;
+            vehicles = state.user.vehicles;
             usernameController = TextEditingController(text: user.username);
             firstNameController = TextEditingController(text: user.firstName);
             lastNameController = TextEditingController(text: user.lastName);
@@ -167,7 +181,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       radius: 50,
                       child: _imageBytes != null
                       ? Image.memory(_imageBytes!, fit: BoxFit.scaleDown)
-                      : Image.network(defaultImageUrl, fit: BoxFit.scaleDown),
+                      : Image.network(user.avatar.url!, fit: BoxFit.scaleDown),
                     ),
                     SizedBox(height: 10),
                     TextButton.icon(
@@ -182,15 +196,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
                   Divider(),
+                  TextField(controller: usernameController,enabled: false, decoration: InputDecoration(border: OutlineInputBorder())),
                   ...[
-                    usernameController, firstNameController, lastNameController,
+                     firstNameController, lastNameController,
                     emailController, phoneController, homeAddressController, companyAddressController
                   ].map((controller) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextField(controller: controller, decoration: InputDecoration(border: OutlineInputBorder())),
                   )),
                   const SizedBox(height: 10),
-                  Text("Vehicles:"),
+                  Text(AppLocalizations.of(context).translate("Vehicles:").toUpperCase()),
+                  const SizedBox(height: 10),
                   Column(
                     children: vehicles.map((vehicle) {
                       return Row(
@@ -199,7 +215,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             flex: 4,
                             child: ListTile(
                               title: Text(vehicle.licensePlate),
-                              trailing: IconButton(icon: Icon(Icons.edit), onPressed: () => _showVehicleEditOrAdd(context, vehicle)),
                             ),
                           ),
                           IconButton(onPressed: (){
@@ -210,9 +225,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     }).toList(),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () => _showVehicleEditOrAdd(context, null),
+                    onPressed: () => _showVehicleAdd(context, null),
                     icon: Icon(Icons.add_circle_outlined),
-                    label: Text("Add Vehicle"),
+                    label: Text(AppLocalizations.of(context).translate("Add Vehicle")),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
@@ -229,7 +244,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       );
                       context.read<UserBloc>().add(UpdateUserInfo(user, userUpdate));
                     },
-                    child: Text("Save Update"),
+                    child: Text(AppLocalizations.of(context).translate("Save Update")),
                   ),
                 ],
               ),
@@ -241,9 +256,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           if (state is UserSuccessState) {
             AppDialog.showSuccessEvent(context, state.mess,onPress: (){
               context.read<UserBloc>().add(LoadUserDataEvent());
+              Navigator.pop(context);
             });
           } else if (state is UserErrorState) {
             context.read<UserBloc>().add(LoadUserDataEvent());
+            Navigator.pop(context);
           }
         },
       ),

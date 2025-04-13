@@ -19,15 +19,10 @@ class BookingLoadingState extends BookingState{
 class BookingLoadedState extends BookingState{
   final List<DiscountResponse> discounts;
   final List<MonthInfo> monthLists;
-  final MonthInfo month;
-  final DateTime start;
-  final DiscountResponse discount;
-  final WalletResponse wallet;
   final List<WalletResponse> wallets;
   final List<VehicleResponse> vehicles;
-  final VehicleResponse vehicle;
 
-  BookingLoadedState(this.discounts, this.monthLists, this.start, this.month, this.discount, this.wallet, this.wallets, this.vehicles, this.vehicle);
+  BookingLoadedState(this.discounts, this.monthLists, this.wallets, this.vehicles);
 
 }
 

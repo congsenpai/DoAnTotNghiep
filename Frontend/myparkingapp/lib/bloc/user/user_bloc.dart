@@ -19,6 +19,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
 
   }
 
+
   void _loadStateInitial(LoadUserDataEvent event, Emitter<UserState> emit) async{
     try{
       UserRepository userRepository = UserRepository();
@@ -87,7 +88,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
   void _addNewVehicle(AddNewVehicle event, Emitter<UserState> emit) async{
     try{
       VehicleRepository vehicle = VehicleRepository();
-      ApiResult useApi = await vehicle.addVehicle(event.vehicle, event.user);
+      ApiResult useApi = await vehicle.addVehicle(event.vehicle);
       if(useApi.code == 200){
         emit(UserSuccessState(useApi.message));
       }

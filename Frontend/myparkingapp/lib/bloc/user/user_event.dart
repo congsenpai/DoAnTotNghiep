@@ -1,4 +1,5 @@
 import 'package:myparkingapp/data/request/update_user_request.dart';
+import 'package:myparkingapp/data/response/add_vehicle_request.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
 
@@ -21,9 +22,8 @@ class ChangePassword extends UserEvent{
 }
 
 class AddNewVehicle extends UserEvent{
-  UserResponse user;
-  VehicleResponse vehicle;
-  AddNewVehicle(this.user, this.vehicle);
+  CreateVehicleRequest vehicle;
+  AddNewVehicle(this.vehicle);
 
 }
 
