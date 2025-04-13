@@ -11,15 +11,13 @@ class UpdateUserInfo extends UserEvent{
 }
 
 class LoadUserDataEvent extends UserEvent{
-  UserResponse user;
-  LoadUserDataEvent(this.user);
+  LoadUserDataEvent();
 }
 
 class ChangePassword extends UserEvent{
-  UserResponse user;
   String oldPass;
   String newPass;
-  ChangePassword(this.newPass,this.oldPass,this.user);
+  ChangePassword(this.newPass,this.oldPass);
 }
 
 class AddNewVehicle extends UserEvent{

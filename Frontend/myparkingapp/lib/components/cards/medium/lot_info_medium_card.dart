@@ -42,7 +42,20 @@ class LotInfoMediumCard extends StatelessWidget {
                 aspectRatio: 1.25,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Image.asset(image, fit: BoxFit.cover),
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/featured _items_1.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

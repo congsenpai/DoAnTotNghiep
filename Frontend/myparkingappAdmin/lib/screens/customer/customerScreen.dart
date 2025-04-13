@@ -53,12 +53,13 @@ class _CustomerOwnerScreenState extends State<CustomerOwnerScreen> {
               child: OwnerList()
               ),
             SizedBox(height: defaultPadding),
-            Container(
-              height: Get.height,
-              width: Get.width,
-              color: Theme.of(context).colorScheme.surface,
-              child: CustomerList()
-              ),
+            if(widget.user.roles.contains('ADMIN'))
+              Container(
+                height: Get.height,
+                width: Get.width,
+                color: Theme.of(context).colorScheme.surface,
+                child: CustomerList()
+                ),
           ],
         ),
       ]),

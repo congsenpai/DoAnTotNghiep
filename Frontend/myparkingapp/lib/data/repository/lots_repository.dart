@@ -7,24 +7,24 @@ import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 class LotRepository{
   final String apiUrl = "";
-  Future<ApiResult> getParkingLotBySearchAndPage(String search, int page) async{
+  Future<ApiResult> getParkingLotBySearchAndPage(String search, int page, int size) async{
     try{
         ApiClient apiClient = ApiClient();
-        final response = await apiClient.getParkingLotBySearchAndPage(search, page);
+        final response = await apiClient.getParkingLotBySearchAndPage(search, page, size);
         if(response.statusCode == 200){
             Map<String, dynamic> jsonData = response.data;
             int code = jsonData['code'];
-            String mess = jsonData['mess'];
-            int page = jsonData['result']['page'];
-            int pageAmount = jsonData['result']['pageAmount'];
-            List<ParkingLotResponse> trans = (jsonData['result']['parkingLot'] as List)
+            String mess = jsonData['message'];
+            int pageNumber = jsonData['result']['pageNumber'];
+            int totalPages = jsonData['result']['totalPages'];
+            List<ParkingLotResponse> lots = jsonData['result']['content'] != null ? (jsonData['result']['content'] as List)
             .map((json) => ParkingLotResponse.fromJson(json))
-            .toList();
+            .toList() : [];
 
             LotOnPage result = LotOnPage(
-                trans, 
-                page, 
-                pageAmount);
+                lots,
+                pageNumber+1,
+                totalPages);
             
             ApiResult apiResult = ApiResult(
                 code,
@@ -56,9 +56,9 @@ class LotRepository{
       String mess = jsonData['mess'];
 
       // Chuyển 'result' từ JSON thành danh sách Discount
-      List<ParkingLotResponse> lots = (jsonData['result'] as List)
+      List<ParkingLotResponse> lots = jsonData['result'] !=null ? (jsonData['result'] as List)
           .map((json) => ParkingLotResponse.fromJson(json))
-          .toList();
+          .toList() : [];
 
       return ApiResult(code, mess, lots);
     } else {

@@ -11,7 +11,7 @@ class DioClient {
     dio.options.baseUrl = "http://localhost:8080/myparkingapp/";
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 10);
-
+    dio.options.headers['Content-Type'] = 'application/json';
     dio.interceptors.add(
       LogInterceptor(
         request: true,
@@ -66,7 +66,6 @@ class DioClient {
         } catch (e) {
           print("Error during token refresh: $e");
         }
-
         handler.next(err); // Nếu không refresh được thì vẫn đẩy lỗi
       },
     ));

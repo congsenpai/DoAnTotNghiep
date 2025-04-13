@@ -5,9 +5,7 @@ import 'package:myparkingapp/data/response/wallet_response.dart';
 abstract class WalletEvent {}
 
 class WalletInitialEvent extends WalletEvent{
-  final UserResponse user;
-  final List<WalletResponse> wallets; 
-  WalletInitialEvent(this.user,this.wallets);
+  WalletInitialEvent();
 }
 
 class AddWalletEvent extends WalletEvent{

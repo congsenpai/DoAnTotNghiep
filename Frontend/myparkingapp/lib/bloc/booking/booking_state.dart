@@ -36,14 +36,14 @@ class BookingErrorState extends BookingState{
   BookingErrorState(this.mess);
 }
 class BookingSuccessState extends BookingState{
-  final CreatedInvoiceRequest invoice;
+  final InvoiceCreatedDailyRequest invoice;
   final CreatedTransactionRequest tran;
   String mess;
   BookingSuccessState(this.mess, this.invoice, this.tran);
 }
 
-class GotoInvoiceCreateDetailEvent extends BookingState{
-  final CreatedTransactionRequest tran;
-  final CreatedInvoiceRequest invoice;
-  GotoInvoiceCreateDetailEvent (this.invoice,this.tran);
+class GotoInvoiceCreateDetailState extends BookingState{
+  InvoiceCreatedDailyRequest? invoiceD;
+  InvoiceCreatedMonthlyRequest? invoiceM;
+  GotoInvoiceCreateDetailState (this.invoiceD,this.invoiceM);
 }

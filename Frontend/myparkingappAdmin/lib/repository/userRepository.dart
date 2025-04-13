@@ -126,21 +126,14 @@ class UserRepository {
   Future<ApiResult> register(CreateParkingOwnerRequest request) async{
     try {
       ApiClient apiClient = ApiClient();
+      print("client app : ${request.toString()}");
       final response = await apiClient.register(request);
       int code = response.data["code"];
-      String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      String mess = response.data["message"];
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
-        return apiResult;
-      }
-      else{
-        ApiResult apiResult = ApiResult(
-           code, mess, null
-        );
-        return apiResult;
-      }      
+        return apiResult; 
     }
     catch(e){
       throw Exception("UserRepository_register:  $e");

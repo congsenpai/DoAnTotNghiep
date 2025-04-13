@@ -18,9 +18,8 @@ import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 
 class EditProfileScreen extends StatefulWidget {
-  final UserResponse user;
   
-  const EditProfileScreen({super.key, required this.user});
+  const EditProfileScreen({super.key});
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -38,7 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<VehicleResponse> vehicles = [
 
   ];
-  late UserResponse user;
+  UserResponse user = demoUser;
   Uint8List? _imageBytes;
   String uploadedImageUrl = ""; // URL từ Cloudinary
   String publicId = "";
@@ -49,26 +48,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    user = widget.user;
-    _startInit();
-  }
-
-  void _startInit(){
-    context.read<UserBloc>().add(LoadUserDataEvent(user));
-    usernameController = TextEditingController(text: user.username);
-    firstNameController = TextEditingController(text: user.firstName);
-    lastNameController = TextEditingController(text: user.lastName);
-    emailController = TextEditingController(text: user.email);
-    phoneController = TextEditingController(text: user.phone);
-    homeAddressController = TextEditingController(text: user.homeAddress);
-    companyAddressController = TextEditingController(text: user.companyAddress);
-        if(widget.user.avatar.url != null){
-    uploadedImageUrl = widget.user.avatar.url!;
-    publicId = widget.user.avatar.imageID;
-    }
-    else{
-      publicId = DateTime.now().millisecondsSinceEpoch.toString();
-    }
+    context.read<UserBloc>().add(LoadUserDataEvent());
   }
 
   Future<void> _pickImage() async {
@@ -160,7 +140,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent, size: 18));
           }
           if (state is UserLoadedState) {
-            vehicles = state.vehicles;
+            usernameController = TextEditingController(text: user.username);
+            firstNameController = TextEditingController(text: user.firstName);
+            lastNameController = TextEditingController(text: user.lastName);
+            emailController = TextEditingController(text: user.email);
+            phoneController = TextEditingController(text: user.phone);
+            homeAddressController = TextEditingController(text: user.homeAddress);
+            companyAddressController = TextEditingController(text: user.companyAddress);
+            if(user.avatar.url != null){
+              uploadedImageUrl = user.avatar.url!;
+              publicId = user.avatar.imagesID;
+            }
+            else{
+              publicId = DateTime.now().millisecondsSinceEpoch.toString();
+            }
+            vehicles = state.user.vehicles;
             user = state.user;
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -182,7 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         onPressed: () => _pickImage(),
                         icon: Icon(Icons.image),
-                        label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.black)), 
+                        label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.black)),
                       ),
                   ],
                 ),
@@ -224,9 +218,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ElevatedButton(
                     onPressed: () {
                       UpdateUserRequest userUpdate = UpdateUserRequest(
-                        userID: widget.user.userID,
                         username: usernameController.text.trim(),
-                        password: widget.user.password,
                         firstName: firstNameController.text.trim(),
                         lastName: lastNameController.text.trim(),
                         email: emailController.text.trim(),
@@ -234,9 +226,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         homeAddress: homeAddressController.text.trim(),
                         companyAddress: companyAddressController.text.trim(),
                         avatar: ImagesResponse(publicId, "", _imageBytes),
-                        vehicles: vehicles,
                       );
-                      context.read<UserBloc>().add(UpdateUserInfo(widget.user, userUpdate));
+                      context.read<UserBloc>().add(UpdateUserInfo(user, userUpdate));
                     },
                     child: Text("Save Update"),
                   ),
@@ -249,10 +240,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         listener: (context, state) {
           if (state is UserSuccessState) {
             AppDialog.showSuccessEvent(context, state.mess,onPress: (){
-              _startInit();
+              context.read<UserBloc>().add(LoadUserDataEvent());
             });
           } else if (state is UserErrorState) {
-            AppDialog.showErrorEvent(context, state.mess);
+            context.read<UserBloc>().add(LoadUserDataEvent());
           }
         },
       ),

@@ -7,24 +7,30 @@ import 'package:myparkingappadmin/data/network/api_client.dart';
 class ImageRepository {
   Future<Cloudinary> getApiCloud() async {
     try {
-      ApiClient apiClient = ApiClient();
-      final response = await apiClient.getApiCloud();
-      if (response.statusCode == 200) {
-        final String apiKey =
-            response.data["result"]['CLOUDINARY_API_KEY'] ?? '';
-        final String apiSecret =
-            response.data["result"]['CLOUDINARY_API_SECRET'] ?? '';
-        final String cloudName =
-            response.data["result"]['CLOUDINARY_CLOUD_NAME'] ?? '';
-        Cloudinary cloudinary = Cloudinary.signedConfig(
-          apiKey: apiKey,
-          apiSecret: apiSecret,
-          cloudName: cloudName,
+      // ApiClient apiClient = ApiClient();
+      // final response = await apiClient.getApiCloud();
+      // if (response.statusCode == 200) {
+      //   final String apiKey =
+      //       response.data["result"]['CLOUDINARY_API_KEY'] ?? '';
+      //   final String apiSecret =
+      //       response.data["result"]['CLOUDINARY_API_SECRET'] ?? '';
+      //   final String cloudName =
+      //       response.data["result"]['CLOUDINARY_CLOUD_NAME'] ?? '';
+      //   Cloudinary cloudinary = Cloudinary.signedConfig(
+      //     apiKey: "459529728362519",
+      //     apiSecret: "mb0tlF5Id1lHHe6LV0A6HY_2aw4",
+      //     cloudName: "du1wawwby",
+      //   );
+      //   return (cloudinary);
+      // } else {
+      //   throw Exception("Imagerepository_getApiCloud :");
+      // }
+      Cloudinary cloudinary = Cloudinary.signedConfig(
+          apiKey: "459529728362519",
+          apiSecret: "mb0tlF5Id1lHHe6LV0A6HY_2aw4",
+          cloudName: "du1wawwby",
         );
         return (cloudinary);
-      } else {
-        throw Exception("Imagerepository_getApiCloud :");
-      }
     } catch (e) {
       throw Exception("Imagerepository_getApiCloud : $e");
     }

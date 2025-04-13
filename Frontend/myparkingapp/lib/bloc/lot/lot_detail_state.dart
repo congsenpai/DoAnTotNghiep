@@ -10,7 +10,7 @@ class LoadingLotDetailState extends LotDetailState{
 
 }
 class LoadedLotDetailState extends LotDetailState{
-  final DataOnFloor dataOnFloor;
+  List<DataOnFloor> dataOnFloor;
   LoadedLotDetailState(this.dataOnFloor);
 }
 class LotDetailErrorScreen extends LotDetailState{

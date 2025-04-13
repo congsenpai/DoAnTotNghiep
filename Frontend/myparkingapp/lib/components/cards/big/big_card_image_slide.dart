@@ -7,9 +7,11 @@ import '../../dot_indicators.dart';
 import 'big_card_image.dart';
 
 class BigCardImageSlide extends StatefulWidget {
+  final bool isBanner;
   const BigCardImageSlide({
     super.key,
     required this.images, required this.active,
+    required this.isBanner,
   });
 
   final List images;
@@ -40,7 +42,7 @@ class _BigCardImageSlideState extends State<BigCardImageSlide> {
               },
               itemCount: widget.images.length,
               itemBuilder: (context, index) =>
-                  BigCardImage(image: widget.images[index]),
+                  BigCardImage(image: widget.images[index], isBanner: widget.isBanner,),
             ),
             Positioned(
               bottom: defaultPadding,

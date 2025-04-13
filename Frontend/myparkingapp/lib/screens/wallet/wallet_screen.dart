@@ -16,8 +16,7 @@ import 'package:myparkingapp/screens/transaction/transaction_screen.dart';
 import 'package:myparkingapp/screens/wallet/component/wallet_item.dart';
 
 class WalletScreen extends StatefulWidget {
-  final UserResponse user;
-  const WalletScreen({super.key, required this.user});
+  const WalletScreen({super.key});
 
   @override
   State<WalletScreen> createState() => _WalletScreenState();
@@ -25,11 +24,11 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   List<WalletResponse> wallets = [];
+  UserResponse user = demoUser;
   @override
   void initState() {
-
     super.initState();
-    context.read<WalletBloc>().add(WalletInitialEvent(widget.user, wallets));
+    context.read<WalletBloc>().add(WalletInitialEvent());
   }
   
   @override
@@ -58,7 +57,9 @@ class _WalletScreenState extends State<WalletScreen> {
             return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
           }
           else if(state is WalletLoadedState){
+
             wallets = state.wallets;
+            user = state.user;
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -79,7 +80,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen(wallet: wallet)))
                                 },
                                 depositMoney: (WalletResponse wallet) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepositFormScreen(walletResponse: wallet, user: widget.user,)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepositFormScreen(walletResponse: wallet, user: user,)));
                                 } ,
                                 wallet: wallet,
                                 lockWallet: (WalletResponse wallet) {
@@ -106,7 +107,7 @@ class _WalletScreenState extends State<WalletScreen> {
         listener: (context,state){
           if(state is WalletSuccessState){
             AppDialog.showSuccessEvent(context, state.mess, onPress: (){
-              context.read<WalletBloc>().add(WalletInitialEvent(widget.user, wallets));
+              context.read<WalletBloc>().add(WalletInitialEvent());
             });
           }
           else if(state is WalletErrorState){
@@ -129,10 +130,9 @@ class _WalletScreenState extends State<WalletScreen> {
           ],
         ),
         actions: [
-          
           ElevatedButton(
             onPressed: () {
-              context.read<WalletBloc>().add(AddWalletEvent(0, "VND", name.text.trim(), widget.user.userID,));
+              context.read<WalletBloc>().add(AddWalletEvent(0, "VND", name.text.trim(), user.userID));
               Navigator.pop(context);
             },
             child: Text("Save"),

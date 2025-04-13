@@ -6,6 +6,7 @@ import 'package:myparkingapp/bloc/location/location_bloc.dart';
 import 'package:myparkingapp/bloc/location/location_event.dart';
 import 'package:myparkingapp/bloc/location/location_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
 import '../../app/locallization/app_localizations.dart';
@@ -15,8 +16,7 @@ import '../../components/buttons/secondery_button.dart';
 import '../../constants.dart';
 
 class AcceptLocationScreen extends StatefulWidget {
-  final UserResponse user;
-  const AcceptLocationScreen({super.key, required this.user,});
+  const AcceptLocationScreen({super.key});
 
   @override
   State<AcceptLocationScreen> createState() => _AcceptLocationScreenState();
@@ -27,6 +27,8 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
   
 
   Widget build(BuildContext context) {
+    Coordinates coordinates;
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -35,7 +37,7 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MainScreen(user: widget.user,),
+                builder: (context) => MainScreen(),
               ),
             );
           },
@@ -57,9 +59,7 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
                     illustration: "assets/Illustrations/register.svg",
                     title: "Find parking slot near you",
                     text: "Please allow access to \nyour location to find parking lot near you.",),
-                  Spacer(
-                    
-                  ),
+                  Spacer(),
 
                   // Getting Current Location
                   SeconderyButton(
@@ -97,7 +97,7 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MainScreen(user: widget.user,),
+                                builder: (context) => MainScreen(),
                               ),
                             );
                           },

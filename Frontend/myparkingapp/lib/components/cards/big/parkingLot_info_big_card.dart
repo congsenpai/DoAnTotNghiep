@@ -51,7 +51,6 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
           }
           if(state is LoadingDistanceState){
             distance = state.distance;
-
           }
           return InkWell(
             onTap: widget.press,
@@ -59,7 +58,7 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // pass list of images here
-                BigCardImageSlide(images: widget.parkingLot.images.map((image)=>image.url).toList(), active: widget.parkingLot.status.name.toString(),),
+                BigCardImageSlide(images: widget.parkingLot.images.map((image)=>image.url).toList(), active: widget.parkingLot.status.name.toString(), isBanner: false,),
                 const SizedBox(height: defaultPadding / 2),
                 Text(widget.parkingLot.parkingLotName, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: defaultPadding / 4),

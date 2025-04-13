@@ -10,20 +10,22 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.login(username, password);
-      if (response.statusCode == 200) {
-        String accessToken = response.data['result']['access_token'];
-        String refreshToken = response.data['result']['refresh_token'];
-        bool isAuth = response.data['result']["authentication"];
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'], isAuth);
-        await storage.write(key: 'access_token', value: accessToken);
-        await storage.write(key: 'refresh_token', value: refreshToken);
+      if (response.data['code'] == 200) {
+        String accessToken = response.data['result']['accessToken'];
+        String refreshToken = response.data['result']['refreshToken'];
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'], response.data['result']["authenticated"]);
+        if(accessToken !=""&&refreshToken!=""){
+          await storage.write(key: 'access_token', value: accessToken);
+          await storage.write(key: 'refresh_token', value: refreshToken);
+        }
         return apiResult;
       }
       else{
-        throw Exception("_AuthRepository:");
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'], false);
+        return apiResult;
       }
     } catch (e) {
-      throw Exception("_AuthRepository: $e");
+      throw Exception("_AuthRepository:login $e");
     }
   }
 
@@ -32,7 +34,7 @@ class AuthRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.register(user);
       if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],'');
         return apiResult;
       }
       else{
@@ -69,7 +71,7 @@ class AuthRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveEmail(email);
       if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],response.data['result']['token']);
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']['token']);
         return apiResult;
       }
       else{

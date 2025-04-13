@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_lot_request.dart';
 import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_owner_request.dart';
 import 'package:myparkingappadmin/data/dto/request/owner_request/create_discount_request.dart';
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_discount_request.dart';
@@ -24,10 +25,13 @@ class ApiClient {
 
   Future<Response> register(CreateParkingOwnerRequest request) async {
     final DioClient dioClient = DioClient();
+    print("client app______ : ${request.toString()}");
+    print("client app______ : ${request.toJson()}");
 
     return await dioClient.dio.post(
       "auth/register",
-      data: {"user": request},
+      data: request.toJson()
+        
     );
   }
 
@@ -140,7 +144,16 @@ class ApiClient {
       }
     );
   }
-  
+  Future<Response> createParkingLot(CreateParkingLotRequest request) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "paskingLot",
+      data:{
+        'parkingSlot': request.toJson(),
+      }
+    );
+
+  }
   //--------------------------PARKING SLOT------------------------------------//
 
   Future<Response> getParkingSlotByLot(String parkingLotID) async {

@@ -4,6 +4,7 @@ import 'package:myparkingapp/bloc/location/location_event.dart';
 import 'package:myparkingapp/bloc/location/location_state.dart';
 import 'package:myparkingapp/data/api_service/tomtom_map/distance_calculator.dart';
 import 'package:myparkingapp/data/api_service/tomtom_map/map_widget.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 
 class LocationBloc extends Bloc<LocationEvent,LocationState>{
   LocationBloc():super(LocationInitialState()){
@@ -14,10 +15,19 @@ class LocationBloc extends Bloc<LocationEvent,LocationState>{
   void _getCurrentLocation(GetLocationEvent event, Emitter<LocationState> emit) async{
     try{
       emit(LocationLoading());
-      late MapWidget acceptLocationPremission = MapWidget(endPoint:  LatLng(21.0285, 105.8542));
-      bool check = await acceptLocationPremission.checkLocationPermission();
+      late MapWidget acceptLocationPermission = MapWidget(endPoint:  LatLng(21.0285, 105.8542));
+      bool check = await acceptLocationPermission.checkLocationPermission();
+
       if(check == true){
-        emit(LocationSuccessState("Successfully"));
+        LatLng? current = await acceptLocationPermission.getCurrentLocation();
+        if(current!=null){
+          double lat = current.latitude;
+          double long = current.longitude;
+          Coordinates coordinates = Coordinates(longitude: long, latitude: lat);
+          emit(LocationSuccessState("Successfully",coordinates));
+
+        }
+        emit(LocationSuccessState("Successfully",null));
       }
       else{
         emit(LocationErrorState("Please, accepting location permission"));

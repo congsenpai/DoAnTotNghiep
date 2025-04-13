@@ -8,6 +8,7 @@ import 'package:myparkingappadmin/bloc/customer/customer_bloc.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_event.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_state.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
+import 'package:myparkingappadmin/screens/customer/components/add_owner.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import 'package:myparkingappadmin/screens/general/search.dart';
 import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.dart';
@@ -56,6 +57,8 @@ class _OwnerListState extends State<OwnerList> {
         customers = state.customerList;
         return Scaffold(
           appBar: AppBar(
+            toolbarHeight: 100,
+
               title: Row(
             children: [
               Expanded(
@@ -88,7 +91,7 @@ class _OwnerListState extends State<OwnerList> {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
-                        
+                        _showAddOwnerDialog(context);
                       },
                     ),
                     
@@ -163,12 +166,15 @@ class _OwnerListState extends State<OwnerList> {
         child: CircularProgressIndicator(),
       );
     }, listener: (context, state) {
-      if (state is CustomerErrorState) {
-        AppDialog.showErrorEvent(context, state.mess);
-      } else if (state is UserErrorState) {
-        AppDialog.showErrorEvent(context, state.mess);
-      } else if (state is UserSuccessState) {
-        AppDialog.showSuccessEvent(context, state.mess);
+      if (state is OwnerErrorState) {
+        AppDialog.showErrorEvent(context, state.mess,onPress: (){
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+        });
+      } else if (state is OwnerSuccessState) {
+        AppDialog.showSuccessEvent(context, state.mess, onPress: (){
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+        }
+        );
       }
     });
   }
@@ -231,3 +237,28 @@ class _OwnerListState extends State<OwnerList> {
     );
   }
 }
+  void _showAddOwnerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+              height: Get.height / 1.2,
+              width: Get.width / 1.2,
+              child: AddOwner()),
+          actions: [
+            TextButton(
+              onPressed: () => {
+                context.read<CustomerBloc>().add(LoadedOwnerScreenEvent("")),
+                Navigator.of(context).pop(),},
+              child: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+

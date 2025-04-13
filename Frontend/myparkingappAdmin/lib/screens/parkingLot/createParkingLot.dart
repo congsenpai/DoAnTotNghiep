@@ -1,8 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
+import 'package:myparkingappadmin/bloc/parking_lot/lot_event.dart';
 import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_lot_request.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
@@ -50,7 +53,8 @@ class _CreateParkingLotScreenState extends State<CreateParkingLotScreen> {
       locationConfigs: locationInputs.map((e) => e.toLocationConfig()).toList(),
     );
 
-    print(request.toJson()); // Gửi lên server
+    print(request.toJson());
+    context.read<ParkingLotBloc>().add(CreateParkingLotEvent(request)); // Gửi lên server
   } else {
     Get.snackbar(
       AppLocalizations.of(context).translate("Error"),

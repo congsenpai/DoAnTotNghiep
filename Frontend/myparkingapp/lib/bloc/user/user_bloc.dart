@@ -21,10 +21,10 @@ class UserBloc extends Bloc<UserEvent,UserState>{
 
   void _loadStateInitial(LoadUserDataEvent event, Emitter<UserState> emit) async{
     try{
-      // UserRepository userRepository = UserRepository();
-      // ApiResult userAPI = await userRepository.getUserById(event.user.userID);
-      // UserResponse user =  userAPI.result;
-      emit(UserLoadedState(event.user.vehicles,event.user));
+      UserRepository userRepository = UserRepository();
+      ApiResult userAPI = await userRepository.getMe();
+      UserResponse user =  userAPI.result;
+      emit(UserLoadedState(user));
     }
     catch(e){
       throw Exception("UserBloc_updateUser : $e");
@@ -36,7 +36,7 @@ class UserBloc extends Bloc<UserEvent,UserState>{
     try{
       emit(UserLoadingState());
       UserRepository user = UserRepository();
-      ApiResult useApi = await user.updateUser(event.newUser);
+      ApiResult useApi = await user.updateUser(event.newUser, event.user.userID);
       if(useApi.code == 200){
         emit(UserSuccessState(useApi.message));
       }
@@ -49,10 +49,10 @@ class UserBloc extends Bloc<UserEvent,UserState>{
           cloudinary,
           event.newUser.avatar.imageBytes!,
           "myparkingapp/avatars",
-          event.newUser.avatar.imageID,
-          event.newUser.avatar.imageID);
+          event.newUser.avatar.imagesID,
+          event.newUser.avatar.imagesID);
       if (uploadResponse.isSuccessful) {
-        ImagesResponse image = ImagesResponse(event.newUser.avatar.imageID, uploadResponse.url, null);
+        ImagesResponse image = ImagesResponse(event.newUser.avatar.imagesID, uploadResponse.url, null);
         emit(UserSuccessState(
             "Successful Upload"));
       } else {
@@ -68,11 +68,12 @@ class UserBloc extends Bloc<UserEvent,UserState>{
   void _changePassword(ChangePassword event, Emitter<UserState> emit) async{
     try{
       emit(UserLoadingState());
-      UserRepository user = UserRepository();
-      ApiResult useApi = await user.changePass(event.user.userID, event.oldPass, event.newPass);
+      UserRepository userRepo = UserRepository();
+      ApiResult userApi =  await userRepo.getMe();
+      UserResponse user = userApi.result;
+      ApiResult useApi = await userRepo.changePass(user.userID, event.oldPass, event.newPass);
       if(useApi.code == 200){
         emit(UserSuccessState(useApi.message));
-
       }
       else{
         emit(UserErrorState(useApi.message));

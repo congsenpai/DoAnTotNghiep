@@ -32,3 +32,8 @@ class UpdatedStatusUserEvent extends UserEvent{
   UserStatus newStatus;
   UpdatedStatusUserEvent(this.userId,this.newStatus);
 }
+
+class CreateParkingOwnerEvent extends UserEvent{
+  CreateParkingOwnerRequest request;
+  CreateParkingOwnerEvent (this.request);   
+}

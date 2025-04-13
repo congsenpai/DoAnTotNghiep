@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 
+import 'package:myparkingappadmin/data/dto/response/images.dart';
+
 class CreateParkingOwnerRequest {
   final String username;
   final String password;
@@ -9,7 +11,7 @@ class CreateParkingOwnerRequest {
   final String companyAddress;
   final String lastName;
   final String firstName;
-  final String avatar;
+  final Images avatar;
   final String email;
 
 
@@ -28,14 +30,14 @@ class CreateParkingOwnerRequest {
   /// **Chuyển từ `User` object sang JSON**
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
+      "username": username,
       'password': password,
       'phoneNumber': phoneNumber,
       'homeAddress': homeAddress,
       'companyAddress': companyAddress,
       'lastName': lastName,
       'firstName': firstName,
-      'avatar': avatar,
+      'avatar': avatar.toJson(),
       'email': email,
       'status': "ACTIVE",
       'roles': ['PARKING_OWNER']
@@ -43,7 +45,7 @@ class CreateParkingOwnerRequest {
   }
   @override
   String toString() {
-    return "User(username: $username, firstName: $firstName, lastName: $lastName, email: $email)";
+    return "User(username: $username, firstName: $firstName, lastName: $lastName, email: $email, pass: $password)";
   }
 }
 

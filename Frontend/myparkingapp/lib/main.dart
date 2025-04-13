@@ -16,7 +16,7 @@ import 'package:myparkingapp/bloc/wallet/wallet_bloc.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/acceptLocation/loading_location_screen.dart';
-import 'package:myparkingapp/screens/onboarding/onboarding_scrreen.dart';
+import 'package:myparkingapp/screens/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/locallization/app_localizations.dart';
 import 'app/theme/app_theme.dart';
@@ -77,6 +77,6 @@ class _MyAppState extends State<MyApp> {
         Locale('en', ''), // English
         Locale('vi', ''), // Vietnamese
       ],
-      home: AcceptLocationScreen(user: demoUser,)); // Thay thế bằng widget của bạn;
+      home: OnboardingScreen(changeLanguage: _changeLanguage));// Thay thế bằng widget của bạn;
   }
 }

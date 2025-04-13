@@ -19,9 +19,15 @@ class Info extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 1.33,
-          child: Image.asset(
+          child: Image.network(
             lot.images[0].url!,
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/images/big_1.png', // đổi thành đường dẫn asset của bạn
+                fit: BoxFit.cover,
+              );
+            },
           ),
         ),
         const SizedBox(height: defaultPadding),

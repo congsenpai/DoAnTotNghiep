@@ -12,8 +12,7 @@ import 'package:myparkingapp/screens/wallet/wallet_screen.dart';
 import '../../../constants.dart';
 
 class Body extends StatelessWidget {
-  final UserResponse user;
-  const Body({super.key, required this.user});
+  const Body({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class Body extends StatelessWidget {
                 title: AppLocalizations.of(context).translate("Profile Information"),
                 subTitle: AppLocalizations.of(context).translate("Change your account information"),
                 press: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen(user: user,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
                 },
               ),
               ProfileMenuCard(
@@ -75,7 +74,7 @@ class Body extends StatelessWidget {
                 title: AppLocalizations.of(context).translate("Change Password"),
                 subTitle: AppLocalizations.of(context).translate("Change your password"),
                 press: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: user,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword()));
                 },
               ),
               ProfileMenuCard(
@@ -83,7 +82,7 @@ class Body extends StatelessWidget {
                 title: AppLocalizations.of(context).translate("Payment Methods"),
                 subTitle: AppLocalizations.of(context).translate("Add your credit & debit cards"),
                 press: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => WalletScreen(user: user)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => WalletScreen()));
                 },
               ),
               ProfileMenuCard(

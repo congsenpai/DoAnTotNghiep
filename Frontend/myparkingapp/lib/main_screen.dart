@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 
@@ -11,8 +12,8 @@ import 'screens/profile/profile_screen.dart';
 import 'screens/search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  final UserResponse user;
-  const MainScreen({super.key, required this.user});
+  Coordinates? coordinates;
+  MainScreen({super.key, this.coordinates});
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -30,10 +31,10 @@ class _MainScreenState extends State<MainScreen> {
     {"icon": "assets/icons/profile.svg", "title": "Profile"},
   ];
   late final List<Widget> _screens = [
-    HomeScreen( user: widget.user,),
-    SearchScreen( user:  widget.user,),
-    InvoiceScreen(user: widget.user,),
-    ProfileScreen(user: widget.user,),
+    HomeScreen(coordinates: widget.coordinates,),
+    SearchScreen(),
+    InvoiceScreen(),
+    ProfileScreen(),
   ];
 
 // Screens

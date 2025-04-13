@@ -7,15 +7,21 @@ void showImageDialog(BuildContext context, String url) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent, // Cho dialog trong suốt xung quanh
-        child: Container(
-          width: Get.width / 1.2,
-          height: Get.width/2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
-              image: AssetImage(url),
-              fit: BoxFit.cover,
-            ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.network(
+            url,
+            width: Get.width / 1.2,
+            height: Get.width / 2,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/images/big_1.png',
+                width: Get.width / 1.2,
+                height: Get.width / 2,
+                fit: BoxFit.cover,
+              );
+            },
           ),
         ),
       );

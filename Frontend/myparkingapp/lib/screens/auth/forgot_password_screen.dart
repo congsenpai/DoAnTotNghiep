@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
+import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
@@ -23,7 +24,6 @@ class ForgotPasswordScreen extends StatelessWidget {
         if(state is AuthLoadingState){
           return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
-
         return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: defaultPadding),
         child: Column(
@@ -37,7 +37,12 @@ class ForgotPasswordScreen extends StatelessWidget {
       );
       }, listener: (context,state){
         if(state is AuthSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess,);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResetEmailSentScreen( token: state.mess,)
+            ),
+          );
         }
         else if(state is AuthErrorState){
           return AppDialog.showErrorEvent(context, state.mess);
@@ -56,6 +61,7 @@ class ForgotPassForm extends StatefulWidget {
 
 class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +71,8 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         children: [
           // Email Field
           TextFormField(
+            controller: _email,
             validator: emailValidator.call,
-            onSaved: (value) {
-
-            },
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("Email Address")),
           ),
@@ -78,14 +82,8 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // If all data are correct then save data to out variables
-                _formKey.currentState!.save();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ResetEmailSentScreen(),
-                  ),
-                );
+                context.read<AuthBloc>().add(giveEmail(_email.text));
+
               }
             },
             child: Text(AppLocalizations.of(context).translate("Reset password")),

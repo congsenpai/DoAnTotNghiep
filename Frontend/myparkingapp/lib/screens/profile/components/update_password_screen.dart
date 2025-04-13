@@ -12,8 +12,7 @@ import 'package:myparkingapp/constants.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 
 class UpdatePassword extends StatelessWidget {
-  final UserResponse user;
-  UpdatePassword({super.key, required this.user});
+  UpdatePassword({super.key});
   @override
   Widget build(BuildContext context) {
     TextEditingController _olderPass = TextEditingController();
@@ -114,7 +113,7 @@ class UpdatePassword extends StatelessWidget {
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () {
-                          context.read<UserBloc>().add(ChangePassword(_newPass.text, _olderPass.text, user));
+                          context.read<UserBloc>().add(ChangePassword(_newPass.text, _olderPass.text));
                           
                         },
                         child: Text(AppLocalizations.of(context).translate("Save Update")),

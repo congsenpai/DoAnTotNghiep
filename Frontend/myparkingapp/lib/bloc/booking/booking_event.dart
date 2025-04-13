@@ -1,6 +1,7 @@
 import 'package:myparkingapp/data/response/discount_response.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/parking_slots_response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/demo_data.dart';
@@ -13,19 +14,16 @@ abstract class BookingEvent{}
 // }
 
 class BookingInitialInvoiceEvent extends BookingEvent{
+  final UserResponse user;
   final ParkingLotResponse lot;
   final ParkingSlotResponse slot;
   final DiscountResponse discount;
-  final List<DiscountResponse> discounts;
   final DateTime start;
-  final List<MonthInfo> months;
   final MonthInfo month;
   final WalletResponse wallet;
-  final List<WalletResponse> wallets;
   final VehicleResponse vehicle;
-  final List<VehicleResponse> vehicles;
   BookingInitialInvoiceEvent(this.discount, this.start, this.lot,
-      this.slot,this.month, this.discounts, this.months, this.wallet, this.wallets, this.vehicle, this.vehicles);
+      this.slot,this.month, this.wallet, this.vehicle, this.user);
 }
 class GetMonthOderEvent extends BookingEvent{
   final ParkingLotResponse lot;
@@ -39,12 +37,12 @@ class GetMonthOderEvent extends BookingEvent{
 }
 
 class GetDateOderEvent extends BookingEvent{
-  final ParkingLotResponse lot;
+  final UserResponse user;
   final ParkingSlotResponse slot;
   final DiscountResponse discount;
   final DateTime start;
   final WalletResponse wallet;
    final VehicleResponse vehicle;
-  GetDateOderEvent( this.lot,this.slot,this.discount,
+  GetDateOderEvent( this.user,this.slot,this.discount,
       this.start, this.wallet, this.vehicle);
 }

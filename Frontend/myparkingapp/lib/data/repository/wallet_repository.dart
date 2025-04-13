@@ -18,7 +18,7 @@ class WalletRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
 
       // Chuyển 'result' từ JSON thành danh sách Discount
       List<WalletResponse> wallets = (jsonData['result'] as List)
@@ -42,7 +42,7 @@ class WalletRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
 
       // Chuyển 'result' từ JSON thành danh sách Discount
       List<WalletResponse> wallets = (jsonData['result'] as List)

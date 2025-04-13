@@ -4,13 +4,12 @@ import 'package:myparkingapp/data/response/user_response.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final UserResponse user;
-  const ProfileScreen({super.key, required this.user});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(user: user,),
+      body: Body(),
     );
   }
 }

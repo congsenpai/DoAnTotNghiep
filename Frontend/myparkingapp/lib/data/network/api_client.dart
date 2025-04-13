@@ -27,12 +27,9 @@ class ApiClient {
     RegisterUserRequest user
     ) async {
       final DioClient dioClient = DioClient();
-
       return await dioClient.dio.post(
         "auth/register",
-        data: {
-          user.toJson()
-        },
+        data:user.toJson(),
       );
     }
 
@@ -50,11 +47,11 @@ class ApiClient {
     }
   Future<Response> giveRePassWord(String newPass, String token) async{
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "auth/UpdatePassWord",
+    return await dioClient.dio.put(
+      "auth/reset-password",
        data: {
-        "acceptToken":token,
-        "password":newPass,
+        "userToken":token,
+        "newPassword":newPass,
        },
     );
   }
@@ -62,45 +59,43 @@ class ApiClient {
   Future<Response> refreshToken(String refreshToken) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "/refresh-token",
-      data: {"refresh_token": refreshToken},
+      "/refresh",
+      data: {"refreshToken": refreshToken},
     );
   }
 
-  Future<Response> getUserByUserName(String userName) async {
+  Future<Response> getMe() async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/name/$userName",
+      "/users/profile",
     );
   }
   Future<Response> getUserById(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "/user/id/$userId",
+      "/users/id/$userId",
     );
   }
 
-  Future<Response> updateUser(UpdateUserRequest user) async {
+  Future<Response> updateUser(UpdateUserRequest user, String userID) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "/user/${user.userID}/update",
-      data:{
-        user.toJson()
-      },
+    return await dioClient.dio.put(
+      "/users/$userID",
+      data:user.toJson(),
     );
   }
 
   Future<Response> getInvoiceByUserWithSearchAndPage(String search,int page,String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "user/$userId/invoice/search/$search/page/$page",
+      "users/$userId/invoice/search/$search/page/$page",
     );
   }
 
   Future<Response> getWalletByUser(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "user/$userId/wallet",
+      "wallets/user/$userId",
     );
   }
 
@@ -141,20 +136,19 @@ class ApiClient {
   
   //----------------------------- PARKINGLOT--------------------------------//
 
-  Future<Response> getParkingLotBySearchAndPage(String search,int page) async {
+  Future<Response> getParkingLotBySearchAndPage(String search,int page,int size) async {
+    print("________________________________3_____________________");
     final DioClient dioClient = DioClient();
+    print("________________________________4_____________________");
     return await dioClient.dio.get(
-      "parkingLot/search/$search/page/$page",
+      "parkinglots?search=$search&page=${page-1}&size=$size",
     );
   }
 
   Future<Response> getNearParkingLot(Coordinates coordinate) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "parkingLot/nearlyParking",
-      data: {
-        coordinate.toJson()
-      },
+    return await dioClient.dio.get(
+      "parkingLot/nearby?lat=${coordinate.latitude}&?lon=${coordinate.longitude}",
     );
   }
 
@@ -162,29 +156,49 @@ class ApiClient {
   Future<Response> getParkingSlotByLot(String parkingLotID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "paskingLot/$parkingLotID/parkingLot",
+      "parkinglots/$parkingLotID/parkingslots",
+    );
+  }
+
+  Future<Response> getListDiscountByLot(String parkingLotID) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+      "parkinglots/$parkingLotID/discounts",
     );
   }
 
 
   //-------------------------SLOT-----------------------------------//
 
-  Future<Response> getListDiscountBySlot(String parkingSlotID) async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
-      "paskingSlot/$parkingSlotID/discount",
-    );
-  }
+
 
   //-------------------------INVOICE-----------------------------------//
 
-  Future<Response> createInvoice(CreatedInvoiceRequest invoice) async {
+  Future<Response> invoiceCreatedDaily(InvoiceCreatedDailyRequest invoice) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
-      "invoice",
-      data:{
+      "invoices/daily/deposit",
+      data:
         invoice.toJson()
-      }
+
+    );
+  }
+  Future<Response> paymentDaily(PaymentDailyRequest invoice) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+        "invoices/daily/payment",
+        data:
+          invoice.toJson()
+
+    );
+  }
+  Future<Response> invoiceCreatedMonthly(InvoiceCreatedMonthlyRequest invoice) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+        "invoices/monthly",
+        data:
+          invoice.toJson()
+
     );
   }
 
@@ -234,30 +248,7 @@ class ApiClient {
   }
 
 
-  //--------------------------TRANSACTION-------------------------------//
-
-    Future<Response> createTransaction(CreatedTransactionRequest transaction) async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "wallet",
-      data:{
-        transaction.toJson()
-      }
-    );
-  }
-
-
-  //--------------------------MONTH TICKET-----------------------------//
-
-  Future<Response> createMonthTicket(MonthlyTicketResponse monthlyTicket) async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "monthlyTicket",
-      data:{
-        'monthlyTicket':monthlyTicket
-      }
-    );
-  }
+  //--------------------------Vehicle-----------------------------//
 
   Future<Response> addVehicle(VehicleResponse request, String userID) async{
     final DioClient dioClient = DioClient();

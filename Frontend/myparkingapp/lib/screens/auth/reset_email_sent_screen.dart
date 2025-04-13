@@ -5,6 +5,7 @@ import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/screens/auth/sign_in_screen.dart';
 import 'package:myparkingapp/screens/onboarding/components/image_no_content.dart';
 
 
@@ -13,8 +14,9 @@ import '../../constants.dart';
 
 
 class ResetEmailSentScreen extends StatefulWidget {
+  final String token;
   
-  const ResetEmailSentScreen({super.key});
+  const ResetEmailSentScreen({super.key, required this.token});
 
   @override
   State<ResetEmailSentScreen> createState() => _ResetEmailSentScreenState();
@@ -107,7 +109,7 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
                 context
                     .read<AuthBloc>()
                     .add(
-                      giveRePassWord(passWord, '')
+                      giveRePassWord(passWord, widget.token)
                     );
               }
               },
@@ -119,7 +121,12 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
     
       }, listener: (context,state){
         if(state is AuthSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignInScreen()
+            ),
+          );
         }
         else if(state is AuthErrorState){
           return AppDialog.showErrorEvent(context, state.mess);

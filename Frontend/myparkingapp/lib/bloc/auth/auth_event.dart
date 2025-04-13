@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'package:myparkingapp/data/request/register_user_request.dart';
+
 abstract class AuthEvent {}
 class LoginEvent extends AuthEvent{
   String userName;
@@ -13,11 +15,9 @@ class GetUserEvent extends AuthEvent{
 }
 
 class RegisterEvent extends AuthEvent{
-  String userName;
-  String passWord;
-  String phoneNumber;
-  String email;
-  RegisterEvent(this.userName,this.passWord,this.phoneNumber,this.email);
+  RegisterUserRequest request;
+
+  RegisterEvent(this.request);
 }
 
 class giveEmail extends AuthEvent{

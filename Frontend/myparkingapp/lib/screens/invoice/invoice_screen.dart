@@ -14,26 +14,24 @@ import '../../data/response/invoice_response.dart';
 import 'components/invoice_list.dart';
 
 class InvoiceScreen extends StatefulWidget {
-  final UserResponse user;
-  const InvoiceScreen({super.key, required this.user});
+  const InvoiceScreen({super.key});
 
   @override
   State<InvoiceScreen> createState() => _InvoiceScreenState();
 }
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, "", 1));
-  }
-  
-
   List<InvoiceResponse> invoices = [];
   int page = 1;
   int pageAmount = 1;
   String searchText = "";
+  UserResponse user = demoUser;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<InvoiceBloc>().add(InvoiceInitialEvent( searchText, page));
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<InvoiceBloc,InvoiceState>
@@ -45,9 +43,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           invoices = state.invoices;
           page = state.page;
           pageAmount = state.pageAmount;
+          user = state.user;
           return Scaffold(
             appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate("Your Orders")),
+              title: Text(AppLocalizations.of(context).translate("Your Invoice")),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -55,7 +54,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                 child: Column(
                   children: [
-                    SearchForm(page: page,user: widget.user),
+                    SearchForm(page: page,user: user),
                     const SizedBox(height: defaultPadding),
                     // List of cart items
                     ...List.generate(
@@ -69,7 +68,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
-                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, searchText, page));// Gọi hàm search
+                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(searchText, page));// Gọi hàm search
                         });
                         // Gọi API hoặc cập nhật dữ liệu cho trang mới
                       },)
@@ -110,7 +109,7 @@ class _SearchFormState extends State<SearchForm> {
         controller: _controller,
         onFieldSubmitted: (value) {
           if (_formKey.currentState!.validate()) {
-            context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.user, _controller.text, widget.page)) ;// Gọi hàm search
+            context.read<InvoiceBloc>().add(InvoiceInitialEvent(_controller.text, widget.page)) ;// Gọi hàm search
           }
         },
         validator: requiredValidator.call,

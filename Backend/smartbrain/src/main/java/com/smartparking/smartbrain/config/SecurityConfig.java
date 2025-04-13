@@ -26,7 +26,7 @@ public class SecurityConfig {
     // user :
 
     // login :
-    private final String[] PostList_public= {"/auth/login","/auth/logout", "/auth/introspect", "/auth/refresh"};
+    private final String[] PostList_public= {"/myparkingapp/auth/login","/myparkingapp/auth/logout", "/myparkingapp/auth/introspect", "/myparkingapp/auth/refresh","/myparkingapp/auth/register"};
     private CustomJwtDecoder customJwtDecoder;
 
 

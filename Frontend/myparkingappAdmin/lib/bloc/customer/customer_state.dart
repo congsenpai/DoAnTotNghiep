@@ -21,9 +21,19 @@ class  CustomerErrorState extends UserState{
   CustomerErrorState(this.mess);
 }
 
-class  UserSuccessState extends UserState{
+class  CustomerSuccessState extends UserState{
   String mess;
-  UserSuccessState(this.mess);
+  CustomerSuccessState(this.mess);
+}
+
+
+
+
+
+
+class  OwnerSuccessState extends UserState{
+  String mess;
+  OwnerSuccessState(this.mess);
 }
 
 class  OwnerLoadingState extends UserState{
@@ -41,7 +51,7 @@ class  OwnerErrorState extends UserState{
   OwnerErrorState(this.mess);
 }
 
-class  UserErrorState extends UserState{
+class InfoState extends UserState{
   String mess;
-  UserErrorState(this.mess);
+  InfoState(this.mess);
 }

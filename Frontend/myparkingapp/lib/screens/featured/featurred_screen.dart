@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/service.dart';
 
@@ -17,7 +18,7 @@ class FeaturedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(AppLocalizations.of(context).translate(title)),
       ),
       body: Body(lots: lots, services: services, isLot: isLot, user: user,),
     );

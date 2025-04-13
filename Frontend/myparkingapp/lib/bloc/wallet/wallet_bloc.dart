@@ -6,6 +6,9 @@ import 'package:myparkingapp/data/repository/wallet_repository.dart';
 import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
 
+import '../../data/repository/user_repository.dart';
+import '../../data/response/user_response.dart';
+
 class WalletBloc extends Bloc<WalletEvent,WalletState>{
   WalletBloc():super(WalletInitialState()){
     on<WalletInitialEvent>(_loadWalletScreen);
@@ -17,8 +20,19 @@ class WalletBloc extends Bloc<WalletEvent,WalletState>{
   void _loadWalletScreen( WalletInitialEvent event, Emitter<WalletState> emit) async{
     try{
       emit(WalletLoadingState());
-      List<WalletResponse> wallets = walletdemo;
-      emit(WalletLoadedState(wallets));
+      UserRepository userRepository = UserRepository();
+      ApiResult userAPI = await userRepository.getMe();
+      UserResponse user =  userAPI.result;
+      WalletRepository walletRepository = WalletRepository();
+      ApiResult walletAPI = await walletRepository.getWalletByUser(user);
+      if(walletAPI.code == 200){
+        List<WalletResponse> wallets = walletAPI.result;
+        emit(WalletLoadedState(wallets,user));
+      }
+      else{
+        emit(WalletErrorState(walletAPI.message));
+      }
+
     }
     catch(e){
       throw Exception("WalletBloc : _loadWalletScreen : $e");
@@ -32,8 +46,7 @@ class WalletBloc extends Bloc<WalletEvent,WalletState>{
       CreatedWalletRequest create = CreatedWalletRequest(balance: 0, currency: event.currency, name: event.name, userId: event.userId);
       ApiResult walletApi = await wallet.createWallet(create);
       if(walletApi.code == 200){
-        
-        emit(WalletSuccessState("Add successed"));
+        emit(WalletSuccessState(walletApi.message));
       }
       else{
         emit(WalletErrorState(walletApi.message));

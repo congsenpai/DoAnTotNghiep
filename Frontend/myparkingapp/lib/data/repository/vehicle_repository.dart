@@ -14,7 +14,7 @@ class VehicleRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
       return ApiResult(code, mess, user);
     } else {
       throw Exception("VehicleRepository_addVehicle");
@@ -33,7 +33,7 @@ class VehicleRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
       return ApiResult(code, mess, "");
     } else {
       throw Exception("VehicleRepository_deleteVehicle");

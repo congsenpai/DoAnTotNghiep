@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
+import 'package:myparkingapp/data/request/register_user_request.dart';
 
 import '../../../constants.dart';
 
@@ -15,13 +17,27 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _firstNameController = TextEditingController(text: "Bao");
+  final TextEditingController _lastNameController = TextEditingController(text: "Ha Bao");
+  final TextEditingController _userNameController = TextEditingController(text:"bbbbbbbbb");
+  final TextEditingController _passwordController = TextEditingController(text: "123456789");
+  final TextEditingController _confirmPasswordController = TextEditingController(text: "123456789");
+  final TextEditingController _phoneController = TextEditingController(text:"0888379199");
+  final TextEditingController _emailController = TextEditingController(text:"hagiabao980@gmail.com");
+
   bool _obscureText = true;
 
-  String userName = "";
-  String passWord = "";
-  String confirmPassword = "";
-  String phoneNumber = "";
-  String email = "";
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,25 +45,30 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
-          // User Name Field
           TextFormField(
+            controller: _firstNameController,
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(hintText: "First Name"),
+          ),
+          const SizedBox(height: defaultPadding),
+          TextFormField(
+            controller: _lastNameController,
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(hintText: "Last Name"),
+          ),
+          const SizedBox(height: defaultPadding),
+          TextFormField(
+            controller: _userNameController,
             validator: userNameValidator.call,
-            onSaved: (value) {
-              userName = value ?? '';
-            },
             textInputAction: TextInputAction.next,
             decoration: const InputDecoration(hintText: "User Name"),
           ),
           const SizedBox(height: defaultPadding),
-
-          // Password Field
           TextFormField(
+            controller: _passwordController,
             obscureText: _obscureText,
             validator: passwordValidator.call,
             textInputAction: TextInputAction.next,
-            onSaved: (value) {
-              passWord = value ?? '';
-            },
             decoration: InputDecoration(
               hintText: "Password",
               suffixIcon: GestureDetector(
@@ -64,21 +85,17 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           const SizedBox(height: defaultPadding),
-
-          // Confirm Password Field
           TextFormField(
+            controller: _confirmPasswordController,
             obscureText: _obscureText,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please confirm your password';
               }
-              if (value != passWord) {
+              if (value != _passwordController.text) {
                 return 'Passwords do not match';
               }
               return null;
-            },
-            onSaved: (value) {
-              confirmPassword = value ?? '';
             },
             decoration: InputDecoration(
               hintText: "Confirm Password",
@@ -96,54 +113,41 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           const SizedBox(height: defaultPadding),
-
-          // Phone Number Field
           TextFormField(
+            controller: _phoneController,
             validator: phoneNumberValidator.call,
-            onSaved: (value) {
-              phoneNumber = value ?? '';
-            },
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.phone,
             decoration: const InputDecoration(hintText: "Phone Number"),
           ),
           const SizedBox(height: defaultPadding),
-
-          // Email Field
           TextFormField(
+            controller: _emailController,
             validator: emailValidator.call,
-            onSaved: (value) {
-              email = value ?? '';
-            },
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(hintText: "Email"),
           ),
           const SizedBox(height: defaultPadding),
-
-          // Sign Up Button
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                _formKey.currentState!.save();
-                context
-                    .read<AuthBloc>()
-                    .add(RegisterEvent(userName, passWord, phoneNumber, email));
+                final request = RegisterUserRequest(
+                  username: _userNameController.text.trim(),
+                  password: _passwordController.text,
+                  firstName: _firstNameController.text.trim(),
+                  lastName: _lastNameController.text.trim(),
+                  email: _emailController.text.trim(),
+                  phone: _phoneController.text.trim(),
+                );
+                context.read<AuthBloc>().add(RegisterEvent(request));
+                print("---------------------------------------------------");
               }
             },
-            child: const Text("Sign Up"),
-          ),
-
-          // Navigate to Phone Login
-          TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(RegisterEvent(userName, passWord, phoneNumber, email));
-            },
-            child: const Text("Sign up with phone number"),
+            child: Text(AppLocalizations.of(context).translate("Sign Up")),
           ),
         ],
       ),
     );
   }
 }
-

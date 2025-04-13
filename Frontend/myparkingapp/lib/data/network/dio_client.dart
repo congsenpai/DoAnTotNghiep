@@ -9,9 +9,21 @@ class DioClient {
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {
-    dio.options.baseUrl = "https://localhost/myparkingapp/";
-    dio.options.connectTimeout = const Duration(seconds: 10);
-    dio.options.receiveTimeout = const Duration(seconds: 10);
+    dio.options.baseUrl = "http://192.168.36.102:8080/myparkingapp/";
+    dio.options.connectTimeout = const Duration(seconds: 20);
+    dio.options.receiveTimeout = const Duration(seconds: 20);
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => print(obj),
+      ),
+    );
 
     // Interceptor để tự động gắn token
     dio.interceptors.add(InterceptorsWrapper(
@@ -24,7 +36,7 @@ class DioClient {
       },
 
       onError: (DioException err, ErrorInterceptorHandler handler) async {
-        if (err.response?.statusCode == 401) {
+        if (err.response!.statusCode == 401) {
           print("Token expired, refreshing...");
           await authRepository.refreshAccessToken();
           String? newToken = await authRepository.getAccessToken();

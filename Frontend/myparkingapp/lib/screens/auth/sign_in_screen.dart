@@ -88,11 +88,10 @@ class SignInScreen extends StatelessWidget {
           return AppDialog.showErrorEvent(context, state.mess);
         }
         else if(state is GotoAcceptLocationScreenState){
-          UserResponse user = state.user;
           Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AcceptLocationScreen(user: user),
+                    builder: (context) => AcceptLocationScreen(),
                   ),
                   (_) => true,
                 );

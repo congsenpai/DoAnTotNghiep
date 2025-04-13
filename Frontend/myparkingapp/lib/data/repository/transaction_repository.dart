@@ -12,7 +12,7 @@ class TransactionRepository{
             if(response.statusCode == 200){
                 Map<String, dynamic> jsonData = response.data;
                 int code = jsonData['code'];
-                String mess = jsonData['mess'];
+                String mess = jsonData['message'];
                 int page = jsonData['result']['page'];
                 int pageTotal = jsonData['result']['pageTotal'];
                 List<TransactionResponse> trans = (jsonData['result']['transactions'] as List)
@@ -78,30 +78,6 @@ class TransactionRepository{
         catch(e){
             throw Exception(
                 "TransactionRepository_getTransactionByWalletDateTypePage: $e"
-            ); 
-        }
-    }
-    Future<ApiResult> createTransaction(CreatedTransactionRequest transaction) async{
-        try{
-            ApiClient apiClient = ApiClient();
-            final response = await apiClient.createTransaction(transaction);
-            if(response.statusCode == 200){
-                ApiResult apiResult = ApiResult(
-                    response.data['code'],
-                    response.data['mess'],
-                    response.data['result']
-                );
-                return apiResult;
-            }
-            else{
-                throw Exception(
-                "TransactionRepository_createTransaction"
-            ); 
-            }
-        }
-        catch(e){
-            throw Exception(
-                "TransactionRepository_createTransaction: $e"
             ); 
         }
     }

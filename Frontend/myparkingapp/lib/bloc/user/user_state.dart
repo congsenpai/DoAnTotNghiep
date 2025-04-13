@@ -14,8 +14,7 @@ class UserLoadingState extends UserState{
 
 class UserLoadedState extends UserState{
   UserResponse user;
-  List<VehicleResponse> vehicles;
-  UserLoadedState(this.vehicles, this.user);
+  UserLoadedState( this.user);
 
 }
 

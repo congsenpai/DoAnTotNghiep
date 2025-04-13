@@ -59,10 +59,11 @@ class ParkingLotResponse {
       ),
       rate: (json['rate'] as num).toDouble(),
       description: json['description'],
-      images: (json['images'] as List<dynamic>)
+      userID: json['userID'],
+      images: (json['images' ] as List<dynamic>)
           .map((item) => ImagesResponse.fromJson(item))
           .toList(),
-      userID: '',
+
 
     );
   }

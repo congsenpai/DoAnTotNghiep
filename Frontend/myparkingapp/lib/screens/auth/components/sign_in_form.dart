@@ -16,8 +16,8 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
-  String userName = "";
-  String passWord = ""; 
+  String userName = "admin1";
+  String passWord = "admin123";
 
   bool _obscureText = true;
 
@@ -33,7 +33,7 @@ class _SignInFormState extends State<SignInForm> {
               userName = value ?? '';
             },
             textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.phone,
+            keyboardType: TextInputType.text,
             decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("UserName")),
           ),
           const SizedBox(height: defaultPadding),

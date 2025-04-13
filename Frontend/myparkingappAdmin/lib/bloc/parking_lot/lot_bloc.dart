@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/parking_lot/lot_event.dart';
@@ -91,7 +93,6 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
             longitude: event.request.longitude,
             description: event.request.description,
             images: finalImages);
-        
           
         final response = await parkingLotRepository.updateParkingLot(event.parkingLotId, request);
         if(response.code == 200){
@@ -103,4 +104,19 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
         emit(ParkingLotErrorState(e.toString()));
       }
     }
+
+    void _createParkingLot(CreateParkingLotEvent event, Emitter<ParkingLotState> emit) async{
+     try{
+       ParkingLotRepository parkingLotRepository = ParkingLotRepository();
+       // Call repository method to get parking lot by owner
+       final response = await parkingLotRepository.createParkingLot(event.request);
+       if(response.code == 200){
+         emit(ParkingLotLoadedState(response.result));
+       }else{
+         emit(ParkingLotErrorState(response.message));
+       }
+     }catch(e){
+       emit(ParkingLotErrorState(e.toString()));
+     }
+   }
 }

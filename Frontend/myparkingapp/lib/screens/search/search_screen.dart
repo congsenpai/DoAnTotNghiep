@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
@@ -13,8 +15,7 @@ import '../../components/pagination_button.dart';
 import '../../constants.dart';
 
 class SearchScreen extends StatefulWidget {
-  final UserResponse user;
-  const SearchScreen({super.key,required this.user});
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -30,11 +31,12 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchBloc>().add(SearchScreenInitialEvent());
+    context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(searchText,page));
   }
 
   @override
   Widget build(BuildContext context) {
+    UserResponse user = demoUser;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120), // Chiều cao mong muốn
@@ -43,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Search', style: Theme.of(context).textTheme.headlineMedium),
+              Text(AppLocalizations.of(context).translate('Search'), style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: defaultPadding / 2),
               SearchForm(page: 1, token: '',),
             ],
@@ -57,12 +59,12 @@ class _SearchScreenState extends State<SearchScreen> {
             return Center(child: CircularProgressIndicator(),);
           }
           else if(state is SearchScreenLoaded){
+            user = state.user;
             lots = state.lotOnPage.lots;
             page = state.lotOnPage.page;
             pageAmount = state.lotOnPage.pageAmount;
             searchText = state.searchText;
             return SafeArea(
-
               child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                   child: ListView(
@@ -71,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Text("Search Results" ,
                           style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(height: defaultPadding),
-                      ParkingLotList(lots: lots, user: widget.user),
+                      ParkingLotList(lots: lots, user: user),
                       const SizedBox(height: defaultPadding),
 
                       PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
@@ -86,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             );
           }
-          return Center(child: CircularProgressIndicator(),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
 
       }, listener: (context,state){
           if(state is SearchScreenError){

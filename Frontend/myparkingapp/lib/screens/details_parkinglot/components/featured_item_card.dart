@@ -14,9 +14,11 @@ class FeaturedItemCard extends StatelessWidget {
   final String image, title;
   final VoidCallback press;
   final bool isDetailScreen;
+  bool get isNetworkImage => image.startsWith('http');
 
   @override
   Widget build(BuildContext context) {
+
     Theme.of(context).textTheme.labelLarge!.copyWith(
           color: titleColor.withOpacity(0.64),
           fontWeight: FontWeight.normal,
@@ -34,10 +36,20 @@ class FeaturedItemCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  child: Image.asset(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.network(
                     image,
                     fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/big_1.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      );
+                    },
                   ),
                 ),
               ),

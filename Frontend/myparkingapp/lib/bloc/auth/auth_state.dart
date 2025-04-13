@@ -24,8 +24,7 @@ class AuthErrorState extends AuthState{
 }
 
 class GotoAcceptLocationScreenState extends AuthState{
-  final UserResponse user;
-  GotoAcceptLocationScreenState(this.user);
+  GotoAcceptLocationScreenState();
 }
 
 

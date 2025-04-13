@@ -1,5 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:myparkingapp/data/api_service/tomtom_map/map_widget.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 
 abstract class LocationState {}
 
@@ -11,7 +12,8 @@ class LocationLoading extends LocationState{}
 
 class LocationSuccessState extends LocationState{
   final String mess;
-  LocationSuccessState(this.mess);
+  Coordinates? coordinates;
+  LocationSuccessState(this.mess,this.coordinates);
 }
 
 class LocationLoadedState extends LocationState{

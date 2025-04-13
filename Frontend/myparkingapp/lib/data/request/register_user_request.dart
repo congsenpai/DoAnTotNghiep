@@ -5,8 +5,7 @@ class RegisterUserRequest {
   final String lastName;
   final String email;
   final String phone;
-  final String homeAddress;
-  final String companyAddress;
+
 
   RegisterUserRequest({
     required this.username,
@@ -15,8 +14,6 @@ class RegisterUserRequest {
     required this.lastName,
     required this.email,
     required this.phone,
-    required this.homeAddress,
-    required this.companyAddress,
   });
 
   /// Convert User -> JSON
@@ -28,14 +25,14 @@ class RegisterUserRequest {
       'lastName': lastName,
       'email': email,
       'phone': phone,
-      'homeAddress': homeAddress,
-      'companyAddress': companyAddress,
+      'roles':["USER"]
     };
   }
 
-  /// Hỗ trợ debug dễ dàng
   @override
   String toString() {
-    return 'User( username: $username, email: $email, phone: $phone)';
+    return 'RegisterUserRequest{username: $username, password: $password, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone}';
   }
+
+
 }

@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 
 import 'package:myparkingapp/data/response/user_response.dart';import 'package:myparkingapp/data/response/service.dart';
 import 'package:myparkingapp/screens/chatbot/chat_bot.dart';
@@ -26,16 +27,18 @@ import 'components/parking_lot_card_list.dart';
 import 'components/promotion_banner.dart';
 
 class HomeScreen extends StatefulWidget {
-  final UserResponse user;
-  const HomeScreen({super.key, required this.user});
+  Coordinates? coordinates;
+  HomeScreen({super.key, this.coordinates});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ParkingLotResponse> plots = parkingLotsDemoPage1;
+  List<ParkingLotResponse> plots = [];
+  List<ParkingLotResponse> nearbyPlots = [];
   List<Service> services = [];
+  UserResponse user = demoUser;
 
   
   @override
@@ -57,12 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'budget management',
       version: 1.0,
       press: () {
-        Get.to(DashBoardScreen(user: widget.user));
+        Get.to(DashBoardScreen(user: user));
       },
     ),
     ];
     super.initState();
-    context.read<HomeBloc>().add(HomeInitialEvent());
+    context.read<HomeBloc>().add(HomeInitialEvent(widget.coordinates));
   }
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
         }
         else if(state is HomeLoadedState){
+          user = state.user;
           plots = state.homeLots;
+          nearbyPlots = state.nearlyLots;
           return SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: defaultPadding),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: BigCardImageSlide(images: bannerHomeScreen, active: '',),
+                    child: BigCardImageSlide(images: bannerHomeScreen, active: '', isBanner: true,),
                   ),
                   const SizedBox(height: defaultPadding * 2),
                   SectionTitle(
@@ -108,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: widget.user,),
+                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: user,),
                       ),
                     ),
                   ),
@@ -123,23 +128,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     press: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: plots, services: [], isLot: true, title: 'Nearly Parking Lots', user: widget.user,),
+                        builder: (context) => FeaturedScreen(lots: nearbyPlots, services: [], isLot: true, title: 'Nearly Parking Lots', user: user,),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ParkingLotCardList(lots: plots, user: widget.user),
+                  ParkingLotCardList(lots: plots, user: user),
                   const SizedBox(height: 16),
                   const SizedBox(height: 20),
                   SectionTitle(title: "All ParkingSlot", press: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchScreen( user: widget.user,),
+                    builder: (context) => SearchScreen(),
                   ),
             ), ),
                   const SizedBox(height: 16),
                   // Demo list of Big Cards
-                  ParkingLotList(lots: parkingLotsDemoPage1, user: widget.user)
+                  ParkingLotList(lots: plots, user: user)
                 ],
               ),
             ),

@@ -5,22 +5,20 @@ import 'package:myparkingapp/data/response/user_response.dart';
 
 class UserRepository{
 
-  Future<ApiResult> getUserByUserName(String userName) async{
+  Future<ApiResult> getMe() async{
     try {
     ApiClient apiClient = ApiClient();
-    final response = await apiClient.getUserByUserName(userName);
+    final response = await apiClient.getMe();
 
     if (response.statusCode == 200) {
       // Không cần jsonDecode vì response.data đã là JSON
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
+      print("_______ : ${jsonData['result']}" );
       UserResponse user = UserResponse.fromJson(jsonData['result']);
-
-      // Chuyển 'result' từ JSON thành danh sách Discount
-      
-
+      print("_________ : ${user.toString()}");
       return ApiResult(code, mess, user);
     } else {
       throw Exception("UserRepository_getUserByUserName");
@@ -31,10 +29,10 @@ class UserRepository{
 
   }
 
-  Future<ApiResult> updateUser(UpdateUserRequest user) async{
+  Future<ApiResult> updateUser(UpdateUserRequest user, String userID) async{
     try {
     ApiClient apiClient = ApiClient();
-    final response = await apiClient.updateUser(user);
+    final response = await apiClient.updateUser(user,userID);
 
     if (response.statusCode == 200) {
       // Không cần jsonDecode vì response.data đã là JSON

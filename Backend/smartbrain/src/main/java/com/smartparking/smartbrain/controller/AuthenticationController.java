@@ -25,7 +25,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/myparkingapp/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
@@ -41,6 +41,7 @@ public class AuthenticationController {
     }
     @PostMapping("/register")
     public ApiResponse<UserResponse> createRequestUser(@RequestBody @Valid UserRequest request){
+        System.err.println("\n" + request + "\n");
         return ApiResponse.<UserResponse>builder()
         .result(userService.createReqUser(request))
         .code(200)
