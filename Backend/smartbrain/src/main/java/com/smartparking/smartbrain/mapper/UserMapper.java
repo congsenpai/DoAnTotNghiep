@@ -1,4 +1,6 @@
 package com.smartparking.smartbrain.mapper;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,10 +11,11 @@ import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
 import com.smartparking.smartbrain.dto.request.User.UserRegisterRequest;
 import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
+import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
 import com.smartparking.smartbrain.model.Image;
 import com.smartparking.smartbrain.model.User;
-
-@Mapper(componentModel = "spring")
+import com.smartparking.smartbrain.model.Vehicle;
+@Mapper(componentModel = "spring",uses = {VehicleMapper.class})
 public interface UserMapper {
 
     @Mapping(target="roles",ignore = true)// need custom
@@ -50,6 +53,7 @@ public interface UserMapper {
     User fromRegisterToUser(UserRegisterRequest userRegisterRequest);
 
     @Mapping(source = "image", target = "image", qualifiedByName = "imageToString")
+    @Mapping(target = "vehicles", expression = "java(filterDeletedVehicles(user.getVehicles()))")
     UserResponse toUserResponse(User user);
     
     @Mapping(target = "roles", ignore = true)// need custom
@@ -75,4 +79,14 @@ public interface UserMapper {
         }
         return image.getUrl();
     }
+    default Set<VehicleResponse> filterDeletedVehicles(Set<Vehicle> vehicles) {
+        if (vehicles == null) return null;
+
+        return vehicles.stream()
+                .filter(vehicle -> !Boolean.TRUE.equals(vehicle.isDeleted()))
+                .map(this::mapToVehicleResponse)
+                .collect(Collectors.toSet());
+    }
+    VehicleResponse mapToVehicleResponse(Vehicle vehicle);
+
 }

@@ -41,9 +41,18 @@ public class EntityConverter {
 
     @Named("mapVehicle")
     public Vehicle mapVehicle(String vehicleId) {
-        return vehicleId != null ? vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_EXISTS)) : null;
+        if (vehicleId == null) return null;
+    
+        Vehicle vehicle = vehicleRepository.findById(vehicleId)
+            .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_EXISTS));
+    
+        if (vehicle.isDeleted()) {
+            throw new AppException(ErrorCode.VEHICLE_NOT_FOUND);
+        }
+    
+        return vehicle;
     }
+    
 
     @Named("mapParkingSlot")
     public ParkingSlot mapParkingSlot(String slotId) {

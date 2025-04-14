@@ -1,12 +1,14 @@
 package com.smartparking.smartbrain.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedDailyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.InvoiceCreatedMonthlyRequest;
 import com.smartparking.smartbrain.dto.request.Invoice.PaymentDailyRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
+import com.smartparking.smartbrain.dto.response.PagedResponse;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.service.InvoiceService;
 
@@ -18,8 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
-
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -64,19 +65,26 @@ public class InvoiceController {
         .message("Invoice retrieved successfully")
         .build();
     }
-    @GetMapping("/{UserID}")
-    public ApiResponse<List<InvoiceResponse>> getInvoiceByUserID(@PathVariable String UserID) {
-        return ApiResponse.<List<InvoiceResponse>>builder()
+    @GetMapping("/user/{UserID}")
+    public ApiResponse<PagedResponse<InvoiceResponse>> getInvoiceByUserID(
+        @PathVariable String UserID,
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        return ApiResponse.<PagedResponse<InvoiceResponse>>builder()
         .code(200)
-        .result(invoiceService.getInvoiceByUserID(UserID))
+        .result(invoiceService.getInvoiceByUserID(UserID, PageRequest.of(page, size)))
         .message("Invoice retrieved successfully")
         .build();
     }
     @GetMapping("")
-    public ApiResponse<List<InvoiceResponse>> getAll() {
-        return ApiResponse.<List<InvoiceResponse>>builder()
+    public ApiResponse<PagedResponse<InvoiceResponse>> getAll(
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        return ApiResponse.<PagedResponse<InvoiceResponse>>builder()
         .code(200)
-        .result(invoiceService.getAllInvoice())
+        .result(invoiceService.getAllInvoice(PageRequest.of(page, size)))
         .message("Invoice retrieved successfully")
         .build();
     }

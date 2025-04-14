@@ -37,7 +37,7 @@ public class VehicleService {
         return vehicleMapper.toVehicleResponse(vehicle);
     }
     public List<VehicleResponse> getVehicleByUserID(String userID){
-        List<Vehicle> vehicles = vehicleRepository.findByUser_userID(userID);
+        List<Vehicle> vehicles = vehicleRepository.findByUser_userIDAndIsDeletedFalse(userID);
         if (vehicles.isEmpty()) {
             throw new AppException(ErrorCode.VEHICLE_NOT_FOUND);
         }
