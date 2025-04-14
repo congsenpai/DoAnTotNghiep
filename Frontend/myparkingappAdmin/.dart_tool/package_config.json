@@ -38,6 +38,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "cloudinary",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/cloudinary-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "collection",
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.19.1",
       "packageUri": "lib/",
@@ -284,6 +290,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "image_picker_web",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_web-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "image_picker_windows",
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_windows-0.2.1+1",
       "packageUri": "lib/",
@@ -348,6 +360,12 @@
       "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "mobile_scanner",
+      "rootUri": "file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mobile_scanner-6.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "nested",
@@ -584,10 +602,10 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-04-02T03:56:19.819321Z",
+  "generated": "2025-04-12T02:38:29.612510Z",
   "generator": "pub",
-  "generatorVersion": "3.7.0",
+  "generatorVersion": "3.7.2",
   "flutterRoot": "file:///D:/android_Studio_setting/flutter_windows_3.29.1-stable/flutter",
-  "flutterVersion": "3.29.1",
+  "flutterVersion": "3.29.2",
   "pubCache": "file:///C:/Users/hagia/AppData/Local/Pub/Cache"
 }

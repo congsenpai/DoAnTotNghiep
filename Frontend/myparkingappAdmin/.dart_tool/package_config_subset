@@ -22,6 +22,10 @@ clock
 3.4
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.2/
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.2/lib/
+cloudinary
+2.18
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/cloudinary-1.2.0/
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/cloudinary-1.2.0/lib/
 collection
 3.4
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.19.1/
@@ -170,6 +174,10 @@ image_picker_platform_interface
 3.4
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_platform_interface-2.10.1/
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_platform_interface-2.10.1/lib/
+image_picker_web
+3.0
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_web-4.0.0/
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_web-4.0.0/lib/
 image_picker_windows
 2.19
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_windows-0.2.1+1/
@@ -214,6 +222,10 @@ mime
 3.2
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0/
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0/lib/
+mobile_scanner
+3.4
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mobile_scanner-6.0.7/
+file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/mobile_scanner-6.0.7/lib/
 nested
 2.12
 file:///C:/Users/hagia/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/
