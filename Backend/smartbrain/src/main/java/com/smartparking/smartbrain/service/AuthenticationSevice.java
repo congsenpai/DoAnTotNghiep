@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -147,8 +148,11 @@ public class AuthenticationSevice {
             // send mail for password reset
             Map<String, Object> variables = new HashMap<>();
             variables.put("name", user.getFirstName());
-            variables.put("resetUrl", "https://smartbrain.myparkingapp.com/reset-password?token="+ token);
+            String newPassword = UUID.randomUUID().toString();
+            variables.put("newPassword", newPassword);
             emailService.sendResetPasswordEmail(user.getEmail(), variables);
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
             return ChangePasswordResponse.builder()
                     .userToken(token)
                     .build();
