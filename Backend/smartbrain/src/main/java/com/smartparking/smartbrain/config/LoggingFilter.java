@@ -20,6 +20,7 @@ import java.io.IOException;
 public class LoggingFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
     private static final ObjectWriter prettyPrinter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+
     @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -37,30 +38,30 @@ public class LoggingFilter extends OncePerRequestFilter {
         // Đọc body từ request
         String requestBody = new String(wrappedRequest.getContentAsByteArray(), wrappedRequest.getCharacterEncoding());
         // Đọc body từ response
-        String responseBody = new String(wrappedResponse.getContentAsByteArray(), wrappedResponse.getCharacterEncoding());
+        String responseBody = new String(wrappedResponse.getContentAsByteArray(),
+                wrappedResponse.getCharacterEncoding());
 
         long duration = System.currentTimeMillis() - startTime;
 
         String prettyRequestBody = formatJson(requestBody);
         String prettyResponseBody = formatJson(responseBody);
-        
-        logger.info("\nREQUEST: [{} {}] \nHeaders: {}\nBody:\n{}", 
-            request.getMethod(), 
-            request.getRequestURI(), 
-            prettyRequestBody);
-        
-        logger.info("\nRESPONSE: [{} {}] \nStatus: {}, Time: {}ms\nBody:\n{}", 
-            request.getMethod(), 
-            request.getRequestURI(), 
-            response.getStatus(), 
-            duration, 
-            prettyResponseBody);
-        
-            // Rất quan trọng: Ghi body về lại response cho client đọc
-            wrappedResponse.copyBodyToResponse();
-        
-    }
 
+        logger.info("\nREQUEST: [{} {}]\nBody:\n{}",
+                request.getMethod(),
+                request.getRequestURI(),
+                prettyRequestBody);
+
+        logger.info("\nRESPONSE: [{} {}] \nStatus: {}, Time: {}ms\nBody:\n{}",
+                request.getMethod(),
+                request.getRequestURI(),
+                response.getStatus(),
+                duration,
+                prettyResponseBody);
+
+        // Rất quan trọng: Ghi body về lại response cho client đọc
+        wrappedResponse.copyBodyToResponse();
+
+    }
 
     public static String formatJson(String json) {
         try {
@@ -71,6 +72,5 @@ public class LoggingFilter extends OncePerRequestFilter {
             return json;
         }
     }
-
 
 }

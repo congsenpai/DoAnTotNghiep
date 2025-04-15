@@ -21,5 +21,6 @@ public class MonthlyTicketResponse {
     String invoiceID;
     Instant createdAt;
     Instant updatedAt;
+    Instant startedAt;
     Instant expiredAt;
 }

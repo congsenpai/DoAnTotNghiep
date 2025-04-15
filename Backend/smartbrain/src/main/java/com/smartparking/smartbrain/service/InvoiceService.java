@@ -59,94 +59,102 @@ public class InvoiceService {
 
     // Daily invoice deposit
     @Transactional(rollbackFor = AppException.class)
-    public InvoiceResponse depositDailyInvoice(InvoiceCreatedDailyRequest request){
+    public InvoiceResponse depositDailyInvoice(InvoiceCreatedDailyRequest request) {
         Invoice invoice = invoiceMapper.toDailyInvoice(request);
         // Lưu hóa đơn vào cơ sở dữ liệu
         invoice = invoiceRepository.save(invoice);
-        var depositValue= invoice.getParkingSlot().getPricePerHour()
-            .multiply(BigDecimal.valueOf(3));
-        DepositRequest depositRequest= DepositRequest.builder()
-            .walletID(request.getWalletID())
-            .amount(depositValue)
-            .description("Thanh toán tiền cọc")
-            .currency("USD")
-            .build();
+        var depositValue = invoice.getParkingSlot().getPricePerHour()
+                .multiply(BigDecimal.valueOf(3));
+        DepositRequest depositRequest = DepositRequest.builder()
+                .walletID(request.getWalletID())
+                .amount(depositValue)
+                .description("Deposit daily invoice")
+                .currency("USD")
+                .build();
         try {
-            walletService.deposit(depositRequest,invoice);
+            walletService.deposit(depositRequest, invoice);
         } catch (AppException e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error unknown when deposit invoice");
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error unknown when deposit invoice");
         }
         invoice.setTotalAmount(depositValue);
         invoice.setStatus(InvoiceStatus.DEPOSIT);
         invoice = invoiceRepository.save(invoice);
         // update slot status
-        ParkingSlot parkingSlot=parkingSlotRepository.findById(request.getParkingSlotID())
-        .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
+        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
+                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         parkingSlot.setSlotStatus(SlotStatus.RESERVED);
         parkingSlotRepository.save(parkingSlot);
-        InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+        InvoiceResponse invoiceResponse = invoiceMapper.toInvoiceResponse(invoice);
         invoiceResponse.setCreatedAt(Instant.now());
         try {
             invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
         } catch (Exception e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when encrypt invoice");
         }
         return invoiceResponse;
     }
+
     @Transactional(rollbackFor = AppException.class)
     // Daily invoice payment
     public InvoiceResponse paymentDailyInvoice(PaymentDailyRequest request) {
         var invoice = invoiceRepository.findByIdWithoutRelations(request.getInvoiceID())
-            .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
+                .orElseThrow(() -> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
         log.info("Here invoice");
-        var parkingSlot= parkingSlotRepository.findParkingSlotWithoutRelations(request.getParkingSlotID())
-            .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
+        var parkingSlot = parkingSlotRepository.findParkingSlotWithoutRelations(request.getParkingSlotID())
+                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         log.info("Here parking slot");
-        var discount= discountRepository.findDiscountWithoutRelations(request.getDiscountID())
-            .orElseThrow(()-> new AppException(ErrorCode.DISCOUNT_NOT_EXISTS));
+        Discount discount=null;
+        if (request.getDiscountID() != null) {
+            discount = discountRepository.findDiscountWithoutRelations(request.getDiscountID())
+                    .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_EXISTS));
+        }
+
         log.info("Here discount");
-        var createdAt= invoice.getCreatedAt();
+        var createdAt = invoice.getCreatedAt();
         if (invoice.getStatus() != InvoiceStatus.DEPOSIT) {
             throw new AppException(ErrorCode.INVOICE_NOT_DEPOSIT, invoice.getStatus().toString());
         }
-        BigDecimal depositAmount =invoice.getTotalAmount();
-        BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(parkingSlot, discount, createdAt,false))
-            .orElse(BigDecimal.ZERO);
+        BigDecimal depositAmount = invoice.getTotalAmount();
+        BigDecimal totalAmount = Optional
+                .ofNullable(caculatorTotalAmount(parkingSlot, discount, createdAt.toString(), false))
+                .orElse(BigDecimal.ZERO);
         invoice.setTotalAmount(totalAmount);
         // Nếu depositAmount lớn hơn totalAmount -> Trả lại phần dư
         if (depositAmount.compareTo(totalAmount) > 0) {
             BigDecimal refund = depositAmount.subtract(totalAmount);
             try {
-                walletService.refundDeposit(refund,request.getWalletID());
+                walletService.refundDeposit(refund, request.getWalletID());
             } catch (Exception e) {
-                throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when refund deposit to user wallet");
+                throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when refund deposit to user wallet");
             }
-            
+
         }
-        // Nếu totalAmount lớn hơn depositAmount -> Cập nhật totalAmount = totalAmount - depositAmount
+        // Nếu totalAmount lớn hơn depositAmount -> Cập nhật totalAmount = totalAmount -
+        // depositAmount
         else if (totalAmount.compareTo(depositAmount) > 0) {
             totalAmount = totalAmount.subtract(depositAmount);
         }
 
         log.info("Total amount: {}", totalAmount);
-        PaymentRequest paymentRequest= PaymentRequest.builder()
-            .walletID(request.getWalletID())
-            .amount(totalAmount)
-            .description("Thanh toán hóa đơn ngày")
-            .currency("USD")
-            .build();
-        walletService.makePayment(paymentRequest,invoice);
+        PaymentRequest paymentRequest = PaymentRequest.builder()
+                .walletID(request.getWalletID())
+                .amount(totalAmount)
+                .description("Payment daily invoice")
+                .currency("USD")
+                .build();
+        walletService.makePayment(paymentRequest, invoice);
         invoice.setStatus(InvoiceStatus.PAID);
         invoice = invoiceRepository.save(invoice);
         log.info("complete save invoice");
-        InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
-        
+        InvoiceResponse invoiceResponse = invoiceMapper.toInvoiceResponse(invoice);
+
         invoiceResponse.setCreatedAt(Instant.now());
         try {
             invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
-            log.info("invoice: {}",invoice,"Key: {}",SECRET_KEY,"Object: {}", AESEncryption.encryptObject(invoice, SECRET_KEY));
+            log.info("invoice: {}", invoice, "Key: {}", SECRET_KEY, "Object: {}",
+                    AESEncryption.encryptObject(invoice, SECRET_KEY));
         } catch (Exception e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when encrypt invoice");
         }
         return invoiceResponse;
     }
@@ -154,94 +162,94 @@ public class InvoiceService {
     // Monthly invoice
     @Transactional(rollbackFor = AppException.class)
     public InvoiceResponse createMonthlyInvoice(InvoiceCreatedMonthlyRequest request) {
-        Instant expiredAt=dateTimeConverter.fromStringToInstant(request.getExpiredAt());
         Invoice invoice = invoiceMapper.toMonthlyInvoice(request);
         invoice = invoiceRepository.save(invoice);
         // Make transaction
-        //caculator total amount
-        BigDecimal totalAmount = Optional.ofNullable(caculatorTotalAmount(invoice.getParkingSlot(), invoice.getDiscount(), expiredAt,true))
-        .orElse(BigDecimal.ZERO);
+        // caculator total amount
+        BigDecimal totalAmount = Optional
+                .ofNullable(caculatorTotalAmount(invoice.getParkingSlot(), invoice.getDiscount(),
+                        request.getExpiredAt(), true))
+                .orElse(BigDecimal.ZERO);
 
-        PaymentRequest paymentRequest= PaymentRequest.builder()
-            .walletID(request.getWalletID())
-            .amount(totalAmount)
-            .description("Thanh toán hóa đơn tháng")
-            .currency("USD")
-            .build();
+        PaymentRequest paymentRequest = PaymentRequest.builder()
+                .walletID(request.getWalletID())
+                .amount(totalAmount)
+                .description("Payment monthly invoice")
+                .currency("USD")
+                .build();
         log.info("Total amount: {}", totalAmount);
         log.info("Payment request: {}", paymentRequest);
-            walletService.makePayment(paymentRequest,invoice);
-            invoice.setTotalAmount(totalAmount);
-            invoice.setStatus(InvoiceStatus.PAID);
-            invoice = invoiceRepository.save(invoice);
+        walletService.makePayment(paymentRequest, invoice);
+        invoice.setTotalAmount(totalAmount);
+        invoice.setStatus(InvoiceStatus.PAID);
+        invoice = invoiceRepository.save(invoice);
 
         // Tạo MonthlyTicket
         CreatedMonthlyTicketRequest request2 = CreatedMonthlyTicketRequest.builder()
-            .parkingSlotID(invoice.getParkingSlot().getSlotID())
-            .userID(invoice.getUser().getUserID())
-            .invoiceID(invoice.getInvoiceID()) // Lúc này invoiceID đã có
-            .expiredAt(request.getExpiredAt())
-            .build();
-        var response= monthlyTicketService.createdMonthlyTicket(request2);
+                .parkingSlotID(invoice.getParkingSlot().getSlotID())
+                .userID(invoice.getUser().getUserID())
+                .invoiceID(invoice.getInvoiceID()) // Lúc này invoiceID đã có
+                .expiredAt(request.getExpiredAt())
+                .startedAt(request.getStartedAt())
+                .build();
+        var response = monthlyTicketService.createdMonthlyTicket(request2);
         invoiceRepository.save(invoice);
         invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
-            .orElseThrow(()-> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
+                .orElseThrow(() -> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
         // update slot status
-        ParkingSlot parkingSlot=parkingSlotRepository.findById(request.getParkingSlotID())
-            .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
-            parkingSlot.setSlotStatus(SlotStatus.OCCUPIED);
+        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
+                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
+        parkingSlot.setSlotStatus(SlotStatus.RESERVED);
         parkingSlotRepository.save(parkingSlot);
 
-        InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
+        InvoiceResponse invoiceResponse = invoiceMapper.toInvoiceResponse(invoice);
         invoiceResponse.setCreatedAt(Instant.now());
         try {
             invoiceResponse.setObjectDecrypt(AESEncryption.encryptObject(invoice, SECRET_KEY));
         } catch (Exception e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error occur when encrypt invoice");
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when encrypt invoice");
         }
         return invoiceResponse;
     }
 
-
-    public InvoiceResponse getInvoiceByID(String invoiceID){
-        var invoice =invoiceRepository.findById(invoiceID)
-        .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
+    public InvoiceResponse getInvoiceByID(String invoiceID) {
+        var invoice = invoiceRepository.findById(invoiceID)
+                .orElseThrow(() -> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
         return invoiceMapper.toInvoiceResponse(invoice);
     }
 
-    public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, Instant timeInstant, Boolean isMonthly) {
+    public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, String time,
+            Boolean isMonthly) {
+        log.info(time);
+        Instant timeInstant = dateTimeConverter.fromStringToInstant(time);
         if (parkingSlot == null || timeInstant == null) {
-            throw new IllegalArgumentException("ParkingSlot và thời gian không được null!");
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Parking slot or time is null");
         }
         BigDecimal totalAmount = BigDecimal.ZERO;
-        
-        
+
         if (isMonthly == true) {
-             // Chuyển expiredAt từ Instant sang LocalDate
+            // Chuyển expiredAt từ Instant sang LocalDate
             LocalDate expiredDate = timeInstant.atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate today = LocalDate.now();
             // Tính số tháng từ thời điểm hiện tại đến ngày hết hạn
 
             long numberOfMonths = ChronoUnit.MONTHS.between(today, expiredDate);
             long extraDays = ChronoUnit.DAYS.between(today.plusMonths(numberOfMonths), expiredDate);
-            
+
             if (extraDays > 0) {
                 numberOfMonths++; // Nếu có ngày lẻ, làm tròn lên
             }
-            
+
             totalAmount = parkingSlot.getPricePerMonth().multiply(BigDecimal.valueOf(numberOfMonths));
             log.info("Number of months: {}", numberOfMonths);
             log.info("Total amount for monthly: {}", totalAmount);
 
-        }
-        else {
+        } else {
             // Tính số giờ từ thời điểm hiện tại đến ngày hết hạn
-            long numberOfHours = Duration.between(timeInstant,Instant.now()).toHours();
+            long numberOfHours = Duration.between(timeInstant, Instant.now()).toHours();
             log.info("Number of hours: {}", numberOfHours);
             totalAmount = parkingSlot.getPricePerHour().multiply(BigDecimal.valueOf(numberOfHours));
         }
-        
-        
 
         if (discount != null) {
             BigDecimal maxDiscountValue = discount.getMaxValue();
@@ -251,8 +259,9 @@ public class InvoiceService {
             }
 
             if (discount.getDiscountType() == DiscountType.PERCENTAGE) {
-                BigDecimal calculatedDiscount = totalAmount.multiply(discountValue).divide(BigDecimal.valueOf(100)); // Tính % giảm giá
-                
+                // Tính phần trăm giảm giá
+                BigDecimal calculatedDiscount = totalAmount.multiply(discountValue).divide(BigDecimal.valueOf(100));
+
                 if (calculatedDiscount.compareTo(maxDiscountValue) > 0) {
                     totalAmount = totalAmount.subtract(maxDiscountValue);
                 } else {
@@ -266,67 +275,67 @@ public class InvoiceService {
         return totalAmount.max(BigDecimal.ZERO); // Đảm bảo giá trị không âm
     }
 
-
     public PagedResponse<InvoiceResponse> getInvoiceByUserIDNotPayment(String userID, Pageable pageable) {
         if (!userRepository.existsById(userID)) {
             throw new AppException(ErrorCode.USER_NOT_EXISTS);
         }
-    
-        var invoicePage = invoiceRepository.findUnpaidInvoicesByUser(userID, pageable);
-    
-        List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
-        return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
-    }
-    
 
+        var invoicePage = invoiceRepository.findUnpaidInvoicesByUser(userID, pageable);
+
+        List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
+                .map(invoiceMapper::toInvoiceResponse)
+                .toList();
+
+        return new PagedResponse<>(
+                invoiceResponses,
+                invoicePage.getNumber(),
+                invoicePage.getSize(),
+                invoicePage.getTotalElements(),
+                invoicePage.getTotalPages(),
+                invoicePage.isLast());
+    }
 
     public PagedResponse<InvoiceResponse> getAllInvoice(Pageable pageable) {
         var invoicePage = invoiceRepository.findAll(pageable);
-    
+
         List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
+                .map(invoiceMapper::toInvoiceResponse)
+                .toList();
+
         return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
+                invoiceResponses,
+                invoicePage.getNumber(),
+                invoicePage.getSize(),
+                invoicePage.getTotalElements(),
+                invoicePage.getTotalPages(),
+                invoicePage.isLast());
     }
+
     public PagedResponse<InvoiceResponse> getInvoiceByUserID(String userID, Pageable pageable) {
         if (!userRepository.existsById(userID)) {
             throw new AppException(ErrorCode.USER_NOT_EXISTS);
         }
-    
+
         var invoicePage = invoiceRepository.findByUser_UserID(userID, pageable);
-    
+
         List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
+                .map(invoiceMapper::toInvoiceResponse)
+                .toList();
+
         return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
+                invoiceResponses,
+                invoicePage.getNumber(),
+                invoicePage.getSize(),
+                invoicePage.getTotalElements(),
+                invoicePage.getTotalPages(),
+                invoicePage.isLast());
     }
-    
-    
+
+    public List<InvoiceResponse> getAllActiveInvoiceByUser(String userID) {
+        var invoices = invoiceRepository.findAllActiveInvoiceByUser(userID);
+        return invoices.stream()
+                .map(invoiceMapper::toInvoiceResponse)
+                .toList();
+    }
 
 }

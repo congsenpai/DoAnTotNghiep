@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,7 +90,17 @@ public class InvoiceController {
         .message("Invoice retrieved successfully")
         .build();
     }
-    
+    @GetMapping("/active/{userID}")
+    public ApiResponse<List<InvoiceResponse>> getAllActive(
+        @RequestParam(value = "status", defaultValue = "active") String status,
+        @PathVariable String userID
+    ) {
+        return ApiResponse.<List<InvoiceResponse>>builder()
+        .code(200)
+        .result(invoiceService.getAllActiveInvoiceByUser(userID))
+        .message("Invoice retrieved successfully")
+        .build();
+    }
     
     
     

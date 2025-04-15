@@ -62,4 +62,6 @@ public class MonthlyTicket {
     Instant updatedAt;
     @Column(name="expired_at",nullable = false)
     Instant expiredAt;
+    @Column(name="started_at",nullable = false)
+    Instant startedAt;
 }

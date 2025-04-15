@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:myparkingappadmin/app/localization/app_localizations.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_bloc.dart';
 import 'package:myparkingappadmin/bloc/main_app/main_app_event.dart';
+import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 
 class QRScannerPage extends StatefulWidget {
   final bool isEntry;
@@ -48,7 +48,7 @@ class _QRScannerPageState extends State<QRScannerPage> {
               },
             ),
           ),
-          Center(child: scannedCode.length > 128 
+          Center(child: scannedCode.length > 128
           ?Text("${AppLocalizations.of(context).translate("DATA IN QR")} : $scannedCode")
           : Text("${AppLocalizations.of(context).translate("QR INVALIDED ( LEAST THAN 128 CHARACTERS )")} : $scannedCode")
            ),

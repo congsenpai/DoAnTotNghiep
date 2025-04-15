@@ -24,6 +24,7 @@ public class InvoiceResponse {
     String userID;
     DiscountResponse discount;
     String parkingSlotName;
+    String parkingSlotID;
     String parkingLotName;
     VehicleResponse vehicle;
     Boolean isMonthlyTicket;
