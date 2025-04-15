@@ -22,5 +22,6 @@ public class CreatedMonthlyTicketRequest {
     String invoiceID;
     @NotEmpty(message = "Expired time can not empty")
     String expiredAt;
+    @NotEmpty(message = "Start time can not empty")
     String startedAt;
 }

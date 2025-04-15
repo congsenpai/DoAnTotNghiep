@@ -3,9 +3,6 @@ package com.smartparking.smartbrain.service;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +30,7 @@ import com.smartparking.smartbrain.mapper.InvoiceMapper;
 import com.smartparking.smartbrain.model.Discount;
 import com.smartparking.smartbrain.model.Invoice;
 import com.smartparking.smartbrain.model.ParkingSlot;
+import com.smartparking.smartbrain.model.Vehicle;
 import com.smartparking.smartbrain.repository.*;
 
 import lombok.AccessLevel;
@@ -56,11 +54,22 @@ public class InvoiceService {
     final MonthlyTicketRepository monthlyTicketRepository;
     final ParkingSlotRepository parkingSlotRepository;
     final DiscountRepository discountRepository;
+    final VehicleRepository vehicleRepository;
 
     // Daily invoice deposit
     @Transactional(rollbackFor = AppException.class)
     public InvoiceResponse depositDailyInvoice(InvoiceCreatedDailyRequest request) {
         Invoice invoice = invoiceMapper.toDailyInvoice(request);
+        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
+                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
+        if (parkingSlot.getSlotStatus()!=SlotStatus.AVAILABLE) {
+            throw new AppException(ErrorCode.SLOT_NOT_AVAILABLE);
+        }
+        Vehicle vehicle = vehicleRepository.findById(request.getVehicleID())
+                .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
+        if (!parkingSlot.getVehicleType().equals(vehicle.getVehicleType())) {
+            throw new AppException(ErrorCode.SLOT_NOT_VALID_WITH_VEHICLE_TYPE);
+        }
         // Lưu hóa đơn vào cơ sở dữ liệu
         invoice = invoiceRepository.save(invoice);
         var depositValue = invoice.getParkingSlot().getPricePerHour()
@@ -80,8 +89,6 @@ public class InvoiceService {
         invoice.setStatus(InvoiceStatus.DEPOSIT);
         invoice = invoiceRepository.save(invoice);
         // update slot status
-        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
-                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         parkingSlot.setSlotStatus(SlotStatus.RESERVED);
         parkingSlotRepository.save(parkingSlot);
         InvoiceResponse invoiceResponse = invoiceMapper.toInvoiceResponse(invoice);
@@ -103,7 +110,7 @@ public class InvoiceService {
         var parkingSlot = parkingSlotRepository.findParkingSlotWithoutRelations(request.getParkingSlotID())
                 .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         log.info("Here parking slot");
-        Discount discount=null;
+        Discount discount = null;
         if (request.getDiscountID() != null) {
             discount = discountRepository.findDiscountWithoutRelations(request.getDiscountID())
                     .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_EXISTS));
@@ -163,6 +170,13 @@ public class InvoiceService {
     @Transactional(rollbackFor = AppException.class)
     public InvoiceResponse createMonthlyInvoice(InvoiceCreatedMonthlyRequest request) {
         Invoice invoice = invoiceMapper.toMonthlyInvoice(request);
+        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
+                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
+        Vehicle vehicle = vehicleRepository.findById(request.getVehicleID())
+                .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
+        if (!parkingSlot.getVehicleType().equals(vehicle.getVehicleType())) {
+            throw new AppException(ErrorCode.SLOT_NOT_VALID_WITH_VEHICLE_TYPE);
+        }
         invoice = invoiceRepository.save(invoice);
         // Make transaction
         // caculator total amount
@@ -197,8 +211,6 @@ public class InvoiceService {
         invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
                 .orElseThrow(() -> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
         // update slot status
-        ParkingSlot parkingSlot = parkingSlotRepository.findById(request.getParkingSlotID())
-                .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         parkingSlot.setSlotStatus(SlotStatus.RESERVED);
         parkingSlotRepository.save(parkingSlot);
 
@@ -218,32 +230,16 @@ public class InvoiceService {
         return invoiceMapper.toInvoiceResponse(invoice);
     }
 
-    public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, String time,
+    public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, String startTime,
             Boolean isMonthly) {
-        log.info(time);
-        Instant timeInstant = dateTimeConverter.fromStringToInstant(time);
+        Instant timeInstant = dateTimeConverter.fromStringToInstant(startTime);
         if (parkingSlot == null || timeInstant == null) {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Parking slot or time is null");
         }
         BigDecimal totalAmount = BigDecimal.ZERO;
 
         if (isMonthly == true) {
-            // Chuyển expiredAt từ Instant sang LocalDate
-            LocalDate expiredDate = timeInstant.atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate today = LocalDate.now();
-            // Tính số tháng từ thời điểm hiện tại đến ngày hết hạn
-
-            long numberOfMonths = ChronoUnit.MONTHS.between(today, expiredDate);
-            long extraDays = ChronoUnit.DAYS.between(today.plusMonths(numberOfMonths), expiredDate);
-
-            if (extraDays > 0) {
-                numberOfMonths++; // Nếu có ngày lẻ, làm tròn lên
-            }
-
-            totalAmount = parkingSlot.getPricePerMonth().multiply(BigDecimal.valueOf(numberOfMonths));
-            log.info("Number of months: {}", numberOfMonths);
-            log.info("Total amount for monthly: {}", totalAmount);
-
+            totalAmount = parkingSlot.getPricePerMonth();
         } else {
             // Tính số giờ từ thời điểm hiện tại đến ngày hết hạn
             long numberOfHours = Duration.between(timeInstant, Instant.now()).toHours();

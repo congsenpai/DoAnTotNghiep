@@ -41,6 +41,7 @@ public enum ErrorCode {
     PARKING_SLOT_NOT_EXISTS(4003, "Slot not exists"),
     FALSE_UPDATE_STATUS_SLOT(4004, "Updating slot status false"),
     TOTAL_SLOT_EXCEED(4005, "Total slot exceed, can't use auto create slot, please create slot manually"),
+    SLOT_NOT_AVAILABLE(4006, "Slot not available"),
 
     // Wallet errors
     WALLET_NOT_FOUND(5001, "Wallet not found"),
@@ -80,7 +81,6 @@ public enum ErrorCode {
     MONTHLY_TICKET_NOT_FOUND(0301, "Monthly ticket not found"),
     MONTHLY_TICKET_ALREADY_EXISTS(0302, "Monthly ticket already exists"),
     MONTHLY_TICKET_NOT_EXISTS(0303, "Monthly ticket not exists"),
-
     ;
 
     ErrorCode(int code, String message) {
