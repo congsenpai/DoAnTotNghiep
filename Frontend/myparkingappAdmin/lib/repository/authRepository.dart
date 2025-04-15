@@ -60,10 +60,10 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.register(user);
-      if (response.statusCode == 200) {
+      if (response.data['code'] == 200) {
         return ApiResult(response.data['code'], response.data['mess'], '');
       } else {
-        throw Exception("_AuthRepository_register:");
+        return ApiResult(response.data['code'], response.data['mess'], '');
       }
     } catch (e) {
       throw Exception("_AuthRepository_register: $e");
@@ -87,39 +87,6 @@ class AuthRepository {
     }
   }
 
-  // Gửi email
-  Future<ApiResult> giveEmail(String email) async {
-    try {
-      ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveEmail(email);
-      if (response.statusCode == 200) {
-        return ApiResult(
-          response.data['code'],
-          response.data['mess'],
-          response.data['result']['token'],
-        );
-      } else {
-        throw Exception("_AuthRepository_giveEmail:");
-      }
-    } catch (e) {
-      throw Exception("_AuthRepository_giveEmail: $e");
-    }
-  }
-
-  // Cập nhật mật khẩu mới
-  Future<ApiResult> giveRePassWord(String newPass, String token) async {
-    try {
-      ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveRePassWord(newPass, token);
-      if (response.statusCode == 200) {
-        return ApiResult(response.data['code'], response.data['mess'], '');
-      } else {
-        throw Exception("_AuthRepository_giveRePassWord:");
-      }
-    } catch (e) {
-      throw Exception("_AuthRepository_giveRePassWord: $e");
-    }
-  }
 
   // Đăng xuất
   Future<void> logout() async {

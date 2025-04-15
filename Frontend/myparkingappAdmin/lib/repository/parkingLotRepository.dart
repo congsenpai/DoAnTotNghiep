@@ -11,7 +11,7 @@ class ParkingLotRepository {
       final response = await apiClient.getParkingLotByOwner(userId);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -34,7 +34,7 @@ class ParkingLotRepository {
       final response = await apiClient.updateStatusParkingLot(newStatus, parkingLotId);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -57,7 +57,7 @@ class ParkingLotRepository {
       final response = await apiClient.updateParkingLot(parkingLotId,request);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -80,7 +80,7 @@ class ParkingLotRepository {
       final response = await apiClient.createParkingLot(request);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code== 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );

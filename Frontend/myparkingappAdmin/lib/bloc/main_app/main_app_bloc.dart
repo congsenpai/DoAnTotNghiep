@@ -3,6 +3,7 @@
 import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/data/dto/request/entry_request.dart';
+import 'package:myparkingappadmin/data/dto/request/update_user_request.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 import 'package:myparkingappadmin/repository/imageRepository.dart';
@@ -21,43 +22,29 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     on<ScannerEvent>(_scannerQr);
   }
 
-  void _getUserByUserName(
-      initializationEvent event, Emitter<MainAppState> emit) async {
+  void _getUserByUserName(initializationEvent event,
+      Emitter<MainAppState> emit) async {
     try {
       final UserRepository userRepository = UserRepository();
       ApiResult userResult = await userRepository.getMe();
       String message = userResult.message;
       int code = userResult.code;
-      if(code == 200){
+      if (code == 200) {
         emit(
             MainAppLoadedState(userResult.result)
         );
       }
-      else{
+      else {
         emit(MainAppErrorState(message));
       }
-
     } catch (e) {
       print("_updatedUserInfo $e");
     }
   }
 
-  void _updatesUserInfo(
-      UpdatesUserInforEvent event, Emitter<MainAppState> emit) async {
+  void _updatesUserInfo(UpdatesUserInforEvent event,
+      Emitter<MainAppState> emit) async {
     try {
-      // final UserRepository userRepository = UserRepository();
-      // ApiResult userResult = await userRepository.updatedUser(event.request, event.userId);
-      // String message = userResult.message;
-      // int code = userResult.code;
-      // if(code == 200){
-      //   emit(
-      //       MainAppSuccessState(message)
-      //   );
-      // }
-
-      // else{
-      //   emit(MainAppErrorState(message));
-      // }
       ImageRepository imagerepository = ImageRepository();
       Cloudinary cloudinary = await imagerepository.getApiCloud();
       CloudinaryResponse uploadResponse = await imagerepository.uploadImage(
@@ -67,7 +54,32 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
           event.request.avatar.imageID,
           event.request.avatar.imageID);
       if (uploadResponse.isSuccessful) {
-        Images image = Images(event.request.avatar.imageID, uploadResponse.url, null);
+        Images image = Images(
+            event.request.avatar.imageID, uploadResponse.url, null);
+        final UserRepository userRepository = UserRepository();
+        UpdateInfoResquest request = UpdateInfoResquest(
+            username: event.request.username,
+            password: event.request.password,
+            phoneNumber: event.request.phoneNumber,
+            homeAddress: event.request.homeAddress,
+            companyAddress: event.request.companyAddress,
+            lastName: event.request.lastName,
+            firstName: event.request.firstName,
+            avatar: image,
+            email: event.request.email);
+        ApiResult userResult = await userRepository.updatedUser(
+            request, event.userId);
+        String message = userResult.message;
+        int code = userResult.code;
+        if (code == 200) {
+          emit(
+              MainAppSuccessState(message)
+          );
+        }
+
+        else {
+          emit(MainAppErrorState(message));
+        }
         emit(MainAppSuccessState(
             "Successful Upload"));
       } else {
@@ -95,21 +107,22 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
       print("_updatesPass $e");
     }
   }
+
   void _scannerQr(ScannerEvent event, Emitter<MainAppState> emit) async {
     try {
       QrRepository qrs = QrRepository();
       EntryRequest request = EntryRequest(event.qrString);
       late ApiResult qr;
-      if(event.isEntry){
+      if (event.isEntry) {
         qr = await qrs.giveQrIntoCode(request);
       }
-      else{
+      else {
         qr = await qrs.giveQrOutCode(request);
       }
-      if(qr.code == 200){
+      if (qr.code == 200) {
         SuccessQrScanner("WELCOME");
       }
-      else{
+      else {
         ErrorQrScanner("SORRY, YOUR QR MAY BE EXPIRED");
       }
     } catch (e) {

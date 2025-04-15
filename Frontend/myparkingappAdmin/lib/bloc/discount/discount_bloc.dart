@@ -13,20 +13,19 @@ class  DiscountBloc extends Bloc< DiscountEvent, DiscountState>{
     on<DeleteDiscountEvent>(deleteDiscount);
    }
    void giveDiscountByParkingLot(DiscountLoadingScreenEvent event, Emitter<DiscountState> emit) async {
-    //  try {
-    //   emit(DiscountLoadingState());
+     try {
+      emit(DiscountLoadingState());
     
-    //   DiscountRepository discountRepository = DiscountRepository();
-    //   ApiResult result = await discountRepository.giveDiscountByParkingLot(event.parkingLotId);
-    //   if(result.code == 200){
-    //     emit(DiscountLoadedState(result.result));
-    //   } else {
-    //     emit(DiscountErrorState(result.message));
-    //   } // Replace with actual data
-    //  } catch (e) {
-    //    emit(DiscountErrorState(e.toString()));
-    //  }
-    emit(DiscountLoadedState(discounts));
+      DiscountRepository discountRepository = DiscountRepository();
+      ApiResult result = await discountRepository.giveDiscountByParkingLot(event.parkingLotId);
+      if(result.code == 200){
+        emit(DiscountLoadedState(result.result));
+      } else {
+        emit(DiscountErrorState(result.message));
+      } // Replace with actual data
+     } catch (e) {
+       emit(DiscountErrorState(e.toString()));
+     }
    }
    void createDiscount(CreateDiscountEvent event, Emitter<DiscountState> emit) async {
      try {

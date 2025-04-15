@@ -29,19 +29,19 @@ class  WalletBloc extends Bloc< WalletEvent, WalletState>{
    }
    void _getWalletByCustomer(GetWalletByCustomerEvent event, Emitter<WalletState> emit) async{
      emit(WalletLoadingState());
-    //  try{
-    //   WalletRepository walletRepository = WalletRepository();
-    //    // Call your repository method here to get all wallets
-    //    final response = await walletRepository.getWalletByCustomer(event.customerId);
-    //    if(response.code == 200){
-    //      List<WalletResponse> walletResponse = response.result;
-    //      emit(WalletLoadedState(walletResponse));
-    //    }else{
-    //      emit(WalletErrorState(response.message));
-    //    }
-    //  }catch(e){
-    //    emit(WalletErrorState(e.toString()));
-    //  }
+     try{
+      WalletRepository walletRepository = WalletRepository();
+       // Call your repository method here to get all wallets
+       final response = await walletRepository.getWalletByCustomer(event.customerId);
+       if(response.code == 200){
+         List<WalletResponse> walletResponse = response.result;
+         emit(WalletLoadedState(walletResponse));
+       }else{
+         emit(WalletErrorState(response.message));
+       }
+     }catch(e){
+       emit(WalletErrorState(e.toString()));
+     }
     emit(WalletLoadedState(wallets));
    }
    void _unlockOrUnlockWallet(UnlockOrUnlockWalletEvent event, Emitter<WalletState> emit) async{

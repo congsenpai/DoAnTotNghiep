@@ -45,7 +45,7 @@ class UserRepository {
       final response = await apiClient.getAllUser();
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         List<UserResponse> users = (response.data["result"] as List)
             .map((item) => UserResponse.fromJson(item))
             .toList();
@@ -71,7 +71,7 @@ class UserRepository {
       final response = await apiClient.updateUser(user, userId);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -96,7 +96,7 @@ class UserRepository {
       final response = await apiClient.updateStatusUser(newStatus, userId);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -138,7 +138,7 @@ class UserRepository {
       int code = response.data["code"];
       String mess = response.data["message"];
       UserResponse userResponse = UserResponse.fromJson(response.data["result"]);
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, userResponse
         );
@@ -162,7 +162,7 @@ class UserRepository {
       final response = await apiClient.changePassWord(userId, oldPass, newPass);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );

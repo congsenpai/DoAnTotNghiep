@@ -66,24 +66,17 @@ class ApiClient {
     );
   }
 
-  Future<Response> getAllCustomerUser(String search) async {
+  Future<Response> getAllUser() async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "user/customer",
-    );
-  }
-
-  Future<Response> getAllOwnerUser(String search) async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
-      "user/owner",
+      "users",
     );
   }
 
   Future<Response> updateUser(UpdateInfoResquest user, String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.put(
-      "user/$userId/update",
+      "users/$userId/update",
       data: {user.toJson()},
     );
   }

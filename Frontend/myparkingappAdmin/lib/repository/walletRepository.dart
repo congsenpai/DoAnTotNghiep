@@ -10,7 +10,7 @@ class WalletRepository {
       final response = await apiClient. getAllWallet();
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code== 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -33,7 +33,7 @@ class WalletRepository {
       final response = await apiClient.unlockOrUnlockWallet(walletId, newState);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -56,7 +56,7 @@ class WalletRepository {
       final response = await apiClient.getWalletByCustomer(userId);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );

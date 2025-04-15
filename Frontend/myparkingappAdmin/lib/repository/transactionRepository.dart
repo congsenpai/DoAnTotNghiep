@@ -14,7 +14,7 @@ class TransactionRepository {
     );
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, response.data["result"]
         );
@@ -38,7 +38,7 @@ class TransactionRepository {
       final response = await apiClient.getAllTransaction();
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, response.data["result"]
         );

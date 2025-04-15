@@ -14,39 +14,30 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
    }
    void _getParkingSlotByLot(GetParkingSlotByLotIdEvent event, Emitter<ParkingSlotState> emit) async{
      emit(ParkingSlotLoadingState());
-    //  try{
-    //   ParkingSlotRepository parkingSlotRepository = ParkingSlotRepository();
+     try{
+      ParkingSlotRepository parkingSlotRepository = ParkingSlotRepository();
 
-    //    final ApiResult apiResult = await parkingSlotRepository.getParkingSlotByLot(event.lotId.toString());
-    //    if(apiResult.code == 200){
+       final ApiResult apiResult = await parkingSlotRepository.getParkingSlotByLot(event.lotId.toString());
+       if(apiResult.code == 200){
 
-    //     List<ParkingSlotResponse> parkingSlotResponse = apiResult.result;
-    //     Set<String> floorNames = parkingSlotResponse
-    //     .map((slot) => slot.slotName.split('-').first)
-    //     .toSet();
-    //     List<SLotByFloor> slotsByFloor = [];
-    //     for(var floorName in floorNames){
-    //       List<ParkingSlotResponse> slotsOnFloor = parkingSlotResponse.where((slot) => slot.slotName.startsWith(floorName)).toList();
-    //       SLotByFloor slotByFloor = SLotByFloor(floorName, floorNames.toList(), slotsOnFloor );
-    //       slotsByFloor.add(slotByFloor);
-    //    }
-    //    emit(ParkingSlotLoadedState(slotsByFloor));
-    //    }
-    //    else{
-    //      emit(ParkingSlotErrorState(apiResult.message));
-    //    }
-    //  }catch(e){
-    //    emit(ParkingSlotErrorState(e.toString()));
-    //  }
-    Set<String> floorNames = parkingSlots
+        List<ParkingSlotResponse> parkingSlotResponse = apiResult.result;
+        Set<String> floorNames = parkingSlotResponse
         .map((slot) => slot.slotName.split('-').first)
         .toSet();
         List<SLotByFloor> slotsByFloor = [];
         for(var floorName in floorNames){
-          List<ParkingSlotResponse> slotsOnFloor = parkingSlots.where((slot) => slot.slotName.startsWith(floorName)).toList();
+          List<ParkingSlotResponse> slotsOnFloor = parkingSlotResponse.where((slot) => slot.slotName.startsWith(floorName)).toList();
           SLotByFloor slotByFloor = SLotByFloor(floorName, floorNames.toList(), slotsOnFloor );
           slotsByFloor.add(slotByFloor);
+       }
        emit(ParkingSlotLoadedState(slotsByFloor));
+       }
+       else{
+         emit(ParkingSlotErrorState(apiResult.message));
+       }
+     }catch(e){
+       emit(ParkingSlotErrorState(e.toString()));
+     }
    }}
    void _updateParkingSlot(UpdateParkingSlotEvent event, Emitter<ParkingSlotState> emit) async{
      emit(ParkingSlotLoadingState());
@@ -62,5 +53,4 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
      }catch(e){
        emit(ParkingSlotErrorState(e.toString()));
      }
-   }
    }

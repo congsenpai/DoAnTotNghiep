@@ -18,20 +18,19 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
       on<UpdateParkingLotEvent>(_updateParkingLot);
    }
    void _getParkingLotByOwner(GetParkingLotByOwnerEvent event, Emitter<ParkingLotState> emit) async{
-    //  try{
-    //    emit(ParkingLotLoadingState());
-    //    ParkingLotRepository parkingLotRepository = ParkingLotRepository();
-    //    // Call repository method to get parking lot by owner
-    //    final response = await parkingLotRepository.getParkingLotByOwner(event.userId);
-    //    if(response.code == 200){
-    //      emit(ParkingLotLoadedState(response.result));
-    //    }else{
-    //      emit(ParkingLotErrorState(response.message));
-    //    }
-    //  }catch(e){
-    //    emit(ParkingLotErrorState(e.toString()));
-    //  }
-    emit(ParkingLotLoadedState(parkingLots));
+     try{
+       emit(ParkingLotLoadingState());
+       ParkingLotRepository parkingLotRepository = ParkingLotRepository();
+       // Call repository method to get parking lot by owner
+       final response = await parkingLotRepository.getParkingLotByOwner(event.userId);
+       if(response.code == 200){
+         emit(ParkingLotLoadedState(response.result));
+       }else{
+         emit(ParkingLotErrorState(response.message));
+       }
+     }catch(e){
+       emit(ParkingLotErrorState(e.toString()));
+     }
    }
    void _updateStatusParkingLot(UpdateStatusParkingLot event, Emitter<ParkingLotState> emit) async{
      try{

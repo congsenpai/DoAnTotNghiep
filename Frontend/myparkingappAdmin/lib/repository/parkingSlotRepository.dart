@@ -11,7 +11,7 @@ class ParkingSlotRepository {
       final response = await apiClient.getParkingSlotByLot(parkingLotID);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -34,7 +34,7 @@ Future<ApiResult> updateParkingSlot(String parkingSlotID, UpdateParkingSlotRespo
       final response = await apiClient.updateParkingSlot(parkingSlotID,request);
       int code = response.data["code"];
       String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
