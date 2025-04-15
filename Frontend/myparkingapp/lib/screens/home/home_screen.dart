@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ServiceCardList(services: services,),
                   const SizedBox(height: defaultPadding),
                   ElevatedButton(onPressed: ()=>{
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen()))
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen(user: user,)))
                   }, child: Text(AppLocalizations.of(context).translate("Go to Ordering Invoice"))),
 
                   const SizedBox(height: defaultPadding),

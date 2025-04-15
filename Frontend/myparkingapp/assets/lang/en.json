@@ -31,6 +31,33 @@
 
   "getStarted": "Get Started",
 
+  "parkingSlotName": "Parking Slot Name",
+  "Total": "Total",
+  "QR Invoice": "QR Invoice",
+  "Go to Ordering Invoice": "Go to Ordering Invoice",
+  "My Service": "My Service",
+  "Nearly Parking Lots": "Nearly Parking Lots",
+  "See all": "See all",
+  "All ParkingLot": "All Parking Lot",
+  "Home": "Home",
+  "Search": "Search",
+  "Orders": "Orders",
+  "Profile": "Profile",
+  "Update Profile": "Update Profile",
+  "vehicle": "vehicle",
+  "Add vehicle": "Add vehicle",
+  "Save Update": "Save Update",
+  "MOTORCYCLE": "MOTORCYCLE",
+  "CAR": "CAR",
+  "BICYCLE": "BICYCLE",
+  "License Plate": "License Plate",
+  "Description": "Description",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Older Password": "Older Password",
+  "New Password": "New Password",
+  "Re Enter Password": "Re Enter Password",
+
 
 
 

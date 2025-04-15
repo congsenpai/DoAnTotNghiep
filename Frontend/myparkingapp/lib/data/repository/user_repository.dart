@@ -16,9 +16,7 @@ class UserRepository{
 
       int code = jsonData['code'];
       String mess = jsonData['message'];
-      print("_______ : ${jsonData['result']}" );
       UserResponse user = UserResponse.fromJson(jsonData['result']);
-      print("_________ : ${user.toString()}");
       return ApiResult(code, mess, user);
     } else {
       throw Exception("UserRepository_getUserByUserName");

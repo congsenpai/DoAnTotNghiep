@@ -182,8 +182,7 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "invoices/daily/deposit",
-      data:
-        invoice.toJson()
+      data:invoice.toJson()
 
     );
   }
@@ -191,8 +190,7 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
         "invoices/daily/payment",
-        data:
-          invoice.toJson()
+        data:invoice.toJson()
 
     );
   }
@@ -200,16 +198,15 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
         "invoices/monthly",
-        data:
-          invoice.toJson()
+        data:invoice.toJson()
 
     );
   }
 
-  Future<Response> returnCurrentInvoice() async {
+  Future<Response> returnCurrentInvoice(String userID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-        "invoices?status=active",
+        "invoices/active/$userID",
     );
   }
 

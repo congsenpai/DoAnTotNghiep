@@ -35,9 +35,9 @@ class UserResponse {
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       email: json['email'] as String,
-      phone: json['phone'] as String,
-      homeAddress: json['homeAddress'] as String,
-      companyAddress: json['companyAddress'] as String,
+      phone: json['phone'] as String ?? '',
+      homeAddress: json['homeAddress'] !=null ? json['homeAddress'] as String : '',
+      companyAddress: json['companyAddress'] !=null ? json['companyAddress'] as String :'',
       avatar: json['image'] != null
           ? ImagesResponse.fromJson(json['image'])
           : ImagesResponse("", "https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg", null),

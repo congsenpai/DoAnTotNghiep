@@ -43,12 +43,7 @@ class WalletRepository{
 
       int code = jsonData['code'];
       String mess = jsonData['message'];
-
-      // Chuyển 'result' từ JSON thành danh sách Discount
-      List<WalletResponse> wallets = (jsonData['result'] as List)
-          .map((json) => WalletResponse.fromJson(json))
-          .toList();
-      return ApiResult(code, mess, wallets);
+      return ApiResult(code, mess, null);
     } else {
       throw Exception("WalletRepository_getWalletByUser");
     }

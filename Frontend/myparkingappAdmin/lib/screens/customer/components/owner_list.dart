@@ -40,10 +40,17 @@ class _OwnerListState extends State<OwnerList> {
     super.dispose();
   }
 
+  void _filterCustomer(String value ){
+    value = value.trim();
+    setState(() {
+      customers = customers.where((c)=>c.firstName.contains(value) || c.lastName.contains(value) || c.homeAddress.contains(value)).toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent());
   }
 
   @override
@@ -71,9 +78,7 @@ class _OwnerListState extends State<OwnerList> {
               Expanded(
                 flex: 5,
                 child: Search(onSearch: (value) {
-                  context
-                      .read<CustomerBloc>()
-                      .add(LoadedOwnerScreenEvent(value));
+                  _filterCustomer(value);
                 }),
               ),
               Expanded(
@@ -85,7 +90,7 @@ class _OwnerListState extends State<OwnerList> {
                       onPressed: () {
                         context
                             .read<CustomerBloc>()
-                            .add(LoadedOwnerScreenEvent(""));
+                            .add(LoadedOwnerScreenEvent());
                       },
                     ),
                     IconButton(
@@ -168,11 +173,11 @@ class _OwnerListState extends State<OwnerList> {
     }, listener: (context, state) {
       if (state is OwnerErrorState) {
         AppDialog.showErrorEvent(context, state.mess,onPress: (){
-          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent());
         });
       } else if (state is OwnerSuccessState) {
         AppDialog.showSuccessEvent(context, state.mess, onPress: (){
-          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent());
         }
         );
       }
@@ -249,7 +254,7 @@ class _OwnerListState extends State<OwnerList> {
           actions: [
             TextButton(
               onPressed: () => {
-                context.read<CustomerBloc>().add(LoadedOwnerScreenEvent("")),
+                context.read<CustomerBloc>().add(LoadedOwnerScreenEvent()),
                 Navigator.of(context).pop(),},
               child: Icon(
                 Icons.cancel,

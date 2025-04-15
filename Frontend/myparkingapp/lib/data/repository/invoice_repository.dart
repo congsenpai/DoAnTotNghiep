@@ -47,15 +47,19 @@ class InvoiceRepository{
   }
 
 
-  Future<ApiResult> getCurrentInvoice() async{
+  Future<ApiResult> getCurrentInvoice(String userID) async{
     try{
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.returnCurrentInvoice();
-      if(response.statusCode == 200){
-        Map<String, dynamic> jsonData = response.data;
-        int code = jsonData['code'];
-        String mess = jsonData['message'];
-        List<String> invoiceIDs = jsonData['result'];
+      final response = await apiClient.returnCurrentInvoice(userID);
+      Map<String, dynamic> jsonData = response.data;
+      int code = jsonData['code'];
+      String mess = jsonData['message'];
+      if(code == 200){
+
+        List<InvoiceResponse> invoices = (jsonData['result'] as List)
+            .map((json) => InvoiceResponse.fromJson(json))
+            .toList();
+        List<String> invoiceIDs = invoices.map((e)=>e.invoiceID).toList();
 
         ApiResult apiResult = ApiResult(
           code,
@@ -65,9 +69,12 @@ class InvoiceRepository{
         return apiResult;
       }
       else{
-        throw Exception(
-            "InvoiceRepository_returnCurrentInvoice"
+        ApiResult apiResult = ApiResult(
+          code,
+          "false",
+          null,
         );
+        return apiResult;
       }
     }
     catch(e){
@@ -87,10 +94,10 @@ class InvoiceRepository{
         else{
           response  = await apiClient.invoiceCreatedMonthly(invoiceM!);
         }
-        if(response.statusCode == 200){
-            Map<String, dynamic> jsonData = response.data;
-            int code = jsonData['code'];
-            String mess = jsonData['message'];
+        Map<String, dynamic> jsonData = response.data;
+        int code = jsonData['code'];
+        String mess = jsonData['message'];
+        if(code == 200){
             InvoiceResponse invoiceResponse = InvoiceResponse.fromJson(jsonData['result']);
             ApiResult apiResult = ApiResult(
                 code,
@@ -100,10 +107,15 @@ class InvoiceRepository{
             return apiResult;
         }
         else{
-            throw Exception(
-            "InvoiceRepository_createdInvoice"
-        ); 
+          ApiResult apiResult = ApiResult(
+            code,
+            "Failed Payment",
+            null,
+          );
+          return apiResult;
         }
+
+
     }
     catch(e){
         throw Exception(
@@ -117,10 +129,11 @@ class InvoiceRepository{
     try{
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getInvoiceByID(invoiceID);
-      if(response.statusCode == 200){
-        Map<String, dynamic> jsonData = response.data;
-        int code = jsonData['code'];
-        String mess = jsonData['message'];
+      Map<String, dynamic> jsonData = response.data;
+      int code = jsonData['code'];
+      String mess = jsonData['message'];
+      if(code == 200){
+
         InvoiceResponse invoiceIDs = InvoiceResponse.fromJson( jsonData['result']);
 
         ApiResult apiResult = ApiResult(
@@ -131,10 +144,14 @@ class InvoiceRepository{
         return apiResult;
       }
       else{
-        throw Exception(
-            "InvoiceRepository_returnInvoice"
+        ApiResult apiResult = ApiResult(
+          code,
+          "False",
+          null,
         );
+        return apiResult;
       }
+
     }
     catch(e){
       throw Exception(
@@ -148,22 +165,28 @@ class InvoiceRepository{
       ApiClient apiClient = ApiClient();
       final response  = await apiClient.paymentDaily(request);
 
-      if(response.statusCode == 200){
+
         Map<String, dynamic> jsonData = response.data;
         int code = jsonData['code'];
         String mess = jsonData['message'];
-        InvoiceResponse invoiceResponse = InvoiceResponse.fromJson(jsonData['result']);
+        if(code == 200){
+          InvoiceResponse invoiceResponse = InvoiceResponse.fromJson(jsonData['result']);
+          ApiResult apiResult = ApiResult(
+            code,
+            mess,
+            invoiceResponse,
+          );
+          return apiResult;
+        }
+
+
+      else{
         ApiResult apiResult = ApiResult(
           code,
-          mess,
-          invoiceResponse,
+          "Failed Payment",
+          null,
         );
         return apiResult;
-      }
-      else{
-        throw Exception(
-            "InvoiceRepository_createdInvoice"
-        );
       }
     }
     catch(e){

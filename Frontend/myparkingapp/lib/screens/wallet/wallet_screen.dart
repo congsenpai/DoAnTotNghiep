@@ -134,7 +134,7 @@ class _WalletScreenState extends State<WalletScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              context.read<WalletBloc>().add(AddWalletEvent(0, "VND", name.text.trim(), user.userID));
+              context.read<WalletBloc>().add(AddWalletEvent(0, "USD", name.text.trim(), user.userID));
               Navigator.pop(context);
             },
             child: Text("Save"),

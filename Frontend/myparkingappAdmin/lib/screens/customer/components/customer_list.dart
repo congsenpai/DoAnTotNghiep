@@ -39,10 +39,17 @@ class _CustomerListState extends State<CustomerList> {
     super.dispose();
   }
 
+  void _filterCustomer(String value ){
+    value = value.trim();
+    setState(() {
+      customers = customers.where((c)=>c.firstName.contains(value) || c.lastName.contains(value) || c.homeAddress.contains(value)).toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent(""));
+    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent());
   }
 
   @override
@@ -69,9 +76,7 @@ class _CustomerListState extends State<CustomerList> {
               Expanded(
                 flex: 5,
                 child: Search(onSearch: (value) {
-                  context
-                      .read<CustomerBloc>()
-                      .add(LoadedCustomerScreenEvent(value));
+                  _filterCustomer(value);
                 }),
               ),
               Expanded(
@@ -81,7 +86,7 @@ class _CustomerListState extends State<CustomerList> {
                     IconButton(
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
-                        context.read<CustomerBloc>().add(LoadedCustomerScreenEvent(""));
+                        context.read<CustomerBloc>().add(LoadedCustomerScreenEvent());
                       },
                     ),
                     
@@ -161,9 +166,19 @@ class _CustomerListState extends State<CustomerList> {
       );
     }, listener: (context, state) {
       if (state is CustomerErrorState) {
-        AppDialog.showErrorEvent(context, state.mess);
+        AppDialog.showErrorEvent(context, state.mess,
+        onPress:()=> {
+          context.read<CustomerBloc>().add(LoadedCustomerScreenEvent()),
+          Navigator.pop(context)
+        },
+        );
       } else if (state is CustomerSuccessState) {
-        AppDialog.showSuccessEvent(context, state.mess);
+        AppDialog.showSuccessEvent(context, state.mess,onPress:()=> {
+          context.read<CustomerBloc>().add(LoadedCustomerScreenEvent()),
+          Navigator.pop(context)
+        },
+        
+        );
       }
     });
   }

@@ -60,7 +60,9 @@ class InvoiceResponse {
       parkingSlotName: json['parkingSlotName'] ?? '',
       parkingLotName: json['parkingLotName'] ?? '',
       isMonthlyTicket: json['isMonthlyTicket'] ?? false,
-      objectDecrypt:json['objectDecrypt']?? '', createdAt: json['createdAt'], parkingSlotID: json['parkingSlotID']
+      objectDecrypt:json['objectDecrypt'] ?? '',
+      createdAt: DateTime.parse(json['createdAt']),
+      parkingSlotID: json['parkingSlotID']
     );
   }
 

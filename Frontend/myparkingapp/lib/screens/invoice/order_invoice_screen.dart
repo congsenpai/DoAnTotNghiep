@@ -6,12 +6,14 @@ import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/invoice/QR_invoice_screen.dart';
 import '../../constants.dart';
 
 class OrderInvoiceScreen extends StatefulWidget {
-  const OrderInvoiceScreen({super.key});
+  final UserResponse user;
+  const OrderInvoiceScreen({super.key, required this.user});
 
   @override
   State<OrderInvoiceScreen> createState() => _OrderInvoiceScreenState();
@@ -23,7 +25,7 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<InvoiceBloc>().add(GetCurrentInvoiceEvent());
+    context.read<InvoiceBloc>().add(GetCurrentInvoiceEvent(widget.user.userID));
   }
 
   @override
@@ -39,6 +41,7 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
           );
         } else if (state is GetCurrentInvoiceState) {
           invoices = state.invoices;
+          print("OrderInvoiceScreen : ${invoices.length}");
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -69,7 +72,7 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: invoices.isEmpty ? Column(
+                child: invoices.isNotEmpty ? Column(
                   children: [
                     const SizedBox(height: defaultPadding),
                     // List of cart items
@@ -82,7 +85,7 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> QRInvoiceScreen(request: invoices[index])));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> QRInvoiceScreen(request: invoices[index], user: widget.user,)));
                           },
                           child: Center(
                             child: Text(

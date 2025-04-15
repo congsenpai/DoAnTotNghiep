@@ -41,7 +41,7 @@ class _TransactionInfoState extends State<TransactionInfo> {
           .now()
           .millisecondsSinceEpoch
           .toString(),
-      orderInfo: " Recharge ${widget.amount} VND to this wallet ${widget
+      orderInfo: " Recharge ${widget.amount} USD to this wallet ${widget
           .name} ",
       //order info, default is Pay Order
       amount: widget.amount,
@@ -92,7 +92,7 @@ class _TransactionInfoState extends State<TransactionInfo> {
                     AppLocalizations.of(context).translate("WalletName"),
                     widget.name),
                 _buildTableRow(AppLocalizations.of(context).translate("Money"),
-                    "${widget.amount} VND"),
+                    "${widget.amount} USD"),
                 _buildTableRow(AppLocalizations.of(context).translate("Note"),
                     widget.note),
               ],

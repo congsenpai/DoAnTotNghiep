@@ -12,6 +12,7 @@ import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/request/created_invoice_request.dart';
 import 'package:myparkingapp/data/response/discount_response.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
+import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/screens/booking/components/rounded_checkedbox_list_tile.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
@@ -22,7 +23,8 @@ import '../../constants.dart';
 
 class QRInvoiceScreen extends StatefulWidget {
   final Invoice_QR request;
-  const QRInvoiceScreen({super.key, required this.request});
+  final UserResponse user;
+  const QRInvoiceScreen({super.key, required this.request, required this.user});
 
   @override
   State<QRInvoiceScreen> createState() => _QRInvoiceScreenState();
@@ -54,7 +56,7 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
         } else if (state is GetInvoiceByIDState) {
           invoice = state.invoice;
           wallets = state.wallets!;
-          double total = (invoice!.totalAmount / 3) * tinhSoGio(invoice!.createdAt, DateTime.now()) - invoice!.totalAmount;
+          double total = invoice!.isMonthlyTicket ? invoice!.totalAmount : (invoice!.totalAmount / 3) * tinhSoGio(invoice!.createdAt, DateTime.now()) - invoice!.totalAmount;
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -73,7 +75,7 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
                       () => {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => OrderInvoiceScreen()),
+                          MaterialPageRoute(builder: (context) => OrderInvoiceScreen(user: widget.user,)),
                         ),
                       },
                 ),
@@ -82,98 +84,111 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
                 AppLocalizations.of(context).translate(invoice!.parkingLotName),
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Column(
+            body: SingleChildScrollView(
+              child: Stack(
+
                 children: [
-                  const SizedBox(height: defaultPadding),
+              Positioned.fill(
+              child: Image.asset(
+                "assets/images/qr_background.png",
+                // Đường dẫn đến GIF trong thư mục assets
+                fit: BoxFit.cover,
+              ),
+                        ),Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: defaultPadding),
 
-                  ObjectRow(title: "parkingLotName",content: invoice!.parkingLotName),
-                  SizedBox(height: Get.width/30),
-                  ObjectRow(title: "parkingSlotName",content: invoice!.parkingSlotName),
-                  SizedBox(height: Get.width/30),
-                  ObjectRow(title: "startTime",content: invoice!.createdAt),
-                  SizedBox(height: Get.width/30),
-                  ObjectRow(title: "typeInvoice",content: invoice!.createdAt),
-                  SizedBox(height: Get.width/30),
-                  const SizedBox(height: defaultPadding),
+                        ObjectRow(title: "parkingSlotName",content: invoice!.parkingSlotName),
+                        SizedBox(height: Get.width/30),
+                        ObjectRow(title: "startD",content: invoice!.createdAt),
+                        SizedBox(height: Get.width/30),
+                        ObjectRow(title: "endD",content: invoice!.createdAt),
+                        SizedBox(height: Get.width/30),
+                        const SizedBox(height: defaultPadding),
 
 
-                  Center(child: Text(AppLocalizations.of(context).translate("QR IN - OUR"),style: TextStyle(color: Colors.white),),),
-                  const SizedBox(height: defaultPadding),
-                  Center(
-                    child: QrImageView(
-                      backgroundColor: Colors.white,
-                      data: widget.request.QR,
-                      version: QrVersions.auto,
-                      size: 200.0,
+                        Center(child: Text(AppLocalizations.of(context).translate("QR IN - OUR"),style: TextStyle(color: Colors.white),),),
+                        const SizedBox(height: defaultPadding),
+                        Center(
+                          child: QrImageView(
+                            backgroundColor: Colors.white,
+                            data: widget.request.QR,
+                            version: QrVersions.auto,
+                            size: Get.width/1.1,
+                          ),
+                        ),
+                        const SizedBox(height: defaultPadding*2),
+                        TotalPrice(price: total, current: wallet !=null ? wallet!.currency : "USD",),
+                        const SizedBox(height: defaultPadding),
+                        if(invoice!.status == InvoiceStatus.PENDING && invoice!.isMonthlyTicket == false)
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isShowWallet = !isShowWallet;
+                                  });
+                                },
+                                child: Text(
+                                  wallets.isEmpty
+                                      ? "You haven't added a wallet"
+                                      : wallet != null
+                                      ? "Choice a wallet : ${wallet!.name}"
+                                      : "Choice a wallet :",
+                                ),
+
+                              ),
+                              const SizedBox(height: defaultPadding),
+                              Visibility(
+                                visible: isShowWallet,
+                                child: Column(
+                                  children: wallets
+                                      .map((w) => RoundedCheckboxListTile(
+                                    isActive: (wallet == w),
+                                    text: "${AppLocalizations.of(context).translate(w.name)} ${w.currency}",
+                                    press: () {
+                                      setState(() {
+                                        wallet = w;
+                                      });
+                                    },
+                                  ))
+                                      .toList(),
+                                ),
+                              ),
+                              ElevatedButton(onPressed:(){
+
+                                if( invoice!.discount != null){
+                                  if(invoice!.discount!.discountType == DiscountType.FIXED){
+                                    total = total - invoice!.discount!.discountValue;
+                                  }
+                                  else{
+                                    total = total * invoice!.discount!.discountValue;
+                                  }
+                                }
+                                if(wallet !=null){
+                                  PaymentDailyRequest request = PaymentDailyRequest(invoiceID: invoice!.invoiceID, parkingSlotID: invoice!.parkingSlotID, walletID: wallet!.walletId, total: total);
+                                  context.read<InvoiceBloc>().add(CreatedPaymentInvoiceEvent(request));
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(AppLocalizations.of(context).translate("Lack info wallet")),
+                                        duration: Duration(seconds: 3), // thời gian hiển thị
+                                        backgroundColor: Colors.green,
+                                      ));
+                                }
+
+                              }, child: Text(AppLocalizations.of(context).translate("payment").toUpperCase())),
+                            ],
+                          )
+                        // List of cart items
+                      ],
                     ),
                   ),
-                  TotalPrice(price: total, current: wallet !=null ? wallet!.currency : "VND",),
-                  if(invoice!.status == InvoiceStatus.PENDING && invoice!.isMonthlyTicket == false)
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              isShowWallet = !isShowWallet;
-                            });
-                          },
-                          child: Text(
-                            wallets.isEmpty
-                                ? "You haven't added a wallet"
-                                : wallet != null
-                                ? "Choice a wallet : ${wallet!.name}"
-                                : "Choice a wallet :",
-                          ),
+                ]),
+            )
 
-                        ),
-                        const SizedBox(height: defaultPadding),
-                        Visibility(
-                          visible: isShowWallet,
-                          child: Column(
-                            children: wallets
-                                .map((w) => RoundedCheckboxListTile(
-                              isActive: (wallet == w),
-                              text: "${AppLocalizations.of(context).translate(w.name)} ${w.currency}",
-                              press: () {
-                                setState(() {
-                                  wallet = w;
-                                });
-                              },
-                            ))
-                                .toList(),
-                          ),
-                        ),
-                        ElevatedButton(onPressed:(){
-
-                          if( invoice!.discount != null){
-                            if(invoice!.discount!.discountType == DiscountType.FIXED){
-                              total = total - invoice!.discount!.discountValue;
-                            }
-                            else{
-                              total = total * invoice!.discount!.discountValue;
-                            }
-                          }
-                          if(wallet !=null){
-                            PaymentDailyRequest request = PaymentDailyRequest(invoiceID: invoice!.invoiceID, parkingSlotID: invoice!.parkingSlotID, walletID: wallet!.walletId, total: total);
-                            context.read<InvoiceBloc>().add(CreatedPaymentInvoiceEvent(request));
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(AppLocalizations.of(context).translate("Lack info wallet")),
-                                  duration: Duration(seconds: 3), // thời gian hiển thị
-                                  backgroundColor: Colors.green,
-                                ));
-                          }
-
-                        }, child: Text(AppLocalizations.of(context).translate("payment").toUpperCase())),
-                      ],
-                    )
-                  // List of cart items
-                ],
-              ),
-            ),
           );
         }
         return Center(

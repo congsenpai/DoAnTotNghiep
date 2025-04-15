@@ -7,13 +7,11 @@ abstract class UserEvent{}
 
 
 class LoadedCustomerScreenEvent extends UserEvent{
-  String searchCustomer;
-  LoadedCustomerScreenEvent(this.searchCustomer);
+  LoadedCustomerScreenEvent();
 }
 
 class LoadedOwnerScreenEvent extends UserEvent{
-  String searchOwner;
-  LoadedOwnerScreenEvent(this.searchOwner);
+  LoadedOwnerScreenEvent();
 }
 
 class RegisterOwnerEvent extends UserEvent{

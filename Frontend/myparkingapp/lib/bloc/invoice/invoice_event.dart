@@ -22,7 +22,8 @@ class CreatedPaymentInvoiceEvent extends InvoiceEvent{
 }
 
 class GetCurrentInvoiceEvent extends InvoiceEvent{
-  GetCurrentInvoiceEvent();
+  String userID;
+  GetCurrentInvoiceEvent(this.userID);
 }
 
 class GetInvoiceByIDEvent extends InvoiceEvent{

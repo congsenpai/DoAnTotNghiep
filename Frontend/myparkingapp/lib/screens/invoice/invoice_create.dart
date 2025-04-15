@@ -137,7 +137,7 @@ class InvoiceCreateScreen extends StatelessWidget {
                     ObjectRow(title: "Discount Code", content: discount.discountCode),
                     SizedBox(height: Get.width / 30),
                     ObjectRow(title: "Reduced", content: "${discount.discountValue} ${
-                    discount.discountType == DiscountType.FIXED ? "VND" : "%"
+                    discount.discountType == DiscountType.FIXED ? "USD" : "%"
 
                     }"),
                     SizedBox(height: Get.width / 30),

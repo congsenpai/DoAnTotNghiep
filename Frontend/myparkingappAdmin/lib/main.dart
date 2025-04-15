@@ -13,8 +13,6 @@ import 'package:myparkingappadmin/bloc/parking_lot/lot_bloc.dart';
 import 'package:myparkingappadmin/bloc/parking_slot/slot_bloc.dart';
 import 'package:myparkingappadmin/bloc/transaction/tran_bloc.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_bloc.dart';
-import 'package:myparkingappadmin/data/dto/response/images.dart';
-import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'app/localization/app_localizations.dart';

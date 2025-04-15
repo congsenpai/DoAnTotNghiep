@@ -2,11 +2,9 @@
 
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_bloc.dart';
 import 'package:myparkingappadmin/bloc/customer/customer_event.dart';
 import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_owner_request.dart';
-import 'package:myparkingappadmin/data/dto/response/images.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/authentication/components/text_field_custom.dart';
 import 'package:provider/provider.dart';
@@ -25,13 +23,11 @@ class AddOwner extends StatefulWidget {
 }
 
 class _AddOwnerState extends State<AddOwner> {
-  final TextEditingController _userNameController = TextEditingController(text: "");
+  final TextEditingController _userNameController = TextEditingController(text: "bao2003@");
   final TextEditingController _passwordController = TextEditingController(text: "123456789");
   final TextEditingController _lastnameController = TextEditingController(text: "HaGia");
   final TextEditingController _firstnameController= TextEditingController(text: "Bao");
   final TextEditingController _emailController = TextEditingController(text: "hagiabao980@gmail.com");
-  final TextEditingController _homeAddressController = TextEditingController(text: "thai binh");
-  final TextEditingController _companyAddressController = TextEditingController(text: "thai binh");
   final TextEditingController _numberPhoneController = TextEditingController(text: "0888379199");
   final TextEditingController _roleController = TextEditingController(text: "PARKING_OWNE");
   final TextEditingController _statusController = TextEditingController(text: UserStatus.ACTIVE.toString());
@@ -44,19 +40,6 @@ class _AddOwnerState extends State<AddOwner> {
     super.initState();
   }
 
-  Future<void> _pickImage() async {
-    final bytes = await ImagePickerWeb.getImageAsBytes();
-    if (bytes != null) {
-      setState(() {
-        _imageBytes = bytes;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("No Image")),
-      );
-    }
-  }
-
   @override
   void dispose() {
     _userNameController.dispose();
@@ -64,8 +47,6 @@ class _AddOwnerState extends State<AddOwner> {
     _lastnameController.dispose();
     _firstnameController.dispose();
     _emailController.dispose();
-    _homeAddressController.dispose();
-    _companyAddressController.dispose();
     _numberPhoneController.dispose();
     super.dispose();
   }
@@ -82,20 +63,14 @@ class _AddOwnerState extends State<AddOwner> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () {
-              print("________________________________save___________________________________");
-              Images image = Images(publicId, "", _imageBytes);
               final CreateParkingOwnerRequest request = CreateParkingOwnerRequest (
                 username: _userNameController.text,
                 password: _passwordController.text,
-                phoneNumber: _numberPhoneController.text,
-                homeAddress: _homeAddressController.text,
-                companyAddress: _companyAddressController.text,
+                phone: _numberPhoneController.text,
                 lastName: _lastnameController.text,
                 firstName: _firstnameController.text,
-                avatar: image,
                 email: _emailController.text,
               );
-
               context.read<CustomerBloc>().add(
                     CreateParkingOwnerEvent(request)
                   );
@@ -124,15 +99,6 @@ class _AddOwnerState extends State<AddOwner> {
                       : Image.network(defaultImageUrl, fit: BoxFit.scaleDown),
                     ),
                     SizedBox(height: 10),
-                    TextButton.icon(
-                          style: ButtonStyle(
-                            iconColor: WidgetStateProperty.all(Colors.red),
-                          ),
-                          onPressed: () => _pickImage(),
-                          icon: Icon(Icons.image),
-                          label: Text(AppLocalizations.of(context).translate("Choose Image"), style: TextStyle(color: Colors.white)), 
-                        ),
-                      
                   ],
                 ),
               ),
@@ -172,10 +138,6 @@ class _AddOwnerState extends State<AddOwner> {
                   Expanded(child: TextFieldCustom(title: 'FirstName', editController: _firstnameController, isEdit: true),),
                 ],
               ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(title: 'HomeAddress', editController: _homeAddressController, isEdit: true),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(title: 'CompanyAddress', editController: _companyAddressController, isEdit: true),
               SizedBox(height: defaultPadding),
               TextFieldCustom(title: 'Email', editController: _emailController, isEdit: true),
               SizedBox(height: defaultPadding),

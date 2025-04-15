@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
@@ -70,12 +69,13 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
     try{
       emit(InvoiceLoadingState());
       InvoiceRepository invoiceRepository = InvoiceRepository();
-      ApiResult invoiceApi = await invoiceRepository.getCurrentInvoice();
+      ApiResult invoiceApi = await invoiceRepository.getCurrentInvoice(event.userID);
       if(invoiceApi.code ==200){
         InvoiceStorageManager storageManager = InvoiceStorageManager();
         List<String> invoices = invoiceApi.result;
         storageManager.filterCurrentInvoice(invoices);
         List<Map<String, String>> invoicesFromStore = await storageManager.getCurrentInvoiceList();
+        print(invoicesFromStore);
         List<Invoice_QR> invoiceQrs = mapToInvoiceQRList(invoicesFromStore);
         emit(GetCurrentInvoiceState(invoices: invoiceQrs));
       }

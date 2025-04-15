@@ -25,8 +25,6 @@ class ApiClient {
 
   Future<Response> register(CreateParkingOwnerRequest request) async {
     final DioClient dioClient = DioClient();
-    print("client app______ : ${request.toString()}");
-    print("client app______ : ${request.toJson()}");
 
     return await dioClient.dio.post(
       "auth/register",
@@ -71,18 +69,10 @@ class ApiClient {
     );
   }
 
-
-
-  Future<Response> getAllCustomerUser(String search) async {
+  Future<Response> getAllUser() async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "user/customer",
-    );
-  }
-  Future<Response> getAllOwnerUser(String search) async {
-    final DioClient dioClient = DioClient();
-    return await dioClient.dio.get(
-      "user/owner",
+      "users",
     );
   }
 
@@ -218,7 +208,7 @@ class ApiClient {
   Future<Response> getAllInvoiceByAdmin() async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "invoice",
+      "invoices",
     );
   }
   Future<Response> getInvoiceBySlot(String parkingSlotId) async {
@@ -277,7 +267,7 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     
     // Tạo URL động tùy theo tham số truyền vào
-    String url = "transaction";
+    String url = "transactions/all";
 
     return await dioClient.dio.get(url);
   }
