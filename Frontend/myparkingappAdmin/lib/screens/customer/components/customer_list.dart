@@ -33,6 +33,7 @@ class _CustomerListState extends State<CustomerList> {
   final HashSet<String> objectColumnNameOfCustomer =
       HashSet.from(["FullName", "Detail", "Wallets"]);
   final TextEditingController _searchController = TextEditingController();
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -56,40 +57,41 @@ class _CustomerListState extends State<CustomerList> {
         customers = state.customerList;
         return Scaffold(
           appBar: AppBar(
-            toolbarHeight: 100,
+              toolbarHeight: 100,
               title: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  AppLocalizations.of(context).translate("CUSTOMER"),
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Search(onSearch: (value) {
-                  context
-                      .read<CustomerBloc>()
-                      .add(LoadedCustomerScreenEvent(value));
-                }),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.refresh),
-                      onPressed: () {
-                        context.read<CustomerBloc>().add(LoadedCustomerScreenEvent(""));
-                      },
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      AppLocalizations.of(context).translate("CUSTOMER"),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    
-                  ],
-                ),
-              ),
-            ],
-          )),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Search(onSearch: (value) {
+                      context
+                          .read<CustomerBloc>()
+                          .add(LoadedCustomerScreenEvent(value));
+                    }),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.refresh),
+                          onPressed: () {
+                            context
+                                .read<CustomerBloc>()
+                                .add(LoadedCustomerScreenEvent(""));
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
           body: Container(
               height: Get.height,
               padding: EdgeInsets.all(defaultPadding),
@@ -162,7 +164,9 @@ class _CustomerListState extends State<CustomerList> {
     }, listener: (context, state) {
       if (state is CustomerErrorState) {
         AppDialog.showErrorEvent(context, state.mess);
-      } else if (state is CustomerSuccessState) {
+      } else if (state is CustomerErrorState) {
+        AppDialog.showErrorEvent(context, state.mess);
+      } else if (state is OwnerSuccessState) {
         AppDialog.showSuccessEvent(context, state.mess);
       }
     });
@@ -204,9 +208,11 @@ class _CustomerListState extends State<CustomerList> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: SizedBox(
-            height: Get.height/1.2,
-            width: Get.width/1.2,
-            child: WalletList(customerId: user.userId,),
+            height: Get.height / 1.2,
+            width: Get.width / 1.2,
+            child: WalletList(
+              customerId: user.userId,
+            ),
           ),
           actions: [
             TextButton(

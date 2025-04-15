@@ -81,24 +81,4 @@ class TransactionRepository{
             ); 
         }
     }
-    Future<ApiResult> createTransactionByRecharge(CreatedTransactionRequest request) async{
-        try{
-            ApiClient apiClient = ApiClient();
-            final response = await apiClient.createTransactionByRecharge(request);
-                Map<String, dynamic> jsonData = response.data;
-                int code = jsonData['code'];
-                String mess = jsonData['message'];
-                ApiResult apiResult = ApiResult(
-                    code,
-                    mess,
-                    null,
-                );
-                return apiResult;
-        }
-        catch(e){
-            throw Exception(
-                "TransactionRepository_createTransactionByRecharge: $e"
-            );
-        }
-    }
 }

@@ -10,7 +10,6 @@ import 'package:myparkingapp/data/response/user_response.dart';import 'package:m
 import 'package:myparkingapp/screens/chatbot/chat_bot.dart';
 import 'package:myparkingapp/screens/dashboard/dash_board_screen.dart';
 import 'package:myparkingapp/screens/home/components/service_card_list.dart';
-import 'package:myparkingapp/screens/invoice/order_invoice_screen.dart';
 import 'package:myparkingapp/screens/search/search_screen.dart';
 
 import '../../app/locallization/app_localizations.dart';
@@ -120,11 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: defaultPadding * 2),
                   ServiceCardList(services: services,),
-                  const SizedBox(height: defaultPadding),
-                  ElevatedButton(onPressed: ()=>{
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen()))
-                  }, child: Text(AppLocalizations.of(context).translate("Go to Ordering Invoice"))),
-
                   const SizedBox(height: defaultPadding),
                   // Banner
                   const PromotionBanner(),

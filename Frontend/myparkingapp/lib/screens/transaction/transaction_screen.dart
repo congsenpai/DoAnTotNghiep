@@ -11,7 +11,6 @@ import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/screens/transaction/component/Transaction_list.dart';
 import 'package:myparkingapp/screens/transaction/component/filter_transaction.dart';
-import 'package:myparkingapp/screens/wallet/wallet_screen.dart';
 import '../../constants.dart';
 
 class TransactionScreen extends StatefulWidget {
@@ -48,22 +47,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
           trans = state.trans;
           page = state.page;
           pageTotal = state.pageTotal;
-          type = state.type!;
+          type = state.type;
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
-                    backgroundColor: Colors.black.withOpacity(0.5),
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: const Icon(Icons.close, color: Colors.white),
-                  onPressed: () => WalletScreen(),
-                ),
-              ),
               title: Text(AppLocalizations.of(context).translate("Your Transactions")),
               actions: [
                 IconButton(onPressed: (){
