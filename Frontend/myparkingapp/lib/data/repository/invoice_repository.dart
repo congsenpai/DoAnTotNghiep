@@ -109,7 +109,7 @@ class InvoiceRepository{
         else{
           ApiResult apiResult = ApiResult(
             code,
-            "Failed Payment",
+            mess,
             null,
           );
           return apiResult;

@@ -83,7 +83,6 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 context.read<AuthBloc>().add(giveEmail(_email.text));
-
               }
             },
             child: Text(AppLocalizations.of(context).translate("Reset password")),

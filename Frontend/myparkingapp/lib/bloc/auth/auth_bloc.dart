@@ -24,7 +24,6 @@ void _login(LoginEvent event, Emitter<AuthState> emit) async{
     emit(AuthSuccessState(mess));
   }
   else{
-    print("___________________");
     emit(AuthErrorState(mess));
   }
 }

@@ -5,50 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/invoice/invoice_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/invoice/invoice_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/invoice/invoice_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/invoice/invoice_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/cards/iteam_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/cards/iteam_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/api_service/vn_pay/info_vnpay.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/api_service/vn_pay/info_vnpay.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/vi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/auth/auth_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/auth/auth_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/auth_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/auth_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/discount_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/discount_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/repository/invoice_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/invoice_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/lots_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/lots_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/slot_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/slot_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/transaction_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/transaction_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/repository/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/user_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/vehicle_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/vehicle_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/repository/wallet_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/wallet_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/response/invoice_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/invoice_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/response/user_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/user_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/QR_invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/QR_invoice_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/invoice_create.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/invoice_create.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/order_invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/order_invoice_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/wallet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/customer/customer_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/customer/customer_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/customer/customer_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/customer/customer_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/dashboard/dashboard_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/bloc/dashboard/dashboard_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/dto/request/admin_request/create_parking_owner_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/dto/request/admin_request/create_parking_owner_request.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/network/api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/repository/userRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/repository/userRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/authentication/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/authentication/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/add_owner.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/add_owner.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/customer_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/owner_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/owner_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/auth/forgot_password_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/auth/forgot_password_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/file_selector_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/file_selector_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_localization" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_localization" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/firebase_core" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/flutter_keyboard_visibility_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/permission_handler_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +138,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/repository/lots_repository.dart</url>
-          <line>48</line>
+          <line>47</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">

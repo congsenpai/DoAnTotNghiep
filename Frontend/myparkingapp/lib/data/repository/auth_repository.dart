@@ -70,12 +70,13 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveEmail(email);
-      if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']['token']);
+      if (response.data['code'] == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']);
         return apiResult;
       }
       else{
-        throw Exception("_AuthRepository_giveEmail:");
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],null);
+        return apiResult;
       }
     } catch (e) {
       throw Exception("_AuthRepository_giveEmail: $e");
@@ -86,12 +87,13 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveRePassWord(newPass, token);
-      if (response.statusCode == 200) {
+      if (response.data['code'] == 200) {
         ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
         return apiResult;
       }
       else{
-        throw Exception("_AuthRepository_giveEmail:");
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        return apiResult;
       }
     } catch (e) {
       throw Exception("_AuthRepository_giveEmail: $e");

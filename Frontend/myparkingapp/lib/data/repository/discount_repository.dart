@@ -9,13 +9,13 @@ class DiscountRepository{
   try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.getListDiscountByLot(lot.parkingLotID);
+    // Không cần jsonDecode vì response.data đã là JSON
+    Map<String, dynamic> jsonData = response.data;
 
-    if (response.statusCode == 200) {
-      // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
+    if (code == 200) {
 
-      int code = jsonData['code'];
-      String mess = jsonData['message'];
 
       // Chuyển 'result' từ JSON thành danh sách Discount
       List<DiscountResponse> discounts = (jsonData['result'] as List)
@@ -24,7 +24,7 @@ class DiscountRepository{
 
       return ApiResult(code, mess, discounts);
     } else {
-      throw Exception("DiscountRepository_getListDiscountByLot");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("DiscountRepository_getListDiscountByLot: $e");
