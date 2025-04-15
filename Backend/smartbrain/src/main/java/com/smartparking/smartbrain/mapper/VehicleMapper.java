@@ -1,7 +1,5 @@
 package com.smartparking.smartbrain.mapper;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,8 +15,9 @@ public interface VehicleMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "vehicleID", ignore = true)
+    @Mapping(target = "isDeleted", ignore = true)
     Vehicle toVehicle(VehicleRequest request);
-    
+
     VehicleResponse toVehicleResponse(Vehicle vehicle);
 
 }

@@ -32,16 +32,11 @@ public class EntryService {
     // với hóa đơn theo ngày thì khi người dùng đặt cọc sẽ dùng hóa đơn đặt cọc để vào và hóa đơn thanh toán để ra
     public void enterParkingLot(EntryRequest request){
         try {
-            log.info("Data encrypt is: {}",request.getObjectEncrypt());
-            log.info("Secret key is: {}",SECRET_KEY);
             Invoice invoiceDecrypt =AESEncryption.decryptObject(request.getObjectEncrypt(), SECRET_KEY, Invoice.class);
-            log.info("The invoice ID is: {}",invoiceDecrypt.getInvoiceID());
             InvoiceStatus status=invoiceDecrypt.getStatus();
             Invoice invoice=invoiceRepository.findById(invoiceDecrypt.getInvoiceID())
             .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
-            log.info("Invoice status is :{}",status);
             if (status.equals(InvoiceStatus.DEPOSIT)||status.equals(InvoiceStatus.PAID)) {
-                log.info("Condition is true");
                 parkingSlotService.updateParkingSlotStatus(invoice.getParkingSlot().getSlotID(), SlotStatus.OCCUPIED);
             }
         } catch (Exception e) {

@@ -18,6 +18,7 @@ public interface MonthlyTicketMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(source = "expiredAt", target = "expiredAt", qualifiedByName = "fromStringToInstant")
+    @Mapping(source = "startedAt", target = "startedAt", qualifiedByName = "fromStringToInstant")
     MonthlyTicket toMonthlyTicket(CreatedMonthlyTicketRequest request);
 
     @Mapping(source = "invoice.invoiceID", target = "invoiceID")

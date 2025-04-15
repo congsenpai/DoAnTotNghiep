@@ -40,7 +40,6 @@ public class ParkingSlotService {
         return parkingSlotMapper.toParkingSlotResponse(parkingSlot);
     }
     public void updateParkingSlotStatus(String parkingSlotID, SlotStatus status){
-        log.info("Parking slot ID is : {}",parkingSlotID);
         ParkingSlot parkingSlot = parkingSlotRepository.findById(parkingSlotID)
         .orElseThrow(() -> new AppException(ErrorCode.PARKING_SLOT_NOT_FOUND));
         parkingSlot.setSlotStatus(status);

@@ -46,8 +46,8 @@ public interface InvoiceMapper {
     @Mapping(source = "vehicle", target = "vehicle")
     @Mapping(source = "monthlyTicket", target = "isMonthlyTicket", qualifiedByName = "mapIsMonthlyTicket")
     @Mapping(source = "parkingSlot.parkingLot.parkingLotName", target = "parkingLotName")
-    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "objectDecrypt",ignore = true)
+    @Mapping(target = "parkingSlotID", source = "parkingSlot.slotID")
     InvoiceResponse toInvoiceResponse(Invoice invoice);
 
     // Named mapper
