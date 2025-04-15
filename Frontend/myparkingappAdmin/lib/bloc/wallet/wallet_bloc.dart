@@ -24,7 +24,7 @@ class  WalletBloc extends Bloc< WalletEvent, WalletState>{
          emit(WalletErrorState(response.message));
        }
      }catch(e){
-       emit(WalletErrorState(e.toString()));
+       throw Exception("WalletBloc  _getAllWallet : $e");
      }
    }
    void _getWalletByCustomer(GetWalletByCustomerEvent event, Emitter<WalletState> emit) async{
@@ -40,9 +40,9 @@ class  WalletBloc extends Bloc< WalletEvent, WalletState>{
          emit(WalletErrorState(response.message));
        }
      }catch(e){
-       emit(WalletErrorState(e.toString()));
+       throw Exception("WalletBloc _getWalletByCustomer : $e ");
      }
-    emit(WalletLoadedState(wallets));
+
    }
    void _unlockOrUnlockWallet(UnlockOrUnlockWalletEvent event, Emitter<WalletState> emit) async{
      emit(WalletLoadingState());
@@ -56,7 +56,7 @@ class  WalletBloc extends Bloc< WalletEvent, WalletState>{
          emit(WalletErrorState(response.message));
        }
      }catch(e){
-       emit(WalletErrorState(e.toString()));
+       throw Exception("WalletBloc _unlockOrUnlockWallet : $e ");
      }
    }
 }

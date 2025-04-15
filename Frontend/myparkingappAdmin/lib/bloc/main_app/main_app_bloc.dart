@@ -38,7 +38,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
         emit(MainAppErrorState(message));
       }
     } catch (e) {
-      print("_updatedUserInfo $e");
+      throw Exception ("MainAppBloc_updatedUserInfo $e");
     }
   }
 
@@ -84,10 +84,10 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
             "Successful Upload"));
       } else {
         emit(MainAppErrorState(
-            "Falsed Upload : ${uploadResponse.error}"));
+            "Failed Upload : ${uploadResponse.error}"));
       }
     } catch (e) {
-      print("_updatedUserInfo $e");
+      throw Exception ("MainAppBloc_updatedUserInfo $e");
     }
   }
 
@@ -104,7 +104,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
         emit(MainAppErrorState(message));
       }
     } catch (e) {
-      print("_updatesPass $e");
+      throw Exception ("MainAppBloc_updatesPass $e");
     }
   }
 

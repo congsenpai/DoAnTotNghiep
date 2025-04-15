@@ -36,7 +36,7 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
          emit(ParkingSlotErrorState(apiResult.message));
        }
      }catch(e){
-       emit(ParkingSlotErrorState(e.toString()));
+       throw Exception("ParkingSlotBloc_getParkingSlotByLot:  $e");
      }
    }}
    void _updateParkingSlot(UpdateParkingSlotEvent event, Emitter<ParkingSlotState> emit) async{
@@ -52,5 +52,6 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
        }
      }catch(e){
        emit(ParkingSlotErrorState(e.toString()));
+       throw Exception("ParkingSlotBloc_updateParkingSlot:  $e");
      }
    }

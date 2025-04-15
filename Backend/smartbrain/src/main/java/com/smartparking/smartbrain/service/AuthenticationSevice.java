@@ -44,7 +44,7 @@ public class AuthenticationSevice {
     final PasswordEncoder passwordEncoder;
     final JwtTokenProvider jwtTokenProvider;
     final InvalidatedRepository invalidatedRepository;
-    final EmailService emailService;
+    // final EmailService emailService;
 
     @Value("${jwt.signerKey}")
     protected String SECRET_KEY;
@@ -150,7 +150,7 @@ public class AuthenticationSevice {
             variables.put("name", user.getFirstName());
             String newPassword = UUID.randomUUID().toString();
             variables.put("newPassword", newPassword);
-            emailService.sendResetPasswordEmail(user.getEmail(), variables);
+            // emailService.sendResetPasswordEmail(user.getEmail(), variables);
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return ChangePasswordResponse.builder()

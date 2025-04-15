@@ -21,7 +21,7 @@ class  TransactionBloc extends Bloc< TransactionEvent, TransactionState>{
          emit(TransactionErrorState(response.message));
        }
      }catch(e){
-       emit(TransactionErrorState("Error: $e"));
+       throw Exception("TransactionBloc_getWalletByCustomer : $e");
      }
    }
 }
