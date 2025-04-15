@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
+
 import lombok.AccessLevel;
 
 @Data
@@ -13,12 +15,13 @@ import lombok.AccessLevel;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdatedUserRequest {
-    String firstName;
-    String lastName;
-    String email;
-    String phone;
-    String homeAddress;
-    String companyAddress;
-    String avatar;
-    String status;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String homeAddress;
+    private String companyAddress;
+    private String avatar;
+    private String status;
+    private Set<String>roles;
 }

@@ -14,7 +14,7 @@ public class GlobalHandlerException {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(code);
         apiResponse.setMessage(message);
-        return ResponseEntity.ok().body(apiResponse);
+        return ResponseEntity.badRequest().body(apiResponse);
     }
     
     @SuppressWarnings({"rawtypes"})

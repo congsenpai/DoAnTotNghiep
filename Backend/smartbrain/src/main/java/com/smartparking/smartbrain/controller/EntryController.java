@@ -27,7 +27,6 @@ public class EntryController {
     public ApiResponse<Void> enterParkingLot(@RequestBody @Valid EntryRequest request) {
         entryService.enterParkingLot(request);
         return ApiResponse.<Void>builder()
-        .code(200)
         .message("QR valid, open the barier. Welcome")
         .build();
     }
@@ -35,7 +34,6 @@ public class EntryController {
     public ApiResponse<Void> leaveParkingLot(@RequestBody @Valid EntryRequest request) {
         entryService.leaveParkingLot(request);
         return ApiResponse.<Void>builder()
-        .code(200)
         .message("QR valid, open the barier. See you again")
         .build();
     }

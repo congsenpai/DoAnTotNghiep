@@ -16,4 +16,5 @@ public interface WalletRepository extends JpaRepository<Wallet, String> {
     @EntityGraph(attributePaths = {"user"})
     @Query("SELECT w FROM Wallet w WHERE w.walletID = :walletID")
     Optional<Wallet> findByIdWithUser(@Param("walletID") String walletID);
+
 }

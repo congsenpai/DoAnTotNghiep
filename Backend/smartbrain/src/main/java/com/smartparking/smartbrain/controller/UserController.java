@@ -6,20 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.smartparking.smartbrain.dto.request.User.UpdatedUserRequest;
-import com.smartparking.smartbrain.dto.request.User.UserRequest;
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.User.UserResponse;
 
 import com.smartparking.smartbrain.service.UserService;
-
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,14 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class UserController {
     UserService userService;
-    @PostMapping
-    public ApiResponse<UserResponse> createRequestUser(@RequestBody @Valid UserRequest request){
-        return ApiResponse.<UserResponse>builder()
-        .result(userService.createReqUser(request))
-        .code(200)
-        .message("User register successfully")
-        .build();
-    }
+
+
+
     @GetMapping
     ApiResponse<List<UserResponse>> getAllUser(){
         return ApiResponse.<List<UserResponse>>builder()
@@ -80,7 +71,7 @@ public class UserController {
     ApiResponse<UserResponse> updateUser(@PathVariable String id, @RequestBody UpdatedUserRequest request){
         return ApiResponse.<UserResponse>builder()
         .code(200)
-        .message("User updated sucessfully")
+        .message("user updated sucessfully")
         .result(userService.updateInfoUser(id, request))
         .build();
     }

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +20,10 @@ import com.smartparking.smartbrain.dto.request.Invoice.PaymentDailyRequest;
 import com.smartparking.smartbrain.dto.request.MonthlyTicket.CreatedMonthlyTicketRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.DepositRequest;
 import com.smartparking.smartbrain.dto.request.Wallet.PaymentRequest;
-import com.smartparking.smartbrain.dto.response.PagedResponse;
 import com.smartparking.smartbrain.dto.response.Invoice.InvoiceResponse;
 import com.smartparking.smartbrain.encoder.AESEncryption;
 import com.smartparking.smartbrain.enums.DiscountType;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
-import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.InvoiceMapper;
@@ -54,7 +51,7 @@ public class InvoiceService {
     final WalletService walletService;
     final DateTimeConverter dateTimeConverter;
     final MonthlyTicketRepository monthlyTicketRepository;
-    final ParkingSlotRepository parkingSlotRepository;
+    final ParkingSlotRepository parkingRepository;
     final DiscountRepository discountRepository;
 
     // Daily invoice deposit
@@ -79,11 +76,6 @@ public class InvoiceService {
         invoice.setTotalAmount(depositValue);
         invoice.setStatus(InvoiceStatus.DEPOSIT);
         invoice = invoiceRepository.save(invoice);
-        // update slot status
-        ParkingSlot parkingSlot=parkingSlotRepository.findById(request.getParkingSlotID())
-        .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
-        parkingSlot.setSlotStatus(SlotStatus.RESERVED);
-        parkingSlotRepository.save(parkingSlot);
         InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
         invoiceResponse.setCreatedAt(Instant.now());
         try {
@@ -99,7 +91,7 @@ public class InvoiceService {
         var invoice = invoiceRepository.findByIdWithoutRelations(request.getInvoiceID())
             .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
         log.info("Here invoice");
-        var parkingSlot= parkingSlotRepository.findParkingSlotWithoutRelations(request.getParkingSlotID())
+        var parkingSlot= parkingRepository.findParkingSlotWithoutRelations(request.getParkingSlotID())
             .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
         log.info("Here parking slot");
         var discount= discountRepository.findDiscountWithoutRelations(request.getDiscountID())
@@ -135,7 +127,13 @@ public class InvoiceService {
             .description("Thanh toán hóa đơn ngày")
             .currency("USD")
             .build();
-        walletService.makePayment(paymentRequest,invoice);
+        
+        try {
+            walletService.makePayment(paymentRequest,invoice);
+            log.info("complete payment");
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND,"Error unknown when payment invoice");
+        }
         invoice.setStatus(InvoiceStatus.PAID);
         invoice = invoiceRepository.save(invoice);
         log.info("complete save invoice");
@@ -170,7 +168,11 @@ public class InvoiceService {
             .build();
         log.info("Total amount: {}", totalAmount);
         log.info("Payment request: {}", paymentRequest);
+        try {
             walletService.makePayment(paymentRequest,invoice);
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error unknown when payment invoice");
+        }
             invoice.setTotalAmount(totalAmount);
             invoice.setStatus(InvoiceStatus.PAID);
             invoice = invoiceRepository.save(invoice);
@@ -186,12 +188,6 @@ public class InvoiceService {
         invoiceRepository.save(invoice);
         invoice.setMonthlyTicket(monthlyTicketRepository.findById(response.getMonthlyTicketID())
             .orElseThrow(()-> new AppException(ErrorCode.MONTHLY_TICKET_NOT_EXISTS)));
-        // update slot status
-        ParkingSlot parkingSlot=parkingSlotRepository.findById(request.getParkingSlotID())
-            .orElseThrow(()-> new AppException(ErrorCode.PARKING_SLOT_NOT_EXISTS));
-            parkingSlot.setSlotStatus(SlotStatus.OCCUPIED);
-        parkingSlotRepository.save(parkingSlot);
-
         InvoiceResponse invoiceResponse= invoiceMapper.toInvoiceResponse(invoice);
         invoiceResponse.setCreatedAt(Instant.now());
         try {
@@ -208,6 +204,30 @@ public class InvoiceService {
         .orElseThrow(()-> new AppException(ErrorCode.INVOICE_NOT_EXISTS));
         return invoiceMapper.toInvoiceResponse(invoice);
     }
+
+
+    public List<InvoiceResponse> getInvoiceByUserID(String userID){
+        if (!userRepository.existsById(userID)) {
+            throw new AppException(ErrorCode.USER_NOT_EXISTS);
+        }
+        var invoices =invoiceRepository.findByUser_UserID(userID);
+        return invoices.stream().map(invoiceMapper::toInvoiceResponse).toList();
+    }
+    public List<InvoiceResponse> getInvoiceByUserIDNotPayment(String userID){
+        if (!userRepository.existsById(userID)) {
+            throw new AppException(ErrorCode.USER_NOT_EXISTS);
+        }
+        var invoices =invoiceRepository.findUnpaidInvoicesByUser(userID);
+        return invoices.stream().map(invoiceMapper::toInvoiceResponse).toList();
+    }
+
+
+    public List<InvoiceResponse> getAllInvoice(){
+        var invoices =invoiceRepository.findAll();
+        return invoices.stream().map(invoiceMapper::toInvoiceResponse).toList();
+    }
+
+
 
     public BigDecimal caculatorTotalAmount(ParkingSlot parkingSlot, Discount discount, Instant timeInstant, Boolean isMonthly) {
         if (parkingSlot == null || timeInstant == null) {
@@ -266,67 +286,5 @@ public class InvoiceService {
         return totalAmount.max(BigDecimal.ZERO); // Đảm bảo giá trị không âm
     }
 
-
-    public PagedResponse<InvoiceResponse> getInvoiceByUserIDNotPayment(String userID, Pageable pageable) {
-        if (!userRepository.existsById(userID)) {
-            throw new AppException(ErrorCode.USER_NOT_EXISTS);
-        }
-    
-        var invoicePage = invoiceRepository.findUnpaidInvoicesByUser(userID, pageable);
-    
-        List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
-        return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
-    }
-    
-
-
-    public PagedResponse<InvoiceResponse> getAllInvoice(Pageable pageable) {
-        var invoicePage = invoiceRepository.findAll(pageable);
-    
-        List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
-        return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
-    }
-    public PagedResponse<InvoiceResponse> getInvoiceByUserID(String userID, Pageable pageable) {
-        if (!userRepository.existsById(userID)) {
-            throw new AppException(ErrorCode.USER_NOT_EXISTS);
-        }
-    
-        var invoicePage = invoiceRepository.findByUser_UserID(userID, pageable);
-    
-        List<InvoiceResponse> invoiceResponses = invoicePage.getContent().stream()
-            .map(invoiceMapper::toInvoiceResponse)
-            .toList();
-    
-        return new PagedResponse<>(
-            invoiceResponses,
-            invoicePage.getNumber(),
-            invoicePage.getSize(),
-            invoicePage.getTotalElements(),
-            invoicePage.getTotalPages(),
-            invoicePage.isLast()
-        );
-    }
-    
-    
 
 }

@@ -37,18 +37,16 @@ public class VehicleService {
         return vehicleMapper.toVehicleResponse(vehicle);
     }
     public List<VehicleResponse> getVehicleByUserID(String userID){
-        List<Vehicle> vehicles = vehicleRepository.findByUser_userIDAndIsDeletedFalse(userID);
+        List<Vehicle> vehicles = vehicleRepository.findByUser_userID(userID);
         if (vehicles.isEmpty()) {
             throw new AppException(ErrorCode.VEHICLE_NOT_FOUND);
         }
         return vehicles.stream().map(vehicleMapper::toVehicleResponse).toList();
     }
     public void deletedByID(String vehicleID){
-            Vehicle vehicle = vehicleRepository.findById(vehicleID)
-            .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
-            vehicle.setDeleted(true);
-            vehicleRepository.save(vehicle);
+        if (!vehicleRepository.existsById(vehicleID)) {
+            throw new AppException(ErrorCode.VEHICLE_NOT_EXISTS);
+        }
+        vehicleRepository.deleteById(vehicleID);
     }
-
 }
-

@@ -57,8 +57,8 @@ public class WalletService {
                 if (!currency.equals(wallet.getCurrency())) {
                     throw new AppException(ErrorCode.CURRENCY_MISMATCH);
                 }
-            } catch (Exception e) {
-                throw new AppException(ErrorCode.INVALID_CURRENCY,e.getMessage());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
             }
             
         }
@@ -111,7 +111,7 @@ public class WalletService {
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
         log.info("Make payment with request: {}", request);
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
-            throw new AppException(ErrorCode.INSUFFICIENT_BALANCE);
+            throw new IllegalArgumentException("Insufficient balance");
         }
         if (request.getCurrency() != null) {
             try {
@@ -119,8 +119,8 @@ public class WalletService {
                 if (!currency.equals(wallet.getCurrency())) {
                     throw new AppException(ErrorCode.CURRENCY_MISMATCH);
                 }
-            } catch (Exception e) {
-                throw new AppException(ErrorCode.INVALID_CURRENCY, e.getMessage());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
             }
             
         }
@@ -148,7 +148,7 @@ public class WalletService {
         Wallet wallet = walletRepository.findById(request.getWalletID())
                 .orElseThrow(()-> new AppException(ErrorCode.WALLET_NOT_FOUND));
         if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
-            throw new AppException(ErrorCode.INSUFFICIENT_BALANCE);
+            throw new IllegalArgumentException("Insufficient balance");
         }
         if (request.getCurrency() != null) {
             try {
@@ -156,8 +156,8 @@ public class WalletService {
                 if (!currency.equals(wallet.getCurrency())) {
                     throw new AppException(ErrorCode.CURRENCY_MISMATCH);
                 }
-            } catch (Exception e) {
-                throw new AppException(ErrorCode.INVALID_CURRENCY,e.getMessage());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
             }
             
         }
@@ -183,8 +183,8 @@ public class WalletService {
         Currency currency;
         try {
             currency = Currency.getInstance(request.getCurrency().toUpperCase());
-        } catch (Exception e) {
-            throw new AppException(ErrorCode.INVALID_CURRENCY,e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_CURRENCY);
         }
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -226,8 +226,8 @@ public class WalletService {
             try {
                 Currency currency = Currency.getInstance(request.getCurrency().toUpperCase());
                 wallet.setCurrency(currency);
-            } catch (Exception e) {
-                throw new AppException(ErrorCode.INVALID_CURRENCY,e.getMessage());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_CURRENCY);
             }
             
         }

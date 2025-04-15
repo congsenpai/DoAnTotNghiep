@@ -1,6 +1,4 @@
-package com.smartparking.smartbrain.dto.request.Image;
-
-import java.util.List;
+package com.smartparking.smartbrain.dto.request.ImageSpot;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,8 +12,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreatedImageForParkingLotRequest {
-    List<String> imageURLs;
-    String parkingLotID;
+public class CreatedImageRequest {
+    private String urlString;
+    private String noteString;
+    private boolean status;
+    private String parkingSpotID;
 }
 

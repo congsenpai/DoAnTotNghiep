@@ -28,11 +28,11 @@ public class WalletController {
     // create wallet
     @PostMapping
     public ApiResponse<WalletResponse> createWallet(@RequestBody @Valid CreateWalletRequest request) {
-        return ApiResponse.<WalletResponse>builder()
-        .code(200)
-        .message("create wallet successfully")
-        .result(walletService.createWallet(request))
-        .build();
+    return ApiResponse.<WalletResponse>builder()
+    .code(200)
+    .message("create wallet successfully")
+    .result(walletService.createWallet(request))
+    .build();
     }
     // get wallet by id
     @GetMapping("/{walletId}")

@@ -61,7 +61,7 @@ public class ParkingSlot {
     @JoinColumn(name = "parking_lot_id",nullable = false)
     ParkingLot parkingLot;
     @OneToMany(mappedBy = "parkingSlot")
-    Set<Invoice> invoices;
+    Set<Invoice> invoice;
     @OneToMany(mappedBy = "parkingSlot")
     Set<MonthlyTicket> monthlyTickets;
 

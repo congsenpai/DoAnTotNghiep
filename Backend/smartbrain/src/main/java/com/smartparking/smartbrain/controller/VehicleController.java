@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -34,8 +33,6 @@ public class VehicleController {
     @PostMapping
     public ApiResponse<VehicleResponse> createVehicle(@RequestBody @Valid VehicleRequest request) {
         return ApiResponse.<VehicleResponse>builder()
-        .code(200)
-        .message("Vehicle created successfully")
         .result(vehicleService.createVehicle(request))
         .build();
     }
@@ -43,18 +40,7 @@ public class VehicleController {
     public ApiResponse<List<VehicleResponse>> getVehicleByUser(@PathVariable String UserID) {
         return ApiResponse.<List<VehicleResponse>>builder()
         .result(vehicleService.getVehicleByUserID(UserID))
-        .code(200)
-        .message("Vehicle fetched successfully")
         .build();
     }
-    @PatchMapping("/{VehicleID}")
-    public ApiResponse<Void> deleteVehicle(@PathVariable String VehicleID) {
-        vehicleService.deletedByID(VehicleID);
-        return ApiResponse.<Void>builder()
-        .code(200)
-        .message("Vehicle deleted successfully")
-        .build();
-    }
-
     
 }
