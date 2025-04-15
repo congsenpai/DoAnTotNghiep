@@ -5,7 +5,7 @@ class TransactionLoadedState extends TransactionState{
   List<TransactionResponse> trans;
   DateTime start;
   DateTime end;
-  Transactions type;
+  Transactions? type;
   int page;
   int pageTotal;
 

@@ -105,10 +105,10 @@ class _FilterTransactionState extends State<FilterTransaction> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: selectType == Transactions.TOP_UP
-                        ? Colors.blue
+                        ? Colors.green
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("TOP_UP")),
+                  child: Text(AppLocalizations.of(context).translate("top_up").toUpperCase()),
                 ),
               ),
               SizedBox(width: 8,),
@@ -122,10 +122,10 @@ class _FilterTransactionState extends State<FilterTransaction> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: selectType == Transactions.PAYMENT
-                        ? Colors.blue
+                        ? Colors.green
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("PAYMENT")),
+                  child: Text(AppLocalizations.of(context).translate("payment").toUpperCase()),
                 ),
               ),
             ],
@@ -158,7 +158,7 @@ class _FilterTransactionState extends State<FilterTransaction> {
                         .read<TransactionBloc>()
                         .add(LoadAllTransactionEvent(widget.wallet, 1));
                   },
-                  child: Text(AppLocalizations.of(context).translate("Empty")),
+                  child: Text(AppLocalizations.of(context).translate("Refresh")),
                 ),
               ),
             ],

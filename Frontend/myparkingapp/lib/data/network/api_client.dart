@@ -12,6 +12,7 @@ import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'dio_client.dart';
 
 class ApiClient {
+
   
     //----------------------------- USER --------------------------------//
 
@@ -86,10 +87,10 @@ class ApiClient {
     );
   }
 
-  Future<Response> getInvoiceByUserWithSearchAndPage(String search,int page,String userId) async {
+  Future<Response> getInvoiceByUserWithSearchAndPage(int page,String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "users/$userId/invoice/search/$search/page/$page",
+      "invoices/user/$userId?page=${page-1}&size=10",
     );
   }
 
@@ -175,6 +176,8 @@ class ApiClient {
 
   //-------------------------INVOICE-----------------------------------//
 
+
+
   Future<Response> invoiceCreatedDaily(InvoiceCreatedDailyRequest invoice) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
@@ -200,6 +203,20 @@ class ApiClient {
         data:
           invoice.toJson()
 
+    );
+  }
+
+  Future<Response> returnCurrentInvoice() async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+        "invoices?status=active",
+    );
+  }
+
+  Future<Response> getInvoiceByID(String invoiceID) async {
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.get(
+      "invoices/$invoiceID",
     );
   }
 
@@ -278,7 +295,14 @@ class ApiClient {
     String url = "auth/error";
     return await dioClient.dio.get(url);
   }
-
+//--------------------------  TRANSACTION  -----------------------------//
+  Future<Response> createTransactionByRecharge(CreatedTransactionRequest request) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+      "transactions",
+      data:request.toJson(),
+    );
+  }
 
 
 }

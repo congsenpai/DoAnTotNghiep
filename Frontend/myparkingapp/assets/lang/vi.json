@@ -16,6 +16,21 @@
     "Enter your Phone number or Email \naddress for sign in :)": "Nhập số điện thoại hoặc địa chỉ \nemail của bạn để đăng nhập :)",
     "Filter":"Lọc",
 
+  "onboarding": "onboarding",
+
+  "title1": "Thời gian là vàng",
+  "text1": "Đừng lãng phí thời gian vòng quanh tìm chỗ đỗ. Hãy để công nghệ dẫn bạn đến đúng nơi, đúng lúc.",
+
+  "title2": "Tiện lợi tạo nên khác biệt",
+  "text2": "Một lựa chọn thông minh giúp bạn tiết kiệm công sức. Đặt trước, đỗ xe dễ dàng và tận hưởng ngày dài.",
+
+  "title3": "Chủ động kiểm soát",
+  "text3": "Làm chủ hành trình của bạn — đừng để việc đỗ xe làm gián đoạn. Chỉ một chạm, mọi thứ trong tầm tay.",
+
+  "chooseLanguage": "Chọn ngôn ngữ",
+
+  "getStarted": "Bắt đầu",
+
 
 "2":" Loại ngôn ngữ",
 
@@ -102,6 +117,7 @@
         "TypeCard":"Loại thẻ",
         "cardList":"Danh sách thẻ",
         "Pick Date":"Chọn ngày",
+        "Discount": "Hóa đơn",
 
 "7":"Transaction",
         "budget":"Số tiền",

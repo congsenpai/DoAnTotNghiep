@@ -21,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).translate("Choose Language")),
+        title: Text(AppLocalizations.of(context).translate("chooseLanguage")),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -33,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
             ListTile(
-              title: const Text("Tiếng Việt"),
+              title: const Text("VietNam"),
               onTap: () {
                 Get.updateLocale(const Locale('vi')); // hoặc Locale('en')
                 Navigator.pop(context);
@@ -89,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   );
                 },
-                child: Text(AppLocalizations.of(context).translate("Get Started").toUpperCase()),
+                child: Text(AppLocalizations.of(context).translate("getStarted").toUpperCase()),
               ),
             ),
             const Spacer(flex: 1),
@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: ElevatedButton(
                 onPressed: _showLanguageDialog,
-                child: Text(AppLocalizations.of(context).translate("Choose Language").toUpperCase()),
+                child: Text(AppLocalizations.of(context).translate("chooseLanguage").toUpperCase()),
               ),
             ),
             const Spacer(),
@@ -112,17 +112,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 List<Map<String, dynamic>> demoData = [
   {
     "illustration": "assets/Illustrations/Illustrations_1.svg",
-    "title": "Time is gold",
-    "text": "Don’t waste time circling for a spot. Let technology guide you to the right place, at the right time."
+    "title": "title1",
+    "text": "text1"
   },
   {
     "illustration": "assets/Illustrations/Illustrations_2.svg",
-    "title": "Convenience makes a difference",
-    "text": "A smart choice saves you effort. Book in advance, park easily, and enjoy your day."
+    "title": "title2",
+    "text": "text2"
   },
   {
     "illustration": "assets/Illustrations/Illustrations_3.svg",
-    "title": "Stay in control",
-    "text": "Own your journey—don’t let parking slow you down. One tap, and everything is within reach."
+    "title": "title3",
+    "text": "text3"
   }
 ];

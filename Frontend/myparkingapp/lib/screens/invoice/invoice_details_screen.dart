@@ -5,25 +5,37 @@ import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
+import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class InvociceDetailsScreen extends StatelessWidget {
+class InvoiceDetailsScreen extends StatelessWidget {
   final InvoiceResponse invoice;
   
-  const InvociceDetailsScreen({super.key, required this.invoice});
+  const InvoiceDetailsScreen({super.key, required this.invoice});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(AppLocalizations.of(context).translate("Your Invoice")),
-        actions: [
-          IconButton(onPressed: (){
-
-          }, icon: Icon(Icons.map_outlined)),
-        ],
+        backgroundColor: Colors.transparent,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                backgroundColor: Colors.black.withOpacity(0.5),
+                padding: EdgeInsets.zero,
+              ),
+              child: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context)=>InvoiceScreen())
+                )
+              }
+          ),
+        ),
+        title: Text(AppLocalizations.of(context).translate("Invoice Detail")),
       ),
       body: Stack(
         children: [
@@ -58,59 +70,23 @@ class InvociceDetailsScreen extends StatelessWidget {
                   style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: Get.width/30),
+                invoice.discount !=null ?
                 PrimaryButton(
-                      text: AppLocalizations.of(context).translate("Discount"),
+                      text: "${AppLocalizations.of(context).translate("Discount")} : ${invoice.discount!.discountCode}",
                       press: () {
-                        AppDialog.showDetailDiscount(context, invoice.discount);
+                        AppDialog.showDetailDiscount(context, invoice.discount!);
                       },
-                    ),
+                    ):
                 SizedBox(height: Get.width/30),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Column(  // Dùng Column để chứa danh sách nút bấm
-                        children: List.generate(invoice.transaction.length, (index) {
-                          return PrimaryButton(
-                            text: "${AppLocalizations.of(context).translate("Transaction")} ${index + 1} ${invoice.transaction[index].type.name}",
-                            press: () {
-                              AppDialog.showDetailTransaction(context, invoice.transaction[index]);
-                            },
-                          );
-                        }),
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          PrimaryButton(
-                            text: AppLocalizations.of(context).translate("Vehicle"),
-                            press: () {
-                              AppDialog.showDetailVehicle(context, invoice.vehicle);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                PrimaryButton(
+                  text: "${AppLocalizations.of(context).translate("Vehicle")} : ${invoice.vehicle.licensePlate}",
+                  press: () {
+                    AppDialog.showDetailVehicle(context, invoice.vehicle);
+                  },
                 ),
-                
                 SizedBox(height: 10),
-                Center(child: Text(AppLocalizations.of(context).translate("QR IN - OUR "),style: TextStyle(color: Colors.white),),),
-                Center(
-                  child: QrImageView(
-                    backgroundColor: Colors.white,
-                    data: invoice.objectDecrypt,
-                    version: QrVersions.auto,
-                    size: 200.0,
-                  ),
-                ),
                 Spacer(),
-                TotalPrice(price: invoice.totalAmount),
+                TotalPrice(price: invoice.totalAmount, current: '',),
                 SizedBox(height: Get.width/10),
               ],
             ),

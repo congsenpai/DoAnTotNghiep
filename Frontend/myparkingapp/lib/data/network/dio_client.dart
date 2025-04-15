@@ -10,7 +10,7 @@ class DioClient {
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {
-    dio.options.baseUrl = "http://192.168.43.152:8080/myparkingapp/";
+    dio.options.baseUrl = "http://192.168.36.100:8080/myparkingapp/";
     dio.options.connectTimeout = const Duration(seconds: 20);
     dio.options.receiveTimeout = const Duration(seconds: 20);
     dio.options.headers['Content-Type'] = 'application/json';

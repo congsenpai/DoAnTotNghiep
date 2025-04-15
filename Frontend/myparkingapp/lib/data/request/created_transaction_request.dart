@@ -24,9 +24,8 @@ class CreatedTransactionRequest {
   };
 }
 
-
   @override
   String toString() {
-    return 'Transaction(amount: $currentBalance, description: $description, type: $type,walletId: $walletId)';
+    return 'CreatedTransactionRequest{currentBalance: $currentBalance, description: $description, type: $type, walletId: $walletId}';
   }
 }

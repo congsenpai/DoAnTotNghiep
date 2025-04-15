@@ -16,6 +16,21 @@
     "Enter your Phone number or Email \naddress for sign in :)": "Enter your Phone number or Email \naddress for sign in :)",
     "Filter":"Filter",
 
+  "onboarding": "onboarding",
+
+  "title1": "Time is gold",
+  "text1": "Don’t waste time circling for parking. Let technology guide you to the right spot at the right time.",
+
+  "title2": "Convenience makes the difference",
+  "text2": "A smart choice saves your effort. Book in advance, park easily, and enjoy your day.",
+
+  "title3": "Take control",
+  "text3": "Own your journey — don’t let parking interruptions slow you down. One tap, everything in your hands.",
+
+  "chooseLanguage": "Choose language",
+
+  "getStarted": "Get Started",
+
 
 
 
@@ -102,6 +117,7 @@
         "TypeCard":"Type Card",
         "cardList":"Cards List",
         "Pick Date":"Pick Date",
+        "Discount": "Discount",
   
 "7":"Transaction",
         "budget":"Budget",

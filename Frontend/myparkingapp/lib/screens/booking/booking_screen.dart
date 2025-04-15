@@ -184,7 +184,7 @@ class _BookingScreenState extends State<BookingScreen> {
                               children: [
                                 
                                 ...vehicles.map((v) => RoundedCheckboxListTile(
-                                      isActive: (vehicle!.licensePlate == v.licensePlate),
+                                      isActive: (vehicle != null && vehicle!.licensePlate == v.licensePlate),
                                       text: "${v.licensePlate} ${  AppLocalizations.of(context).translate(v.vehicleType.name)}",
                                       press: () {
                                         setState(() {
@@ -260,7 +260,6 @@ class _BookingScreenState extends State<BookingScreen> {
                                         isActive: (wallet == w),
                                         text: "${AppLocalizations.of(context).translate(w.name)} ${w.currency}",
                                         press: () {
-                                          // context.read<BookingBloc>().add(BookingInitialInvoiceEvent(discount, start, widget.lot, widget.slot, selectMonth, w, vehicle,widget.user));
                                           setState(() {
                                             wallet = w;
                                           });
@@ -286,7 +285,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 else{
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text(AppLocalizations.of(context).translate("Lack info (wallet or vehicle")),
+                                        content: Text(AppLocalizations.of(context).translate("Lack info wallet or vehicle")),
                                         duration: Duration(seconds: 3), // thời gian hiển thị
                                         backgroundColor: Colors.green,
                                       ));

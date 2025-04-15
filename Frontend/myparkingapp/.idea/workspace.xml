@@ -5,27 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/data/response/add_vehicle_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/flutter_secure_storage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/invoice/QR_invoice_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/invoice/order_invoice_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/booking/booking_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/booking/booking_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/home/home_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/user/user_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/user/user_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/user/user_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/user/user_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lang/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lang/vi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/invoice/invoice_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/invoice/invoice_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/invoice/invoice_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/invoice/invoice_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/invoice/invoice_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/invoice/invoice_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/transaction_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/transaction_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/transaction_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/transaction_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/app_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/api_service/vn_pay/info_vnpay.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/api_service/vn_pay/info_vnpay.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/api_service/vn_pay/vn_pay_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/api_service/vn_pay/vn_pay_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/api_client.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/repository/vehicle_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/vehicle_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/auth_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/auth_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/invoice_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/invoice_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/repository/transaction_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/repository/transaction_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/request/created_invoice_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/request/created_invoice_request.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/response/discount_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/discount_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/response/vehicle_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/vehicle_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/response/wallet_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/wallet_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/request/created_transaction_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/request/created_transaction_request.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/response/invoice_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/response/invoice_response.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/chatbot/chat_bot.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/chatbot/chat_bot.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/dashboard/dash_board_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/dashboard/dash_board_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/components/invoice_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/components/invoice_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/components/object_row.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/components/object_row.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/components/total_price.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/components/total_price.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/invoice_create.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/invoice_create.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/invoice_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/invoice_details_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/invoice/invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/invoice/invoice_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/onboarding/onboarding_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/onboarding/onboarding_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/profile/components/update_user_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/profile/components/update_user_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/profile/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/profile/profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/component/filter_transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/component/filter_transaction.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/transaction_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/transaction_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/wallet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/customer/components/customer_list.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,35 +82,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DEBUGGABLE_DEVICE": "xiaomi-21061119ag-0022fa650406",
-    "DEBUGGABLE_PROCESS": "com.example.myparkingapp",
-    "DEBUGGER_ID": "Java",
-    "Flutter.main.dart.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHOW_ALL_PROCESSES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "tuilaBao",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp/lib/data/response",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DEBUGGABLE_DEVICE&quot;: &quot;xiaomi-21061119ag-0022fa650406&quot;,
+    &quot;DEBUGGABLE_PROCESS&quot;: &quot;com.example.myparkingapp&quot;,
+    &quot;DEBUGGER_ID&quot;: &quot;Java&quot;,
+    &quot;Flutter.main.dart.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHOW_ALL_PROCESSES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tuilaBao&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp/lib/screens/invoice&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\screens\invoice" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\data\response" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components\cards\big" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\screens\home\components" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components\cards\medium" />
-      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\bloc\main_screen" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingapp\lib\components" />
@@ -128,27 +153,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>88</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>102</line>
+          <line>103</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>124</line>
+          <line>125</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>207</line>
+          <line>226</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>239</line>
+          <line>258</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -162,24 +182,9 @@
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/repository/auth_repository.dart</url>
-          <line>34</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/repository/auth_repository.dart</url>
-          <line>36</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/data/network/api_client.dart</url>
-          <line>30</line>
+          <line>31</line>
           <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/repository/vehicle_repository.dart</url>
-          <line>10</line>
-          <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/bloc/home/home_bloc.dart</url>
@@ -192,24 +197,24 @@
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/response/wallet_response.dart</url>
-          <line>16</line>
-          <option name="timeStamp" value="146" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/response/wallet_response.dart</url>
+          <url>file://$PROJECT_DIR$/lib/data/request/created_transaction_request.dart</url>
           <line>19</line>
-          <option name="timeStamp" value="148" />
+          <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/response/wallet_response.dart</url>
-          <line>18</line>
-          <option name="timeStamp" value="149" />
+          <url>file://$PROJECT_DIR$/lib/data/request/created_transaction_request.dart</url>
+          <line>20</line>
+          <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/response/wallet_response.dart</url>
-          <line>17</line>
-          <option name="timeStamp" value="150" />
+          <url>file://$PROJECT_DIR$/lib/data/request/created_transaction_request.dart</url>
+          <line>21</line>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/data/request/created_transaction_request.dart</url>
+          <line>22</line>
+          <option name="timeStamp" value="156" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

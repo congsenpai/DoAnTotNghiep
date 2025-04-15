@@ -106,8 +106,8 @@ class InvoiceCreatedMonthlyRequest {
       'vehicleID': vehicleID,
       'userID': userID,
       'walletID': walletID,
-      'startedAt': startedAt.toIso8601String(),
-      'expiredAt': expiredAt.toIso8601String(),
+      'startedAt': startedAt.toString(),
+      'expiredAt': expiredAt.toString(),
     };
   }
 

@@ -16,6 +16,7 @@ import 'package:myparkingapp/data/response/add_vehicle_request.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
+import 'package:myparkingapp/screens/profile/profile_screen.dart';
 
 
 class EditProfileScreen extends StatefulWidget {
@@ -142,7 +143,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: EdgeInsets.zero,
               ),
               child: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.pop(context)
+              onPressed: () => Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()))
             ),
           ),
       ),

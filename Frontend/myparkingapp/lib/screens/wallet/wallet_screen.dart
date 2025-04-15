@@ -12,6 +12,7 @@ import 'package:myparkingapp/data/api_service/vn_pay/vn_pay_service.dart';
 
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
+import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:myparkingapp/screens/transaction/transaction_screen.dart';
 import 'package:myparkingapp/screens/wallet/component/wallet_item.dart';
 
@@ -47,7 +48,8 @@ class _WalletScreenState extends State<WalletScreen> {
                 padding: EdgeInsets.zero,
               ),
               child: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen())),
             ),
           ),
       ),

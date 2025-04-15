@@ -11,8 +11,8 @@ class AuthRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.login(username, password);
       if (response.data['code'] == 200) {
-        String accessToken = response.data['result']['accessToken'];
-        String refreshToken = response.data['result']['refreshToken'];
+        String accessToken = response.data['result']['accessToken'] ?? '';
+        String refreshToken = response.data['result']['refreshToken'] ?? '';
         ApiResult apiResult = ApiResult(response.data['code'], response.data['message'], response.data['result']["authenticated"]);
         if(accessToken !=""&&refreshToken!=""){
           await storage.write(key: 'access_token', value: accessToken);
