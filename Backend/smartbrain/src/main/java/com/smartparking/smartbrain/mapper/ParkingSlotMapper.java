@@ -10,7 +10,7 @@ import com.smartparking.smartbrain.model.ParkingSlot;
 @Mapper(componentModel = "spring")
 public interface ParkingSlotMapper {
     @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "invoice", ignore = true)
+    @Mapping(target = "invoices", ignore = true)
     @Mapping(target = "monthlyTickets", ignore = true)
     @Mapping(target = "parkingLot", ignore = true)
     @Mapping(target = "slotID", ignore = true)

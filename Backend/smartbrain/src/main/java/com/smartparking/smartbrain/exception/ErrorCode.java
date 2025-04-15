@@ -8,6 +8,7 @@ public enum ErrorCode {
     NOT_ACCESS_TOKEN(0003,"Not access token"),
     INVALID_TOKEN(0004,"Invalid token"),
     SLOT_NOT_VALID_WITH_VEHICLE_TYPE(0005,"Slot not valid with vehicle type"),
+    INVALID_DATE_TIME_FORMAT(0006,"Invalid date time format"),
 
 
     // User errors
@@ -48,6 +49,7 @@ public enum ErrorCode {
     CURRENCY_MISMATCH(5003, "Currency mismatch"),
     WALLET_NOT_BELONG_TO_USER(5004, "Wallet not belong to user"),
     WALLET_NOT_ENOUGH_MONEY(5005, "Wallet not enough money"),
+    INSUFFICIENT_BALANCE(5006, "Insufficient balance"),
     
     // Permission errors
     PERMISSION_NOT_FOUND(6001,"Permission not found"),
@@ -79,6 +81,7 @@ public enum ErrorCode {
     MONTHLY_TICKET_NOT_FOUND(0301,"Monthly ticket not found"),
     MONTHLY_TICKET_ALREADY_EXISTS(0302,"Monthly ticket already exists"),
     MONTHLY_TICKET_NOT_EXISTS(0303,"Monthly ticket not exists"),
+    
 
 
 

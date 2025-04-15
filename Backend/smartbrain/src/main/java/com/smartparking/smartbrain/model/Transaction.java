@@ -46,15 +46,15 @@ public class Transaction {
     TransactionStatus status= TransactionStatus.PENDING;
 
     // Relationship
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "User cannot be null")
     User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id", nullable = false)
     @NotNull(message = "Wallet cannot be null")
     Wallet wallet;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", nullable = true)
     Invoice invoice;
     // Timestamp

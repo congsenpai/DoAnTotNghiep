@@ -67,6 +67,9 @@ public class Vehicle {
     @UpdateTimestamp
     @Column(name = "updated_at")
     Instant updatedAt;
+    @Column(name="is_deleted")
+    @Builder.Default
+    boolean isDeleted = false;
     
 
 }

@@ -13,19 +13,21 @@ import org.springframework.stereotype.Component;
 public class DateTimeConverter {
 
     private static final List<DateTimeFormatter> SUPPORTED_FORMATS = List.of(
-        DateTimeFormatter.ofPattern("dd/MM/yyyy"),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-        DateTimeFormatter.ofPattern("yyyy/MM/dd"),
-        DateTimeFormatter.ofPattern("MM-dd-yyyy"),
-        DateTimeFormatter.ofPattern("MM/dd/yyyy"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
-        DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"),
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"),
-        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"), // ISO 8601 không có 'Z'
-        DateTimeFormatter.ISO_INSTANT // Hỗ trợ chuẩn ISO 8601 với 'Z'
-    );
+    DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+    DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+    DateTimeFormatter.ofPattern("yyyy/MM/dd"),
+    DateTimeFormatter.ofPattern("MM-dd-yyyy"),
+    DateTimeFormatter.ofPattern("MM/dd/yyyy"),
+    DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"),
+    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"),
+    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"),
+    DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"),
+    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"),
+    DateTimeFormatter.ISO_INSTANT
+);
 
     @Named("fromStringToInstant")
     public Instant fromStringToInstant(String dateStr) {
