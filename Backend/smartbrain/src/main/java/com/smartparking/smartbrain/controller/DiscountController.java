@@ -34,35 +34,45 @@ public class DiscountController {
     @PostMapping("/parkinglot")
     public ApiResponse<DiscountResponse> createParkingLotDiscount(@RequestBody @Valid DiscountParkingLotRequest request) {
         return ApiResponse.<DiscountResponse>builder()
+        .code(200)
         .result(discountService.createParkingLotDiscount(request))
+        .message("Discount created successfully")
         .build();
     }
 
     @PostMapping("/global")
     public ApiResponse<DiscountResponse> createGlobalDiscount(@RequestBody @Valid DiscountGlobalRequest request) {
         return ApiResponse.<DiscountResponse>builder()
+        .code(200)
         .result(discountService.createGlobalDiscount(request))
+        .message("Discount created successfully")
         .build();
     }
 
     @GetMapping("/global")
     public ApiResponse<List<DiscountResponse>> getGlobalDiscount() {
         return ApiResponse.<List<DiscountResponse>>builder()
+        .code(200)
         .result(discountService.getAllGlobalDiscount())
+        .message("Discount retrieved successfully")
         .build();
     }
 
     @GetMapping("/{parkingLotID}")
     public ApiResponse<List<DiscountResponse>> getAllDiscount(@PathVariable String parkingLotID) {
         return ApiResponse.<List<DiscountResponse>>builder()
+        .code(200)
         .result(discountService.getAllDiscountByParkingLotID(parkingLotID))
+        .message("Discount retrieved successfully")
         .build();
     }
     
     @GetMapping("/{discountID}")
     public ApiResponse<DiscountResponse> getDiscountByID(@PathVariable String discountID) {
         return ApiResponse.<DiscountResponse>builder()
+        .code(200)
         .result(discountService.getDiscount(discountID))
+        .message("Discount retrieved successfully")
         .build();
     }
     

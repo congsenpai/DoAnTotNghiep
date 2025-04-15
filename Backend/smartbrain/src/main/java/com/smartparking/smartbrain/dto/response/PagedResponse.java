@@ -1,4 +1,7 @@
 package com.smartparking.smartbrain.dto.response;
+
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AccessLevel;
@@ -14,8 +17,11 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ApiResponse <T>{
-    int code;
-    String message;
-    T result;
+public class PagedResponse<T> {
+    List<T> content;
+    int pageNumber;
+    int pageSize;
+    long totalElements;
+    int totalPages;
+    boolean last;
 }

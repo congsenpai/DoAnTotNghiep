@@ -26,7 +26,6 @@ public class SecurityConfig {
     // user :
 
     // login :
-    private final String[] PostList_public= {"/myparkingapp/auth/login","/myparkingapp/auth/logout", "/myparkingapp/auth/introspect", "/myparkingapp/auth/refresh","/myparkingapp/auth/register"};
     private CustomJwtDecoder customJwtDecoder;
 
 
@@ -36,7 +35,8 @@ public class SecurityConfig {
         .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         .authorizeHttpRequests(request ->request
         .requestMatchers(HttpMethod.POST, "/myparkingapp/users").permitAll()
-        .requestMatchers(HttpMethod.POST, PostList_public).permitAll()
+        .requestMatchers(HttpMethod.POST, "myparkingapp/auth/**").permitAll()
+        .requestMatchers(HttpMethod.PUT, "myparkingapp/auth/reset-password").permitAll()
         .requestMatchers(
                     "/v3/api-docs/**", // Tài liệu OpenAPI JSON
                     "/swagger-ui/**",   // Trang Swagger UI

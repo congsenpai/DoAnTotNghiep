@@ -5,6 +5,7 @@ package com.smartparking.smartbrain.model;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -34,11 +35,11 @@ public class Role {
     String description;
 
     
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
     Set<User> users;
 
     // Relationship with Permission ManytoMany - Roles can have many permissions
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "role_permissions",
         joinColumns = @JoinColumn(name = "role_name"),

@@ -1,5 +1,8 @@
 package com.smartparking.smartbrain.mapper;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,4 +20,5 @@ public interface VehicleMapper {
     Vehicle toVehicle(VehicleRequest request);
     
     VehicleResponse toVehicleResponse(Vehicle vehicle);
+
 }
