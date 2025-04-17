@@ -108,12 +108,12 @@ class _WalletScreenState extends State<WalletScreen> {
         },
         listener: (context,state){
           if(state is WalletSuccessState){
-            AppDialog.showSuccessEvent(context, state.mess, onPress: (){
+            AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess), onPress: (){
               context.read<WalletBloc>().add(WalletInitialEvent());
             });
           }
           else if(state is WalletErrorState){
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
         })
     );

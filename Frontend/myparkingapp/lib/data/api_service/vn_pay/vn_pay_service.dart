@@ -152,10 +152,10 @@ class _DepositFormScreenState extends State<DepositFormScreen> {
       );
       }, listener:(context,state) async {
       if(state is PaymentSuccessState){
-            return AppDialog.showSuccessEvent(context, state.mess);
+            return AppDialog.showSuccessEvent(context, AppLocalizations.of(context).translate(state.mess));
           }
       else if(state is PaymentErrorState){
-        return AppDialog.showErrorEvent(context, state.mess);
+        return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
       }
     })
     );

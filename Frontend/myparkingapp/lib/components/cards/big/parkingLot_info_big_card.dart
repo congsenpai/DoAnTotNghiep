@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/location/location_bloc.dart';
 import 'package:myparkingapp/bloc/location/location_event.dart';
 import 'package:myparkingapp/bloc/location/location_state.dart';
@@ -100,10 +101,10 @@ class _ParkingLotInfoBigCardState extends State<ParkingLotInfoBigCard> {
           );
         }, listener: (context,state){
         if(state is LocationSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess,);
+          return AppDialog.showSuccessEvent(context, AppLocalizations.of(context).translate(state.mess));
         }
         else if(state is LocationErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+          return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
         }
       }); }
 }

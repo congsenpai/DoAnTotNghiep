@@ -25,6 +25,14 @@ class ApiClient {
       data: {"username": username, "password": password},
     );
   }
+  Future<Response> logout(String accessToken) async {
+    final DioClient dioClient = DioClient();
+
+    return await dioClient.dio.post(
+      "auth/logout",
+      data: {"token": accessToken},
+    );
+  }
 
   Future<Response> register(
     RegisterUserRequest user

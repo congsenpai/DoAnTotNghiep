@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocConsumer<HomeBloc, HomeState>
         (builder: (context,state) {
         if(state is HomeLoadingState){
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
         else if(state is HomeLoadedState){
           user = state.user;
@@ -160,11 +160,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         }
-        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
       },
           listener: (context,state){
           if(state is HomeErrorState){
-            return AppDialog.showErrorEvent(context, state.mess);
+            return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
           })
     );

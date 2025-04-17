@@ -6,6 +6,7 @@ import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
+import 'package:myparkingapp/main_screen.dart';
 
 import '../../bloc/search/search_bloc.dart';
 import '../../bloc/search/search_event.dart';
@@ -45,9 +46,20 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  padding: EdgeInsets.zero,
+                ),
+                child: const Icon(Icons.close, color: Colors.white),
+                onPressed: () => {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(),))
+                },
+              ),
               Text(AppLocalizations.of(context).translate('Search'), style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: defaultPadding / 2),
-              SearchForm(page: 1, token: '',),
+              SearchForm(page: page,),
             ],
           ),
         ),
@@ -56,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: BlocConsumer<SearchBloc,SearchState>
         (builder:  (context,state){
           if(state is SearchScreenLoading){
-            return Center(child: CircularProgressIndicator(),);
+            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
           }
           else if(state is SearchScreenLoaded){
             user = state.user;
@@ -64,35 +76,36 @@ class _SearchScreenState extends State<SearchScreen> {
             page = state.lotOnPage.page;
             pageAmount = state.lotOnPage.pageAmount;
             searchText = state.searchText;
-            return SafeArea(
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  child: ListView(
-                    children: [
-                      const SizedBox(height: defaultPadding),
-                      Text("Search Results" ,
-                          style: Theme.of(context).textTheme.titleLarge),
-                      const SizedBox(height: defaultPadding),
-                      ParkingLotList(lots: lots, user: user),
-                      const SizedBox(height: defaultPadding),
+            return
+SafeArea(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    child: ListView(
+                      children: [
+                        const SizedBox(height: defaultPadding),
 
-                      PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
-                        setState(() {
-                          page = newPage;
-                          context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(searchText,page)) ;// Gọi hàm search
-                        });
-                        // Gọi API hoặc cập nhật dữ liệu cho trang mới
-                      },)// Không cần SingleChildScrollView nữa
-                    ],
-                  )
-              ),
-            );
+                        const SizedBox(height: defaultPadding),
+                        ParkingLotList(lots: lots, user: user),
+                        const SizedBox(height: defaultPadding),
+
+                        PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
+                          setState(() {
+                            page = newPage;
+                            context.read<SearchBloc>().add(SearchScreenSearchAndChosenPageEvent(searchText,page)) ;// Gọi hàm search
+                          });
+                          // Gọi API hoặc cập nhật dữ liệu cho trang mới
+                        },)// Không cần SingleChildScrollView nữa
+                      ],
+                    )
+                ),
+                            );
+
           }
           return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
 
       }, listener: (context,state){
           if(state is SearchScreenError){
-            return AppDialog.showErrorEvent(context, state.mess);
+            return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
       })
     );
@@ -101,8 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
 class SearchForm extends StatefulWidget {
   final int page;
-  final String token;
-  const SearchForm({super.key, required this.page, required this.token});
+  const SearchForm({super.key, required this.page});
 
   @override
   State<SearchForm> createState() => _SearchFormState();

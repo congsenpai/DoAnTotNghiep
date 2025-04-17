@@ -113,10 +113,10 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
     
         }, listener: (context,state){
         if(state is LocationSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess,);
+          return AppDialog.showSuccessEvent(context, AppLocalizations.of(context).translate(state.mess),);
         }
         else if(state is LocationErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+          return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
         }
       })
       );

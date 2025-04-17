@@ -114,7 +114,7 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
       },
       listener: (context, state) {
         if (state is InvoiceErrorState) {
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
         }
       },
     );

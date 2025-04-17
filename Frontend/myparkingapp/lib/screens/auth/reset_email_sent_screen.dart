@@ -120,7 +120,7 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
       );
     
       }, listener: (context,state){
-        if(state is AuthSuccessState){
+        if(state is GiveRePassSuccessState){
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -128,8 +128,8 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
             ),
           );
         }
-        else if(state is AuthErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+        else if(state is GiveRePassErrorState){
+          return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
         }
       })
       );

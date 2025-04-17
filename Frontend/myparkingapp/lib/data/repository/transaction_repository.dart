@@ -63,7 +63,7 @@ class TransactionRepository {
       );
       Map<String, dynamic> jsonData = response.data;
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
       if (code == 200) {
         int page = 1;
         int pageTotal = 1;

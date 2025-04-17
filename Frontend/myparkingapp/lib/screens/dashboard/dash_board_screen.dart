@@ -175,7 +175,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       },
       listener: (context, state) {
         if (state is TransactionErrorState) {
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
         }
       },
     );

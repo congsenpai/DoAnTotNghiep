@@ -14,6 +14,7 @@ import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
 import 'package:myparkingapp/demo_data.dart';
 import 'package:myparkingapp/screens/invoice/invoice_create.dart';
+import 'package:myparkingapp/screens/search/search_screen.dart';
 import '../../bloc/booking/booking_event.dart';
 import '../../bloc/booking/booking_state.dart';
 import '../../constants.dart';
@@ -80,13 +81,15 @@ class _BookingScreenState extends State<BookingScreen> {
                 padding: EdgeInsets.zero,
               ),
               child: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchScreen(),))
+              },
             ),
           ),
         ),
         body: BlocConsumer<BookingBloc, BookingState>(builder: (context, state) {
           if (state is BookingLoadingState) {
-            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+            return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
           } else if (state is BookingLoadedState) {
             monthSelect = state.monthLists;
             discounts = state.discounts;
@@ -304,7 +307,7 @@ class _BookingScreenState extends State<BookingScreen> {
               ),
             );
           }
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         },listener:(context,state){
             if(state is GotoInvoiceCreateDetailState){
               Navigator.push(
@@ -315,7 +318,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 );
             }
             else if (state is BookingErrorState){
-              return AppDialog.showErrorEvent(context, state.mess);
+              return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
             }
           }
         )

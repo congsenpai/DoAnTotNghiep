@@ -194,18 +194,18 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
         return Center(
           child: LoadingAnimationWidget.staggeredDotsWave(
             color: Colors.greenAccent,
-            size: 18,
+            size: 25,
           ),
         );
       },
       listener: (context, state) {
         if (state is InvoiceErrorState) {
-          AppDialog.showErrorEvent(context, state.mess,onPress:()=>{
+          AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate( state.mess),onPress:()=>{
             context.read<InvoiceBloc>().add(GetInvoiceByIDEvent(widget.request.InvoiceID))
           });
         }
         if(state is InvoiceSuccessState){
-          AppDialog.showSuccessEvent(context, state.mess,onPress:()=>{
+          AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess ),onPress:()=>{
           context.read<InvoiceBloc>().add(GetInvoiceByIDEvent(widget.request.InvoiceID))
           });
         }
