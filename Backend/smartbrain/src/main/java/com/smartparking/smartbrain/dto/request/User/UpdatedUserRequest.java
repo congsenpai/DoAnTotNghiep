@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import com.smartparking.smartbrain.dto.request.Image.CreatedImageForUserRequest;
+
 import lombok.AccessLevel;
 
 @Data
@@ -19,6 +21,6 @@ public class UpdatedUserRequest {
     String phone;
     String homeAddress;
     String companyAddress;
-    String avatar;
+    CreatedImageForUserRequest avatar;
     String status;
 }

@@ -1,6 +1,7 @@
 package com.smartparking.smartbrain.dto.request.ParkingLot;
 import java.util.Set;
 
+import com.smartparking.smartbrain.dto.request.Image.CreatedImageForParkingLotRequest;
 import com.smartparking.smartbrain.validator.ValidParkingLotConfig;
 
 import jakarta.validation.constraints.Min;
@@ -51,7 +52,7 @@ public class CreatedParkingLotRequest {
     @Min(value = 1, message = "Total Slot must be greater than 0")
     Integer totalSlot;            // Số lượng slot của bãi đỗ
 
-    Set<String> images;      // Danh sách ảnh
+    CreatedImageForParkingLotRequest images;      // Danh sách ảnh
 
     Set<LocationConfig> locationConfigs; // Danh sách cấu hình khu vực
 }

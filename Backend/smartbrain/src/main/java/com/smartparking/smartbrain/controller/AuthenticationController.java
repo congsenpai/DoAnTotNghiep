@@ -102,7 +102,7 @@ public class AuthenticationController {
                 .build();
     }
 
-    @GetMapping("/reset-password")
+    @PostMapping("/reset-password")
     public ApiResponse<Void> resetPassword(@RequestBody @Valid ResetPassRequest request) {
         authenticationService.resetPassword(request);
         return ApiResponse.<Void>builder()

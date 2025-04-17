@@ -18,4 +18,6 @@ public class ResetPassRequest {
     String userToken;
     @NotNull(message = "New password cannot be null")
     String newPassword;
+    @NotNull(message = "Reset token cannot be null")
+    String resetToken;
 }

@@ -2,6 +2,8 @@ package com.smartparking.smartbrain.dto.request.User;
 
 import java.util.Set;
 
+import com.smartparking.smartbrain.dto.request.Image.CreatedImageForUserRequest;
+
 import jakarta.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -28,5 +30,5 @@ public class UserRequest {
     String companyAddress;
     Set<String> roles;
     String status;
-    String images;
+    CreatedImageForUserRequest images;
 }
