@@ -81,7 +81,7 @@ class _UserDetailState extends State<UserDetail> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Không có ảnh nào được chọn")),
+        const SnackBar(content: Text("There is no chosen image")),
       );
     }
   }

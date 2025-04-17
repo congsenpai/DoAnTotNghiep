@@ -65,20 +65,6 @@ class _MyAppState extends State<MyApp> {
       _locale = locale;
     });
   }
-  // This widget is the root of your application.
-  // UserResponse u = UserResponse(
-  //   userId: '1',
-  //   username: 'john_doe',
-  //   password: 'password123',
-  //   phoneNumber: '123-456-7890',
-  //   homeAddress: '123 Main St',
-  //   companyAddress: '456 Business Blvd',
-  //   lastName: 'Doe',
-  //   firstName: 'John',
-  //   avatar: Images("", null, null),
-  //   email: 'john.doe@example.com',
-  //   roles: [], status: UserStatus.ACTIVE,
-  // );
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

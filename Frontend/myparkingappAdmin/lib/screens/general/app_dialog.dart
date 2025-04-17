@@ -145,7 +145,7 @@ class AppDialog {
                 ),
                 onPressed: () => void1, // Đóng dialog
                 child: const Text(
-                  'Continute',
+                  'Continue',
                   style: TextStyle(
                       color: Colors.redAccent, fontWeight: FontWeight.bold),
                 ),

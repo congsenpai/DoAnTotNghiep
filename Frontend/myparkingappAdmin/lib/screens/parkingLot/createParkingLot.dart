@@ -58,7 +58,7 @@ class _CreateParkingLotScreenState extends State<CreateParkingLotScreen> {
   } else {
     Get.snackbar(
       AppLocalizations.of(context).translate("Error"),
-      AppLocalizations.of(context).translate("Please, enter full info"),
+      AppLocalizations.of(context).translate("Please fulfill all fields"),
     );
   }// Or call your API here
   }

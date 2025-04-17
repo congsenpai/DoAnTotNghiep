@@ -193,13 +193,13 @@ void _deleteImage(Images image) {
                         SizedBox(height: defaultPadding),
                         TextFieldCustom(
                           editController: _latitudeController,
-                          title: 'Lattitude',
+                          title: 'Latitude',
                           isEdit: false,
                         ),
                         SizedBox(height: defaultPadding),
                         TextFieldCustom(
                           editController: _longitudeController,
-                          title: 'Longtitude',
+                          title: 'Longitude',
                           isEdit: false,
                         ),
                         SizedBox(height: defaultPadding),
