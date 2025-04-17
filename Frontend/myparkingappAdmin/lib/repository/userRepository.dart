@@ -16,15 +16,20 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getAllUser();
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(response.statusCode == 200){
         List<UserResponse> users = (response.data["result"] as List)
             .map((item) => UserResponse.fromJson(item))
             .toList();
-        List<UserResponse> ownerUsers = users.where((e)=>e.roles.contains("PARKING_OWNER")).toList();
+        List<UserResponse> ownerUsers = users.where((e)=>e.roles.contains("PARKING_OWNER") && !e.roles.contains("ADMIN")).toList();
+        print("\n");
+        print(ownerUsers.toString());
+
+        print("\n");
+
 
         ApiResult apiResult = ApiResult(
-           code, mess, users
+           code, mess, ownerUsers
         );
         return apiResult;
       }
@@ -44,12 +49,12 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getAllUser();
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         List<UserResponse> users = (response.data["result"] as List)
             .map((item) => UserResponse.fromJson(item))
             .toList();
-        List<UserResponse> customerUsers = users.where((e)=>e.roles.contains("USER")).toList();
+        List<UserResponse> customerUsers = users.where((e)=>e.roles.contains("USER") && !e.roles.contains("ADMIN")).toList();
         ApiResult apiResult = ApiResult(
            code, mess, customerUsers
         );
@@ -65,12 +70,12 @@ class UserRepository {
       throw Exception("UserRepository_getAllCustomerUser: $e");
     }
   }
-  Future<ApiResult> updatedUser(UpdateInfoResquest user, String userId) async{
+  Future<ApiResult> updatedUser(UpdateInfoRequest user, String userId) async{
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.updateUser(user, userId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -95,7 +100,7 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.updateStatusUser(newStatus, userId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -161,7 +166,7 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.changePassWord(userId, oldPass, newPass);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null

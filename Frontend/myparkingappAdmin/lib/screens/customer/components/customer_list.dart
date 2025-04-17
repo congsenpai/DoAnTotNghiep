@@ -69,7 +69,7 @@ class _CustomerListState extends State<CustomerList> {
               Expanded(
                 flex: 2,
                 child: Text(
-                  AppLocalizations.of(context).translate("CUSTOMER"),
+                  AppLocalizations.of(context).translate("customer").toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

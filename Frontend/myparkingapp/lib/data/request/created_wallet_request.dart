@@ -20,3 +20,24 @@ class CreatedWalletRequest {
     };
   }
 }
+
+class TopUpRequest {
+
+  double  amount;
+  String currency; // Optional
+  String description; // Optional
+  String walletID;
+
+  TopUpRequest(this.amount, this.currency, this.description, this.walletID);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'amount': amount,
+      'currency': currency,
+      'description': description,
+      'walletID':walletID
+    };
+  }
+
+
+}

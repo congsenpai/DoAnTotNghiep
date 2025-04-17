@@ -66,7 +66,10 @@
   "Transaction not exists": "Transaction not exists",
   "Monthly ticket not found": "Monthly ticket not found",
   "Monthly ticket already exists": "Monthly ticket already exists",
-  "Monthly ticket not exists": "Monthly ticket not exists"
+  "Monthly ticket not exists": "Monthly ticket not exists",
+  "owner": "Owner",
+  "customer": "Customer",
+  "you don't have permission": "you don't have permission",
 
 
 

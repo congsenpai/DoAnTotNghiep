@@ -18,7 +18,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate("Forgot Password")),
+        title: Text(AppLocalizations.of(context).translate("Forgot password")),
       ),
       body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state) {
         if(state is AuthLoadingState){

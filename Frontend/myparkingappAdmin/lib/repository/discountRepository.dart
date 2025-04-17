@@ -10,7 +10,7 @@ class DiscountRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getListDiscountByLot(slotId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -33,7 +33,7 @@ class DiscountRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.createDiscount(request);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -56,7 +56,7 @@ class DiscountRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.updateDiscount( discountId, request);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -79,7 +79,7 @@ class DiscountRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.deleteDiscount(discountId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null

@@ -3,9 +3,8 @@
 
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 
-class UpdateInfoResquest {
+class UpdateInfoRequest {
   final String username;
-  final String password;
   final String phoneNumber;
   final String homeAddress;
   final String companyAddress;
@@ -14,9 +13,8 @@ class UpdateInfoResquest {
   final Images avatar;
   final String email;
 
-  UpdateInfoResquest( {
+  UpdateInfoRequest( {
     required this.username,
-    required this.password,
     required this.phoneNumber,
     required this.homeAddress,
     required this.companyAddress,
@@ -31,7 +29,6 @@ class UpdateInfoResquest {
   Map<String, dynamic> toJson() {
     return {
       'username': username,
-      'password': password,
       'phoneNumber': phoneNumber,
       'homeAddress': homeAddress,
       'companyAddress': companyAddress,

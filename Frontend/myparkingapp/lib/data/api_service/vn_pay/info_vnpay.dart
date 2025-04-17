@@ -5,12 +5,15 @@ import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/repository/transaction_repository.dart';
 import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:myparkingapp/screens/wallet/wallet_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
+
+import '../../repository/wallet_repository.dart';
 
 class TransactionInfo extends StatefulWidget {
   final UserResponse user;
@@ -120,15 +123,16 @@ class _TransactionInfoState extends State<TransactionInfo> {
             ) : responseCode == '00'
                 ? ElevatedButton(
               onPressed: () async {
-                TransactionRepository tran = TransactionRepository();
-                CreatedTransactionRequest request = CreatedTransactionRequest(
-                    currentBalance: widget.amount,
-                    description: widget.note,
-                    type: Transactions.TOP_UP,
-                    walletId: widget.walletID);
-                ApiResult tranApi = await tran.createTransactionByRecharge(
+                WalletRepository wallet = WalletRepository();
+                TopUpRequest request = TopUpRequest(
+                    widget.amount,
+                    "USD",
+                    widget.note,
+                    widget.walletID
+                );
+                ApiResult walletApi = await wallet.topUp(
                     request);
-                if(tranApi.code == 200){
+                if(walletApi.code == 200){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => WalletScreen()));
                 }else{

@@ -123,7 +123,7 @@
   "RePassword": "Nhập lại mật khẩu",
   "Password": "Mật khẩu",
   "Register": "Đăng ký",
-  "Forget Password": "Quên mật khẩu",
+  "Forget Password?": "Quên mật khẩu ?",
   "Account?": "Bạn đã có tài khoản ?",
   "Sign In": "Đăng nhập",
   "Sign in": "Đăng nhập",
@@ -200,11 +200,11 @@
   "Payment Methods": "Phương thức thanh toán",
   "Add your credit & debit cards": "Thêm thẻ tín dụng & thẻ ghi nợ của bạn",
   "Language": "Ngôn ngữ",
-  "Add or remove your delivery locations": "Thêm hoặc xóa vị trí giao hàng của bạn",
+  "Change your language": "Thay đổi ngôn ngữ",
   "Info": "Thông tin",
   "Success": "Thành công",
   "Error": "Lỗi",
-  "Forgot Password": "Quên mật khẩu",
+  "Forgot password": "Quên mật khẩu",
   "Reset email sent": "Email đặt lại mật khẩu đã được gửi",
   "We have sent a instructions email to \ntheflutterway@email.com.": "Chúng tôi đã gửi một email hướng dẫn tới \ntheflutterway@email.com.",
   "Confirm Password": "Xác nhận mật khẩu",
@@ -215,5 +215,18 @@
   "Create Account": "Tạo tài khoản",
   "Enter your Name, Email and Password \nfor sign up.": "Nhập Tên, Email và Mật khẩu \nđể đăng ký.",
   "Already have account? ": "Bạn đã có tài khoản? ",
-  "By Signing up you agree to our Terms \nConditions & Privacy Policy.": "Bằng việc đăng ký, bạn đồng ý với Điều khoản \nvà Chính sách bảo mật của chúng tôi."
+  "By Signing up you agree to our Terms \nConditions & Privacy Policy.": "Bằng việc đăng ký, bạn đồng ý với Điều khoản \nvà Chính sách bảo mật của chúng tôi.",
+  "History": "Giao dich",
+  "Lock": "Khóa",
+  "Recharge": "Nạp tiền",
+  "Enter your username and password": "Nhập tên đăng nhập và mật khẩu",
+  "Don't have account?": "Chưa có tài khoản?",
+  "Create new account.": "Tạo tài khoản mới.",
+  "Reset password": "Đặt lại mật khẩu",
+  "Enter your email address and we will \nsend you a reset instructions.": "Nhập địa chỉ email của bạn và chúng tôi sẽ\ngửi hướng dẫn đặt lại mật khẩu.",
+  "Email Address": "Địa chỉ email",
+  "All ParkingSlot": "Tất cả bãi đỗ"
+
+
+
 }

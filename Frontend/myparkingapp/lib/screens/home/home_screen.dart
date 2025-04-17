@@ -104,30 +104,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: BigCardImageSlide(images: bannerHomeScreen, active: '', isBanner: true,),
-                  ),
-                  const SizedBox(height: defaultPadding * 2),
-                  SectionTitle(
-                    title: "My Service",
-                    press: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: user,),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: defaultPadding * 2),
-                  ServiceCardList(services: services,),
-                  const SizedBox(height: defaultPadding),
                   ElevatedButton(onPressed: ()=>{
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen(user: user,)))
                   }, child: Text(AppLocalizations.of(context).translate("Go to Ordering Invoice"))),
 
                   const SizedBox(height: defaultPadding),
                   // Banner
-                  const PromotionBanner(),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    child: BigCardImageSlide(images: bannerHomeScreen, active: '', isBanner: true,),
+                  ),
                   const SizedBox(height: 20),
                   SectionTitle(
                     title: "Nearly Parking Lots",
@@ -150,7 +137,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ), ),
                   const SizedBox(height: 16),
                   // Demo list of Big Cards
-                  ParkingLotList(lots: plots, user: user)
+                  ParkingLotList(lots: plots, user: user),
+
+                  const SizedBox(height: defaultPadding * 2),
+                  SectionTitle(
+                    title: "My Service",
+                    press: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: user,),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: defaultPadding * 2),
+                  ServiceCardList(services: services,),
+                  const SizedBox(height: defaultPadding),
+                  const PromotionBanner(),
+                  const SizedBox(height: defaultPadding),
+
                 ],
               ),
             ),

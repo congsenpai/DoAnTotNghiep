@@ -7,7 +7,7 @@ class QrRepository{
     try{
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveQrIntoCode(request);
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       ApiResult apiResult = ApiResult(
           0, mess, null
       );
@@ -23,7 +23,7 @@ class QrRepository{
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveQrOutCode(request);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       ApiResult apiResult = ApiResult(
           0, mess, null
       );

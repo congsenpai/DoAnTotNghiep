@@ -11,7 +11,9 @@ class LoadedCustomerScreenEvent extends UserEvent{
 }
 
 class LoadedOwnerScreenEvent extends UserEvent{
-  LoadedOwnerScreenEvent();
+
+  UserResponse user;
+  LoadedOwnerScreenEvent(this.user);
 }
 
 class RegisterOwnerEvent extends UserEvent{
@@ -21,7 +23,7 @@ class RegisterOwnerEvent extends UserEvent{
 
 class UpdateUserEvent extends UserEvent{
   String userId;
-  UpdateInfoResquest request;
+  UpdateInfoRequest request;
   UpdateUserEvent(this.request,this.userId);
 }
 

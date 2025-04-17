@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_event.dart';
 import 'package:myparkingappadmin/bloc/wallet/wallet_state.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
-import 'package:myparkingappadmin/demodata.dart';
 import 'package:myparkingappadmin/repository/walletRepository.dart';
 
 class  WalletBloc extends Bloc< WalletEvent, WalletState>{

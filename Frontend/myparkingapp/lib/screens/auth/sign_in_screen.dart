@@ -39,7 +39,7 @@ class SignInScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ImageContent(illustration: "assets/Illustrations/login.svg",
-                  text: "Enter your username and password ", title: 'Login',),
+                  text: "Enter your username and password", title: 'Login',),
                   const SizedBox(height: defaultPadding),
                   
                   SignInForm(),
@@ -54,7 +54,7 @@ class SignInScreen extends StatelessWidget {
                             .textTheme
                             .bodySmall!
                             .copyWith(fontWeight: FontWeight.w600),
-                        text: AppLocalizations.of(context).translate("Don’t have account? "),
+                        text: AppLocalizations.of(context).translate("Don’t have account?"),
                         children: <TextSpan>[
                           TextSpan(
                             text: AppLocalizations.of(context).translate("Create new account."),

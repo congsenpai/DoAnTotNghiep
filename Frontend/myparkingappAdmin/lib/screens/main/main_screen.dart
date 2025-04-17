@@ -11,6 +11,7 @@ import 'package:myparkingappadmin/data/dto/response/parkingSlot_response.dart';
 import 'package:myparkingappadmin/data/dto/response/transaction_response.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
+import 'package:myparkingappadmin/screens/customer/ownerScreen.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 
 import 'package:myparkingappadmin/screens/myprofile/myprofile_screen.dart';
@@ -131,11 +132,16 @@ class _MainScreenState extends State<MainScreen> {
         return DashboardScreen( user: selectedUsersLogin, onLanguageChange: widget.onLanguageChange);
         
       case 2:
-        return CustomerOwnerScreen(
+        return CustomerScreen(
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,
         );
       case 3:
+        return OwnerScreen(
+          user: selectedUsersLogin,
+          onLanguageChange: widget.onLanguageChange,
+        );
+      case 4:
         return MyprofileScreen(
           user: selectedUsersLogin,
           onLanguageChange: widget.onLanguageChange,

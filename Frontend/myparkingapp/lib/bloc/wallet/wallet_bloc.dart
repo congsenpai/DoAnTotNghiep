@@ -56,6 +56,7 @@ class WalletBloc extends Bloc<WalletEvent,WalletState>{
       throw Exception("WalletBloc : _addWallet : $e");
     }
   }
+
   void _lockWallet(LockWalletEvent event, Emitter<WalletState> emit) async {
     try{
       emit(WalletLoadingState());

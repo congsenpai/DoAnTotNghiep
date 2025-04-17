@@ -10,7 +10,7 @@ class initializationEvent extends MainAppEvent{
 
 class UpdatesUserInforEvent extends MainAppEvent{
   String userId;
-  UpdateInfoResquest request;
+  UpdateInfoRequest request;
   UpdatesUserInforEvent(this.userId,this.request);
 }
 

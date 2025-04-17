@@ -7,8 +7,7 @@ enum UserStatus { ACTIVE, INACTIVE, DELETED }
 class UserResponse {
   final String userId;
   final String username;
-  final String password;
-  final String phoneNumber;
+  final String phone;
   final String homeAddress;
   final String companyAddress;
   final String lastName;
@@ -21,8 +20,7 @@ class UserResponse {
   UserResponse({
     required this.userId,
     required this.username,
-    required this.password,
-    required this.phoneNumber,
+    required this.phone,
     required this.homeAddress,
     required this.companyAddress,
     required this.lastName,
@@ -35,8 +33,7 @@ class UserResponse {
   UserResponse.empty({
   this.userId = '',
   this.username = '',
-  this.password = '',
-  this.phoneNumber = '',
+  this.phone = '',
   this.homeAddress = '',
   this.companyAddress = '',
   this.lastName = '',
@@ -50,18 +47,22 @@ class UserResponse {
   /// **Chuyển từ JSON sang `UserResponse` object**
   factory UserResponse.fromJson(Map<String, dynamic> json) {
     return UserResponse(
-      userId: json["userID"] ?? '',
-      username: json["username"] ?? '',
-      password: json["password"] ?? '',
-      phoneNumber: json["phoneNumber"] ?? '',
-      homeAddress: json["homeAddress"] ?? '',
-      companyAddress: json["companyAddress"] ?? '',
-      lastName: json["lastName"] ?? '',
-      firstName: json["firstName"] ?? '',
-      avatar: Images("", json["image"] ?? '', null),
-      email: json["email"] ?? '',
-      status: _parseUserStatus(json["status"]), // ✅ Chuyển từ String sang enum
-      roles: List<String>.from(json['roles'].map((role) => role['roleName'])),
+      userId: json["userID"] as String? ?? '',
+      username: json["username"] as String? ?? '',
+      phone: json["phone"] as String? ?? '', // ✅ sửa từ phoneNumber → phone
+      homeAddress: json["homeAddress"] as String? ?? '',
+      companyAddress: json["companyAddress"] as String? ?? '',
+      lastName: json["lastName"] as String? ?? '',
+      firstName: json["firstName"] as String? ?? '',
+      avatar: json["image"] != null
+          ? Images("", json["image"] as String? ?? '', null)
+          : Images("", "", null),
+      email: json["email"] as String? ?? '',
+      status: _parseUserStatus(json["status"] as String?),
+      roles: (json['roles'] as List<dynamic>?)
+          ?.map((role) => role['roleName'] as String)
+          .toList() ??
+          [],
     );
   }
 
@@ -70,8 +71,7 @@ class UserResponse {
     return {
       'userID': userId,
       'username': username,
-      'password': password,
-      'phoneNumber': phoneNumber,
+      'phoneNumber': phone,
       'homeAddress': homeAddress,
       'companyAddress': companyAddress,
       'lastName': lastName,
@@ -83,9 +83,10 @@ class UserResponse {
     };
   }
 
+
   @override
   String toString() {
-    return "User(username: $username, firstName: $firstName, lastName: $lastName, email: $email, status: $status)";
+    return 'UserResponse{userId: $userId, username: $username, phone: $phone, homeAddress: $homeAddress, companyAddress: $companyAddress, lastName: $lastName, firstName: $firstName, avatar: $avatar, email: $email, status: $status, roles: $roles}';
   }
 
   /// **Chuyển `String` thành `UserStatus`**

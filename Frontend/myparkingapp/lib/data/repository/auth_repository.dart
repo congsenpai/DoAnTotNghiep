@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
+import 'package:myparkingapp/data/request/resetPassRequest.dart';
 import '../network/api_client.dart';
 
 class AuthRepository {
@@ -71,7 +72,7 @@ class AuthRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveEmail(email);
       if (response.data['code'] == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']);
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']['userToken']);
         return apiResult;
       }
       else{
@@ -86,13 +87,14 @@ class AuthRepository {
     Future<ApiResult> giveRePassWord(String newPass, String token) async {
     try {
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveRePassWord(newPass, token);
+      ResetPassRequest request = ResetPassRequest(newPass, token);
+      final response = await apiClient.giveRePassWord(request);
       if (response.data['code'] == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],'');
         return apiResult;
       }
       else{
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],'');
         return apiResult;
       }
     } catch (e) {

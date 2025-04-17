@@ -9,7 +9,7 @@ class InvoiceRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getInvoiceByLot(parkingLotId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -32,7 +32,7 @@ class InvoiceRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getInvoiceBySlot(parkingSlotId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
@@ -55,7 +55,7 @@ class InvoiceRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getAllInvoiceByOwner(userId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(code == 200){
         ApiResult apiResult = ApiResult(
           code, mess, null
@@ -79,7 +79,7 @@ class InvoiceRepository {
 
         final response = await apiClient.getAllInvoiceByAdmin();
         int code = response.data["code"];
-        String mess = response.data["mess"];
+        String mess = response.data["message"];
         if(code == 200){
           ApiResult apiResult = ApiResult(
             code, mess, null

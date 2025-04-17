@@ -23,6 +23,16 @@ class AuthErrorState extends AuthState{
   AuthErrorState(this.mess);
 }
 
+class RegisterSuccessState extends AuthState{
+  final String mess;
+  RegisterSuccessState(this.mess);
+}
+
+class RegisterErrorState extends AuthState{
+  final String mess;
+  RegisterErrorState(this.mess);
+}
+
 class GotoAcceptLocationScreenState extends AuthState{
   GotoAcceptLocationScreenState();
 }

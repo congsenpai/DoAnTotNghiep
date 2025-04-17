@@ -26,7 +26,6 @@ class _WalletDetailState extends State<WalletDetail> {
 
   late final TextEditingController walletIdController;
   late final TextEditingController userIdController;
-  late final TextEditingController svgSrcController;
   late final TextEditingController nameController;
   late final TextEditingController balanceController;
   late final TextEditingController statusController;
@@ -49,7 +48,6 @@ class _WalletDetailState extends State<WalletDetail> {
   void dispose() {
     walletIdController.dispose();
     userIdController.dispose();
-    svgSrcController.dispose();
     nameController.dispose();
     balanceController.dispose();
     statusController.dispose();
@@ -92,23 +90,6 @@ class _WalletDetailState extends State<WalletDetail> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFieldCustom(
-                editController: walletIdController,
-                title: "Wallet ID",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: userIdController,
-                title: "User ID",
-                isEdit: false,
-              ),
-              SizedBox(height: defaultPadding),
-              TextFieldCustom(
-                editController: svgSrcController,
-                title: "SVG Icon URL",
-                isEdit: false,
-              ),
               SizedBox(height: defaultPadding),
               TextFieldCustom(
                 editController: nameController,
@@ -119,7 +100,7 @@ class _WalletDetailState extends State<WalletDetail> {
               TextFieldCustom(
                 editController: balanceController,
                 title: "Balance",
-                isEdit: isEdit,
+                isEdit: false,
               ),
               SizedBox(height: defaultPadding),
               TextFieldCustom(

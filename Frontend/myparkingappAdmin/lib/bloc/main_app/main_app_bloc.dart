@@ -57,9 +57,8 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
         Images image = Images(
             event.request.avatar.imageID, uploadResponse.url, null);
         final UserRepository userRepository = UserRepository();
-        UpdateInfoResquest request = UpdateInfoResquest(
+        UpdateInfoRequest request = UpdateInfoRequest(
             username: event.request.username,
-            password: event.request.password,
             phoneNumber: event.request.phoneNumber,
             homeAddress: event.request.homeAddress,
             companyAddress: event.request.companyAddress,

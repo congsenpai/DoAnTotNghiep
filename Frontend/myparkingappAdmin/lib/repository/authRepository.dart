@@ -33,7 +33,7 @@ class AuthRepository {
       final response = await apiClient.login(username, password);
       print(response.data);
 
-      if (response.statusCode == 200) {
+      if (response.data["code"] == 200) {
         String accessToken = response.data['result']['accessToken'];
         String refreshToken = response.data['result']['refreshToken'];
         bool isAuth = response.data['result']['authenticated'] ?? false; 
@@ -48,7 +48,11 @@ class AuthRepository {
           isAuth,
         );
       } else {
-        throw Exception("_AuthRepository: login failed");
+        return ApiResult(
+          response.data['code'],
+          response.data['message'],
+          false,
+        );
       }
     } catch (e) {
       throw Exception("_AuthRepository: $e");
@@ -78,7 +82,7 @@ class AuthRepository {
       if (refreshToken == null) return;
 
       final response = await apiClient.refreshToken(refreshToken);
-      if (response.statusCode == 200) {
+      if (response.data["code"] == 200) {
         String newAccessToken = response.data['access_token'];
         saveToken('access_token', newAccessToken);
       }

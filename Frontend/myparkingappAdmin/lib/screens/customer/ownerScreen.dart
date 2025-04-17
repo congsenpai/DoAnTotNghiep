@@ -10,19 +10,19 @@ import '../../constants.dart';
 import '../general/header.dart';
 import 'components/customer_list.dart';
 
-class CustomerScreen extends StatefulWidget {
+class OwnerScreen extends StatefulWidget {
   final UserResponse user;
   final Function(Locale) onLanguageChange;
-  const CustomerScreen(
+  const OwnerScreen(
       {super.key,
       required this.user,
       required this.onLanguageChange});
 
   @override
-  _CustomerScreenState createState() => _CustomerScreenState();
+  _OwnerScreenState createState() => _OwnerScreenState();
 }
 
-class _CustomerScreenState extends State<CustomerScreen> {
+class _OwnerScreenState extends State<OwnerScreen> {
 
   bool SelectWalletList = false;
   bool SelectLotList = false;
@@ -40,25 +40,19 @@ class _CustomerScreenState extends State<CustomerScreen> {
       padding: EdgeInsets.all(defaultPadding),
       child: Column(children: [
         Header(
-            title: AppLocalizations.of(context).translate("Customer").toUpperCase(),
+            title: AppLocalizations.of(context).translate("owner").toUpperCase(),
             user: widget.user,
             onLanguageChange: widget.onLanguageChange),
         SizedBox(height: 10),
         Column(
           children: [
+            Container(
+              height: Get.height,
+              width: Get.width,
+              color: Theme.of(context).colorScheme.surface,
+              child: OwnerList(user: widget.user,)
+              ),
             SizedBox(height: defaultPadding),
-            if(widget.user.roles.contains('ADMIN'))
-              Container(
-                height: Get.height,
-                width: Get.width,
-                color: Theme.of(context).colorScheme.surface,
-                child: CustomerList()
-                ),
-            if(!widget.user.roles.contains('ADMIN'))
-              Center(child: Text(
-                    AppLocalizations.of(context).translate("you don't have permission").toUpperCase()
-                ),)
-
           ],
         ),
       ]),

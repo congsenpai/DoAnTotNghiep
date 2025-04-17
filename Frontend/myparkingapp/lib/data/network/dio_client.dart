@@ -7,10 +7,11 @@ import 'package:myparkingapp/data/repository/auth_repository.dart';
 
 class DioClient {
   final Dio dio = Dio();
+
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {
-    dio.options.baseUrl = "http://192.168.36.102:8080/myparkingapp/";
+    dio.options.baseUrl = "http://192.168.43.152:8080/myparkingapp/";
     dio.options.connectTimeout = const Duration(seconds: 20);
     dio.options.receiveTimeout = const Duration(seconds: 20);
     dio.options.headers['Content-Type'] = 'application/json';

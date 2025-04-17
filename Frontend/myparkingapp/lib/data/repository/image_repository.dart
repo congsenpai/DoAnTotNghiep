@@ -34,7 +34,7 @@ class ImageRepository {
         );
         return (cloudinary);
     } catch (e) {
-      throw Exception("Imagerepository_getApiCloud : $e");
+      throw Exception("ImageRepository_getApiCloud : $e");
     }
   }
 

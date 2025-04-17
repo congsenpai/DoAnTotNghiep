@@ -50,4 +50,19 @@ class WalletRepository{
   }
 
   }
+  Future<ApiResult> topUp(
+      TopUpRequest request,
+      ) async {
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.topUp(request);
+      Map<String, dynamic> jsonData = response.data;
+      int code = jsonData['code'];
+      String mess = jsonData['message'];
+      ApiResult apiResult = ApiResult(code, mess, null);
+      return apiResult;
+    } catch (e) {
+      throw Exception("TransactionRepository_topUp: $e");
+    }
+  }
 }

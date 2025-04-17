@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
   Locale _locale = const Locale('en'); // Ngôn ngữ mặc định là tiếng Anh
   void _changeLanguage(Locale locale) {
     setState(() {
+      print(locale);
       _locale = locale;
     });
   }

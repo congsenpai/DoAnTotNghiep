@@ -88,7 +88,7 @@ class Body extends StatelessWidget {
               ProfileMenuCard(
                 svgSrc: "assets/icons/marker.svg",
                 title: AppLocalizations.of(context).translate("Language"),
-                subTitle: AppLocalizations.of(context).translate("Add or remove your delivery locations"),
+                subTitle: AppLocalizations.of(context).translate("Change your language"),
                 press: () {
                   _showLanguageDialog();
                 },

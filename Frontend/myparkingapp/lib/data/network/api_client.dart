@@ -4,6 +4,7 @@ import 'package:myparkingapp/data/request/created_transaction_request.dart';
 import 'package:myparkingapp/data/request/created_wallet_request.dart';
 import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
+import 'package:myparkingapp/data/request/resetPassRequest.dart';
 import 'package:myparkingapp/data/request/update_user_request.dart';
 import 'package:myparkingapp/data/response/add_vehicle_request.dart';
 import 'package:myparkingapp/data/response/monthly_ticket_response.dart';
@@ -41,20 +42,17 @@ class ApiClient {
       final DioClient dioClient = DioClient();
 
       return await dioClient.dio.post(
-        "auth/giveEmail",
+        "auth/forgot-password",
         data: {
-          "gmail": gmail,
+          "email": gmail,
         },
       );
     }
-  Future<Response> giveRePassWord(String newPass, String token) async{
+  Future<Response> giveRePassWord(ResetPassRequest request) async{
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.put(
+    return await dioClient.dio.post(
       "auth/reset-password",
-       data: {
-        "userToken":token,
-        "newPassword":newPass,
-       },
+       data: request.toJson()
     );
   }
 
@@ -101,27 +99,7 @@ class ApiClient {
     );
   }
 
-  Future<Response> getTransactionsByUser({
-      required String userID, 
-      Transactions? tranType,
-      DateTime? start,
-      DateTime? end,
-    }) async {
-    final DioClient dioClient = DioClient();
-    
-    // Tạo URL động tùy theo tham số truyền vào
-    String url = "user/$userID/transactions/";
-    
-    if (tranType != null) {
-      url += "&type=$tranType";
-    }
-    
-    if (start != null && end != null) {
-      url += "&from=${start.toIso8601String()}&end=${end.toIso8601String()}";
-    }
 
-    return await dioClient.dio.get(url);
-  }
 
   Future<Response> changePassWord(String userID, String oldPass, String newPass) async{
     final DioClient dioClient = DioClient();
@@ -245,8 +223,7 @@ class ApiClient {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
       "wallets",
-      data:
-        wallet.toJson()
+      data:wallet.toJson()
 
     );
   }
@@ -254,13 +231,22 @@ class ApiClient {
   Future<Response> unlockOrUnlockWallet(String walletId, bool newState) async{
     final DioClient dioClient = DioClient();
     return await dioClient.dio.patch(
-      "wallet",
+      "wallets",
       data:{
         'walletId': walletId,
         'newState': newState,
       }
     );
   }
+
+  Future<Response> topUp(TopUpRequest request) async{
+    final DioClient dioClient = DioClient();
+    return await dioClient.dio.post(
+        "wallets/top-up",
+        data:request.toJson()
+    );
+  }
+
 
 
   //--------------------------Vehicle-----------------------------//
@@ -292,14 +278,53 @@ class ApiClient {
     String url = "auth/error";
     return await dioClient.dio.get(url);
   }
-//--------------------------  TRANSACTION  -----------------------------//
-  Future<Response> createTransactionByRecharge(CreatedTransactionRequest request) async{
+
+//--------------------------Transaction-----------------------------//
+
+  Future<Response> getTransactionsByUser({
+    required String userID,
+    Transactions? tranType,
+    DateTime? start,
+    DateTime? end,
+  }) async {
     final DioClient dioClient = DioClient();
-    return await dioClient.dio.post(
-      "transactions",
-      data:request.toJson(),
-    );
+
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "transactions/user/$userID";
+
+    if (tranType != null) {
+      url += "&type=$tranType";
+    }
+
+    if (start != null && end != null) {
+      url += "&from=${start.toIso8601String()}&end=${end.toIso8601String()}";
+    }
+
+    return await dioClient.dio.get(url);
   }
+
+  Future<Response> getTransactionsByWallet({
+    required String walletID,
+    Transactions? tranType,
+    DateTime? start,
+    DateTime? end,
+  }) async {
+    final DioClient dioClient = DioClient();
+
+    // Tạo URL động tùy theo tham số truyền vào
+    String url = "transactions/user/$walletID";
+
+    if (tranType != null) {
+      url += "&type=$tranType";
+    }
+
+    if (start != null && end != null) {
+      url += "&from=${start.toIso8601String()}&end=${end.toIso8601String()}";
+    }
+
+    return await dioClient.dio.get(url);
+  }
+
 
 
 }

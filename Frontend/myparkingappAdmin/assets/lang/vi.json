@@ -1,5 +1,7 @@
 {
-  "1": "Personnal",
+  "you don't have permission": "bạn không có quyền truy cập",
+  "owner": "Chủ bãi đỗ",
+  "customer": "Khách hàng",
   "hello": "Xin chào",
   "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi",
   "Setting": "Cài đặt",
@@ -67,11 +69,6 @@
   "Monthly ticket not found": "Không tìm thấy vé tháng",
   "Monthly ticket already exists": "Vé tháng đã tồn tại",
   "Monthly ticket not exists": "Vé tháng không tồn tại"
-
-
-
-
-  "2": " Loại ngôn ngữ",
   "English": "Tiếng Anh",
   "en": "en",
   "Vietnamese": "Tiếng Việt",

@@ -35,10 +35,10 @@ void _register(RegisterEvent event, Emitter<AuthState> emit) async{
   int code = apiResult.code;
   String mess = apiResult.message;
   if(code == 200){
-    emit(AuthSuccessState(mess));
+    emit(RegisterSuccessState(mess));
   }
   else{
-    emit(AuthErrorState(mess));
+    emit(RegisterErrorState(mess));
   }
 }
 
@@ -49,7 +49,7 @@ void _giveEmail(giveEmail event, Emitter<AuthState> emit) async{
   int code = apiResult.code;
   String mess = apiResult.message;
   if(code == 200){
-    emit(AuthSuccessState(mess));
+    emit(AuthSuccessState(apiResult.result));
   }
   else{
     emit(AuthErrorState(mess));
