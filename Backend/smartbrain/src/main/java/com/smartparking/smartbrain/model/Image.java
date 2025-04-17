@@ -1,4 +1,5 @@
 package com.smartparking.smartbrain.model;
+
 import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,18 +32,17 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "image_id", nullable = false, updatable = false)
+    @Column(name = "image_id", nullable = false,updatable = false)
     String imagesID;
     String url;
 
     // Relationship
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id",nullable = true)
+    @JoinColumn(name = "parking_lot_id", nullable = true)
     ParkingLot parkingLot;
 
     @OneToOne
-    @JoinColumn(name = "user_id",nullable = true)
+    @JoinColumn(name = "user_id", nullable = true)
     @JsonIgnore
     User user;
     // Timestamp

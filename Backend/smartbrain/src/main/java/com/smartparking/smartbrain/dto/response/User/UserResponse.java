@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.dto.response.User;
 
 import java.util.Set;
 
+import com.smartparking.smartbrain.dto.response.Image.ImageResponse;
 import com.smartparking.smartbrain.dto.response.Role.RoleResponse;
 import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
 import com.smartparking.smartbrain.enums.UserStatus;
@@ -29,5 +30,5 @@ public class UserResponse {
     Set<RoleResponse> roles;
     Set<VehicleResponse> vehicles;
     UserStatus status;
-    String image;
+    ImageResponse image;
 }

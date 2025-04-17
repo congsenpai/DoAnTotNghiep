@@ -144,7 +144,7 @@ public class AuthenticationSevice {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND));
         try {
-            String token = AESEncryption.encryptObject(user, SECRET_KEY);
+            String objectEncrypt = AESEncryption.encryptObject(user, SECRET_KEY);
             // send mail for password reset
             Map<String, Object> variables = new HashMap<>();
             variables.put("name", user.getFirstName());
@@ -154,7 +154,7 @@ public class AuthenticationSevice {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return ChangePasswordResponse.builder()
-                    .userToken(token)
+                    .userToken(objectEncrypt)
                     .build();
         } catch (Exception e) {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when send email");
@@ -162,11 +162,12 @@ public class AuthenticationSevice {
     }
 
     public void resetPassword(ResetPassRequest request) {
-        if (invalidatedRepository.existsById(request.getUserToken())) {
+        if (invalidatedRepository.existsById(request.getResetToken())) {
             throw new AppException(ErrorCode.TOKEN_EXPIRED);
         } else {
+            String resetToken = AESEncryption.hashToUUID(request.getUserToken());
             InvalidToken invalidToken = InvalidToken.builder()
-                    .tokenID(request.getUserToken())
+                    .tokenID(resetToken)
                     .expiryTime(new Date())
                     .build();
             invalidatedRepository.save(invalidToken);
@@ -184,7 +185,6 @@ public class AuthenticationSevice {
         } catch (Exception e) {
             throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when decrypt user");
         }
-
     }
 
 }

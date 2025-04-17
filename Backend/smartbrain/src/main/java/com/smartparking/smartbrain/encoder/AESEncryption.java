@@ -2,6 +2,7 @@ package com.smartparking.smartbrain.encoder;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -31,8 +32,8 @@ public class AESEncryption {
     // Mã hóa object thành chuỗi
     public static String encryptObject(Object obj, String signerKey) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new JavaTimeModule())
-        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Hỗ trợ Java 8 Date/Time
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Hỗ trợ Java 8 Date/Time
         logObject("This object is", obj);
         String json = objectMapper.writeValueAsString(obj); // Chuyển object thành JSON
         return encrypt(json, signerKey);
@@ -41,10 +42,10 @@ public class AESEncryption {
     // Giải mã chuỗi thành object
     public static <T> T decryptObject(String encryptedData, String signerKey, Class<T> clazz) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new JavaTimeModule())
-        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         String decryptedJson = decrypt(encryptedData, signerKey);
-        log.info("The object after decrypt: {}",decryptedJson);
+        log.info("The object after decrypt: {}", decryptedJson);
         return objectMapper.readValue(decryptedJson, clazz);
     }
 
@@ -76,10 +77,11 @@ public class AESEncryption {
             throw e; // Bắn lại exception để debug
         }
     }
+
     public static void logObject(String message, Object object) {
         ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new JavaTimeModule())
-        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             String json = objectMapper.writeValueAsString(object);
             log.info("{}: {}", message, json);
@@ -87,4 +89,32 @@ public class AESEncryption {
             log.error("Error serializing object: {}", e.getMessage());
         }
     }
+
+    public static String hashToUUID(String input) {
+        try {
+            input = input + "parkingappBCP";
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+            String hex = bytesToHex(hashBytes);
+
+            // Format thành UUID
+            return String.format("%s-%s-%s-%s-%s",
+                    hex.substring(0, 8),
+                    hex.substring(8, 12),
+                    hex.substring(12, 16),
+                    hex.substring(16, 20),
+                    hex.substring(20, 32));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
 }

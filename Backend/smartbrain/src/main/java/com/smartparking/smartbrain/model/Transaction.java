@@ -25,8 +25,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Entity
 @Table(name = "transactions")
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

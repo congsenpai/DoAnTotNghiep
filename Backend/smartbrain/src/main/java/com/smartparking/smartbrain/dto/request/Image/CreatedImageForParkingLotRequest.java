@@ -17,5 +17,6 @@ import lombok.experimental.FieldDefaults;
 public class CreatedImageForParkingLotRequest {
     List<String> imageURLs;
     String parkingLotID;
+    List<String> imageIDs;
 }
 

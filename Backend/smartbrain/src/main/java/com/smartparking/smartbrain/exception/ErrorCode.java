@@ -77,6 +77,7 @@ public enum ErrorCode {
     TRANSACTION_NOT_FOUND(0201, "Transaction not found"),
     TRANSACTION_ALREADY_EXISTS(0202, "Transaction already exists"),
     TRANSACTION_NOT_EXISTS(0203, "Transaction not exists"),
+    TRANSACTION_TYPE_NOT_EXIST(0204, "Transaction type not exists"),
     // Monthly ticket errors
     MONTHLY_TICKET_NOT_FOUND(0301, "Monthly ticket not found"),
     MONTHLY_TICKET_ALREADY_EXISTS(0302, "Monthly ticket already exists"),
