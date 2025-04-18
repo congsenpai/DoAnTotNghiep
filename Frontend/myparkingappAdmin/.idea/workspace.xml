@@ -10,48 +10,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac06cfe-a218-4051-816f-bb68f96d3dd6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/TransactionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/assets/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/assets/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/assets/lang/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/assets/lang/vi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/bloc/transaction/transaction_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/components/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/components/app_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/network/api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/repository/transaction_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/repository/transaction_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/request/created_transaction_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/request/created_transaction_request.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/response/monthly_ticket_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/response/monthly_ticket_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/response/transaction_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/response/transaction_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/acceptLocation/loading_location_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/acceptLocation/loading_location_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/components/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/components/info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/component/chard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/component/chard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/component/filter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/component/filter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/dash_board_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/dashboard/dash_board_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/details_parkinglot/components/lot_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/details_parkinglot/components/lot_info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/home/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/QR_invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/QR_invoice_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/components/invoice_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/components/invoice_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/components/total_price.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/components/total_price.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/invoice_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/invoice_details_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/invoice_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/order_invoice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/invoice/order_invoice_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/search/search_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/search/search_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/component/filter_transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/component/filter_transaction.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/component/transaction_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/component/transaction_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/transaction_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/transaction/transaction_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/network/dio_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/dashboard/dashboard_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/dashboard/dashboard_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/main_app_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/main_app_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/main_app_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/main_app_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_slot/slot_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_slot/slot_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/tran_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/tran_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/tran_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/tran_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/dto/request/owner_request/update_parking_lot_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/request/owner_request/update_parking_lot_request.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/parkingLot_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/parkingLot_response.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/dto/response/transaction_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/transaction_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/user_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/user_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/wallet_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/wallet_response.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/authRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/authRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/demodata.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/demodata.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/discountRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/discountRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/qr_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/qr_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/add_owner.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/add_owner.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/discount/discount_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/discount/discount_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_list.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +156,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/repository/invoiceRepository.dart</url>
-          <line>5</line>
+          <line>6</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -172,86 +178,6 @@
           <url>file://$PROJECT_DIR$/lib/bloc/customer/customer_bloc.dart</url>
           <line>70</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>49</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>50</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>51</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>52</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>53</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>54</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>55</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>56</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>57</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>58</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>59</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>60</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>61</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>62</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>63</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/data/dto/response/user_response.dart</url>
-          <line>64</line>
-          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

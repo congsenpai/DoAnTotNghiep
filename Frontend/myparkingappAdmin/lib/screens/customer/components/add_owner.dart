@@ -29,7 +29,7 @@ class _AddOwnerState extends State<AddOwner> {
   final TextEditingController _firstnameController= TextEditingController(text: "Bao");
   final TextEditingController _emailController = TextEditingController(text: "hagiabao980@gmail.com");
   final TextEditingController _numberPhoneController = TextEditingController(text: "0888379199");
-  final TextEditingController _roleController = TextEditingController(text: "PARKING_OWNE");
+  final TextEditingController _roleController = TextEditingController(text: "PARKING_OWNER");
   final TextEditingController _statusController = TextEditingController(text: UserStatus.ACTIVE.toString());
   Uint8List? _imageBytes;// URL từ Cloudinary
   final String publicId =  DateTime.now().millisecondsSinceEpoch.toString();

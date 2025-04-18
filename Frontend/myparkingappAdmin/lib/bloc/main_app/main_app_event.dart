@@ -23,9 +23,9 @@ class ScannerEvent extends MainAppEvent{
 
 class UpdatesPassEvent extends MainAppEvent{
   String userId;
-  String oldderPass;
+  String olderPass;
   String newPass;
-  UpdatesPassEvent(this.userId,this.oldderPass,this.newPass);
+  UpdatesPassEvent(this.userId,this.olderPass,this.newPass);
 }
 class LogoutEvent extends MainAppEvent{
 }

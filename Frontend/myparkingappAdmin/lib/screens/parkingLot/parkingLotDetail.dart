@@ -232,7 +232,7 @@ void _deleteImage(Images image) {
                     )),
               ],
             ),
-            SizedBox(height: defaultPadding),
+            SizedBox(height: 10),
 
             TextFieldCustom(
               editController: _descriptionController,
@@ -240,7 +240,7 @@ void _deleteImage(Images image) {
               isEdit: isEdit,
             ),
 
-            SizedBox(height: defaultPadding),
+            SizedBox(height: 10),
             // Tiêu đề
           ],
         ),

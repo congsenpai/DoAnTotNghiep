@@ -1,3 +1,4 @@
+import '../dto/response/parkingLot_response.dart';
 import 'dio_client.dart';
 import 'package:dio/dio.dart';
 import '../dto/request/entry_request.dart';
@@ -111,7 +112,7 @@ class ApiClient {
   Future<Response> getParkingLotByOwner(String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "parkinglots/user/$userId/",
+      "parkinglots/user/$userId",
     );
   }
 
@@ -164,7 +165,7 @@ class ApiClient {
   Future<Response> getListDiscountByLot(String parkingSlotID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "parkinglots/$parkingSlotID/discount",
+      "parkinglots/$parkingSlotID/discounts",
     );
   }
 
@@ -231,10 +232,10 @@ class ApiClient {
   Future<Response> getTransactionsByWallet(
     String walletId,
   ) async {
+    print("___________________________________________");
     final DioClient dioClient = DioClient();
-
     // Tạo URL động tùy theo tham số truyền vào
-    String url = "transactions/wallet/$walletId";
+    String url = "transactions/wallet/$walletId?type=PAYMENT&page=0&size=100";
 
     return await dioClient.dio.get(url);
   }

@@ -11,7 +11,7 @@ import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import 'package:myparkingappadmin/screens/general/search.dart';
 import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.dart';
-import 'package:myparkingappadmin/screens/wallet/WalletList.dart';
+import 'package:myparkingappadmin/screens/wallet/wallet_list.dart';
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';

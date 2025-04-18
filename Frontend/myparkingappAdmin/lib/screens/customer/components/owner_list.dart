@@ -32,7 +32,7 @@ class _OwnerListState extends State<OwnerList> {
   bool isDetail = false;
   List<UserResponse> customers = [];
   List<UserResponse> _allCustomers = [];
-  UserResponse user = UserResponse.empty();
+  UserResponse? user;
   final HashSet<String> objectColumnNameOfCustomer =
       HashSet.from(["FullName", "Actions"]);
   final TextEditingController _searchController = TextEditingController();
@@ -164,7 +164,7 @@ class _OwnerListState extends State<OwnerList> {
                   isDetail
                       ? Expanded(
                           child: UserDetail(
-                            user: user,
+                            user: user!,
                           ),
                         )
                       : SizedBox(

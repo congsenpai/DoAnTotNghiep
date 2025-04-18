@@ -94,7 +94,7 @@ class MainAppBloc extends Bloc<MainAppEvent, MainAppState> {
     try {
       final UserRepository userRepository = UserRepository();
       ApiResult userResult = await userRepository.changePassWord(
-          event.userId, event.oldderPass, event.newPass);
+          event.userId, event.olderPass, event.newPass);
       String message = userResult.message;
       int code = userResult.code;
       if (code == 200) {

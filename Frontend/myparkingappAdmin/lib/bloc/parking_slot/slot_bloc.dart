@@ -21,15 +21,7 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
        if(apiResult.code == 200){
 
         List<ParkingSlotResponse> parkingSlotResponse = apiResult.result;
-        Set<String> floorNames = parkingSlotResponse
-        .map((slot) => slot.slotName.split('-').first)
-        .toSet();
-        List<SLotByFloor> slotsByFloor = [];
-        for(var floorName in floorNames){
-          List<ParkingSlotResponse> slotsOnFloor = parkingSlotResponse.where((slot) => slot.slotName.startsWith(floorName)).toList();
-          SLotByFloor slotByFloor = SLotByFloor(floorName, floorNames.toList(), slotsOnFloor );
-          slotsByFloor.add(slotByFloor);
-       }
+        List<SLotByFloor> slotsByFloor = loadDataOnFloor(parkingSlotResponse);
        emit(ParkingSlotLoadedState(slotsByFloor));
        }
        else{
@@ -55,3 +47,30 @@ class  ParkingSlotBloc extends Bloc< ParkingSlotEvent, ParkingSlotState>{
        throw Exception("ParkingSlotBloc_updateParkingSlot:  $e");
      }
    }
+ List<SLotByFloor> loadDataOnFloor(List<ParkingSlotResponse> slots) {
+  // Dùng RegExp để tách ký tự trong ngoặc làm tên tầng
+  RegExp regExp = RegExp(r'\((\w)\)');
+
+  // Lấy danh sách các tên tầng duy nhất
+  Set<String> floorSet = slots.map((slot) {
+    Match? match = regExp.firstMatch(slot.slotName);
+    return match?.group(1) ?? 'Unknown';
+  }).toSet();
+
+  // Sắp xếp theo ABC
+  List<String> floorNames = floorSet.toList()..sort();
+
+  List<SLotByFloor> data = [];
+
+  for (var name in floorNames) {
+    List<ParkingSlotResponse> slot = slots.where((i) {
+      Match? match = regExp.firstMatch(i.slotName);
+      return match?.group(1) == name;
+    }).toList();
+
+    SLotByFloor dataOnFloor = SLotByFloor(name,  floorNames,slot);
+    data.add(dataOnFloor);
+  }
+
+  return data;
+}

@@ -29,7 +29,7 @@ class _TransactionListState extends State<TransactionList> {
   Set<String> objectColumnNameOfTransaction = HashSet.from([
     "TranId",
     "Date",
-    "Amount",
+    "CurrentDetail",
     "Detail",
   ]);
 
@@ -151,9 +151,9 @@ class _TransactionListState extends State<TransactionList> {
   DataRow _buildDataRow(TransactionResponse transaction, BuildContext context) {
     return DataRow(
       cells: [
-        DataCell(Text(transaction.status.name)),
         DataCell(Text(transaction.currentBalance.toString())),
         DataCell(Text(transaction.createAt.toString())),
+        DataCell(Text(transaction.currentBalance.toString())),
         DataCell(Row(
           children: [
             Expanded(

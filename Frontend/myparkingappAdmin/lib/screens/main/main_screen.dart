@@ -119,8 +119,10 @@ class _MainScreenState extends State<MainScreen> {
           );
         }
         else if(state is SuccessQrScanner){
-          SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
               content: Text(AppLocalizations.of(context).translate(state.mess)),
+            ),
           );
         }
       })

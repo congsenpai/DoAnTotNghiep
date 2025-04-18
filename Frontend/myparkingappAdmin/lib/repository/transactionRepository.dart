@@ -16,7 +16,7 @@ class TransactionRepository {
       int code = response.data["code"];
       String mess = response.data["message"];
       if(code == 200){
-        List<TransactionResponse> trans = (response.data["result"] as List)
+        List<TransactionResponse> trans = (response.data["result"]["content"] as List)
             .map((item) => TransactionResponse.fromJson(item))
             .toList();
         ApiResult apiResult = ApiResult(
@@ -43,7 +43,7 @@ class TransactionRepository {
       int code = response.data["code"];
       String mess = response.data["message"];
       if(code == 200){
-                List<TransactionResponse> trans = (response.data["result"] as List)
+                List<TransactionResponse> trans = (response.data["result"]["content"] as List)
             .map((item) => TransactionResponse.fromJson(item))
             .toList();
         ApiResult apiResult = ApiResult(
