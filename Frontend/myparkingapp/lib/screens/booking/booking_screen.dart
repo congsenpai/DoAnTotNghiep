@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/booking/booking_bloc.dart';
@@ -127,7 +128,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           const SizedBox(height: defaultPadding),
 
                           if (isMonthly) ...[
-                            RequiredSectionTitle(title: "Choice Month : ${ selectMonth.monthName}"),
+                            RequiredSectionTitle(title: " ${AppLocalizations.of(context).translate("Choice Month")} : ${ selectMonth.monthName}"),
                             const SizedBox(height: defaultPadding),
 
                             Row(
@@ -154,12 +155,14 @@ class _BookingScreenState extends State<BookingScreen> {
                           ],
 
                           if (isDate) ...[
-                            RequiredSectionTitle(title: "${AppLocalizations.of(context).translate("Start Time ")} :"),
+                            RequiredSectionTitle(title: "${AppLocalizations.of(context).translate("Start Time")} :"),
                             SizedBox(height: 8),
-                            Text(
-                              start.toString(),
-                              maxLines: 1,
-                              style: Theme.of(context).textTheme.titleLarge,
+                            Center(
+                              child: Text(
+                              DateFormat('dd/MM/yyyy HH:mm:ss').format(start).toString(),
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
                             ),
                           ],
 
@@ -174,10 +177,10 @@ class _BookingScreenState extends State<BookingScreen> {
                             },
                             child: Text(
                               vehicles.isEmpty
-                                  ? "You haven't added vehicle"
+                                  ? AppLocalizations.of(context).translate("You haven't added vehicle")
                                   : vehicle != null
-                                  ? "Choice a vehicle : ${vehicle!.licensePlate}"
-                                  : "Choice a vehicle",
+                                  ? "${AppLocalizations.of(context).translate("Choice a vehicle")} : ${vehicle!.licensePlate}"
+                                  : AppLocalizations.of(context).translate("Choice a vehicle"),
                             ),
                           ),
                           const SizedBox(height: defaultPadding),
@@ -210,10 +213,11 @@ class _BookingScreenState extends State<BookingScreen> {
                             },
                             child: Text(
                               discounts.isEmpty
-                                  ? "There wasn't any suitable discount"
+                                  ? AppLocalizations.of(context).translate("There wasn't any suitable discount")
                                   : discount != null
-                                  ? "Choice a favorite discount : ${discount!.discountCode}"
-                                  : "Choice a favorite discount :",
+                                  ? "${AppLocalizations.of(context).translate(
+                                  "Choice a favorite discount")} : ${discount!.discountCode}"
+                                  : AppLocalizations.of(context).translate("Choice a favorite discount :"),
                             ),
                           ),
                           const SizedBox(height: defaultPadding),
@@ -224,7 +228,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 
                                 ...discounts.map((d) => RoundedCheckboxListTile(
                                       isActive: (discount == d),
-                                      text: "${d.discountCode} ${  AppLocalizations.of(context).translate(d.discountValue.toString())} ${d.discountType == DiscountType.FIXED ? "VNĐ" : "%"}",
+                                      text: "${d.discountCode} ${  AppLocalizations.of(context).translate(d.discountValue.toString())} ${d.discountType == DiscountType.FIXED ? "USD" : "%"}",
                                       press: () {
                                         setState(() {
                                           discount = d;
@@ -236,7 +240,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
 
                           const SizedBox(height: defaultPadding),
-                          RequiredSectionTitle(title: "Choice a wallet : "),
+                          RequiredSectionTitle(title: "Choice a wallet :"),
 
                           // Nút ẩn/hiện Wallet
                           ElevatedButton(
@@ -247,10 +251,10 @@ class _BookingScreenState extends State<BookingScreen> {
                             },
                             child: Text(
                               wallets.isEmpty
-                                  ? "You haven't added a wallet"
+                                  ? AppLocalizations.of(context).translate("You haven't added a wallet")
                                   : wallet != null
-                                  ? "Choice a wallet : ${wallet!.name}"
-                                  : "Choice a wallet :",
+                                  ? "${AppLocalizations.of(context).translate("Choice a wallet")} : ${wallet!.name}"
+                                  : AppLocalizations.of(context).translate("Choice a wallet :"),
                             ),
 
                           ),
@@ -295,7 +299,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 }
 
                               },
-                              child:  Text(AppLocalizations.of(context).translate("Booking Now")),
+                              child:  Text(AppLocalizations.of(context).translate("Booking Now").toUpperCase()),
                             ),
                           ),
                         ),const SizedBox(height: defaultPadding),

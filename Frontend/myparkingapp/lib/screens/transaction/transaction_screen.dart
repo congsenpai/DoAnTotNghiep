@@ -9,7 +9,7 @@ import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/components/pagination_button.dart';
 import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
-import 'package:myparkingapp/screens/transaction/component/transaction_list.dart';
+import 'package:myparkingapp/screens/transaction/component/transaction_item.dart';
 import 'package:myparkingapp/screens/transaction/component/filter_transaction.dart';
 import 'package:myparkingapp/screens/wallet/wallet_screen.dart';
 import '../../constants.dart';
@@ -27,15 +27,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
   List<TransactionResponse> trans = [];
   int page = 1;
   int pageTotal = 1;
-  String searchText = "";
-  Transactions type = Transactions.PAYMENT;
-  DateTime start = DateTime(2020,12,20);
-  DateTime end= DateTime.now();
+  TransactionType type = TransactionType.PAYMENT;
   bool _fillScreen = false;
+  int size = 10;
   @override
   void initState() {
     super.initState();
-    context.read<TransactionBloc>().add(LoadAllTransactionEvent(widget.wallet,page));
+    context.read<TransactionBloc>().add(LoadTransactionEvent(widget.wallet, type, page,size));
   }
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
           trans = state.trans;
           page = state.page;
           pageTotal = state.pageTotal;
-          type = state.type!;
+          type = state.type;
+          size= state.size;
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -61,7 +60,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     padding: EdgeInsets.zero,
                   ),
                   child: const Icon(Icons.close, color: Colors.white),
-                  onPressed: () => WalletScreen(),
+                  onPressed: () =>{
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WalletScreen()))
+                  },
                 ),
               ),
               title: Text(AppLocalizations.of(context).translate("Your Transactions")),
@@ -70,35 +71,39 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   setState(() {
                     _fillScreen = !_fillScreen;
                   });
-                }, icon: Icon(Icons.filter))
+                }, icon: Icon(Icons.filter_alt))
               ],
             ),
             body: SingleChildScrollView(
               child: Padding(
                 
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Column(
-                  children: [
-                    const SizedBox(height: defaultPadding),
-                    _fillScreen?FilterTransaction(type: type, start: start, end: end, wallet: widget.wallet, trans: trans):
-                    const SizedBox(height: defaultPadding),
-                    // List of cart items
-                    ...List.generate(
-                      trans.length,
-                          (index) => Padding(
-                        padding:
-                        const EdgeInsets.symmetric(vertical: defaultPadding / 2),
-                        child: TransactionItem(tran: trans[index],)
+                child: trans.isNotEmpty ?
+                  Column(
+                    children: [
+                      const SizedBox(height: defaultPadding),
+                      _fillScreen
+                          ?FilterTransaction(type: type, wallet: widget.wallet, page: page,size: size,):
+                      const SizedBox(height: defaultPadding),
+                      // List of cart items
+                      ...List.generate(
+                        trans.length,
+                            (index) => Padding(
+                          padding:
+                          const EdgeInsets.symmetric(vertical: defaultPadding / 2),
+                          child: TransactionItem(tran: trans[index],)
+                          ),
                         ),
-                      ),
-                    PaginationButtons(page: page, pageTotal: pageTotal, onPageChanged: (newPage) {
-                        setState(() {
-                          page = newPage;
-                          context.read<TransactionBloc>().add(LoadTransactionEvent(widget.wallet, end, start, type, page));// Gọi hàm search
-                        });
-                        // Gọi API hoặc cập nhật dữ liệu cho trang mới
-                      },)
-                  ],
+                      PaginationButtons(page: page, pageTotal: pageTotal, onPageChanged: (newPage) {
+                          setState(() {
+                            page = newPage;
+                            context.read<TransactionBloc>().add(LoadTransactionEvent(widget.wallet, type, page,size));// Gọi hàm search
+                          });
+                          // Gọi API hoặc cập nhật dữ liệu cho trang mới
+                        },)
+                    ],
+                  ): Center(
+                  child: Text(AppLocalizations.of(context).translate("You wasn't any transaction !")),
                 ),
               ),
             ),
@@ -108,7 +113,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
         return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
     }, listener: (context,state){
         if(state is TransactionErrorState){
-          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
+          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess),onPress: (){
+            context.read<TransactionBloc>().add(LoadTransactionEvent(widget.wallet, type, page,size));
+          });
+
         }
     });
   }

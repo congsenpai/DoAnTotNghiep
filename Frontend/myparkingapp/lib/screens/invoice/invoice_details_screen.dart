@@ -77,7 +77,9 @@ class InvoiceDetailsScreen extends StatelessWidget {
                         AppDialog.showDetailDiscount(context, invoice.discount!);
                       },
                     ):
-                SizedBox(height: Get.width/30),
+                SizedBox(height: 10),
+
+                SizedBox(height: 10),
                 PrimaryButton(
                   text: "${AppLocalizations.of(context).translate("Vehicle")} : ${invoice.vehicle.licensePlate}",
                   press: () {
@@ -86,7 +88,7 @@ class InvoiceDetailsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Spacer(),
-                TotalPrice(price: invoice.totalAmount, current: '',),
+                TotalPrice(price: invoice.totalAmount, current: 'USD',),
                 SizedBox(height: Get.width/10),
               ],
             ),

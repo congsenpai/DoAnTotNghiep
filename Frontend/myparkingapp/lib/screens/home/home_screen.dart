@@ -104,9 +104,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  ElevatedButton(onPressed: ()=>{
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen(user: user,)))
-                  }, child: Text(AppLocalizations.of(context).translate("Go to Ordering Invoice"))),
+                  Center(
+                    child: SizedBox(
+                      width: Get.width/2,
+                      child: ElevatedButton(onPressed: ()=>{
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen(user: user,)))
+                      }, child: Text(AppLocalizations.of(context).translate("Go to OR Ordering"))),
+                    ),
+                  ),
 
                   const SizedBox(height: defaultPadding),
                   // Banner

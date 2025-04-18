@@ -41,7 +41,6 @@ class _OrderInvoiceScreenState extends State<OrderInvoiceScreen> {
           );
         } else if (state is GetCurrentInvoiceState) {
           invoices = state.invoices;
-          print("OrderInvoiceScreen : ${invoices.length}");
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,

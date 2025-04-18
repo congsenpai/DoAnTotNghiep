@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-enum TransactionType { TOP_UP, PAYMENT }
+enum TransactionType { TOP_UP, PAYMENT,DEPOSIT,RETURN_DEPOSIT }
 enum TransactionStatus { COMPLETED, PENDING, FAILED }
 
 class TransactionResponse {

@@ -8,27 +8,24 @@ class TransactionRepository {
   Future<ApiResult> getTransactionByWalletDateTypePage(
     WalletResponse wallet,
     int page,
-    Transactions? tranType,
-    DateTime? start,
-    DateTime? end,
+    TransactionType tranType,
+      int size
+
   ) async {
     try {
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.getTransactions(
-        walletId: wallet.walletId,
+      final response = await apiClient.getTransactionsByWallet(
         page: page,
         tranType: tranType,
-        start: start,
-        end: end,
+        walletID: wallet.walletId, size: size,
       );
       Map<String, dynamic> jsonData = response.data;
       int code = jsonData['code'];
       String mess = jsonData['message'];
-      if (response.statusCode == 200) {
-        int page = jsonData['result']['page'];
-        int pageTotal = jsonData['result']['pageTotal'];
+      if (code == 200) {
+        int pageTotal = jsonData['result']['totalPages'];
         List<TransactionResponse> trans =
-            (jsonData['result']['transactions'] as List)
+            (jsonData['result']['content'] as List)
                 .map((json) => TransactionResponse.fromJson(json))
                 .toList();
 
@@ -36,9 +33,16 @@ class TransactionRepository {
 
         ApiResult apiResult = ApiResult(code, mess, result);
         return apiResult;
-      } else {
-        ApiResult apiResult = ApiResult(code, mess, null);
+      } else if(code == 129){
+        TransactionOnPage result = TransactionOnPage([], page, 0);
+        ApiResult apiResult = ApiResult(code, mess, result);
         return apiResult;
+      }
+      else{
+        {
+          ApiResult apiResult = ApiResult(code, mess, null);
+          return apiResult;
+        }
       }
     } catch (e) {
       throw Exception(
@@ -49,32 +53,23 @@ class TransactionRepository {
 
   Future<ApiResult> getTransactionByUserDateTypePage(
     String userID,
-    Transactions? tranType,
-    DateTime? start,
-    DateTime? end,
+      int size
   ) async {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.getTransactionsByUser(
-        userID: userID,
-        tranType: tranType,
-        start: start,
-        end: end,
+        userID: userID, size: size,
       );
       Map<String, dynamic> jsonData = response.data;
       int code = jsonData['code'];
       String mess = jsonData['message'];
       if (code == 200) {
-        int page = 1;
-        int pageTotal = 1;
         List<TransactionResponse> trans =
-            (jsonData['result']['transactions'] as List)
-                .map((json) => TransactionResponse.fromJson(json))
-                .toList();
+          (jsonData['result']['content'] as List)
+            .map((json) => TransactionResponse.fromJson(json))
+            .toList();
 
-        TransactionOnPage result = TransactionOnPage(trans, page, pageTotal);
-
-        ApiResult apiResult = ApiResult(code, mess, result);
+        ApiResult apiResult = ApiResult(code, mess, trans);
         return apiResult;
       } else {
         ApiResult apiResult = ApiResult(code, mess, null);

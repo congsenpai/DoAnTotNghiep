@@ -6,28 +6,30 @@ abstract class TransactionEvent {}
 
 class LoadTransactionEvent extends TransactionEvent{
   WalletResponse wallet;
-  DateTime start;
-  DateTime end;
-  Transactions type;
+  int size;
+  TransactionType type;
   int page;
-  LoadTransactionEvent(this.wallet, this.start,this.end, this.type, this.page);
+  LoadTransactionEvent(this.wallet, this.type, this.page,this.size);
 }
 
-class LoadAllTransactionEvent extends TransactionEvent{
-  WalletResponse wallet;
-  int page;
-  LoadAllTransactionEvent(this.wallet, this.page);
-}
 
 class LoadAllTransactionByTimeEvent extends TransactionEvent{
   UserResponse userResponse;
-  DateTime start;
-  DateTime end;
-  Transactions type;
-  LoadAllTransactionByTimeEvent(this.userResponse, this.start, this.end, this.type);
+  int size;
+  LoadAllTransactionByTimeEvent(this.userResponse, this.size);
 }
 
-class ExportExcellEvent extends TransactionEvent{
+class FilterTransactionByTimeEvent extends TransactionEvent{
+  int size;
+   TransactionType? type;
+   DateTime? start;
+   DateTime? end;
+  final List<TransactionResponse> tran;
+
+  FilterTransactionByTimeEvent(this.type, this.start, this.end, this.tran,this.size);
+}
+
+class ExportExcelEvent extends TransactionEvent{
 
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/data/request/give_coordinates_request.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
@@ -66,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                   index == _selectedIndex ? primaryColor : bodyTextColor,
                   BlendMode.srcIn),
             ),
-            label: _navitems[index]["title"],
+            label: AppLocalizations.of(context).translate(_navitems[index]["title"]),
           ),
         ),
       ),

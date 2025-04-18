@@ -8,6 +8,7 @@ import com.smartparking.smartbrain.dto.response.PagedResponse;
 import com.smartparking.smartbrain.dto.response.Wallet.TransactionResponse;
 import com.smartparking.smartbrain.service.TransactionService;
 
+import jakarta.websocket.server.PathParam;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -72,7 +74,7 @@ public class TransactionController {
 
     @GetMapping("/wallet/{walletID}")
     public ApiResponse<PagedResponse<TransactionResponse>> getAllTransactionByWallet(
-            @RequestParam String walletID,
+            @PathVariable String walletID,
             @RequestParam String type,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

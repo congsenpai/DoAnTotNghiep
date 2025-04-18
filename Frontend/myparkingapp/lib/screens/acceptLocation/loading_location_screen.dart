@@ -57,8 +57,8 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
                   Spacer(),
                   ImageContent(
                     illustration: "assets/Illustrations/register.svg",
-                    title: "Find parking slot near you",
-                    text: "Please allow access to \nyour location to find parking lot near you.",),
+                    title: "find_parking_slot_near_you",
+                    text: "allow_access_to_location",),
                   Spacer(),
 
                   // Getting Current Location
@@ -78,8 +78,8 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          "Use current location",
+                        Text(AppLocalizations.of(context).translate(
+                          "use_current_location"),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -101,7 +101,7 @@ class _AcceptLocationScreenState extends State<AcceptLocationScreen> {
                               ),
                             );
                           },
-                          child:  Text(AppLocalizations.of(context).translate("Continue")),
+                          child:  Text(AppLocalizations.of(context).translate("continue")),
                         ),
                   Spacer(),
                   const SizedBox(height: defaultPadding),

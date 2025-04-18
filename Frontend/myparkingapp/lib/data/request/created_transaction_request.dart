@@ -5,7 +5,7 @@ import 'package:myparkingapp/data/response/transaction_response.dart';
 class CreatedTransactionRequest {
   double currentBalance;
   String description;
-  Transactions type;
+  TransactionType type;
   String walletId;
 
   CreatedTransactionRequest({
