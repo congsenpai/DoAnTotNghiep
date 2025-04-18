@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 
-enum LotStatus { ON, OFF, FULL_SLOT }
 
 class UpdateParkingLotRequest {
   String parkingLotName;

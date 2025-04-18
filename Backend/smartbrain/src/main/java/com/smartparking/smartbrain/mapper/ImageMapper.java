@@ -17,7 +17,7 @@ import com.smartparking.smartbrain.model.Image;
 public interface ImageMapper {
     @Mapping(source = "userID", target = "user", qualifiedByName = "mapUser")
     @Mapping(source = "imageURL", target = "url")
-    @Mapping(target = "imagesID", ignore = true)
+    @Mapping(target = "imagesID", source = "imagesID")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "parkingLot", ignore = true)

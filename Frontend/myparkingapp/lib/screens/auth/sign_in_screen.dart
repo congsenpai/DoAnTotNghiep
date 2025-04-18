@@ -82,7 +82,7 @@ class SignInScreen extends StatelessWidget {
       }, 
       listener: (context,state) {
         if(state is AuthSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess, onPress:  setGetUser);
+          return AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess), onPress:  setGetUser);
         }
         else if(state is AuthErrorState){
           return AppDialog.showErrorEvent(context, state.mess);

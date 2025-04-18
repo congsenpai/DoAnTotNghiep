@@ -65,9 +65,9 @@ class AuthRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.register(user);
       if (response.data['code'] == 200) {
-        return ApiResult(response.data['code'], response.data['mess'], '');
+        return ApiResult(response.data['code'], response.data['message'], '');
       } else {
-        return ApiResult(response.data['code'], response.data['mess'], '');
+        return ApiResult(response.data['code'], response.data['message'], '');
       }
     } catch (e) {
       throw Exception("_AuthRepository_register: $e");

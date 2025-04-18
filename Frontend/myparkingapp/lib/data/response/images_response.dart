@@ -22,7 +22,7 @@ class ImagesResponse {
   Map<String, dynamic> toJson() {
     return {
       'imagesID': imagesID,
-      'url': url,
+      'imageURL': url,
     };
   }
 }

@@ -22,7 +22,7 @@ class WalletResponse {
   /// **Chuyển từ JSON sang `Wallet` object**
   factory WalletResponse.fromJson(Map<String, dynamic> json) {
     return WalletResponse(
-      walletId: json["walletId"] ?? '',
+      walletId: json["walletID"] ?? '',
       userId: json["userId"] ?? '',
       name: json["name"] ?? '',
       balance: (json["balance"] ?? 0).toDouble(),

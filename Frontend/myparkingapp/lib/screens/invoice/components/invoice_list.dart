@@ -47,7 +47,7 @@ class InvoiceList extends StatelessWidget {
               ),
               const SizedBox(width: defaultPadding / 2),
               Text(
-                "VNĐ ${invoice.totalAmount}",
+                "USD ${invoice.totalAmount}",
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall!

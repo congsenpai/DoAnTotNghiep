@@ -98,55 +98,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
     }, listener: (context,state){
         if(state is InvoiceErrorState){
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
         }
     });
-  }
-}
-
-class SearchForm extends StatefulWidget {
-  final UserResponse user;
-  final int page;
-  const SearchForm({super.key, required this.user, required this.page});
-
-  @override
-  State<SearchForm> createState() => _SearchFormState();
-}
-
-class _SearchFormState extends State<SearchForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _controller = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: TextFormField(
-        controller: _controller,
-        onFieldSubmitted: (value) {
-          if (_formKey.currentState!.validate()) {
-            context.read<InvoiceBloc>().add(InvoiceInitialEvent(widget.page)) ;// Gọi hàm search
-          }
-        },
-        validator: requiredValidator.call,
-        style: Theme.of(context).textTheme.labelLarge,
-        textInputAction: TextInputAction.search,
-        decoration: InputDecoration(
-          hintText: "Search invoice...",
-          contentPadding: kTextFieldPadding,
-          prefixIcon: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(
-              'assets/icons/search.svg',
-              colorFilter: const ColorFilter.mode(
-                bodyTextColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 

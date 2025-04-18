@@ -14,7 +14,10 @@ class  TransactionBloc extends Bloc< TransactionEvent, TransactionState>{
        emit(TransactionLoadingState());
        TransactionRepository transactionRepository = TransactionRepository();
        // Call the repository method to get parking slots by lot
-       final response = await transactionRepository.getTransactionsByWallet(event.parkingLotID);
+       print("_________________________________________________________________");
+       print(event.walletID);
+       final response = await transactionRepository.getTransactionsByWallet(event.walletID);
+
        if(response.code == 200){
          emit(TransactionLoadedState(response.result));
        }else{

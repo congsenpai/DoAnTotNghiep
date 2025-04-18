@@ -9,19 +9,13 @@ import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 
 class FilterTransactionDBoard extends StatefulWidget {
-  final UserResponse user;
-  final List<TransactionResponse> trans;
-  final Transactions type;
-  final DateTime start;
-  final DateTime end;
+  final int size;
+  final UserResponse userResponse;
+  final List<TransactionResponse> tran;
 
   const FilterTransactionDBoard({
     super.key,
-    required this.type,
-    required this.start,
-    required this.end,
-    required this.user,
-    required this.trans,
+    required this.tran, required this.userResponse, required this.size,
   });
 
   @override
@@ -29,19 +23,11 @@ class FilterTransactionDBoard extends StatefulWidget {
 }
 
 class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
-  late Transactions selectType;
-  late DateTime startSelect;
-  late DateTime endSelect;
+  TransactionType? selectType;
+  DateTime? startSelect;
+  DateTime? endSelect;
   // Hàm chọn ngày
-@override
-  void initState() {
-    super.initState();
-    selectType = widget.type;
-    endSelect = DateTime.now(); // Ngày hiện tại
-    startSelect = endSelect.subtract(const Duration(days: 30)); // 30 ngày trước
-  }
-
-  Future<void> _pickDate(BuildContext context, bool isStart) async {
+Future<void> _pickDate(BuildContext context, bool isStart) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: isStart ? startSelect : endSelect,
@@ -84,12 +70,12 @@ class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
               Text(AppLocalizations.of(context).translate("From"), style: TextStyle(color:Colors.white, fontSize: 15),),
               TextButton(
                 onPressed: () => _pickDate(context, true),
-                child: Text("${startSelect.toLocal()}".split(' ')[0], style: TextStyle(color:Colors.lightGreenAccent, fontSize: 15),),
+                child: Text("${startSelect?.toLocal()}".split(' ')[0], style: TextStyle(color:Colors.lightGreenAccent, fontSize: 15),),
               ),
               Text(AppLocalizations.of(context).translate("To"), style: TextStyle(color:Colors.white, fontSize: 15),),
               TextButton(
                 onPressed: () => _pickDate(context, false),
-                child: Text("${endSelect.toLocal()}".split(' ')[0], style: TextStyle(color:Colors.lightGreenAccent, fontSize: 15),),
+                child: Text("${endSelect?.toLocal()}".split(' ')[0], style: TextStyle(color:Colors.lightGreenAccent, fontSize: 15),),
               ),
             ],
           ),
@@ -100,15 +86,15 @@ class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectType = Transactions.TOP_UP;
+                      selectType = TransactionType.TOP_UP;
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selectType == Transactions.TOP_UP
+                    backgroundColor: selectType == TransactionType.TOP_UP
                         ? Colors.blue
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("TOP_UP")),
+                  child: Text(AppLocalizations.of(context).translate("top_up").toUpperCase()),
                 ),
               ),
               SizedBox(width: 8,),
@@ -117,15 +103,15 @@ class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectType = Transactions.PAYMENT;
+                      selectType = TransactionType.PAYMENT;
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selectType == Transactions.PAYMENT
+                    backgroundColor: selectType == TransactionType.PAYMENT
                         ? Colors.blue
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("PAYMENT")),
+                  child: Text(AppLocalizations.of(context).translate("payment").toUpperCase()),
                 ),
               ),
             ],
@@ -136,9 +122,44 @@ class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.read<TransactionBloc>().add(LoadAllTransactionByTimeEvent(widget.user,startSelect,
-                            endSelect,
-                            selectType,));
+                    setState(() {
+                      selectType = TransactionType.DEPOSIT;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selectType == TransactionType.DEPOSIT
+                        ? Colors.blue
+                        : Colors.grey,
+                  ),
+                  child: Text(AppLocalizations.of(context).translate("deposit").toUpperCase()),
+                ),
+              ),
+              SizedBox(width: 8,),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selectType = TransactionType.RETURN_DEPOSIT;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selectType == TransactionType.RETURN_DEPOSIT
+                        ? Colors.blue
+                        : Colors.grey,
+                  ),
+                  child: Text(AppLocalizations.of(context).translate("re deposit").toUpperCase()),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read<TransactionBloc>().add(FilterTransactionByTimeEvent(selectType,startSelect,endSelect,widget.tran,widget.size));
                   },
                   child: Text(AppLocalizations.of(context).translate("Filter")),
                 ),
@@ -148,11 +169,9 @@ class _FilterTransactionDBoardState extends State<FilterTransactionDBoard> {
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.read<TransactionBloc>().add(LoadAllTransactionByTimeEvent(widget.user,startSelect,
-                            endSelect,
-                            selectType,));
+                    context.read<TransactionBloc>().add(LoadAllTransactionByTimeEvent(widget.userResponse,widget.size));
                   },
-                  child: Text(AppLocalizations.of(context).translate("Empty")),
+                  child: Text(AppLocalizations.of(context).translate("Refresh")),
                 ),
               ),
             ],

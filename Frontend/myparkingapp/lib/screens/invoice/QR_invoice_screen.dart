@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_bloc.dart';
@@ -102,9 +103,9 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
 
                         ObjectRow(title: "parkingSlotName",content: invoice!.parkingSlotName),
                         SizedBox(height: Get.width/30),
-                        ObjectRow(title: "startD",content: invoice!.createdAt),
+                        ObjectRow(title: "startD",content: DateFormat('dd/MM/yyyy HH:mm:ss').format(invoice!.createdAt) ),
                         SizedBox(height: Get.width/30),
-                        ObjectRow(title: "endD",content: invoice!.createdAt),
+                        ObjectRow(title: "endD",content: DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.now())),
                         SizedBox(height: Get.width/30),
                         const SizedBox(height: defaultPadding),
 
@@ -132,11 +133,12 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
                                   });
                                 },
                                 child: Text(
+
                                   wallets.isEmpty
-                                      ? "You haven't added a wallet"
+                                      ? AppLocalizations.of(context).translate("You haven't added a wallet")
                                       : wallet != null
-                                      ? "Choice a wallet : ${wallet!.name}"
-                                      : "Choice a wallet :",
+                                      ? "${AppLocalizations.of(context).translate("Choice a wallet") }: ${wallet!.name}"
+                                      : "${AppLocalizations.of(context).translate("Choice a wallet")} :",
                                 ),
 
                               ),
@@ -194,18 +196,18 @@ class _QRInvoiceScreenState extends State<QRInvoiceScreen> {
         return Center(
           child: LoadingAnimationWidget.staggeredDotsWave(
             color: Colors.greenAccent,
-            size: 18,
+            size: 25,
           ),
         );
       },
       listener: (context, state) {
         if (state is InvoiceErrorState) {
-          AppDialog.showErrorEvent(context, state.mess,onPress:()=>{
+          AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate( state.mess),onPress:()=>{
             context.read<InvoiceBloc>().add(GetInvoiceByIDEvent(widget.request.InvoiceID))
           });
         }
         if(state is InvoiceSuccessState){
-          AppDialog.showSuccessEvent(context, state.mess,onPress:()=>{
+          AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess ),onPress:()=>{
           context.read<InvoiceBloc>().add(GetInvoiceByIDEvent(widget.request.InvoiceID))
           });
         }

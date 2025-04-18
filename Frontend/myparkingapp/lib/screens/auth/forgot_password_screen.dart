@@ -36,7 +36,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         ),
       );
       }, listener: (context,state){
-        if(state is AuthSuccessState){
+        if(state is GiveEmailSuccessState){
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -44,8 +44,8 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           );
         }
-        else if(state is AuthErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+        else if(state is GiveEmailErrorState){
+          return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate( state.mess));
         }
       })
     );

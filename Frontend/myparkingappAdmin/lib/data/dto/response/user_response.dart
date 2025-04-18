@@ -55,7 +55,7 @@ class UserResponse {
       lastName: json["lastName"] as String? ?? '',
       firstName: json["firstName"] as String? ?? '',
       avatar: json["image"] != null
-          ? Images("", json["image"] as String? ?? '', null)
+          ? Images.fromJson(json["image"])
           : Images("", "", null),
       email: json["email"] as String? ?? '',
       status: _parseUserStatus(json["status"] as String?),
@@ -66,22 +66,6 @@ class UserResponse {
     );
   }
 
-  /// **Chuyển từ `UserResponse` object sang JSON**
-  Map<String, dynamic> toJson() {
-    return {
-      'userID': userId,
-      'username': username,
-      'phoneNumber': phone,
-      'homeAddress': homeAddress,
-      'companyAddress': companyAddress,
-      'lastName': lastName,
-      'firstName': firstName,
-      'avatar': avatar.toJson(),
-      'email': email,
-      'status': status.name, // ✅ Chuyển enum thành String
-      'roles': roles, // ✅ Lưu danh sách roles đúng
-    };
-  }
 
 
   @override

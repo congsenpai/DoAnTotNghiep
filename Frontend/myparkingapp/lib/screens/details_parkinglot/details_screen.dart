@@ -10,6 +10,7 @@ import 'package:myparkingapp/data/response/parking_slots_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/parking_lot_response.dart';
 
+import '../../app/locallization/app_localizations.dart';
 import '../../bloc/lot/lot_detail_event.dart';
 import '../../components/app_dialog.dart';
 import '../../constants.dart';
@@ -112,7 +113,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         },
         listener: (context, state) {
           if (state is LotDetailErrorScreen) {
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
         },
       ),

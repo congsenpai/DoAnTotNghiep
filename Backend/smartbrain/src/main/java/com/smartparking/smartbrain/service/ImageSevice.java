@@ -25,8 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ImageSevice {
     ImagesRepository imagesRepository;
     ImageMapper imageMapper;
-    public void addImageForUser(CreatedImageForUserRequest request) {
-        imagesRepository.save(imageMapper.fromUserRequestToImage(request));
+
+    public ImageResponse addImageForUser(CreatedImageForUserRequest request) {
+        Image image=imagesRepository.save(imageMapper.fromUserRequestToImage(request));
+        return imageMapper.fromImageToImageResponse(image);
     }
     public void addImagesForParkingLot(CreatedImageForParkingLotRequest request) {
         List<Image> image = imageMapper.fromParkingLotRequestToImage(request);

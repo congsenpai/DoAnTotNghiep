@@ -12,14 +12,15 @@ import 'package:myparkingappadmin/bloc/wallet/wallet_state.dart';
 import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import 'package:myparkingappadmin/screens/transaction/components/transaction_list.dart';
-import 'package:myparkingappadmin/screens/wallet/WalletDetail.dart';
- // Màn hình danh sách giao dịch của ví
+import 'package:myparkingappadmin/screens/wallet/wallet_detail.dart';
+// Màn hình danh sách giao dịch của ví
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
 
 class WalletList extends StatefulWidget {
   final String customerId;
+
   const WalletList({super.key, required this.customerId});
 
   @override
@@ -28,16 +29,13 @@ class WalletList extends StatefulWidget {
 
 class _WalletListState extends State<WalletList> {
   bool isDetail = false;
-  WalletResponse wallet = WalletResponse(
-    walletId: '',
-    balance: 0.0,
- userId: '', name: '', status: true, currency: '',
-  );
+  WalletResponse? selectWallet;
 
   Set<String> objectColumnNameOfWallet = HashSet.from([
     "WalletName",
     "Type Money",
-    "Action",
+    "TransactionList",
+    "Detail",
   ]);
 
   List<WalletResponse> wallets = [];
@@ -58,7 +56,9 @@ class _WalletListState extends State<WalletList> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              context.read<WalletBloc>().add(GetWalletByCustomerEvent(widget.customerId));
+              context
+                  .read<WalletBloc>()
+                  .add(GetWalletByCustomerEvent(widget.customerId));
             },
           ),
         ],
@@ -112,7 +112,7 @@ class _WalletListState extends State<WalletList> {
                     ? Expanded(
                         flex: 1,
                         child: WalletDetail(
-                          object: wallet,
+                          object: selectWallet!,
                           onEdit: () {
                             setState(() {
                               isDetail = false;
@@ -162,25 +162,30 @@ class _WalletListState extends State<WalletList> {
       cells: [
         DataCell(Text(wallet.name)),
         DataCell(Text(wallet.currency)),
-        DataCell(Row(
-          children: [
-            Expanded(
-              child: IconButton(
-                  icon: const Icon(Icons.details, color: Colors.green),
-                  onPressed: () => setState(() {
-                        isDetail = true;
-                        this.wallet = wallet;
-                      })),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: IconButton(
-                icon: const Icon(Icons.list, color: Colors.blue),
-                onPressed: () => _showTransactionListDialog(context, wallet),
-              ),
-            ),
-          ],
-        )),
+        DataCell(
+          IconButton(
+            icon: const Icon(Icons.list, color: Colors.blue),
+            onPressed: () {
+              print(wallet.walletId);
+              setState(() {
+                isDetail = true;
+                selectWallet = wallet;
+              });
+              _showTransactionListDialog(context, wallet);
+            },
+          ),
+        ),
+        DataCell(
+          IconButton(
+              icon: const Icon(Icons.details, color: Colors.green),
+              onPressed: () => {
+                    print(wallet.walletId),
+                    setState(() {
+                      isDetail = true;
+                      selectWallet = wallet;
+                    })
+                  }),
+        ),
       ],
     );
   }
@@ -191,11 +196,13 @@ class _WalletListState extends State<WalletList> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: SizedBox(
-            height: Get.height/1.2,
-            width: Get.width/1.2,
-            child: TransactionList( walletId: wallet.walletId,),
+            height: Get.height / 1.2,
+            width: Get.width / 1.2,
+            child: TransactionList(
+              walletId: wallet.walletId,
+            ),
           ),
-           // Màn hình danh sách giao dịch của ví
+          // Màn hình danh sách giao dịch của ví
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

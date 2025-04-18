@@ -25,7 +25,7 @@ class TransactionItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StatusOfItems(numOfItem: tran.status),
+              StatusOfItems(transactionType: tran.type,),
               const SizedBox(width: defaultPadding * 0.75),
               Expanded(
                 child: Column(
@@ -47,7 +47,7 @@ class TransactionItem extends StatelessWidget {
               ),
               const SizedBox(width: defaultPadding / 2),
               Text(
-                "VNĐ ${tran.currentBalance}",
+                "USD ${tran.amount}",
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall!
@@ -66,10 +66,36 @@ class TransactionItem extends StatelessWidget {
 class StatusOfItems extends StatelessWidget {
   const StatusOfItems({
     super.key,
-    required this.numOfItem,
+    required this.transactionType,
   });
 
-  final TransactionStatus numOfItem;
+  final TransactionType transactionType;
+
+  Color _getBackgroundColor() {
+    switch (transactionType) {
+      case TransactionType.DEPOSIT:
+        return Colors.green;
+      case TransactionType.RETURN_DEPOSIT:
+        return Colors.red;
+      case TransactionType.TOP_UP:
+        return Colors.blue;
+      case TransactionType.PAYMENT:
+        return Colors.orange;
+      }
+  }
+
+  IconData _getIconData() {
+    switch (transactionType) {
+      case TransactionType.DEPOSIT:
+        return Icons.check;
+      case TransactionType.RETURN_DEPOSIT:
+        return Icons.close;
+      case TransactionType.TOP_UP:
+        return Icons.arrow_upward;
+      case TransactionType.PAYMENT:
+        return Icons.payment;
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,16 +103,16 @@ class StatusOfItems extends StatelessWidget {
       height: 24,
       width: 24,
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-      
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: CircleAvatar(
-        backgroundColor: numOfItem == TransactionStatus.COMPLETED ? Colors.green : numOfItem == TransactionStatus.FAILED ? Colors.red : Colors.yellow,
+        backgroundColor: _getBackgroundColor(),
+        radius: 12,
         child: Icon(
-          numOfItem == TransactionStatus.COMPLETED ? Icons.check : numOfItem == TransactionStatus.FAILED ? Icons.close : Icons.warning,
+          _getIconData(),
           color: Colors.white,
-          size: 20,
+          size: 16,
         ),
       ),
     );

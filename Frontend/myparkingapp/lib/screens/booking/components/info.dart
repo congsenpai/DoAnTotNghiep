@@ -45,11 +45,11 @@ class Info extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                "${AppLocalizations.of(context).translate("CostByMonth: ")}:${slot.pricePerMonth} / VNĐ",
+                "${AppLocalizations.of(context).translate("CostByMonth")} : ${slot.pricePerMonth} / USD",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
-                "${AppLocalizations.of(context).translate("CostByHour: ")}:${slot.pricePerHour} / VNĐ",
+                "${AppLocalizations.of(context).translate("CostByHour")} : ${slot.pricePerHour} / USD",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],

@@ -5,7 +5,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/utils.dart';
 import 'package:myparkingappadmin/app/localization/app_localizations.dart';
 import 'package:myparkingappadmin/data/dto/response/user_response.dart';
-import 'package:myparkingappadmin/screens/customer/components/owner_list.dart';
 import '../../constants.dart';
 import '../general/header.dart';
 import 'components/customer_list.dart';

@@ -174,13 +174,13 @@ class InvoiceCreateScreen extends StatelessWidget {
 
         listener: (context, state) {
           if (state is InvoiceErrorState) {
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
 
           if (state is InvoiceSuccessState) {
             AppDialog.showSuccessEvent(
-              context,
-              state.mess,
+              context,AppLocalizations.of(context).translate(
+              state.mess),
               onPress: () {
                 Navigator.push(
                   context,

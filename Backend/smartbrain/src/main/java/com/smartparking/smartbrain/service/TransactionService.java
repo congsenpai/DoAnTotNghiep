@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.smartparking.smartbrain.converter.DateTimeConverter;
 import com.smartparking.smartbrain.dto.response.PagedResponse;
 import com.smartparking.smartbrain.dto.response.Wallet.TransactionResponse;
+import com.smartparking.smartbrain.enums.TransactionType;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.mapper.TransactionMapper;
@@ -28,89 +29,92 @@ public class TransactionService {
     TransactionMapper transactionMapper;
     TransactionRepository transactionRepository;
     DateTimeConverter dateTimeConverter;
+
     public PagedResponse<TransactionResponse> getTransactionByUser(String userID, Pageable pageable) {
-        var page= transactionRepository.findAllByUser_UserID(userID, pageable);
+        var page = transactionRepository.findAllByUser_UserID(userID, pageable);
 
         if (page.isEmpty()) {
             throw new AppException(ErrorCode.TRANSACTION_NOT_FOUND);
         }
         // convert page to TransactionResponse by transactionMapper
         List<TransactionResponse> content = page.getContent().stream()
-            .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
+                .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
 
         return new PagedResponse<>(
-            content,
-            page.getNumber(),
-            page.getSize(),
-            page.getTotalElements(),
-            page.getTotalPages(),
-            page.isLast()
-        );
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
     }
+
     public PagedResponse<TransactionResponse> getAllTransaction(Pageable pageable) {
-        var page= transactionRepository.findAll(pageable);
+        var page = transactionRepository.findAll(pageable);
 
         if (page.isEmpty()) {
             throw new AppException(ErrorCode.TRANSACTION_NOT_FOUND);
         }
         // convert page to TransactionResponse by transactionMapper
         List<TransactionResponse> content = page.getContent().stream()
-            .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
+                .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
 
         return new PagedResponse<>(
-            content,
-            page.getNumber(),
-            page.getSize(),
-            page.getTotalElements(),
-            page.getTotalPages(),
-            page.isLast()
-        );
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
     }
+
     public PagedResponse<TransactionResponse> getTransactionByTime(String from, String to, Pageable pageable) {
         Instant startDate;
         Instant endDate;
         try {
-            startDate=dateTimeConverter.fromStringToInstant(from);
-            endDate=dateTimeConverter.fromStringToInstant(to);
+            startDate = dateTimeConverter.fromStringToInstant(from);
+            endDate = dateTimeConverter.fromStringToInstant(to);
         } catch (Exception e) {
             throw new AppException(ErrorCode.INVALID_DATE_TIME_FORMAT);
         }
-        var page= transactionRepository.findTransactionByTime(startDate, endDate, pageable);
+        var page = transactionRepository.findTransactionByTime(startDate, endDate, pageable);
 
         if (page.isEmpty()) {
             throw new AppException(ErrorCode.TRANSACTION_NOT_FOUND);
         }
         // convert page to TransactionResponse by transactionMapper
         List<TransactionResponse> content = page.getContent().stream()
-            .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
+                .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
 
         return new PagedResponse<>(
-            content,
-            page.getNumber(),
-            page.getSize(),
-            page.getTotalElements(),
-            page.getTotalPages(),
-            page.isLast()
-        );
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
     }
-    
-    public PagedResponse<TransactionResponse> getTransactionByWallet(String walletID, Pageable pageable) {
-        var page= transactionRepository.findAllByWallet_WalletID(walletID, pageable);
+
+    public PagedResponse<TransactionResponse> getTransactionByWallet(String walletID, String type, Pageable pageable) {
+        if (type == null) {
+            throw new AppException(ErrorCode.TRANSACTION_TYPE_NOT_EXIST);
+        }
+        TransactionType transactionType = TransactionType.valueOf(type);
+        var page = transactionRepository.findAllByWallet_WalletIDAndType(walletID, transactionType, pageable);
 
         if (page.isEmpty()) {
             throw new AppException(ErrorCode.TRANSACTION_NOT_FOUND);
         }
         // convert page to TransactionResponse by transactionMapper
         List<TransactionResponse> content = page.getContent().stream()
-            .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
+                .map(transactionMapper::toTransactionResponse).collect(Collectors.toList());
 
         return new PagedResponse<>(
-            content,
-            page.getNumber(),
-            page.getSize(),
-            page.getTotalElements(),
-            page.getTotalPages(),
-            page.isLast()
-        );
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast());
     }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import '../../../constants.dart';
 
 import '../../../components/scalton/big_card_scalton.dart';
@@ -52,7 +53,7 @@ class _BodyState extends State<Body> {
             const SizedBox(height: defaultPadding),
             buildSearchForm(),
             const SizedBox(height: defaultPadding),
-            Text(_showSearchResult ? "Search Results" : "Top Restaurants",
+            Text(AppLocalizations.of(context).translate( _showSearchResult ? "Search Results" : "Top ParkingLot"),
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: defaultPadding),
             Expanded(

@@ -2,6 +2,8 @@ import 'package:myparkingappadmin/data/dto/request/admin_request/create_parking_
 import 'package:myparkingappadmin/data/dto/request/owner_request/update_parking_lot_request.dart';
 import 'package:myparkingappadmin/data/dto/response/images.dart';
 
+import '../../data/dto/response/parkingLot_response.dart';
+
 abstract class ParkingLotEvent{}
 
 

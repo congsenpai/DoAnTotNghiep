@@ -84,10 +84,10 @@ class SignUpScreen extends StatelessWidget {
     
       }, listener: (context,state){
         if(state is RegisterSuccessState){
-          return AppDialog.showSuccessEvent(context, state.mess, onPress: gotoSignInScreent);
+          return AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess), onPress: gotoSignInScreent);
         }
         else if(state is RegisterErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+          return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
         }
       })
     );

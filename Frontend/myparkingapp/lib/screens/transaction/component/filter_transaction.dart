@@ -10,18 +10,17 @@ import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class FilterTransaction extends StatefulWidget {
   final WalletResponse wallet;
-  final List<TransactionResponse> trans;
-  final Transactions type;
-  final DateTime start;
-  final DateTime end;
+  final TransactionType type;
+
+  final int page;
+  final int size;
 
   const FilterTransaction({
     super.key,
     required this.type,
-    required this.start,
-    required this.end,
+    required this.size,
     required this.wallet,
-    required this.trans,
+    required this.page,
   });
 
   @override
@@ -29,7 +28,7 @@ class FilterTransaction extends StatefulWidget {
 }
 
 class _FilterTransactionState extends State<FilterTransaction> {
-  late Transactions selectType;
+  late TransactionType selectType;
   late DateTime startSelect;
   late DateTime endSelect;
 
@@ -37,28 +36,6 @@ class _FilterTransactionState extends State<FilterTransaction> {
   void initState() {
     super.initState();
     selectType = widget.type;
-    startSelect = widget.start;
-    endSelect = widget.end;
-  }
-
-  // Hàm chọn ngày
-  Future<void> _pickDate(BuildContext context, bool isStart) async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: isStart ? startSelect : endSelect,
-      firstDate: DateTime(2020),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          startSelect = picked;
-        } else {
-          endSelect = picked;
-        }
-      });
-    }
   }
 
   @override
@@ -81,30 +58,16 @@ class _FilterTransactionState extends State<FilterTransaction> {
         children: [
           Row(
             children: [
-              Text(AppLocalizations.of(context).translate("From")),
-              TextButton(
-                onPressed: () => _pickDate(context, true),
-                child: Text("${startSelect.toLocal()}".split(' ')[0]),
-              ),
-              Text(AppLocalizations.of(context).translate("To")),
-              TextButton(
-                onPressed: () => _pickDate(context, false),
-                child: Text("${endSelect.toLocal()}".split(' ')[0]),
-              ),
-            ],
-          ),
-          Row(
-            children: [
               Expanded(
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectType = Transactions.TOP_UP;
+                      selectType = TransactionType.TOP_UP;
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selectType == Transactions.TOP_UP
+                    backgroundColor: selectType == TransactionType.TOP_UP
                         ? Colors.green
                         : Colors.grey,
                   ),
@@ -117,17 +80,56 @@ class _FilterTransactionState extends State<FilterTransaction> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectType = Transactions.PAYMENT;
+                      selectType = TransactionType.PAYMENT;
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: selectType == Transactions.PAYMENT
+                    backgroundColor: selectType == TransactionType.PAYMENT
                         ? Colors.green
                         : Colors.grey,
                   ),
                   child: Text(AppLocalizations.of(context).translate("payment").toUpperCase()),
                 ),
               ),
+
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selectType = TransactionType.DEPOSIT;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selectType == TransactionType.DEPOSIT
+                        ? Colors.green
+                        : Colors.grey,
+                  ),
+                  child: Text(AppLocalizations.of(context).translate("deposit").toUpperCase()),
+                ),
+              ),
+              SizedBox(width: 8,),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selectType = TransactionType.RETURN_DEPOSIT;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selectType == TransactionType.RETURN_DEPOSIT
+                        ? Colors.green
+                        : Colors.grey,
+                  ),
+                  child: Text(AppLocalizations.of(context).translate("re deposit").toUpperCase()),
+                ),
+              ),
+
             ],
           ),
           Row(
@@ -137,12 +139,7 @@ class _FilterTransactionState extends State<FilterTransaction> {
                 child: ElevatedButton(
                   onPressed: () {
                     context.read<TransactionBloc>().add(
-                          LoadTransactionEvent(
-                            widget.wallet,
-                            startSelect,
-                            endSelect,
-                            selectType,
-                            1,
+                          LoadTransactionEvent(widget.wallet,selectType,widget.page,widget.size
                           ),
                         );
                   },
@@ -156,7 +153,7 @@ class _FilterTransactionState extends State<FilterTransaction> {
                   onPressed: () {
                     context
                         .read<TransactionBloc>()
-                        .add(LoadAllTransactionEvent(widget.wallet, 1));
+                        .add(LoadTransactionEvent(widget.wallet, TransactionType.PAYMENT, 1,10));
                   },
                   child: Text(AppLocalizations.of(context).translate("Refresh")),
                 ),

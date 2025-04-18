@@ -1,8 +1,8 @@
+import 'package:myparkingapp/bloc/user/user_state.dart';
 import 'package:myparkingapp/data/response/images_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
 
 class UpdateUserRequest {
-  final String username;
   final String firstName;
   final String lastName;
   final String email;
@@ -12,7 +12,6 @@ class UpdateUserRequest {
   final ImagesResponse avatar;
 
   UpdateUserRequest({
-    required this.username,
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -25,7 +24,6 @@ class UpdateUserRequest {
   /// Convert User -> JSON
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -33,12 +31,13 @@ class UpdateUserRequest {
       'homeAddress': homeAddress,
       'companyAddress': companyAddress,
       'avatar': avatar.toJson(),
+      'status': "ACTIVE"
     };
   }
 
   @override
   String toString() {
-    return 'UpdateUserRequest{username: $username, firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, homeAddress: $homeAddress, companyAddress: $companyAddress, avatar: $avatar}';
+    return 'UpdateUserRequest{ firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, homeAddress: $homeAddress, companyAddress: $companyAddress, avatar: $avatar}';
   }
 
   /// Hỗ trợ debug dễ dàng

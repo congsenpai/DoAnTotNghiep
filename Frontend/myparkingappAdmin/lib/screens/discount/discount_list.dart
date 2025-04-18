@@ -193,8 +193,8 @@ class _DiscountListState extends State<DiscountList> {
           title:
               Text(AppLocalizations.of(context).translate("Discount Detail")),
           content: SizedBox(
-            height: Get.height/2,
-            width: Get.width/1.2,
+            height: Get.height/1.5,
+            width: Get.width/2,
             child: AddDiscount()
           ),
           actions: <Widget>[
