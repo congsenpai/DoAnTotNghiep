@@ -10,21 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6914c0f-5283-4329-8363-cd7a21e2b0d8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/booking/booking_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/file_selector_linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_localization" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/image_picker_linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/url_launcher_linux" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/android/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/general/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/general/app_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/qr_screen/qr_scan.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingappAdmin/lib/screens/qr_screen/qr_scan.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
