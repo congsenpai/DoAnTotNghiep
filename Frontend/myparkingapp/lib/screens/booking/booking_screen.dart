@@ -225,7 +225,6 @@ class _BookingScreenState extends State<BookingScreen> {
                             visible: isShowDiscount,
                             child: Column(
                               children: [
-                                
                                 ...discounts.map((d) => RoundedCheckboxListTile(
                                       isActive: (discount == d),
                                       text: "${d.discountCode} ${  AppLocalizations.of(context).translate(d.discountValue.toString())} ${d.discountType == DiscountType.FIXED ? "USD" : "%"}",

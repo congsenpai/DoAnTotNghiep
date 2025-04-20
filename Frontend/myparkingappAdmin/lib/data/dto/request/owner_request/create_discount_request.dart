@@ -7,12 +7,14 @@ class CreateDiscountResquest {
   DiscountType discountType;
   double discountValue;
   String description;
+  String parkingLotID;
 
   CreateDiscountResquest({
     required this.discountCode,
     required this.discountType,
     required this.discountValue,
     required this.description,
+    required this.parkingLotID
   });
 
   /// **Chuyển từ `Discount` object sang JSON**
@@ -22,6 +24,9 @@ class CreateDiscountResquest {
       "discountType": discountType == DiscountType.PERCENTAGE ? "PERCENTAGE" : "FIXED",
       "discountValue": discountValue,
       "description": description,
+      "parkingLotID": parkingLotID,
+      'expiredAt': DateTime.august,
+      "maxValue":100
     };
   }
 

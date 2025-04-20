@@ -15,49 +15,19 @@
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/.cxx/Debug/6j17wl61/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myparkingapp/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../myparkingapp/lib/screens/booking/booking_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/dashboard/dashboard_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/dashboard/dashboard_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/main_app_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/main_app_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/main_app/main_app_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/main_app/main_app_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_slot/slot_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_slot/slot_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/tran_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/tran_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/transaction/tran_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/transaction/tran_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/request/owner_request/update_parking_lot_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/request/owner_request/update_parking_lot_request.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/parkingLot_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/parkingLot_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/transaction_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/transaction_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/user_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/user_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/response/wallet_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/response/wallet_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/api_client.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.3/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/dto/request/owner_request/create_discount_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/request/owner_request/create_discount_request.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/demodata.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/demodata.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/discountRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/discountRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/invoiceRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingSlotRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/qr_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/qr_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/transactionRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/add_owner.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/add_owner.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/discount/add_discount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/discount/add_discount.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/discount/discount_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/discount/discount_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/main/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotDetail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/parkingLotList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingSlot/parkingSlotList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction/components/transaction_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet/WalletList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet/wallet_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/general/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/general/app_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/qr_screen/qr_scan.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/qr_screen/qr_scan.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

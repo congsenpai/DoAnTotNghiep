@@ -35,9 +35,21 @@ class _QRScannerPageState extends State<QRScannerPage> {
                       scannedCode = code;
                       if(code.length > 128){
                         if(widget.isEntry){
-                        context.read<MainAppBloc>().add(ScannerEvent(scannedCode,true));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Open the barrier!'),
+                              duration: Duration(seconds: 2), // Thời gian hiển thị
+                            ),
+                          );
+                         context.read<MainAppBloc>().add(ScannerEvent(scannedCode,true));
                         }
                         else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Close the barrier!'),
+                              duration: Duration(seconds: 2), // Thời gian hiển thị
+                            ),
+                          );
                           context.read<MainAppBloc>().add(ScannerEvent(scannedCode,false));
                         }
                       }

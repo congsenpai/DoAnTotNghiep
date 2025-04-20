@@ -73,7 +73,7 @@ class _DiscountListState extends State<DiscountList> {
           IconButton(
               icon: Icon(Icons.add, color: Colors.purple),
               onPressed: () => {
-                    _showAddDialog(context),
+                    _showAddDialog(context,widget.parkingLot.parkingLotId),
                   }),
           ],
       ),
@@ -185,7 +185,7 @@ class _DiscountListState extends State<DiscountList> {
     );
   }
 
-  void _showAddDialog(BuildContext context) {
+  void _showAddDialog(BuildContext context, String parkingLotID) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -195,7 +195,7 @@ class _DiscountListState extends State<DiscountList> {
           content: SizedBox(
             height: Get.height/1.5,
             width: Get.width/2,
-            child: AddDiscount()
+            child: AddDiscount(parkingLotID: parkingLotID)
           ),
           actions: <Widget>[
             TextButton(
