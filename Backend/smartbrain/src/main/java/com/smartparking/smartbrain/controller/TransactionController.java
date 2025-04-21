@@ -1,7 +1,6 @@
 package com.smartparking.smartbrain.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.smartparking.smartbrain.dto.response.ApiResponse;
 import com.smartparking.smartbrain.dto.response.PagedResponse;
@@ -14,8 +13,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/myparkingapp/transactions")
@@ -27,26 +24,27 @@ public class TransactionController {
 
     @GetMapping("/user/{userID}")
     public ApiResponse<PagedResponse<TransactionResponse>> getAllTransactionByUser(
-            @RequestParam String userID,
+            @PathVariable String userID,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "1000") int size) {
         PagedResponse<TransactionResponse> response = transactionService
                 .getTransactionByUser(userID, PageRequest.of(page, size));
-
         return ApiResponse.<PagedResponse<TransactionResponse>>builder()
                 .code(200)
                 .result(response)
                 .message("Parking lots retrieved successfully")
                 .build();
     }
-
     @GetMapping("/all")
     public ApiResponse<PagedResponse<TransactionResponse>> getAllTransaction(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "1000") int size,
+            @RequestParam String startDate,
+            @RequestParam String endDate,
+            @RequestParam String type
+            ) {
         PagedResponse<TransactionResponse> response = transactionService
-                .getAllTransaction(PageRequest.of(page, size));
-
+                .getAllTransaction(startDate,endDate,type,PageRequest.of(page, size));
         return ApiResponse.<PagedResponse<TransactionResponse>>builder()
                 .code(200)
                 .result(response)
@@ -59,7 +57,7 @@ public class TransactionController {
             @RequestParam String startDate,
             @RequestParam String endDate,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "1000") int size) {
         PagedResponse<TransactionResponse> response = transactionService
                 .getTransactionByTime(startDate, endDate, PageRequest.of(page, size));
 
@@ -72,10 +70,10 @@ public class TransactionController {
 
     @GetMapping("/wallet/{walletID}")
     public ApiResponse<PagedResponse<TransactionResponse>> getAllTransactionByWallet(
-            @RequestParam String walletID,
+            @PathVariable String walletID,
             @RequestParam String type,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "1000") int size) {
         PagedResponse<TransactionResponse> response = transactionService
                 .getTransactionByWallet(walletID,type, PageRequest.of(page, size));
 

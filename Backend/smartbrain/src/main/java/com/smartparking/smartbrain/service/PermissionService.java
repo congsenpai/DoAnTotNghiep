@@ -23,26 +23,25 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PermissionService {
 
-    final PermissionRepository permissionRepository;
-    final PermissionMapper permissionMapper;
+	PermissionRepository permissionRepository;
+	PermissionMapper permissionMapper;
 
-    public PermissionResponse createPermission(PermissionRequest permissionRequest) {
-        Permission permission = permissionMapper.toPermission(permissionRequest);
-        permission = permissionRepository.save(permission);
-        return permissionMapper.toPermissionResponse(permission);
-    }
+	public PermissionResponse createPermission(PermissionRequest permissionRequest) {
+		Permission permission = permissionMapper.toPermission(permissionRequest);
+		permission = permissionRepository.save(permission);
+		return permissionMapper.toPermissionResponse(permission);
+	}
 
-    public List<PermissionResponse> getAllPermissions() {
-        var permissions = permissionRepository.findAll();
-        return permissions.stream().map(permissionMapper::toPermissionResponse).toList();
-    }
+	public List<PermissionResponse> getAllPermissions() {
+		var permissions = permissionRepository.findAll();
+		return permissions.stream().map(permissionMapper::toPermissionResponse).toList();
+	}
 
-    public void deletePermission(String permissionName) {
-        if (!permissionRepository.existsById(permissionName)) {
-            throw new AppException(ErrorCode.PERMISSION_NOT_EXISTS);
-        }
-        permissionRepository.deleteById(permissionName);
-    }
+	public void deletePermission(String permissionName) {
+		if (!permissionRepository.existsById(permissionName)) {
+			throw new AppException(ErrorCode.PERMISSION_NOT_EXISTS);
+		}
+		permissionRepository.deleteById(permissionName);
+	}
 
-    
 }

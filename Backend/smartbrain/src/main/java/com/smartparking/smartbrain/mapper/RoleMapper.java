@@ -9,8 +9,9 @@ import com.smartparking.smartbrain.model.Role;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
-    @Mapping(target = "users", ignore = true)
-    @Mapping(target = "permissions",ignore = true)
-    Role toRole(RoleRequest roleRequest);
-    RoleResponse toRoleResponse(Role role);
+	@Mapping(target = "users", ignore = true)
+	@Mapping(target = "permissions", ignore = true)
+	Role toRole(RoleRequest roleRequest);
+
+	RoleResponse toRoleResponse(Role role);
 }

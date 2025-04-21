@@ -24,29 +24,29 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RoleService {
-    final RoleRepository roleRepository;
-    final PermissionRepository permissionRepository;
-    final RoleMapper roleMapper;
+	RoleRepository roleRepository;
+	PermissionRepository permissionRepository;
+	RoleMapper roleMapper;
 
-    public RoleResponse createRole(RoleRequest roleRequest){
-        Role role=roleMapper.toRole(roleRequest);
-        var permissions=permissionRepository.findAllById(roleRequest.getPermissions());
-        role.setPermissions(new HashSet<>(permissions));
-        role=roleRepository.save(role);
-        return roleMapper.toRoleResponse(role);
-    }
+	public RoleResponse createRole(RoleRequest roleRequest) {
+		Role role = roleMapper.toRole(roleRequest);
+		var permissions = permissionRepository.findAllById(roleRequest.getPermissions());
+		role.setPermissions(new HashSet<>(permissions));
+		role = roleRepository.save(role);
+		return roleMapper.toRoleResponse(role);
+	}
 
-    public List<RoleResponse> getAllRoles(){
-        return roleRepository.findAll()
-        .stream()
-        .map(roleMapper::toRoleResponse)
-        .toList();
-    }
-    
-    public void deleteRole(String roleName){
-        if (!roleRepository.existsById(roleName)) {
-            throw new AppException(ErrorCode.ROLE_NOT_EXISTS);
-        }
-        roleRepository.deleteById(roleName);
-    }
+	public List<RoleResponse> getAllRoles() {
+		return roleRepository.findAll()
+				.stream()
+				.map(roleMapper::toRoleResponse)
+				.toList();
+	}
+
+	public void deleteRole(String roleName) {
+		if (!roleRepository.existsById(roleName)) {
+			throw new AppException(ErrorCode.ROLE_NOT_EXISTS);
+		}
+		roleRepository.deleteById(roleName);
+	}
 }

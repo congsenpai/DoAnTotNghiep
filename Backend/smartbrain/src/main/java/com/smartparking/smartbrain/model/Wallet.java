@@ -10,13 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Getter
@@ -30,36 +24,36 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Wallet {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "wallet_id", nullable = false, updatable = false)
-    String walletID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "wallet_id", nullable = false, updatable = false)
+	String walletID;
 
-    @Column(nullable = false)
-    @NotNull(message = "Balance cannot be null")
-    BigDecimal balance = BigDecimal.ZERO;
+	@Column(nullable = false)
+	@NotNull(message = "Balance cannot be null")
+	BigDecimal balance = BigDecimal.ZERO;
 
-    @Column(nullable = false)
-    @NotNull(message = "Currency cannot be null")
-    Currency currency;
+	@Column(nullable = false)
+	@NotNull(message = "Currency cannot be null")
+	Currency currency;
 
-    @NotNull(message = "Name of wallet cannot be null")
-    String name;
+	@NotNull(message = "Name of wallet cannot be null")
+	String name;
 
-    // Relationship
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @NotNull(message = "User cannot be null")
-    User user;
+	// Relationship
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	@NotNull(message = "User cannot be null")
+	User user;
 
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Transaction> transactions;
-    // Timestamp
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    Instant createdAt;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    Instant updatedAt;
+	@OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
+	Set<Transaction> transactions;
+	// Timestamp
+	@CreationTimestamp
+	@Column(name = "created_at", nullable = false, updatable = false)
+	Instant createdAt;
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	Instant updatedAt;
 
 }

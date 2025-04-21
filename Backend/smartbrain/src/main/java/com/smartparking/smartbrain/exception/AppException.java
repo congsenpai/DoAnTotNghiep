@@ -1,20 +1,21 @@
 package com.smartparking.smartbrain.exception;
 
-public class AppException extends RuntimeException {
-    public AppException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
-    public AppException(ErrorCode errorCode, String message) {
-        super(message); // Dùng message cụ thể từ introspect()
-        this.errorCode = errorCode;
-    }
-    private ErrorCode errorCode;
+import lombok.Getter;
+import lombok.Setter;
 
-    public ErrorCode getErrorCode() {
-        return errorCode;
-    }
-    public void setErrorCode(ErrorCode errorCode) {
-        this.errorCode = errorCode;
-    }
+@Getter
+@Setter
+public class AppException extends RuntimeException {
+	public AppException(ErrorCode errorCode) {
+		super(errorCode.getMessage());
+		this.errorCode = errorCode;
+	}
+
+	public AppException(ErrorCode errorCode, String message) {
+		super(message); // Dùng message cụ thể từ introspect()
+		this.errorCode = errorCode;
+	}
+
+	private ErrorCode errorCode;
+
 }

@@ -1,14 +1,16 @@
 package com.smartparking.smartbrain.exception;
 
-public enum ErrorCode {
+import lombok.Getter;
 
+@Getter
+public enum ErrorCode {
     // System errors
-    ERROR_NOT_FOUND(0001, "Error special"),
-    NOT_REFRESH_TOKEN(0002, "Not refresh token"),
-    NOT_ACCESS_TOKEN(0003, "Not access token"),
-    INVALID_TOKEN(0004, "Invalid token"),
-    SLOT_NOT_VALID_WITH_VEHICLE_TYPE(0005, "Slot not valid with vehicle type"),
-    INVALID_DATE_TIME_FORMAT(0006, "Invalid date time format"),
+    ERROR_NOT_FOUND(1, "Error special"),
+    NOT_REFRESH_TOKEN(2, "Not refresh token"),
+    NOT_ACCESS_TOKEN(3, "Not access token"),
+    INVALID_TOKEN(4, "Invalid token"),
+    SLOT_NOT_VALID_WITH_VEHICLE_TYPE(5, "Slot not valid with vehicle type"),
+    INVALID_DATE_TIME_FORMAT(6, "Invalid date time format"),
 
     // User errors
     USER_NOT_FOUND(1001, "User not found"),
@@ -42,6 +44,7 @@ public enum ErrorCode {
     FALSE_UPDATE_STATUS_SLOT(4004, "Updating slot status false"),
     TOTAL_SLOT_EXCEED(4005, "Total slot exceed, can't use auto create slot, please create slot manually"),
     SLOT_NOT_AVAILABLE(4006, "Slot not available"),
+    SLOT_ALREADY_RESERVED_THIS_MONTH(4007, "Slot already reserved this month"),
 
     // Wallet errors
     WALLET_NOT_FOUND(5001, "Wallet not found"),
@@ -69,34 +72,29 @@ public enum ErrorCode {
     ROLE_ALREADY_EXISTS(9002, "Role already exists"),
     ROLE_NOT_EXISTS(9003, "Role not exists"),
     // Invoice errors
-    INVOICE_NOT_FOUND(0101, "Invoice not found"),
-    INVOICE_ALREADY_EXISTS(0102, "Invoice already exists"),
-    INVOICE_NOT_EXISTS(0103, "Invoice not exists"),
-    INVOICE_NOT_DEPOSIT(0104, "Invoice not deposit"),
+    INVOICE_NOT_FOUND(65, "Invoice not found"),
+    INVOICE_ALREADY_EXISTS(66, "Invoice already exists"),
+    INVOICE_NOT_EXISTS(67, "Invoice not exists"),
+    INVOICE_NOT_DEPOSIT(68, "Invoice not deposit"),
+    INVOICE_QR_NOT_EXISTS(69, "Invoice qr not exists"),
     // Transaction errors
-    TRANSACTION_NOT_FOUND(0201, "Transaction not found"),
-    TRANSACTION_ALREADY_EXISTS(0202, "Transaction already exists"),
-    TRANSACTION_NOT_EXISTS(0203, "Transaction not exists"),
-    TRANSACTION_TYPE_NOT_EXIST(0204, "Transaction type not exists"),
+    TRANSACTION_NOT_FOUND(129, "Transaction not found"),
+    TRANSACTION_ALREADY_EXISTS(130, "Transaction already exists"),
+    TRANSACTION_NOT_EXISTS(131, "Transaction not exists"),
+    TRANSACTION_TYPE_NOT_EXIST(132, "Transaction type not exists"),
     // Monthly ticket errors
-    MONTHLY_TICKET_NOT_FOUND(0301, "Monthly ticket not found"),
-    MONTHLY_TICKET_ALREADY_EXISTS(0302, "Monthly ticket already exists"),
-    MONTHLY_TICKET_NOT_EXISTS(0303, "Monthly ticket not exists"),
-    ;
+    MONTHLY_TICKET_NOT_FOUND(193, "Monthly ticket not found"),
+    MONTHLY_TICKET_ALREADY_EXISTS(194, "Monthly ticket already exists"),
+    MONTHLY_TICKET_NOT_EXISTS(195, "Monthly ticket not exists"),
+    // Entry
+    YOUR_VEHICLE_HAS_LEFT_PARKING_LOT(201,"Your vehicle has left the parking lot"),
+    YOUR_VEHICLE_HAS_ENTERED_PARKING_LOT(201,"Your vehicle has entered the parking lot")
 
+;
     ErrorCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
-
-    private final int code;
-    private final String message;
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
+    final int code;
+    final String message;
 }

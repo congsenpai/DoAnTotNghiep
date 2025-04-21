@@ -95,6 +95,7 @@ public class ParkingLotService {
                 }
             }
         }
+
         // create reponse
         ParkingLotResponse response = parkingLotMapper.toParkingLotResponse(parkingLot);
         response.setUserID(parkingLot.getUser().getUserID());
@@ -125,18 +126,6 @@ public class ParkingLotService {
         parkingLotRepository.deleteById(parkingLotID);
     }
 
-    // public List<ParkingLotResponse> findByParkingLotName(String name) {
-    // var parkingLotList=parkingLotRepository.findByParkingLotName(name);
-    // if (!parkingLotList.isEmpty()) {
-    // throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
-    // }
-    // return parkingLotList.stream().map(parkingLot -> {
-    // ParkingLotResponse response=
-    // parkingLotMapper.toParkingLotResponse(parkingLot);
-    // response.setUserID(parkingLot.getUser().getUserID());
-    // return response;
-    // }).collect(Collectors.toList());
-    // }
     public PagedResponse<ParkingLotResponse> findByParkingLotName(String name, Pageable pageable) {
         var page = parkingLotRepository.searchByParkingLotName(name, pageable);
 
@@ -162,7 +151,7 @@ public class ParkingLotService {
 
     public List<ParkingLotResponse> findNearestParkingLot(double lat, double lon) {
         var parkingLotList = parkingLotRepository.findNearestParkingLots(lat, lon);
-        if (!parkingLotList.isEmpty()) {
+        if (parkingLotList.isEmpty()) {
             throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
         }
         return parkingLotList.stream().map(parkingLot -> {
@@ -184,4 +173,16 @@ public class ParkingLotService {
         return new PagedResponse<>(parkingLotResponses, parkingLotPage.getNumber(), parkingLotPage.getSize(),
                 parkingLotPage.getTotalElements(), parkingLotPage.getTotalPages(), parkingLotPage.isLast());
     }
+    public  List<ParkingLotResponse> findByUserID(String userID) {
+        var parkingLots= parkingLotRepository.findByUser_UserID(userID);
+        if (parkingLots.isEmpty()) {
+            throw new AppException(ErrorCode.PARKING_LOT_NOT_FOUND);
+        }
+        return parkingLots.stream().map(parkingLot -> {
+            ParkingLotResponse response = parkingLotMapper.toParkingLotResponse(parkingLot);
+            response.setUserID(parkingLot.getUser().getUserID());
+            return response;
+        }).collect(Collectors.toList());
+    }
+
 }

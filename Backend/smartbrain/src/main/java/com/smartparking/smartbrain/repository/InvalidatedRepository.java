@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.smartparking.smartbrain.model.InvalidToken;
 
 @Repository
-public interface InvalidatedRepository  extends JpaRepository<InvalidToken, String> {    
+public interface InvalidatedRepository extends JpaRepository<InvalidToken, String> {
 }
