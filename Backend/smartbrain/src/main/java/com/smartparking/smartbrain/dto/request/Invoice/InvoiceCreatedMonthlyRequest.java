@@ -22,7 +22,6 @@ public class InvoiceCreatedMonthlyRequest {
     String discountCode;
     @NotEmpty(message = "Parking slot can not be null")
     String parkingSlotID;
-    String startedAt;
     String expiredAt;
     @NotEmpty(message = "Wallet can not be null")
     String walletID;

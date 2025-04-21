@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 
 @Data
@@ -14,8 +13,6 @@ import lombok.AccessLevel;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationRequest {
-    @NotNull(message = "Username is required")
-    String username;
-    @NotNull(message = "Password is required")
-    String password;
+    private String username;
+    private String password;
 }
