@@ -17,7 +17,7 @@ class InvoiceList extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(context, 
-        MaterialPageRoute(builder: (context)=>InvoiceDetailsScreen(invoice: invoice,))
+        MaterialPageRoute(builder: (context)=>InvociceDetailsScreen(invoice: invoice,))
         );
       },
       child: Column(

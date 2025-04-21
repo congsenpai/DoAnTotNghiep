@@ -9,7 +9,8 @@ import com.smartparking.smartbrain.model.Permission;
 
 @Mapper(componentModel = "spring")
 public interface PermissionMapper {
-    @Mapping(target = "roles", ignore = true)
-    Permission toPermission(PermissionRequest permissionRequest);
-    PermissionResponse toPermissionResponse(Permission permission);
+	@Mapping(target = "roles", ignore = true)
+	Permission toPermission(PermissionRequest permissionRequest);
+
+	PermissionResponse toPermissionResponse(Permission permission);
 }

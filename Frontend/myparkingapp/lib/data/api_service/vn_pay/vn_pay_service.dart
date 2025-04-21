@@ -35,7 +35,7 @@ class _DepositFormScreenState extends State<DepositFormScreen> {
         content: SizedBox(
           width: Get.width,
           height: Get.height/2,
-          child: TransactionInfo(name: name, amount: amount, note: note, user: widget.user, walletID: widget.walletResponse.walletId,)
+          child: TransactionInfo(name: name, amount: amount, note: note, user: widget.user,)
           ), 
         actions: [
           IconButton(onPressed: (){

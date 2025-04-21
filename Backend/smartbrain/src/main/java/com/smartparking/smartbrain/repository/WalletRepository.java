@@ -12,8 +12,9 @@ import com.smartparking.smartbrain.model.User;
 import com.smartparking.smartbrain.model.Wallet;
 
 public interface WalletRepository extends JpaRepository<Wallet, String> {
-    List<Wallet> findByUser(User user);
-    @EntityGraph(attributePaths = {"user"})
-    @Query("SELECT w FROM Wallet w WHERE w.walletID = :walletID")
-    Optional<Wallet> findByIdWithUser(@Param("walletID") String walletID);
+	List<Wallet> findByUser(User user);
+
+	@EntityGraph(attributePaths = { "user" })
+	@Query("SELECT w FROM Wallet w WHERE w.walletID = :walletID")
+	Optional<Wallet> findByIdWithUser(@Param("walletID") String walletID);
 }

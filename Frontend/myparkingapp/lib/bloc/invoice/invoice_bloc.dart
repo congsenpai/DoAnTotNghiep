@@ -2,22 +2,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_event.dart';
 import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/api_result.dart';
-import 'package:myparkingapp/data/flutter_secure_storage.dart';
 import 'package:myparkingapp/data/repository/invoice_repository.dart';
+import 'package:myparkingapp/data/repository/transaction_repository.dart';
 import 'package:myparkingapp/data/repository/user_repository.dart';
-import 'package:myparkingapp/data/repository/wallet_repository.dart';
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
-import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
   InvoiceBloc():super(InvoiceInitialState()){
     on<InvoiceInitialEvent>(_getInvoiceBySearchAndPage);
     on<CreatedInvoiceEvent>(_createInvoice);
-    on<GetCurrentInvoiceEvent>(_getCurrentInvoice);
-    on<GetInvoiceByIDEvent>(_getInvoiceByID);
-    on<CreatedPaymentInvoiceEvent>(_createdPaymentInvoice);
-
   }
   void _getInvoiceBySearchAndPage (InvoiceInitialEvent event, Emitter<InvoiceState> emit) async{
     try{
@@ -25,12 +19,9 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
       UserRepository userRepository = UserRepository();
       ApiResult userApi =  await userRepository.getMe();
       UserResponse user = userApi.result;
-      InvoiceRepository invoiceRepository = InvoiceRepository();
-      ApiResult invoiceApi = await invoiceRepository.getInvoiceByUserWithSearchAndPage(user, event.page);
-      InvoiceOnPage data = invoiceApi.result;
-      List<InvoiceResponse> invoices = data.invoices;
-
-      emit(InvoiceLoadedState(invoices, event.page, data.pageTotal, user));
+      InvoiceOnPage invoiceOnPage = invoiceOnPages.firstWhere((i)=>i.page == 1);
+      List<InvoiceResponse> invoices = invoiceOnPage.invoices;
+      emit(InvoiceLoadedState(invoices, event.page, invoiceOnPage.pageTotal, user));
     }
     catch(e){
       Exception("InvoiceBloc _getInvoiceBySearchAndPage : $e");
@@ -42,12 +33,16 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
       InvoiceRepository invoice = InvoiceRepository();
       late ApiResult invoiceApi;
       invoiceApi = await invoice.createdInvoice(event.invoiceD,event.invoiceM);
-      if(invoiceApi.code ==200){
-        InvoiceResponse invoiceResponse = invoiceApi.result;
-        InvoiceStorageManager invoiceStorageManager = InvoiceStorageManager();
-        invoiceStorageManager.addToCurrentInvoice(invoiceResponse.invoiceID, invoiceResponse.objectDecrypt);
+
+
+
+      if(invoiceApi.code !=200){
+        emit(InvoiceErrorState(invoiceApi.message));
+      }
+      else{
         emit(InvoiceSuccessState(" ${invoiceApi.message}"));
       }
+<<<<<<< HEAD
       else{
         emit(InvoiceErrorState(invoiceApi.message));
       }
@@ -131,6 +126,8 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
       else{
         emit(InvoiceErrorState(invoiceApi.message));
       }
+=======
+>>>>>>> main
     }
     catch(e){
       Exception(e);

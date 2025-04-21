@@ -21,7 +21,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice,String> {
     Page<Invoice> findByUser_UserID(String userID, Pageable pageable);
     @Query(value = "SELECT * FROM invoices WHERE user_id = :userId AND status = 'DEPOSIT'", nativeQuery = true)
     Page<Invoice> findUnpaidInvoicesByUser(@Param("userId") String userId, Pageable pageable);
-    @EntityGraph(attributePaths = {}) // Không fetch quan hệ nào
+    @EntityGraph() // Không fetch quan hệ nào
     @Query("SELECT i FROM Invoice i WHERE i.invoiceID = :invoiceID")
     Optional<Invoice> findByIdWithoutRelations(@Param("invoiceID") String invoiceID);
     @Modifying
@@ -49,5 +49,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice,String> {
     nativeQuery = true
     )
     List<Invoice> findAllActiveInvoiceByUser(@Param("userID") String userID);
+
+    @Query("SELECT i FROM Invoice i WHERE i.parkingSlot.parkingLot.parkingLotID = :parkingLotId")
+    List<Invoice> findAllInvoiceByParkingLotId(@Param("parkingLotId") String parkingLotId);
 
 }

@@ -11,7 +11,6 @@ import 'package:myparkingapp/bloc/transaction/transaction_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
-import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/dashboard/component/chard.dart';
 import 'package:myparkingapp/screens/dashboard/component/filter.dart';
 import '../../constants.dart';
@@ -51,10 +50,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           );
         } else if (state is TransactionDashboardLoadedState) {
           trans = state.trans;
+<<<<<<< HEAD
           size = state.size;
+=======
+          type = state.type;
+>>>>>>> main
           return Scaffold(
             appBar: AppBar(
-
               title: Text(AppLocalizations.of(context).translate("Deposit Management").toUpperCase()),
               actions: [
                 
@@ -76,10 +78,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   padding: EdgeInsets.zero,
                 ),
                 child: const Icon(Icons.close, color: Colors.white),
-                onPressed: () => {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => MainScreen()))
-                },
+                onPressed: () => Navigator.pop(context),
               ),
             ),
             ),

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:myparkingapp/main_screen.dart';
 
 const String _apiKey = 'AIzaSyC4BcWF9-2Ji07EghWdmcKJ163XYAHu8wE';
 class ChatScreen extends StatefulWidget {
@@ -16,22 +15,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
-              backgroundColor: Colors.black.withOpacity(0.5),
-              padding: EdgeInsets.zero,
-            ),
-            child: const Icon(Icons.close, color: Colors.white),
-            onPressed: () => {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MainScreen()))
-            },
-          ),
-        ),
         title: Center(child: Text("Parking Chatbot")),
       ),
       body: const ChatWidget(apiKey: _apiKey),

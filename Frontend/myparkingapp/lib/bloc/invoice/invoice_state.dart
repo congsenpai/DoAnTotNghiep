@@ -1,6 +1,5 @@
 import 'package:myparkingapp/data/response/invoice_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
-import 'package:myparkingapp/data/response/wallet_response.dart';
 
 abstract class InvoiceState{
 
@@ -34,28 +33,4 @@ class InvoiceErrorState extends InvoiceState{
 class InvoiceSuccessState extends InvoiceState{
   String mess;
   InvoiceSuccessState(this.mess);
-}
-
-class Invoice_QR{
-  String InvoiceID;
-  String QR;
-
-  Invoice_QR(this.InvoiceID, this.QR);
-
-}
-
-class GetCurrentInvoiceState extends InvoiceState{
-  List<Invoice_QR> invoices;
-  GetCurrentInvoiceState({
-    required this.invoices,
-});
-}
-
-class GetInvoiceByIDState extends InvoiceState{
-  InvoiceResponse invoice;
-  List<WalletResponse>? wallets;
-  GetInvoiceByIDState({
-    required this.invoice,
-    this.wallets
-  });
 }

@@ -21,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).translate("chooseLanguage")),
+        title: Text(AppLocalizations.of(context).translate("Choose Language")),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -33,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
             ListTile(
-              title: const Text("VietNam"),
+              title: const Text("Tiếng Việt"),
               onTap: () {
                 Get.updateLocale(const Locale('vi')); // hoặc Locale('vi')
                 Navigator.pop(context);
@@ -89,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   );
                 },
-                child: Text(AppLocalizations.of(context).translate("getStarted").toUpperCase()),
+                child: Text(AppLocalizations.of(context).translate("Get Started").toUpperCase()),
               ),
             ),
             const Spacer(flex: 1),
@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: ElevatedButton(
                 onPressed: _showLanguageDialog,
-                child: Text(AppLocalizations.of(context).translate("chooseLanguage").toUpperCase()),
+                child: Text(AppLocalizations.of(context).translate("Choose Language").toUpperCase()),
               ),
             ),
             const Spacer(),
@@ -112,17 +112,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 List<Map<String, dynamic>> demoData = [
   {
     "illustration": "assets/Illustrations/Illustrations_1.svg",
-    "title": "title1",
-    "text": "text1"
+    "title": "Time is gold",
+    "text": "Don’t waste time circling for a spot. Let technology guide you to the right place, at the right time."
   },
   {
     "illustration": "assets/Illustrations/Illustrations_2.svg",
-    "title": "title2",
-    "text": "text2"
+    "title": "Convenience makes a difference",
+    "text": "A smart choice saves you effort. Book in advance, park easily, and enjoy your day."
   },
   {
     "illustration": "assets/Illustrations/Illustrations_3.svg",
-    "title": "title3",
-    "text": "text3"
+    "title": "Stay in control",
+    "text": "Own your journey—don’t let parking slow you down. One tap, and everything is within reach."
   }
 ];

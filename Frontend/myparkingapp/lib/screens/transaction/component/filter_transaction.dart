@@ -67,11 +67,16 @@ class _FilterTransactionState extends State<FilterTransaction> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                     backgroundColor: selectType == TransactionType.TOP_UP
                         ? Colors.green
+=======
+                    backgroundColor: selectType == Transactions.TOP_UP
+                        ? Colors.blue
+>>>>>>> main
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("top_up").toUpperCase()),
+                  child: Text(AppLocalizations.of(context).translate("TOP_UP")),
                 ),
               ),
               SizedBox(width: 8,),
@@ -84,11 +89,16 @@ class _FilterTransactionState extends State<FilterTransaction> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                     backgroundColor: selectType == TransactionType.PAYMENT
                         ? Colors.green
+=======
+                    backgroundColor: selectType == Transactions.PAYMENT
+                        ? Colors.blue
+>>>>>>> main
                         : Colors.grey,
                   ),
-                  child: Text(AppLocalizations.of(context).translate("payment").toUpperCase()),
+                  child: Text(AppLocalizations.of(context).translate("PAYMENT")),
                 ),
               ),
 
@@ -155,7 +165,7 @@ class _FilterTransactionState extends State<FilterTransaction> {
                         .read<TransactionBloc>()
                         .add(LoadTransactionEvent(widget.wallet, TransactionType.PAYMENT, 1,10));
                   },
-                  child: Text(AppLocalizations.of(context).translate("Refresh")),
+                  child: Text(AppLocalizations.of(context).translate("Empty")),
                 ),
               ),
             ],

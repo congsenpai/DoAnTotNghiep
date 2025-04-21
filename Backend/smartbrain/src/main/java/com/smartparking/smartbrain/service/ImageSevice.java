@@ -23,27 +23,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ImageSevice {
-    ImagesRepository imagesRepository;
-    ImageMapper imageMapper;
+	ImagesRepository imagesRepository;
+	ImageMapper imageMapper;
 
-    public ImageResponse addImageForUser(CreatedImageForUserRequest request) {
-        Image image=imagesRepository.save(imageMapper.fromUserRequestToImage(request));
-        return imageMapper.fromImageToImageResponse(image);
-    }
-    public void addImagesForParkingLot(CreatedImageForParkingLotRequest request) {
-        List<Image> image = imageMapper.fromParkingLotRequestToImage(request);
-        imagesRepository.saveAll(image);
-    }
-    public ImageResponse getImageOfUser(String userID) {
-        Image image= imagesRepository.findByUser_UserID(userID)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
-        return imageMapper.fromImageToImageResponse(image);
-    }
-    public List<ImageResponse> getImageOfParkingLot(String parkingLotID) {
-        List<Image> images= imagesRepository.findByParkingLot_ParkingLotID(parkingLotID)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
-        return images.stream()
-            .map(imageMapper::fromImageToImageResponse)
-            .toList();
-    }
+	public ImageResponse addImageForUser(CreatedImageForUserRequest request) {
+		Image image = imagesRepository.save(imageMapper.fromUserRequestToImage(request));
+		return imageMapper.fromImageToImageResponse(image);
+	}
+
+	public void addImagesForParkingLot(CreatedImageForParkingLotRequest request) {
+		List<Image> image = imageMapper.fromParkingLotRequestToImage(request);
+		imagesRepository.saveAll(image);
+	}
+
+	public ImageResponse getImageOfUser(String userID) {
+		Image image = imagesRepository.findByUser_UserID(userID)
+				.orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+		return imageMapper.fromImageToImageResponse(image);
+	}
+
+	public List<ImageResponse> getImageOfParkingLot(String parkingLotID) {
+		List<Image> images = imagesRepository.findByParkingLot_ParkingLotID(parkingLotID)
+				.orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+		return images.stream()
+				.map(imageMapper::fromImageToImageResponse)
+				.toList();
+	}
 }

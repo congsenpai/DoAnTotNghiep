@@ -7,24 +7,24 @@ import 'package:myparkingapp/data/response/user_response.dart';
 class InvoiceRepository{
   String apiUrl = "http://localhost/myparkingapp";
 
-  Future<ApiResult> getInvoiceByUserWithSearchAndPage(UserResponse user,int page) async{
+  Future<ApiResult> getInvoiceByUserWithSearchAndPage(UserResponse user,String search,int page) async{
     try{
         ApiClient apiClient = ApiClient();
-        final response = await apiClient.getInvoiceByUserWithSearchAndPage(page, user.userID);
+        final response = await apiClient.getInvoiceByUserWithSearchAndPage(search, page, user.userID);
         if(response.statusCode == 200){
             Map<String, dynamic> jsonData = response.data;
             int code = jsonData['code'];
             String mess = jsonData['message'];
-            int pageNumber = jsonData['result']['pageNumber'];
-            int totalPage = jsonData['result']['totalPages'];
-            List<InvoiceResponse> invoices = (jsonData['result']['content'] as List)
+            int page = jsonData['result']['page'];
+            int pageAmount = jsonData['result']['pageAmount'];
+            List<InvoiceResponse> invoices = (jsonData['result']['invoice'] as List)
             .map((json) => InvoiceResponse.fromJson(json))
             .toList();
 
             InvoiceOnPage result = InvoiceOnPage(
                 invoices, 
-                pageNumber,
-                totalPage);
+                page, 
+                pageAmount);
             
             ApiResult apiResult = ApiResult(
                 code,
@@ -46,6 +46,7 @@ class InvoiceRepository{
     }
   }
 
+<<<<<<< HEAD
 
   Future<ApiResult> getCurrentInvoice(String userID) async{
     try{
@@ -84,6 +85,8 @@ class InvoiceRepository{
     }
   }
 
+=======
+>>>>>>> main
   Future<ApiResult> createdInvoice(InvoiceCreatedDailyRequest? invoiceD,InvoiceCreatedMonthlyRequest? invoiceM) async{
     try{
         ApiClient apiClient = ApiClient();
@@ -94,36 +97,50 @@ class InvoiceRepository{
         else{
           response  = await apiClient.invoiceCreatedMonthly(invoiceM!);
         }
+<<<<<<< HEAD
         Map<String, dynamic> jsonData = response.data;
         int code = jsonData['code'];
         String mess = jsonData['message'];
         if(code == 200){
             InvoiceResponse invoiceResponse = InvoiceResponse.fromJson(jsonData['result']);
+=======
+        if(response.statusCode == 200){
+            Map<String, dynamic> jsonData = response.data;
+            int code = jsonData['code'];
+            String mess = jsonData['message'];
+>>>>>>> main
             ApiResult apiResult = ApiResult(
                 code,
                 mess,
-                invoiceResponse,
+                null,
             );
             return apiResult;
         }
         else{
+<<<<<<< HEAD
           ApiResult apiResult = ApiResult(
             code,
             mess,
             null,
           );
           return apiResult;
+=======
+            throw Exception(
+            "InvoiceRepository_getInvoiceByUserWithSearchAndPage"
+        ); 
+>>>>>>> main
         }
 
 
     }
     catch(e){
         throw Exception(
-            "InvoiceRepository_createdInvoice: $e"
+            "InvoiceRepository_getInvoiceByUserWithSearchAndPage: $e"
         ); 
     }
 
   }
+<<<<<<< HEAD
 
   Future<ApiResult> getInvoiceByID(String invoiceID) async{
     try{
@@ -198,4 +215,6 @@ class InvoiceRepository{
   }
 
 
+=======
+>>>>>>> main
 }

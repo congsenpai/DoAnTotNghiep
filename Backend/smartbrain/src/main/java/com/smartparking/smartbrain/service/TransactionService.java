@@ -49,8 +49,20 @@ public class TransactionService {
                 page.isLast());
     }
 
-    public PagedResponse<TransactionResponse> getAllTransaction(Pageable pageable) {
-        var page = transactionRepository.findAll(pageable);
+    public PagedResponse<TransactionResponse> getAllTransaction(String from,String to, String type,Pageable pageable) {
+        Instant startDate;
+        Instant endDate;
+        try {
+            startDate = dateTimeConverter.fromStringToInstant(from);
+            endDate = dateTimeConverter.fromStringToInstant(to);
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.INVALID_DATE_TIME_FORMAT);
+        }
+        if (type == null) {
+            throw new AppException(ErrorCode.TRANSACTION_TYPE_NOT_EXIST);
+        }
+        TransactionType transactionType = TransactionType.valueOf(type);
+        var page = transactionRepository.findAllByTimeAndType(startDate,endDate,transactionType,pageable);
 
         if (page.isEmpty()) {
             throw new AppException(ErrorCode.TRANSACTION_NOT_FOUND);

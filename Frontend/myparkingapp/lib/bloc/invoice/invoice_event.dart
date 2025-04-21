@@ -6,14 +6,16 @@ import '../../data/response/user_response.dart';
 abstract class InvoiceEvent{}
 
 class InvoiceInitialEvent extends InvoiceEvent{
+  final String search;
   final int page;
-  InvoiceInitialEvent( this.page);
+  InvoiceInitialEvent( this.search, this.page);
 }
 
 class CreatedInvoiceEvent extends InvoiceEvent{
   InvoiceCreatedDailyRequest? invoiceD;
   InvoiceCreatedMonthlyRequest? invoiceM;
   CreatedInvoiceEvent(this.invoiceD,this.invoiceM);
+<<<<<<< HEAD
 }
 
 class CreatedPaymentInvoiceEvent extends InvoiceEvent{
@@ -29,4 +31,6 @@ class GetCurrentInvoiceEvent extends InvoiceEvent{
 class GetInvoiceByIDEvent extends InvoiceEvent{
   String invoiceID;
   GetInvoiceByIDEvent(this.invoiceID);
+=======
+>>>>>>> main
 }

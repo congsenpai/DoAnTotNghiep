@@ -2,18 +2,9 @@ package com.smartparking.smartbrain.model;
 
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -25,12 +16,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Permission {
-    @Id
-    @NotNull(message = "Permission name cannot be null")
-    String permissionName;
-    String description;
+	@Id
+	@NotNull(message = "Permission name cannot be null")
+	String permissionName;
+	String description;
 
-    // Relationship with Role ManytoMany - Permissions can have many roles
-    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
-    Set<Role> roles;
+	// Relationship with Role ManytoMany - Permissions can have many roles
+	@ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
+	Set<Role> roles;
 }

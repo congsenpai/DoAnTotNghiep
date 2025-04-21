@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.smartparking.smartbrain.model.Image;
 
 @Repository
-public interface ImagesRepository extends JpaRepository<Image,String> {
-    Optional<Image> findByUser_UserID(String userID);
-    Optional<List<Image>> findByParkingLot_ParkingLotID(String parkingLotID);
+public interface ImagesRepository extends JpaRepository<Image, String> {
+	Optional<Image> findByUser_UserID(String userID);
+
+	Optional<List<Image>> findByParkingLot_ParkingLotID(String parkingLotID);
 }

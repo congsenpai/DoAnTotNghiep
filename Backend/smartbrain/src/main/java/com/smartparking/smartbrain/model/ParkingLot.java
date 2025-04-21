@@ -56,10 +56,10 @@ public class ParkingLot {
     String description;
 
     // Định nghĩa quan hệ ManyToOne
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name = "user_id", nullable = false) // Tên cột trong cơ sở dữ liệu
-    User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@JoinColumn(name = "user_id", nullable = false) // Tên cột trong cơ sở dữ liệu
+	User user;
     @OneToMany(mappedBy = "parkingLot",fetch = FetchType.LAZY)
     @JsonIgnore
     Set<ParkingSlot> parkingSlots;

@@ -9,7 +9,6 @@ import 'package:myparkingapp/bloc/invoice/invoice_state.dart';
 import 'package:myparkingapp/components/app_dialog.dart';
 import 'package:myparkingapp/components/pagination_button.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
-import 'package:myparkingapp/main_screen.dart';
 import '../../constants.dart';
 import '../../data/response/invoice_response.dart';
 import 'components/invoice_list.dart';
@@ -25,12 +24,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   List<InvoiceResponse> invoices = [];
   int page = 1;
   int pageAmount = 1;
+  String searchText = "";
   UserResponse user = demoUser;
 
   @override
   void initState() {
     super.initState();
-    context.read<InvoiceBloc>().add(InvoiceInitialEvent(page));
+    context.read<InvoiceBloc>().add(InvoiceInitialEvent( searchText, page));
   }
   @override
   Widget build(BuildContext context) {
@@ -46,23 +46,6 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           user = state.user;
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
-                    backgroundColor: Colors.black.withOpacity(0.5),
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: const Icon(Icons.close, color: Colors.white),
-                  onPressed: () => {
-                    Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context)=>MainScreen())
-                    )
-                  }
-                ),
-              ),
               title: Text(AppLocalizations.of(context).translate("Your Invoice")),
             ),
             body: SingleChildScrollView(
@@ -71,6 +54,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                 child: Column(
                   children: [
+                    SearchForm(page: page,user: user),
                     const SizedBox(height: defaultPadding),
                     // List of cart items
                     ...List.generate(
@@ -84,7 +68,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     PaginationButtons(page: page, pageTotal: pageAmount, onPageChanged: (newPage) {
                         setState(() {
                           page = newPage;
-                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(page));// Gọi hàm search
+                          context.read<InvoiceBloc>().add(InvoiceInitialEvent(searchText, page));// Gọi hàm search
                         });
                         // Gọi API hoặc cập nhật dữ liệu cho trang mới
                       },)
@@ -104,3 +88,52 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   }
 }
 
+<<<<<<< HEAD
+=======
+class SearchForm extends StatefulWidget {
+  final UserResponse user;
+  final int page;
+  const SearchForm({super.key, required this.user, required this.page});
+
+  @override
+  State<SearchForm> createState() => _SearchFormState();
+}
+
+class _SearchFormState extends State<SearchForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        controller: _controller,
+        onFieldSubmitted: (value) {
+          if (_formKey.currentState!.validate()) {
+            context.read<InvoiceBloc>().add(InvoiceInitialEvent(_controller.text, widget.page)) ;// Gọi hàm search
+          }
+        },
+        validator: requiredValidator.call,
+        style: Theme.of(context).textTheme.labelLarge,
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          hintText: "Search invoice...",
+          contentPadding: kTextFieldPadding,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SvgPicture.asset(
+              'assets/icons/search.svg',
+              colorFilter: const ColorFilter.mode(
+                bodyTextColor,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+>>>>>>> main

@@ -1,5 +1,7 @@
 package com.smartparking.smartbrain.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +14,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/myparkingapp/entry")
@@ -22,23 +21,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EntryController {
-    EntryService entryService;
-    @PostMapping("enter")
-    public ApiResponse<Void> enterParkingLot(@RequestBody @Valid EntryRequest request) {
-        entryService.enterParkingLot(request);
-        return ApiResponse.<Void>builder()
-        .code(200)
-        .message("QR valid, open the barier. Welcome")
-        .build();
-    }
-    @PostMapping("leave")
-    public ApiResponse<Void> leaveParkingLot(@RequestBody @Valid EntryRequest request) {
-        entryService.leaveParkingLot(request);
-        return ApiResponse.<Void>builder()
-        .code(200)
-        .message("QR valid, open the barier. See you again")
-        .build();
-    }
-    
-    
+	EntryService entryService;
+
+	@PostMapping("enter")
+	public ApiResponse<Void> enterParkingLot(@RequestBody @Valid EntryRequest request) {
+		entryService.enterParkingLot(request);
+		return ApiResponse.<Void>builder()
+				.code(200)
+				.message("QR valid, open the barier. Welcome")
+				.build();
+	}
+
+	@PostMapping("leave")
+	public ApiResponse<Void> leaveParkingLot(@RequestBody @Valid EntryRequest request) {
+		entryService.leaveParkingLot(request);
+		return ApiResponse.<Void>builder()
+				.code(200)
+				.message("QR valid, open the barier. See you again")
+				.build();
+	}
+
 }

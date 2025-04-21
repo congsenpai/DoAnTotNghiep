@@ -17,7 +17,6 @@ import 'package:myparkingapp/data/response/transaction_response.dart';
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'package:myparkingapp/data/response/wallet_response.dart';
-import 'package:myparkingapp/screens/details_parkinglot/details_screen.dart';
 import 'package:myparkingapp/screens/invoice/components/object_row.dart';
 import 'package:myparkingapp/screens/invoice/components/total_price.dart';
 import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
@@ -25,7 +24,6 @@ import 'package:myparkingapp/screens/invoice/invoice_screen.dart';
 class InvoiceCreateScreen extends StatelessWidget {
   InvoiceCreatedDailyRequest? invoiceD;
   InvoiceCreatedMonthlyRequest? invoiceM;
-  PaymentDailyRequest? paymentD;
   final ParkingSlotResponse slot;
   final ParkingLotResponse lot;
   final WalletResponse wallet;
@@ -50,22 +48,7 @@ class InvoiceCreateScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
-              backgroundColor: Colors.black.withOpacity(0.5),
-              padding: EdgeInsets.zero,
-            ),
-            child: const Icon(Icons.close, color: Colors.white),
-            onPressed: () => {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => DetailsScreen(parkingLot: lot, user: user)))
-            },
-          ),
-        ),
+        backgroundColor: Colors.white,
         title: Text(AppLocalizations.of(context).translate("Your Orders")),
       ),
       body: BlocConsumer<InvoiceBloc, InvoiceState>(
@@ -123,17 +106,14 @@ class InvoiceCreateScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: Get.width / 30),
-
-                    Text(
-                      AppLocalizations.of(context).translate("Discount :"),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    PrimaryButton(
+                      text: "Discount",
+                      press: () {
+                        AppDialog.showDetailDiscount(context,discount);
+                      },
                     ),
                     SizedBox(height: Get.width / 30),
+<<<<<<< HEAD
                     ObjectRow(title: "Discount Code", content: discount.discountCode),
                     SizedBox(height: Get.width / 30),
                     ObjectRow(title: "Reduced", content: "${discount.discountValue} ${
@@ -148,13 +128,26 @@ class InvoiceCreateScreen extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
+=======
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 8),
+                        Expanded(
+                          flex: 1,
+                          child: PrimaryButton(
+                            text: "${vehicle.licensePlate} ",
+                            press: () {
+                              AppDialog.showDetailVehicle(context, vehicle);
+                            },
+                          ),
+                        ),
+                      ],
+>>>>>>> main
                     ),
-                    SizedBox(height: Get.width / 30),
-                    ObjectRow(title: "License Plate", content: vehicle.licensePlate),
-                    SizedBox(height: Get.width / 30),
-                    ObjectRow(title: "Description vehicle", content: vehicle.description),
                     Spacer(),
-                    TotalPrice(price: invoiceD != null ? invoiceD!.total : invoiceM!.total, current: wallet.currency,),
+                    const TotalPrice(price: 20),
                     SizedBox(height: Get.width / 30),
                     PrimaryButton(
                       text: "Payment",

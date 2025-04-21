@@ -3,6 +3,7 @@ package com.smartparking.smartbrain.dto.response.Wallet;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+import com.smartparking.smartbrain.enums.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +23,5 @@ public class TransactionResponse {
     BigDecimal amount;          // Số tiền giao dịch
     Instant timestamp;        // Thời gian giao dịch
     String description;         // Mô tả giao dịch
-    Boolean isTopUpTransaction;
+    TransactionType type;
 }

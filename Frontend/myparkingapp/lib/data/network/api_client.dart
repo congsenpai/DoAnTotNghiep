@@ -13,7 +13,6 @@ import 'package:myparkingapp/data/response/vehicle_response.dart';
 import 'dio_client.dart';
 
 class ApiClient {
-
   
     //----------------------------- USER --------------------------------//
 
@@ -93,10 +92,10 @@ class ApiClient {
     );
   }
 
-  Future<Response> getInvoiceByUserWithSearchAndPage(int page,String userId) async {
+  Future<Response> getInvoiceByUserWithSearchAndPage(String search,int page,String userId) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
-      "invoices/user/$userId?page=${page-1}&size=10",
+      "users/$userId/invoice/search/$search/page/$page",
     );
   }
 
@@ -162,8 +161,6 @@ class ApiClient {
 
   //-------------------------INVOICE-----------------------------------//
 
-
-
   Future<Response> invoiceCreatedDaily(InvoiceCreatedDailyRequest invoice) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.post(
@@ -189,6 +186,7 @@ class ApiClient {
     );
   }
 
+<<<<<<< HEAD
   Future<Response> returnCurrentInvoice(String userID) async {
     final DioClient dioClient = DioClient();
     return await dioClient.dio.get(
@@ -203,6 +201,8 @@ class ApiClient {
     );
   }
 
+=======
+>>>>>>> main
   //--------------------------WALLET------------------------------------//
 
 
@@ -266,6 +266,7 @@ class ApiClient {
     return await dioClient.dio.get(url);
   }
 
+<<<<<<< HEAD
 //--------------------------Transaction-----------------------------//
 
   Future<Response> getTransactionsByUser({
@@ -292,6 +293,8 @@ class ApiClient {
 
     return await dioClient.dio.get(url);
   }
+=======
+>>>>>>> main
 
 
 

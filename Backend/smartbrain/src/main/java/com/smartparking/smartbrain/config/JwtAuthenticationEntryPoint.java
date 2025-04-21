@@ -1,6 +1,5 @@
 package com.smartparking.smartbrain.config;
 import java.io.IOException;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -16,7 +15,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(
             HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException {
         ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

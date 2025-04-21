@@ -8,7 +8,7 @@ import 'package:myparkingapp/data/response/wallet_response.dart';
 
 class AppDialog {
   /// Hàm hiển thị dialog với nội dung truyền vào
-  static void showErrorEvent(BuildContext context, String mess, {VoidCallback? onPress}) {
+  static void showErrorEvent(BuildContext context, String mess) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -22,10 +22,7 @@ class AppDialog {
         content: Text(mess),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Đóng dialog
-              if (onPress != null) onPress(); // Gọi hàm bên ngoài nếu có
-            }, // Đóng dialog
+            onPressed: () => Navigator.pop(context), // Đóng dialog
             child: Text('OK'),
           ),
         ],
@@ -118,7 +115,11 @@ class AppDialog {
           children: [
             const Icon(Icons.info, color: Colors.blue),
             const SizedBox(width: 8),
+<<<<<<< HEAD
             Text(AppLocalizations.of(context).translate("Wallet Details")),
+=======
+            Text("Discount Details"),
+>>>>>>> main
           ],
         ),
         content: Column(

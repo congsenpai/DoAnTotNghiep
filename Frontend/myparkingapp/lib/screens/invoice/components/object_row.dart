@@ -17,7 +17,7 @@ class ObjectRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          AppLocalizations.of(context).translate(title),
+          title,
           style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         Text(
