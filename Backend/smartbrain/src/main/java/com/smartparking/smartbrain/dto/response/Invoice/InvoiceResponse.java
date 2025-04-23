@@ -1,8 +1,6 @@
 package com.smartparking.smartbrain.dto.response.Invoice;
-
 import java.math.BigDecimal;
 import java.time.Instant;
-
 import com.smartparking.smartbrain.dto.response.Discount.DiscountResponse;
 import com.smartparking.smartbrain.dto.response.Vehicle.VehicleResponse;
 import com.smartparking.smartbrain.enums.InvoiceStatus;
