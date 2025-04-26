@@ -19,8 +19,6 @@ class ForgetPassWordScreen extends StatefulWidget {
   State<ForgetPassWordScreen> createState() => _ForgetPassWordScreenState();
 }
 class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
-  int _currentTab = 0;
-  final GlobalKey<ScaffoldState> _LoginscaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _usernameController = TextEditingController();
   @override
   void initState() {
@@ -29,12 +27,6 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _LoginscaffoldKey,
-      drawer: SideMenu(onMenuTap: (int index) {
-        setState(() {
-          _currentTab = index;
-        });
-      }, isAuth: widget.isAuth,),
       body: BlocConsumer<AuthBloc,AuthState>(
         builder: (context,state){
           return
@@ -43,17 +35,6 @@ class _ForgetPassWordScreenState extends State<ForgetPassWordScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // We want this side menu only for large screen
-                  if (Responsive.isDesktop(context))
-                    Expanded(
-                      flex: 2,
-                      // default flex = 1
-                      // and it takes 1/6 part of the screen
-                      child: SideMenu(onMenuTap: (int index) {
-                        setState(() {
-                          _currentTab = index;
-                        });
-                      }, isAuth: widget.isAuth,),
-                    ),
                   Expanded(
                     // It takes 5/6 part of the screen
                     flex: 6,

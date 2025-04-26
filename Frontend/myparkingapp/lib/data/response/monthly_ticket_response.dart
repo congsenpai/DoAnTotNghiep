@@ -5,7 +5,7 @@ class MonthlyTicketResponse {
   String invoiceID;
   String createdAt;
   String updateAt;
-  String expriedAt;
+  String expiredAt;
 
   MonthlyTicketResponse({
     required this.monthlyTicketID,
@@ -14,14 +14,14 @@ class MonthlyTicketResponse {
     required this.invoiceID,
     required this.createdAt,
     required this.updateAt,
-    required this.expriedAt
+    required this.expiredAt
   });
 
   factory MonthlyTicketResponse.fromJson(Map<String, dynamic> json) {
     return MonthlyTicketResponse(
       monthlyTicketID: json['monthlyTicketId'],
       userID: json['userId'],
-      invoiceID: json['invoiceId'], parkingSlotID: json['parkingSlotID'], createdAt: '', updateAt: '', expriedAt: '',
+      invoiceID: json['invoiceId'], parkingSlotID: json['parkingSlotID'], createdAt: '', updateAt: '', expiredAt: '',
     );
   }
 
@@ -33,5 +33,5 @@ class MonthlyTicketResponse {
 final MonthlyTicketResponse monthlyTicketDemo = MonthlyTicketResponse(
   monthlyTicketID: "MT001",
   userID: "U001",
-  invoiceID: "INV001", parkingSlotID: '', createdAt: '', updateAt: '', expriedAt: '',
+  invoiceID: "INV001", parkingSlotID: '', createdAt: '', updateAt: '', expiredAt: '',
 );

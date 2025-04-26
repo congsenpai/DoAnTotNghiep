@@ -33,7 +33,7 @@ class ParkingLotResponse {
   /// **Chuyển từ JSON sang `ParkingLotResponse` object**
   factory ParkingLotResponse.fromJson(Map<String, dynamic> json) {
   return ParkingLotResponse(
-    parkingLotId: json["parkingLotId"] ?? '',
+    parkingLotId: json["parkingLotID"] ?? '',
     parkingLotName: json["parkingLotName"] ?? '',
     address: json["address"] ?? '',
     latitude: (json["latitude"] ?? 0.0).toDouble(),

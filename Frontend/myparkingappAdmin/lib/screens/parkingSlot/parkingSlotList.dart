@@ -75,11 +75,6 @@ class _ParkingSlotListState extends State<ParkingSlotList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      AppLocalizations.of(context).translate("ParkingLot"),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 16.0),
                     SizedBox(height: defaultPadding),
                     Row(
                       children: [
@@ -208,18 +203,19 @@ class SlotGraphic extends StatelessWidget {
 
   Widget _buildSlotBox(ParkingSlotResponse slot) {
     return Container(
-      margin: const EdgeInsets.all(4.0),
-      padding: const EdgeInsets.all(8.0),
+      height: Get.width/30,
+      margin: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
         children: [
-          Text(slot.slotName, style: const TextStyle(color: Colors.white)),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Text(slot.slotName, style: const TextStyle(color: Colors.white)),
               IconButton(
                 icon: const Icon(Icons.receipt_long, color: Colors.white),
                 onPressed: () => onInvoiceTap(slot),

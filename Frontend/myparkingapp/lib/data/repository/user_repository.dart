@@ -9,19 +9,18 @@ class UserRepository{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.getMe();
+    Map<String, dynamic> jsonData = response.data;
 
-    if (response.statusCode == 200) {
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
+
+    if (code == 200) {
       // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
 
-      int code = jsonData['code'];
-      String mess = jsonData['message'];
-      print("_______ : ${jsonData['result']}" );
       UserResponse user = UserResponse.fromJson(jsonData['result']);
-      print("_________ : ${user.toString()}");
       return ApiResult(code, mess, user);
     } else {
-      throw Exception("UserRepository_getUserByUserName");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("UserRepository_getUserByUserName: $e");
@@ -33,16 +32,15 @@ class UserRepository{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.updateUser(user,userID);
+    Map<String, dynamic> jsonData = response.data;
 
-    if (response.statusCode == 200) {
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
+    if (code == 200) {
       // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
-
-      int code = jsonData['code'];
-      String mess = jsonData['mess'];
-      return ApiResult(code, mess, user);
+      return ApiResult(code, mess, null);
     } else {
-      throw Exception("UserRepository_updateUser");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("UserRepository_updateUser: $e");
@@ -59,7 +57,7 @@ class UserRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
       return ApiResult(code, mess, '');
     } else {
       throw Exception("UserRepository_changePass");
@@ -67,8 +65,6 @@ class UserRepository{
   } catch (e) {
     throw Exception("UserRepository_changePass: $e");
   }
-  
-
   }
   Future<ApiResult> getUserById(String userId) async{
     try {
@@ -80,7 +76,7 @@ class UserRepository{
       Map<String, dynamic> jsonData = response.data;
 
       int code = jsonData['code'];
-      String mess = jsonData['mess'];
+      String mess = jsonData['message'];
       UserResponse user = UserResponse.fromJson(jsonData['result']);
       return ApiResult(code, mess, user);
     } else {

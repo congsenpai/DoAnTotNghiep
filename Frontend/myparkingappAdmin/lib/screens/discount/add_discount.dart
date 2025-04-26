@@ -11,8 +11,10 @@ import 'package:myparkingappadmin/screens/authentication/components/text_field_c
 import '../../../constants.dart';
 
 class AddDiscount extends StatefulWidget {
+  final String parkingLotID;
   const AddDiscount({
     super.key,
+    required this.parkingLotID
   });
 
   @override
@@ -41,7 +43,7 @@ class _AddDiscountState extends State<AddDiscount> {
                 discountType: selectedType,
                 discountValue:
                     double.tryParse(_discountValueController.text) ?? 0,
-                description: _descriptionController.text,
+                description: _descriptionController.text, parkingLotID: widget.parkingLotID,
               );
               context.read<DiscountBloc>().add(CreateDiscountEvent(request));
             },

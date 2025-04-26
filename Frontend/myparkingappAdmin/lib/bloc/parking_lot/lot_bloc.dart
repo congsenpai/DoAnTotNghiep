@@ -18,20 +18,19 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
       on<UpdateParkingLotEvent>(_updateParkingLot);
    }
    void _getParkingLotByOwner(GetParkingLotByOwnerEvent event, Emitter<ParkingLotState> emit) async{
-    //  try{
-    //    emit(ParkingLotLoadingState());
-    //    ParkingLotRepository parkingLotRepository = ParkingLotRepository();
-    //    // Call repository method to get parking lot by owner
-    //    final response = await parkingLotRepository.getParkingLotByOwner(event.userId);
-    //    if(response.code == 200){
-    //      emit(ParkingLotLoadedState(response.result));
-    //    }else{
-    //      emit(ParkingLotErrorState(response.message));
-    //    }
-    //  }catch(e){
-    //    emit(ParkingLotErrorState(e.toString()));
-    //  }
-    emit(ParkingLotLoadedState(parkingLots));
+     try{
+       emit(ParkingLotLoadingState());
+       ParkingLotRepository parkingLotRepository = ParkingLotRepository();
+       // Call repository method to get parking lot by owner
+       final response = await parkingLotRepository.getParkingLotByOwner(event.userId);
+       if(response.code == 200){
+         emit(ParkingLotLoadedState(response.result));
+       }else{
+         emit(ParkingLotErrorState(response.message));
+       }
+     }catch(e){
+       throw Exception("ParkingLotBloc  $e");
+     }
    }
    void _updateStatusParkingLot(UpdateStatusParkingLot event, Emitter<ParkingLotState> emit) async{
      try{
@@ -43,7 +42,7 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
          emit(ParkingLotErrorState(response.message));
        }
      }catch(e){
-       emit(ParkingLotErrorState(e.toString()));
+       throw Exception("ParkingLotBloc  $e");
      }
    }
     void _updateParkingLot(UpdateParkingLotEvent event, Emitter<ParkingLotState> emit) async{
@@ -66,12 +65,12 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
               image.imageID
               );
               if(uploadResponse.isSuccessful){
-                Images imageadding = Images(image.imageID, uploadResponse.url,null);
-                finalImages.add(imageadding);
+                Images imageAdding = Images(image.imageID, uploadResponse.url,null);
+                finalImages.add(imageAdding);
                 emit(ParkingLotUpdateImageState("Successful Upload : $i/ ${imagesAdd.length} image" ));
               }
               else{
-                emit(ParkingLotUpdateImageState("Falsed Upload : ${image.imageID} image" ));
+                emit(ParkingLotUpdateImageState("Failed Upload : ${image.imageID} image" ));
               }
           }
           for(var image in imagesDelete){
@@ -82,7 +81,7 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
                 emit(ParkingLotUpdateImageState("Successful Delete : $i/ ${imagesAdd.length} image" ));
             }
             else{
-              emit(ParkingLotUpdateImageState("Falsed Delete : ${image.imageID} image" ));
+              emit(ParkingLotUpdateImageState("Failed Delete : ${image.imageID} image" ));
             }
 
           }
@@ -101,7 +100,7 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
           emit(ParkingLotErrorState(response.message));
         }
       }catch(e){
-        emit(ParkingLotErrorState(e.toString()));
+        throw Exception("ParkingLotBloc _updateParkingLot $e");
       }
     }
 
@@ -116,7 +115,7 @@ class  ParkingLotBloc extends Bloc< ParkingLotEvent, ParkingLotState>{
          emit(ParkingLotErrorState(response.message));
        }
      }catch(e){
-       emit(ParkingLotErrorState(e.toString()));
+       throw Exception("ParkingLotBloc _createParkingLot :  $e");
      }
    }
 }

@@ -26,16 +26,15 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   List<TransactionResponse> trans = [];
-  Transactions type = Transactions.PAYMENT;
-  DateTime start = DateTime.now().subtract(const Duration(days: 30));
-  DateTime end = DateTime.now();
+  TransactionType type = TransactionType.PAYMENT;
   bool _fillScreen = false;
+  int size = 100;
 
   @override
   void initState() {
     super.initState();
     context.read<TransactionBloc>().add(
-        LoadAllTransactionByTimeEvent(widget.user, start, end, type));
+        LoadAllTransactionByTimeEvent(widget.user,size));
   }
 
   @override
@@ -49,9 +48,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               size: 25,
             ),
           );
-        } else if (state is TransactionLoadedState) {
+        } else if (state is TransactionDashboardLoadedState) {
           trans = state.trans;
+<<<<<<< HEAD
+          size = state.size;
+=======
           type = state.type;
+>>>>>>> main
           return Scaffold(
             appBar: AppBar(
               title: Text(AppLocalizations.of(context).translate("Deposit Management").toUpperCase()),
@@ -137,7 +140,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       height: Get.width,
                       child: BarChartWidget(
                         data: trans,
-                        type: type == Transactions.PAYMENT ? false : true,
+                        type: type,
                       ),
                     ),
                   ],
@@ -149,12 +152,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   top: _fillScreen ? 0 : -250, // Trượt xuống khi mở, trượt lên khi đóng
                   left: 0,
                   right: 0,
-                  child: FilterTransactionDBoard(
-                    type: type,
-                    start: start,
-                    end: end,
-                    user: widget.user,
-                    trans: trans,
+                  child: FilterTransactionDBoard(tran:trans, userResponse: widget.user, size: size,
+
                   ),
                 ),
               ],
@@ -170,7 +169,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       },
       listener: (context, state) {
         if (state is TransactionErrorState) {
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess),onPress: (){
+            context.read<TransactionBloc>().add(
+                LoadAllTransactionByTimeEvent(widget.user,size));
+          });
         }
       },
     );

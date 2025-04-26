@@ -21,7 +21,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState>{
         emit(AuthSuccess(event.username));
       }
       else{
-        emit(AuthError(result.code.toString()));
+        emit(AuthError(result.message));
       }
     }
     catch(e){

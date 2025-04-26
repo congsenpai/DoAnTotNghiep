@@ -30,19 +30,7 @@ class ParkingLotList extends StatefulWidget {
 
 class _ParkingLotListState extends State<ParkingLotList> {
   bool isDetail = false;
-  ParkingLotResponse lot = ParkingLotResponse(
-    parkingLotId: '',
-    parkingLotName: '',
-    address: '',
-    latitude: 0.0,
-    longitude: 0.0,
-    totalSlot: 0,
-    status: LotStatus.OFF,
-    rate: 0.0,
-    description: '',
-    userId: '',
-    images: [],
-  );
+  ParkingLotResponse? lot;
 
   Set<String> objectColumnNameOfParkingLot = {
     "ParkingLotName",
@@ -139,7 +127,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
                 isDetail
                     ? Expanded(
                         flex: 1,
-                        child: ParkingSpotDetail(parkingLot: lot, onEdit: () { setState(() {
+                        child: ParkingSpotDetail(parkingLot: lot!, onEdit: () { setState(() {
                           isDetail = false;
                         }); },),
                       )
@@ -247,7 +235,7 @@ class _ParkingLotListState extends State<ParkingLotList> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: SizedBox(
-            height: Get.height/1.2,
+            height: Get.height/1.1,
             width: Get.width/1.2,
             child: ParkingSlotList(parkingLot: lot),
           ),

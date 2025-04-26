@@ -83,7 +83,7 @@ class ItemCard extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "VND $price",
+                          "USD $price",
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!

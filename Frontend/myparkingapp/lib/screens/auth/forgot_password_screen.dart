@@ -18,7 +18,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate("Forgot Password")),
+        title: Text(AppLocalizations.of(context).translate("Forgot password")),
       ),
       body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state) {
         if(state is AuthLoadingState){
@@ -36,7 +36,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         ),
       );
       }, listener: (context,state){
-        if(state is AuthSuccessState){
+        if(state is GiveEmailSuccessState){
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -44,8 +44,8 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           );
         }
-        else if(state is AuthErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+        else if(state is GiveEmailErrorState){
+          return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate( state.mess));
         }
       })
     );
@@ -83,7 +83,6 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 context.read<AuthBloc>().add(giveEmail(_email.text));
-
               }
             },
             child: Text(AppLocalizations.of(context).translate("Reset password")),

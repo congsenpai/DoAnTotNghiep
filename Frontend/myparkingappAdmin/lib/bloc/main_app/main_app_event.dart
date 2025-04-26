@@ -10,7 +10,7 @@ class initializationEvent extends MainAppEvent{
 
 class UpdatesUserInforEvent extends MainAppEvent{
   String userId;
-  UpdateInfoResquest request;
+  UpdateInfoRequest request;
   UpdatesUserInforEvent(this.userId,this.request);
 }
 
@@ -23,9 +23,9 @@ class ScannerEvent extends MainAppEvent{
 
 class UpdatesPassEvent extends MainAppEvent{
   String userId;
-  String oldderPass;
+  String olderPass;
   String newPass;
-  UpdatesPassEvent(this.userId,this.oldderPass,this.newPass);
+  UpdatesPassEvent(this.userId,this.olderPass,this.newPass);
 }
 class LogoutEvent extends MainAppEvent{
 }

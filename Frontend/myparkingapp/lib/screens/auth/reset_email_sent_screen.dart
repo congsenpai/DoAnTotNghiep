@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:myparkingapp/app/locallization/app_localizations.dart';
 import 'package:myparkingapp/bloc/auth/auth_bloc.dart';
 import 'package:myparkingapp/bloc/auth/auth_event.dart';
 import 'package:myparkingapp/bloc/auth/auth_state.dart';
@@ -25,13 +26,13 @@ class ResetEmailSentScreen extends StatefulWidget {
 class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
-  String passWord = "";
-  String confirmPassword = "";
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Forgot Password"),
+        title: const Text("Forgot password"),
       ),
       body: BlocConsumer<AuthBloc,AuthState>(builder: (context,state) {
         if(state is AuthLoadingState){
@@ -39,7 +40,9 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
         }
         return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-        child: Column(
+        child:Form(
+            key: _formKey,
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ImageContent(illustration: "assets/Illustrations/give_email.svg",
@@ -48,13 +51,12 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
             const SizedBox(height: defaultPadding),
 
             TextFormField(
+              controller: _passwordController,
             obscureText: _obscureText,
             validator: passwordValidator.call,
             textInputAction: TextInputAction.next,
-            onSaved: (value) {
-              passWord = value ?? '';
-            },
             decoration: InputDecoration(
+
               hintText: "Password",
               suffixIcon: GestureDetector(
                 onTap: () {
@@ -73,18 +75,16 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
 
           // Confirm Password Field
           TextFormField(
+            controller: _confirmPasswordController,
             obscureText: _obscureText,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please confirm your password';
               }
-              if (value != passWord) {
+              if (value != _confirmPasswordController.text) {
                 return 'Passwords do not match';
               }
               return null;
-            },
-            onSaved: (value) {
-              confirmPassword = value ?? '';
             },
             decoration: InputDecoration(
               hintText: "Confirm Password",
@@ -109,18 +109,18 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
                 context
                     .read<AuthBloc>()
                     .add(
-                      giveRePassWord(passWord, widget.token)
+                      giveRePassWord(_passwordController.text, widget.token)
                     );
               }
               },
-              child: const Text("Send again"),
+              child: Text(AppLocalizations.of(context).translate( "Send again")),
             ),
           ],
-        ),
+        ) ),
       );
     
       }, listener: (context,state){
-        if(state is AuthSuccessState){
+        if(state is GiveRePassSuccessState){
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -128,8 +128,8 @@ class _ResetEmailSentScreenState extends State<ResetEmailSentScreen> {
             ),
           );
         }
-        else if(state is AuthErrorState){
-          return AppDialog.showErrorEvent(context, state.mess);
+        else if(state is GiveRePassErrorState){
+          return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
         }
       })
       );

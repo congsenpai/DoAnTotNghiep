@@ -161,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             phoneController = TextEditingController(text: user.phone);
             homeAddressController = TextEditingController(text: user.homeAddress);
             companyAddressController = TextEditingController(text: user.companyAddress);
-            if(user.avatar.url != null){
+            if(user.avatar.url != null && user.avatar.imagesID != ""){
               uploadedImageUrl = user.avatar.url!;
               publicId = user.avatar.imagesID;
             }
@@ -233,7 +233,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ElevatedButton(
                     onPressed: () {
                       UpdateUserRequest userUpdate = UpdateUserRequest(
-                        username: usernameController.text.trim(),
                         firstName: firstNameController.text.trim(),
                         lastName: lastNameController.text.trim(),
                         email: emailController.text.trim(),
@@ -254,7 +253,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         },
         listener: (context, state) {
           if (state is UserSuccessState) {
-            AppDialog.showSuccessEvent(context, state.mess,onPress: (){
+            AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess),onPress: (){
               context.read<UserBloc>().add(LoadUserDataEvent());
               Navigator.pop(context);
             });

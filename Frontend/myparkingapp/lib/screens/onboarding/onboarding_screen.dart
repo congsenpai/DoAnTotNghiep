@@ -35,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ListTile(
               title: const Text("Tiếng Việt"),
               onTap: () {
-                Get.updateLocale(const Locale('vi')); // hoặc Locale('en')
+                Get.updateLocale(const Locale('vi')); // hoặc Locale('vi')
                 Navigator.pop(context);
               },
             ),

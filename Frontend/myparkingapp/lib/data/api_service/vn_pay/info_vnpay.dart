@@ -2,10 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:myparkingapp/app/locallization/app_localizations.dart';
+<<<<<<< HEAD
+import 'package:myparkingapp/components/api_result.dart';
+import 'package:myparkingapp/data/repository/transaction_repository.dart';
+import 'package:myparkingapp/data/request/created_transaction_request.dart';
+import 'package:myparkingapp/data/request/created_wallet_request.dart';
+import 'package:myparkingapp/data/response/transaction_response.dart';
+=======
+>>>>>>> main
 import 'package:myparkingapp/data/response/user_response.dart';
 import 'package:myparkingapp/main_screen.dart';
 import 'package:myparkingapp/screens/profile/profile_screen.dart';
 import 'package:vnpay_flutter/vnpay_flutter.dart';
+<<<<<<< HEAD
+
+import '../../repository/wallet_repository.dart';
+
+=======
+>>>>>>> main
 class TransactionInfo extends StatefulWidget {
   final UserResponse user;
   final String name;
@@ -25,9 +39,21 @@ class _TransactionInfoState extends State<TransactionInfo> {
       url:
       'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html', //vnpay url, default is https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
       version: '2.0.1',
+<<<<<<< HEAD
+      tmnCode: 'W6YEW49O',
+      //vnpay tmn code, get from vnpay
+      txnRef: DateTime
+          .now()
+          .millisecondsSinceEpoch
+          .toString(),
+      orderInfo: " Recharge ${widget.amount} USD to this wallet ${widget
+          .name} ",
+      //order info, default is Pay Order
+=======
       tmnCode: 'W6YEW49O', //vnpay tmn code, get from vnpay
       txnRef: DateTime.now().millisecondsSinceEpoch.toString(),
       orderInfo: " Recharge ${widget.amount} VND to this wallet ${widget.name} ", //order info, default is Pay Order
+>>>>>>> main
       amount: widget.amount,
       returnUrl:
       'xxxxxx', //https://sandbox.vnpayment.vn/apis/docs/huong-dan-tich-hop/#code-returnurl
@@ -68,9 +94,19 @@ class _TransactionInfoState extends State<TransactionInfo> {
                 1: FlexColumnWidth(2), // Cột 2 chiếm 2 phần
               },
               children: [
+<<<<<<< HEAD
+                _buildTableRow(
+                    AppLocalizations.of(context).translate("WalletName"),
+                    widget.name),
+                _buildTableRow(AppLocalizations.of(context).translate("Money"),
+                    "${widget.amount} USD"),
+                _buildTableRow(AppLocalizations.of(context).translate("Note"),
+                    widget.note),
+=======
                 _buildTableRow(AppLocalizations.of(context).translate("WalletName"), widget.name),
                 _buildTableRow(AppLocalizations.of(context).translate("Money"), "${widget.amount} VND"),
                 _buildTableRow(AppLocalizations.of(context).translate("Note"), widget.note),
+>>>>>>> main
               ],
             ),
             const SizedBox(height: 20),
@@ -85,11 +121,35 @@ class _TransactionInfoState extends State<TransactionInfo> {
             responseCode == '200' 
             ? ElevatedButton(
               onPressed: onPayment,
+<<<<<<< HEAD
+              child: Text(
+                  AppLocalizations.of(context).translate('Payment now')),
+            ) : responseCode == '00'
+                ? ElevatedButton(
+              onPressed: () async {
+                WalletRepository wallet = WalletRepository();
+                TopUpRequest request = TopUpRequest(
+                    widget.amount,
+                    "USD",
+                    widget.note,
+                    widget.walletID
+                );
+                ApiResult walletApi = await wallet.topUp(
+                    request);
+                if(walletApi.code == 200){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WalletScreen()));
+                }else{
+                  SnackBar(duration: Duration(seconds: 1), content: Text(AppLocalizations.of(context).translate("Network error")),
+                  );
+                }
+=======
               child: Text(AppLocalizations.of(context).translate('Payment now')),
             ): responseCode == '00' 
             ?  ElevatedButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+>>>>>>> main
               },
               child: Text(AppLocalizations.of(context).translate('Return Main Screen')),
             ) : SizedBox(height: 20)

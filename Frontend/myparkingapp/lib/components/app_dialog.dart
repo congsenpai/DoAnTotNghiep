@@ -115,7 +115,11 @@ class AppDialog {
           children: [
             const Icon(Icons.info, color: Colors.blue),
             const SizedBox(width: 8),
+<<<<<<< HEAD
+            Text(AppLocalizations.of(context).translate("Wallet Details")),
+=======
             Text("Discount Details"),
+>>>>>>> main
           ],
         ),
         content: Column(
@@ -153,12 +157,9 @@ class AppDialog {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow(context, "Transaction ID", trans.transactionID),
             _buildInfoRow(context, "Current Balance", trans.currentBalance.toString()),
             _buildInfoRow(context, "Description", trans.description),
             _buildInfoRow(context, "Type", trans.type.toString().split('.').last),
-            _buildInfoRow(context, "Status", trans.status.toString().split('.').last),
-            _buildInfoRow(context, "Wallet ID", trans.walletId),
           ],
         ),
         actions: [
@@ -179,7 +180,7 @@ class AppDialog {
           children: [
             const Icon(Icons.info, color: Colors.blue),
             const SizedBox(width: 8),
-            Text("Transaction Details"),
+            Text(AppLocalizations.of(context).translate("Transaction Details")),
           ],
         ),
         content: Column(
@@ -189,7 +190,6 @@ class AppDialog {
             _buildInfoRow(context, "Current Balance", trans.currentBalance.toString()),
             _buildInfoRow(context, "Description", trans.description),
             _buildInfoRow(context, "Type", trans.type.toString().split('.').last),
-            _buildInfoRow(context, "Wallet ID", trans.walletId),
           ],
         ),
         actions: [
@@ -210,14 +210,13 @@ class AppDialog {
           children: [
             const Icon(Icons.directions_car, color: Colors.green),
             const SizedBox(width: 8),
-            Text("Vehicle Details"),
+            Text(AppLocalizations.of(context).translate("Vehicle Details")),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow(context, "Vehicle ID", vehicle.vehicleId),
             _buildInfoRow(context, "Vehicle Type", vehicle.vehicleType.toString().split('.').last),
             _buildInfoRow(context, "License Plate", vehicle.licensePlate),
             _buildInfoRow(context, "Description", vehicle.description),

@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocConsumer<HomeBloc, HomeState>
         (builder: (context,state) {
         if(state is HomeLoadingState){
-          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+          return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
         }
         else if(state is HomeLoadedState){
           user = state.user;
@@ -103,10 +103,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
+                  Center(
+                    child: SizedBox(
+                      width: Get.width/2,
+                      child: ElevatedButton(onPressed: ()=>{
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OrderInvoiceScreen(user: user,)))
+                      }, child: Text(AppLocalizations.of(context).translate("Go to OR Ordering"))),
+                    ),
+                  ),
+
+                  const SizedBox(height: defaultPadding),
+                  // Banner
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                     child: BigCardImageSlide(images: bannerHomeScreen, active: '', isBanner: true,),
                   ),
+<<<<<<< HEAD
+=======
                   const SizedBox(height: defaultPadding * 2),
                   SectionTitle(
                     title: "My Service",
@@ -122,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: defaultPadding),
                   // Banner
                   const PromotionBanner(),
+>>>>>>> main
                   const SizedBox(height: 20),
                   SectionTitle(
                     title: "Nearly Parking Lots",
@@ -144,17 +159,34 @@ class _HomeScreenState extends State<HomeScreen> {
             ), ),
                   const SizedBox(height: 16),
                   // Demo list of Big Cards
-                  ParkingLotList(lots: plots, user: user)
+                  ParkingLotList(lots: plots, user: user),
+
+                  const SizedBox(height: defaultPadding * 2),
+                  SectionTitle(
+                    title: "My Service",
+                    press: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FeaturedScreen(lots: [], services: services, isLot: false, title: 'My Service', user: user,),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: defaultPadding * 2),
+                  ServiceCardList(services: services,),
+                  const SizedBox(height: defaultPadding),
+                  const PromotionBanner(),
+                  const SizedBox(height: defaultPadding),
+
                 ],
               ),
             ),
           );
         }
-        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
+        return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
       },
           listener: (context,state){
           if(state is HomeErrorState){
-            return AppDialog.showErrorEvent(context, state.mess);
+            return AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
           })
     );

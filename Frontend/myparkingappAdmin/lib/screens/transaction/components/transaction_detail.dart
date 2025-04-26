@@ -26,7 +26,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
   late final TextEditingController currentBalanceController;
   late final TextEditingController descriptionController;
   late final TextEditingController typeController;
-  late final TextEditingController statusController;
+  final TextEditingController statusController = TextEditingController(text: "SUCCESS");
   late final TextEditingController walletIdController;
   late final TextEditingController dateController;
 
@@ -38,7 +38,6 @@ void initState() {
   currentBalanceController = TextEditingController();
   descriptionController = TextEditingController();
   typeController = TextEditingController();
-  statusController = TextEditingController();
   walletIdController = TextEditingController();
   dateController = TextEditingController();
 
@@ -50,7 +49,6 @@ void _initializeFields() {
   currentBalanceController.text = widget.object.currentBalance.toString();
   descriptionController.text = widget.object.description;
   typeController.text = widget.object.type.toString().split('.').last;
-  statusController.text = widget.object.status.toString().split('.').last;
   walletIdController.text = widget.object.walletId;
   dateController.text = widget.object.createAt.toString();
 }

@@ -19,8 +19,9 @@ import '../../../constants.dart';
 
 // ignore: must_be_immutable
 class OwnerList extends StatefulWidget {
+  final UserResponse user;
   const OwnerList({
-    super.key,
+    super.key, required this.user,
   });
 
   @override
@@ -30,7 +31,8 @@ class OwnerList extends StatefulWidget {
 class _OwnerListState extends State<OwnerList> {
   bool isDetail = false;
   List<UserResponse> customers = [];
-  UserResponse user = UserResponse.empty();
+  List<UserResponse> _allCustomers = [];
+  UserResponse? user;
   final HashSet<String> objectColumnNameOfCustomer =
       HashSet.from(["FullName", "Actions"]);
   final TextEditingController _searchController = TextEditingController();
@@ -40,40 +42,51 @@ class _OwnerListState extends State<OwnerList> {
     super.dispose();
   }
 
+  void _filterCustomer(String value) {
+    value = value.trim().toLowerCase();
+    setState(() {
+      customers = _allCustomers.where((c) =>
+      c.firstName.toLowerCase().contains(value) ||
+          c.lastName.toLowerCase().contains(value) ||
+          c.homeAddress.toLowerCase().contains(value)
+      ).toList();
+      print(customers.length);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+    context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(widget.user));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CustomerBloc, UserState>(builder: (context, state) {
       if (state is CustomerLoadingState) {
-        Center(
+        return Center(
           child: CircularProgressIndicator(),
         );
       } else if (state is CustomerLoadedState) {
-        customers = state.customerList;
+        _allCustomers = state.customerList;
+        customers = List.from(_allCustomers); // Gán bản sao
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 100,
-
               title: Row(
             children: [
               Expanded(
                 flex: 1,
                 child: Text(
-                  AppLocalizations.of(context).translate("OWNER"),
+                  AppLocalizations.of(context).translate("owner").toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               Expanded(
                 flex: 5,
                 child: Search(onSearch: (value) {
-                  context
-                      .read<CustomerBloc>()
-                      .add(LoadedOwnerScreenEvent(value));
+                  print(value);
+                  _filterCustomer(value);
                 }),
               ),
               Expanded(
@@ -81,15 +94,15 @@ class _OwnerListState extends State<OwnerList> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh,size: 30,),
                       onPressed: () {
                         context
                             .read<CustomerBloc>()
-                            .add(LoadedOwnerScreenEvent(""));
+                            .add(LoadedOwnerScreenEvent(widget.user));
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.add, size: 30),
                       onPressed: () {
                         _showAddOwnerDialog(context);
                       },
@@ -122,6 +135,7 @@ class _OwnerListState extends State<OwnerList> {
                               ),
                             )
                           : SizedBox(
+
                               width: double.infinity,
                               child: DataTable(
                                 columnSpacing: defaultPadding,
@@ -150,7 +164,7 @@ class _OwnerListState extends State<OwnerList> {
                   isDetail
                       ? Expanded(
                           child: UserDetail(
-                            user: user,
+                            user: user!,
                           ),
                         )
                       : SizedBox(
@@ -168,11 +182,11 @@ class _OwnerListState extends State<OwnerList> {
     }, listener: (context, state) {
       if (state is OwnerErrorState) {
         AppDialog.showErrorEvent(context, state.mess,onPress: (){
-          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(widget.user));
         });
       } else if (state is OwnerSuccessState) {
         AppDialog.showSuccessEvent(context, state.mess, onPress: (){
-          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(""));
+          context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(widget.user));
         }
         );
       }
@@ -236,7 +250,6 @@ class _OwnerListState extends State<OwnerList> {
       },
     );
   }
-}
   void _showAddOwnerDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -249,7 +262,7 @@ class _OwnerListState extends State<OwnerList> {
           actions: [
             TextButton(
               onPressed: () => {
-                context.read<CustomerBloc>().add(LoadedOwnerScreenEvent("")),
+                context.read<CustomerBloc>().add(LoadedOwnerScreenEvent(widget.user)),
                 Navigator.of(context).pop(),},
               child: Icon(
                 Icons.cancel,
@@ -261,4 +274,6 @@ class _OwnerListState extends State<OwnerList> {
       },
     );
   }
+}
+
 

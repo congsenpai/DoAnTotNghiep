@@ -46,7 +46,7 @@ class ParkingLotInfo extends StatelessWidget {
               const SizedBox(width: defaultPadding),
               DeliveryInfo(
                 iconSrc: "assets/icons/clock.svg",
-                text: AppLocalizations.of(context).translate("Status"),
+                text: AppLocalizations.of(context).translate("status"),
                 subText: lot.status.name.toUpperCase(),
               ),
               const Spacer(),

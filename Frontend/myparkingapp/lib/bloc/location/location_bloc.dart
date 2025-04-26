@@ -16,26 +16,19 @@ class LocationBloc extends Bloc<LocationEvent,LocationState>{
     try{
       emit(LocationLoading());
       late MapWidget acceptLocationPermission = MapWidget(endPoint:  LatLng(21.0285, 105.8542));
-      bool check = await acceptLocationPermission.checkLocationPermission();
-
-      if(check == true){
         LatLng? current = await acceptLocationPermission.getCurrentLocation();
         if(current!=null){
           double lat = current.latitude;
           double long = current.longitude;
           Coordinates coordinates = Coordinates(longitude: long, latitude: lat);
           emit(LocationSuccessState("Successfully",coordinates));
-
+        }else{
+          emit(LocationErrorState("Please, accepting location permission"));
         }
-        emit(LocationSuccessState("Successfully",null));
-      }
-      else{
-        emit(LocationErrorState("Please, accepting location permission"));
-      }
-      
+
     }
     catch(e){
-      throw Exception("LocationBloc__getCurrentLocation");
+      throw Exception("LocationBloc__getCurrentLocation $e");
     }
 
   }

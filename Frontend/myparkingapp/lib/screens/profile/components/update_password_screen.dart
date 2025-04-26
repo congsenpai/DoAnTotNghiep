@@ -128,10 +128,10 @@ class UpdatePassword extends StatelessWidget {
         },
         listener: (context,state){
           if(state is UserSuccessState){
-            AppDialog.showSuccessEvent(context, state.mess);
+            AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
           else if(state is UserErrorState){
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
         })
     );

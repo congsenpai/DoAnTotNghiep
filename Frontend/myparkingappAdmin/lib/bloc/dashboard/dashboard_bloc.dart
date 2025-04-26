@@ -15,29 +15,9 @@ class  DashboardBloc extends Bloc< DashboardEvent, DashboardState>{
      try {
       emit(DashboardLoadingState());
       if(event.user.roles.contains("ADMIN")){
-        // InvoiceRepository invoiceRepository = InvoiceRepository();
-        // TransactionRepository transactionRepository = TransactionRepository();
-        // ApiResult invoice = await invoiceRepository.getAllInvoiceByAdmin();
-        // ApiResult transaction = await transactionRepository.getAllTransactions();
-        // if(invoice.code == 200 && transaction.code == 200){
-        //   emit(DashboardLoadedAdminState(invoice.result, transaction.result));
-        // }
-        // else{
-        //   emit(DashboardErrorState("Error: ${invoice.message}"));
-        // }
         emit(DashboardLoadedAdminState(invoices, transactions));
       }
       else{
-        // InvoiceRepository invoiceRepository = InvoiceRepository();
-        // ParkingLotRepository parkingLotRepository = ParkingLotRepository();
-        // ApiResult invoice = await invoiceRepository.getAllInvoiceByOwner(event.user.userId);
-        // ApiResult parkingLot = await parkingLotRepository.getParkingLotByOwner(event.user.userId);
-        // if(invoice.code == 200 && parkingLot.code == 200){
-        //   emit(DashboardLoadedOwnerState(invoice.result, parkingLot.result));
-        // }
-        // else{
-        //   emit(DashboardErrorState("Error: ${invoice.message}"));
-        // }
         emit(DashboardLoadedOwnerState(invoices, parkingLots));
       }
       

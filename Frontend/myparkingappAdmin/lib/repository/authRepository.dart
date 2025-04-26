@@ -33,7 +33,7 @@ class AuthRepository {
       final response = await apiClient.login(username, password);
       print(response.data);
 
-      if (response.statusCode == 200) {
+      if (response.data["code"] == 200) {
         String accessToken = response.data['result']['accessToken'];
         String refreshToken = response.data['result']['refreshToken'];
         bool isAuth = response.data['result']['authenticated'] ?? false; 
@@ -48,7 +48,11 @@ class AuthRepository {
           isAuth,
         );
       } else {
-        throw Exception("_AuthRepository: login failed");
+        return ApiResult(
+          response.data['code'],
+          response.data['message'],
+          false,
+        );
       }
     } catch (e) {
       throw Exception("_AuthRepository: $e");
@@ -60,10 +64,10 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.register(user);
-      if (response.statusCode == 200) {
-        return ApiResult(response.data['code'], response.data['mess'], '');
+      if (response.data['code'] == 200) {
+        return ApiResult(response.data['code'], response.data['message'], '');
       } else {
-        throw Exception("_AuthRepository_register:");
+        return ApiResult(response.data['code'], response.data['message'], '');
       }
     } catch (e) {
       throw Exception("_AuthRepository_register: $e");
@@ -78,7 +82,7 @@ class AuthRepository {
       if (refreshToken == null) return;
 
       final response = await apiClient.refreshToken(refreshToken);
-      if (response.statusCode == 200) {
+      if (response.data["code"] == 200) {
         String newAccessToken = response.data['access_token'];
         saveToken('access_token', newAccessToken);
       }
@@ -87,39 +91,6 @@ class AuthRepository {
     }
   }
 
-  // Gửi email
-  Future<ApiResult> giveEmail(String email) async {
-    try {
-      ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveEmail(email);
-      if (response.statusCode == 200) {
-        return ApiResult(
-          response.data['code'],
-          response.data['mess'],
-          response.data['result']['token'],
-        );
-      } else {
-        throw Exception("_AuthRepository_giveEmail:");
-      }
-    } catch (e) {
-      throw Exception("_AuthRepository_giveEmail: $e");
-    }
-  }
-
-  // Cập nhật mật khẩu mới
-  Future<ApiResult> giveRePassWord(String newPass, String token) async {
-    try {
-      ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveRePassWord(newPass, token);
-      if (response.statusCode == 200) {
-        return ApiResult(response.data['code'], response.data['mess'], '');
-      } else {
-        throw Exception("_AuthRepository_giveRePassWord:");
-      }
-    } catch (e) {
-      throw Exception("_AuthRepository_giveRePassWord: $e");
-    }
-  }
 
   // Đăng xuất
   Future<void> logout() async {

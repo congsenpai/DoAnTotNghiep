@@ -12,21 +12,19 @@ class WalletRepository{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.getWalletByUser(user.userID);
+    Map<String, dynamic> jsonData = response.data;
 
-    if (response.statusCode == 200) {
-      // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
 
-      int code = jsonData['code'];
-      String mess = jsonData['message'];
+    if (code == 200) {
 
-      // Chuyển 'result' từ JSON thành danh sách Discount
       List<WalletResponse> wallets = (jsonData['result'] as List)
           .map((json) => WalletResponse.fromJson(json))
           .toList();
       return ApiResult(code, mess, wallets);
     } else {
-      throw Exception("WalletRepository_getWalletByUser");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("WalletRepository_getWalletByUser: $e");
@@ -37,24 +35,34 @@ class WalletRepository{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.createWallet(wallet);
-    if (response.statusCode == 200) {
-      // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
+    Map<String, dynamic> jsonData = response.data;
 
-      int code = jsonData['code'];
-      String mess = jsonData['message'];
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
+    if (code == 200) {
 
-      // Chuyển 'result' từ JSON thành danh sách Discount
-      List<WalletResponse> wallets = (jsonData['result'] as List)
-          .map((json) => WalletResponse.fromJson(json))
-          .toList();
-      return ApiResult(code, mess, wallets);
+      return ApiResult(code, mess, null);
     } else {
-      throw Exception("WalletRepository_getWalletByUser");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("WalletRepository_getWalletByUser: $e");
   }
 
+  }
+  Future<ApiResult> topUp(
+      TopUpRequest request,
+      ) async {
+    try {
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.topUp(request);
+      Map<String, dynamic> jsonData = response.data;
+      int code = jsonData['code'];
+      String mess = jsonData['message'];
+      ApiResult apiResult = ApiResult(code, mess, null);
+      return apiResult;
+    } catch (e) {
+      throw Exception("TransactionRepository_topUp: $e");
+    }
   }
 }

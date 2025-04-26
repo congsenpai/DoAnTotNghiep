@@ -68,10 +68,10 @@ class _MapWidgetScreenState extends State<MapWidgetScreen> {
               return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 25),);
             }, listener: (context,state){
             if(state is LocationSuccessState){
-              return AppDialog.showSuccessEvent(context, state.mess,);
+              return AppDialog.showSuccessEvent(context, AppLocalizations.of(context).translate(state.mess),);
             }
             else if(state is LocationErrorState){
-              return AppDialog.showErrorEvent(context, state.mess);
+              return AppDialog.showErrorEvent(context, AppLocalizations.of(context).translate(state.mess));
             }
           })
             

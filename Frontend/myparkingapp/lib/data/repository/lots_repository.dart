@@ -11,10 +11,11 @@ class LotRepository{
     try{
         ApiClient apiClient = ApiClient();
         final response = await apiClient.getParkingLotBySearchAndPage(search, page, size);
-        if(response.statusCode == 200){
-            Map<String, dynamic> jsonData = response.data;
-            int code = jsonData['code'];
-            String mess = jsonData['message'];
+        Map<String, dynamic> jsonData = response.data;
+        int code = jsonData['code'];
+        String mess = jsonData['message'];
+        if(code == 200){
+
             int pageNumber = jsonData['result']['pageNumber'];
             int totalPages = jsonData['result']['totalPages'];
             List<ParkingLotResponse> lots = jsonData['result']['content'] != null ? (jsonData['result']['content'] as List)
@@ -34,9 +35,7 @@ class LotRepository{
             return apiResult;
         }
         else{
-            throw Exception(
-            "TransactionRepository_getParkingLotBySearchAndPage"
-        ); 
+          return ApiResult(code, mess, null);
         }
     }
     catch(e){
@@ -47,13 +46,14 @@ class LotRepository{
     try {
     ApiClient apiClient = ApiClient();
     final response = await apiClient.getNearParkingLot(coordinate);
+    // Không cần jsonDecode vì response.data đã là JSON
+    Map<String, dynamic> jsonData = response.data;
 
-    if (response.statusCode == 200) {
-      // Không cần jsonDecode vì response.data đã là JSON
-      Map<String, dynamic> jsonData = response.data;
+    int code = jsonData['code'];
+    String mess = jsonData['message'];
 
-      int code = jsonData['code'];
-      String mess = jsonData['mess'];
+    if (code == 200) {
+
 
       // Chuyển 'result' từ JSON thành danh sách Discount
       List<ParkingLotResponse> lots = jsonData['result'] !=null ? (jsonData['result'] as List)
@@ -62,7 +62,7 @@ class LotRepository{
 
       return ApiResult(code, mess, lots);
     } else {
-      throw Exception("LotRepository_getNearParkingLot");
+      return ApiResult(code, mess, null);
     }
   } catch (e) {
     throw Exception("LotRepository_getNearParkingLot: $e");

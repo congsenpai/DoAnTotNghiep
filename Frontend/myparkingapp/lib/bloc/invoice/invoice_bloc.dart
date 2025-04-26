@@ -42,6 +42,92 @@ class InvoiceBloc extends Bloc<InvoiceEvent,InvoiceState>{
       else{
         emit(InvoiceSuccessState(" ${invoiceApi.message}"));
       }
+<<<<<<< HEAD
+      else{
+        emit(InvoiceErrorState(invoiceApi.message));
+      }
+    }
+    catch(e){
+      Exception(e);
+    }
+
+  }
+  List<Invoice_QR> mapToInvoiceQRList(List<Map<String, String>> rawList) {
+    return rawList.map((item) {
+      final key = item.keys.first;
+      final value = item.values.first;
+      return Invoice_QR(key, value);
+    }).toList();
+  }
+
+  void _getCurrentInvoice(GetCurrentInvoiceEvent event, Emitter<InvoiceState> emit ) async{
+    try{
+      emit(InvoiceLoadingState());
+      InvoiceRepository invoiceRepository = InvoiceRepository();
+      ApiResult invoiceApi = await invoiceRepository.getCurrentInvoice(event.userID);
+      if(invoiceApi.code ==200){
+        InvoiceStorageManager storageManager = InvoiceStorageManager();
+        List<String> invoices = invoiceApi.result;
+        storageManager.filterCurrentInvoice(invoices);
+        List<Map<String, String>> invoicesFromStore = await storageManager.getCurrentInvoiceList();
+        print(invoicesFromStore);
+        List<Invoice_QR> invoiceQrs = mapToInvoiceQRList(invoicesFromStore);
+        emit(GetCurrentInvoiceState(invoices: invoiceQrs));
+      }
+      else{
+        emit(InvoiceErrorState(invoiceApi.message));
+      }
+    }
+    catch(e){
+      Exception("InvoiceBloc _getInvoiceBySearchAndPage : $e");
+    }
+
+  }
+
+  void _getInvoiceByID(GetInvoiceByIDEvent event, Emitter<InvoiceState> emit ) async{
+    try{
+      emit(InvoiceLoadingState());
+      InvoiceRepository invoiceRepository = InvoiceRepository();
+      UserRepository userRepository = UserRepository();
+      WalletRepository walletRepository = WalletRepository();
+      ApiResult invoiceApi = await invoiceRepository.getInvoiceByID(event.invoiceID);
+      ApiResult userApi = await userRepository.getMe();
+      UserResponse user = userApi.result;
+      ApiResult walletApi = await walletRepository.getWalletByUser(user);
+
+      if(invoiceApi.code ==200 && walletApi.code == 200){
+        InvoiceResponse invoiceResponse = invoiceApi.result;
+        List<WalletResponse> wallets = walletApi.result;
+        emit(GetInvoiceByIDState(wallets: wallets, invoice: invoiceResponse));
+      }
+      else{
+        emit(InvoiceErrorState("$invoiceApi.message - $walletApi.message"));
+      }
+    }
+    catch(e){
+      Exception("InvoiceBloc _getInvoiceBySearchAndPage : $e");
+    }
+
+  }
+
+  void _createdPaymentInvoice(CreatedPaymentInvoiceEvent event, Emitter<InvoiceState> emit) async{
+    try{
+      emit(InvoiceLoadingState());
+      InvoiceRepository invoice = InvoiceRepository();
+
+      ApiResult invoiceApi = await invoice.paymentDaily(event.invoice);
+
+      if(invoiceApi.code ==200){
+        InvoiceResponse invoiceResponse = invoiceApi.result;
+        InvoiceStorageManager invoiceStorageManager = InvoiceStorageManager();
+        invoiceStorageManager.addToCurrentInvoice(invoiceResponse.invoiceID, invoiceResponse.objectDecrypt);
+        emit(InvoiceSuccessState(invoiceApi.message));
+      }
+      else{
+        emit(InvoiceErrorState(invoiceApi.message));
+      }
+=======
+>>>>>>> main
     }
     catch(e){
       Exception(e);

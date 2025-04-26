@@ -113,6 +113,22 @@ class InvoiceCreateScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: Get.width / 30),
+<<<<<<< HEAD
+                    ObjectRow(title: "Discount Code", content: discount.discountCode),
+                    SizedBox(height: Get.width / 30),
+                    ObjectRow(title: "Reduced", content: "${discount.discountValue} ${
+                    discount.discountType == DiscountType.FIXED ? "USD" : "%"
+
+                    }"),
+                    SizedBox(height: Get.width / 30),
+                    Text(
+                      AppLocalizations.of(context).translate("Vehicle :"),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+=======
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -128,6 +144,7 @@ class InvoiceCreateScreen extends StatelessWidget {
                           ),
                         ),
                       ],
+>>>>>>> main
                     ),
                     Spacer(),
                     const TotalPrice(price: 20),
@@ -150,13 +167,13 @@ class InvoiceCreateScreen extends StatelessWidget {
 
         listener: (context, state) {
           if (state is InvoiceErrorState) {
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
 
           if (state is InvoiceSuccessState) {
             AppDialog.showSuccessEvent(
-              context,
-              state.mess,
+              context,AppLocalizations.of(context).translate(
+              state.mess),
               onPress: () {
                 Navigator.push(
                   context,

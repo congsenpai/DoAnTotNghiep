@@ -82,12 +82,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         return Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.greenAccent , size: 18),);
     }, listener: (context,state){
         if(state is InvoiceErrorState){
-          AppDialog.showErrorEvent(context, state.mess);
+          AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
         }
     });
   }
 }
 
+<<<<<<< HEAD
+=======
 class SearchForm extends StatefulWidget {
   final UserResponse user;
   final int page;
@@ -134,3 +136,4 @@ class _SearchFormState extends State<SearchForm> {
   }
 }
 
+>>>>>>> main

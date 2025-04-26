@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myparkingappadmin/responsive.dart';
 import '../../app/localization/app_localizations.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../bloc/auth/auth_event.dart';
@@ -47,16 +48,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: defaultPadding),
                   Row(
                     children: [
-                      Expanded(
-                          // It takes 5/6 part of the screen
-                          flex: 2,
-                          child: SizedBox(
-                            height: Get.height / 1.5,
-                            child: Image.asset(
-                              "assets/images/login_banner.jpg",
-                              fit: BoxFit.fitWidth,
-                            ),
-                          )),
+                      if(Responsive.isDesktop(context))
+                        Expanded(
+                            // It takes 5/6 part of the screen
+                            flex: 2,
+                            child: SizedBox(
+                              height: Get.height / 1.5,
+                              child: Image.asset(
+                                "assets/images/login_banner.jpg",
+                                fit: BoxFit.fitHeight,
+                              ),
+                            )),
                       Expanded(
                         // It takes 5/6 part of the screen
                         flex: 3,
@@ -139,28 +141,51 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 context)
                                             .translate("Forget Password")),
                                       ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          foregroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary, // Màu chữ trên nền chính
+                                      if (Responsive.isDesktop(context))
+                                    
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            foregroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary, // Màu chữ trên nền chính
+                                          ),
+                                          onPressed: () {
+                                            context.read<AuthBloc>().add(
+                                                AuthenticateEvent(
+                                                    _usernameController.text,
+                                                    _passwordController.text));
+                                          },
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate("Login")),
                                         ),
-                                        onPressed: () {
-                                          context.read<AuthBloc>().add(
-                                              AuthenticateEvent(
-                                                  _usernameController.text,
-                                                  _passwordController.text));
-                                        },
-                                        child: Text(
-                                            AppLocalizations.of(context)
-                                                .translate("Login")),
-                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: Get.height/5),
+                                  SizedBox(height: defaultPadding),
+                                  if (!Responsive.isDesktop(context))
+                                    ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary, // Màu chữ trên nền chính
+                                            ),
+                                            onPressed: () {
+                                              context.read<AuthBloc>().add(
+                                                  AuthenticateEvent(
+                                                      _usernameController.text,
+                                                      _passwordController.text));
+                                            },
+                                            child: Text(
+                                                AppLocalizations.of(context)
+                                                    .translate("Login")),
+                                          ),
+                                  SizedBox(height: Get.height/10),
                                 
                                 ],
                               ),

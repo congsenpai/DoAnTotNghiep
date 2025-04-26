@@ -10,19 +10,21 @@ class  TransactionBloc extends Bloc< TransactionEvent, TransactionState>{
     on<GetTransactionsByWalletEvent>(_getTransactionsByWallet);
    }
    void _getTransactionsByWallet(GetTransactionsByWalletEvent event, Emitter<TransactionState> emit) async{
-    //  try{
-    //    emit(TransactionLoadingState());
-    //    TransactionRepository transactionRepository = TransactionRepository();
-    //    // Call the repository method to get parking slots by lot
-    //    final response = await transactionRepository.getTransactionsByWallet(event.parkingLotID);
-    //    if(response.code == 200){
-    //      emit(TransactionLoadedState(response.result));
-    //    }else{
-    //      emit(TransactionErrorState(response.message));
-    //    }
-    //  }catch(e){
-    //    emit(TransactionErrorState("Error: $e"));
-    //  }
-    emit(TransactionLoadedState(transactions));
+     try{
+       emit(TransactionLoadingState());
+       TransactionRepository transactionRepository = TransactionRepository();
+       // Call the repository method to get parking slots by lot
+       print("_________________________________________________________________");
+       print(event.walletID);
+       final response = await transactionRepository.getTransactionsByWallet(event.walletID);
+
+       if(response.code == 200){
+         emit(TransactionLoadedState(response.result));
+       }else{
+         emit(TransactionErrorState(response.message));
+       }
+     }catch(e){
+       throw Exception("TransactionBloc_getWalletByCustomer : $e");
+     }
    }
 }

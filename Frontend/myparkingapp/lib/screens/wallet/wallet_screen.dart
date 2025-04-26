@@ -106,12 +106,12 @@ class _WalletScreenState extends State<WalletScreen> {
         },
         listener: (context,state){
           if(state is WalletSuccessState){
-            AppDialog.showSuccessEvent(context, state.mess, onPress: (){
+            AppDialog.showSuccessEvent(context,AppLocalizations.of(context).translate( state.mess), onPress: (){
               context.read<WalletBloc>().add(WalletInitialEvent());
             });
           }
           else if(state is WalletErrorState){
-            AppDialog.showErrorEvent(context, state.mess);
+            AppDialog.showErrorEvent(context,AppLocalizations.of(context).translate( state.mess));
           }
         })
     );
@@ -132,7 +132,7 @@ class _WalletScreenState extends State<WalletScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              context.read<WalletBloc>().add(AddWalletEvent(0, "VND", name.text.trim(), user.userID));
+              context.read<WalletBloc>().add(AddWalletEvent(0, "USD", name.text.trim(), user.userID));
               Navigator.pop(context);
             },
             child: Text("Save"),

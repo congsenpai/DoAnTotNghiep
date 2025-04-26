@@ -21,7 +21,7 @@ class TotalPrice extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: Get.width/15,),
             children: [
               TextSpan(
-                text: "(incl. VAT)",
+                text: "(VAT)",
                 style: TextStyle(fontWeight: FontWeight.normal),
               ),
             ],

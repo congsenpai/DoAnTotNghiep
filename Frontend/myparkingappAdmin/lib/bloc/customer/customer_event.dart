@@ -7,13 +7,13 @@ abstract class UserEvent{}
 
 
 class LoadedCustomerScreenEvent extends UserEvent{
-  String searchCustomer;
-  LoadedCustomerScreenEvent(this.searchCustomer);
+  LoadedCustomerScreenEvent();
 }
 
 class LoadedOwnerScreenEvent extends UserEvent{
-  String searchOwner;
-  LoadedOwnerScreenEvent(this.searchOwner);
+
+  UserResponse user;
+  LoadedOwnerScreenEvent(this.user);
 }
 
 class RegisterOwnerEvent extends UserEvent{
@@ -23,7 +23,7 @@ class RegisterOwnerEvent extends UserEvent{
 
 class UpdateUserEvent extends UserEvent{
   String userId;
-  UpdateInfoResquest request;
+  UpdateInfoRequest request;
   UpdateUserEvent(this.request,this.userId);
 }
 

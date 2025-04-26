@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ac06cfe-a218-4051-816f-bb68f96d3dd6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/smartbrain/src/main/java/com/smartparking/smartbrain/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/customer/customer_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/customer/customer_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/customer/customer_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/customer/customer_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/customer/customer_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/customer/customer_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/parking_lot/lot_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/dto/request/admin_request/create_parking_owner_request.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/dto/request/admin_request/create_parking_owner_request.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/api_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/api_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/network/dio_client.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/network/dio_client.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/imageRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/imageRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/parkingLotRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/userRepository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/userRepository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/authentication/components/text_field_custom.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authentication/components/text_field_custom.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/customer_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/components/owner_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/customer/customerScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/general/app_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/general/app_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/parkingLot/createParkingLot.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/parkingLot/createParkingLot.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
-    </list>
+    <list default="true" id="5ac06cfe-a218-4051-816f-bb68f96d3dd6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,26 +39,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "tuilaBao",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tuilaBao&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/project/GitHub/DoAnTotNghiep/Frontend/myparkingapp&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens\customer" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\screens" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib\repository" />
       <recent name="D:\project\GitHub\DoAnTotNghiep\Frontend\myparkingappAdmin\lib" />
@@ -99,6 +76,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartWebdevConfigurationType" factoryName="Dart Web">
+      <option name="htmlFilePath" value="$PROJECT_DIR$/web/index.html" />
+      <option name="webdevPort" value="4200" />
+      <method v="2" />
+    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
@@ -125,7 +107,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/repository/invoiceRepository.dart</url>
-          <line>5</line>
+          <line>6</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -142,6 +124,11 @@
           <url>file://$PROJECT_DIR$/lib/screens/myprofile/myprofile_screen.dart</url>
           <line>4</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/bloc/customer/customer_bloc.dart</url>
+          <line>70</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

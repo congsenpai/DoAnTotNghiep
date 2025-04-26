@@ -88,4 +88,4 @@ final phoneNumberValidator = MinLengthValidator(10,
 final userNameValidator = MinLengthValidator(6, errorText: 'user name must be at least 6 digital long ');
 // Common Text
 final Center kOrText = Center(
-    child: Text("Or", style: TextStyle(color: titleColor.withOpacity(0.7))));
+    child: Text( "Or", style: TextStyle(color: titleColor.withOpacity(0.7))));

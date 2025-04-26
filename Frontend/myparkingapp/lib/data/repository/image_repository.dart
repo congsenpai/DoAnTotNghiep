@@ -28,13 +28,13 @@ class ImageRepository {
       // }
 
       Cloudinary cloudinary = Cloudinary.signedConfig(
-          apiKey: "",
-          apiSecret: "",
-          cloudName: "",
+          apiKey: "459529728362519",
+          apiSecret: "mb0tlF5Id1lHHe6LV0A6HY_2aw4",
+          cloudName: "du1wawwby",
         );
         return (cloudinary);
     } catch (e) {
-      throw Exception("Imagerepository_getApiCloud : $e");
+      throw Exception("ImageRepository_getApiCloud : $e");
     }
   }
 
@@ -50,10 +50,11 @@ class ImageRepository {
           print('⏫ Uploading: $count/$total bytes');
         },
       );
-      print("url : ${response.url}");
-      print("publicId : ${response.publicId}");
-      print("secureUrl : ${response.secureUrl}");
+
       if (response.isSuccessful) {
+        print("url : ${response.url}");
+        print("publicId : ${response.publicId}");
+
         return response;
       } else {
         throw Exception(response.error);

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:myparkingapp/components/api_result.dart';
 import 'package:myparkingapp/data/request/register_user_request.dart';
+import 'package:myparkingapp/data/request/resetPassRequest.dart';
 import '../network/api_client.dart';
 
 class AuthRepository {
@@ -70,12 +74,13 @@ class AuthRepository {
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.giveEmail(email);
-      if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']['token']);
+      if (response.data['code'] == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],response.data['result']['userToken']);
         return apiResult;
       }
       else{
-        throw Exception("_AuthRepository_giveEmail:");
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],null);
+        return apiResult;
       }
     } catch (e) {
       throw Exception("_AuthRepository_giveEmail: $e");
@@ -84,22 +89,52 @@ class AuthRepository {
 
     Future<ApiResult> giveRePassWord(String newPass, String token) async {
     try {
+      
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.giveRePassWord(newPass, token);
-      if (response.statusCode == 200) {
-        ApiResult apiResult = ApiResult(response.data['code'], response.data['mess'],'');
+      ResetPassRequest request = ResetPassRequest(newPass, token, hashToUUID(token));
+      final response = await apiClient.giveRePassWord(request);
+      if (response.data['code'] == 200) {
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],'');
         return apiResult;
       }
       else{
-        throw Exception("_AuthRepository_giveEmail:");
+        ApiResult apiResult = ApiResult(response.data['code'], response.data['message'],'');
+        return apiResult;
       }
     } catch (e) {
-      throw Exception("_AuthRepository_giveEmail: $e");
+      throw Exception("_AuthRepository_giveRePassWord: $e");
     }
   }
 
   Future<void> logout() async {
-    await storage.delete(key: 'access_token');
-    await storage.delete(key: 'refresh_token');
+    try{
+      String? accessToken = await getAccessToken();
+      ApiClient apiClient = ApiClient();
+      final response = await apiClient.logout(accessToken!);
+      if(response.data["code"] == 200){
+        await storage.delete(key: 'access_token');
+        await storage.delete(key: 'refresh_token');
+      }
+      else{
+        throw Exception(response.data["message"]);
+      }
+    }
+    catch(e){
+      throw Exception("_AuthRepository_logout: $e");
+    }
+  }
+
+
+  String hashToUUID(String input) {
+    input = "${input}parkingappBCP";
+    var bytes = utf8.encode(input);
+    var digest = sha256.convert(bytes);
+    String hex = digest.toString();
+
+    return "${hex.substring(0, 8)}-"
+        "${hex.substring(8, 12)}-"
+        "${hex.substring(12, 16)}-"
+        "${hex.substring(16, 20)}-"
+        "${hex.substring(20, 32)}";
   }
 }

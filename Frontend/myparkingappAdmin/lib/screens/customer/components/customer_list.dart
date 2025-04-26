@@ -11,7 +11,7 @@ import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/screens/general/app_dialog.dart';
 import 'package:myparkingappadmin/screens/general/search.dart';
 import 'package:myparkingappadmin/screens/myprofile/components/customer_detail.dart';
-import 'package:myparkingappadmin/screens/wallet/WalletList.dart';
+import 'package:myparkingappadmin/screens/wallet/wallet_list.dart';
 
 import '../../../app/localization/app_localizations.dart';
 import '../../../constants.dart';
@@ -40,10 +40,17 @@ class _CustomerListState extends State<CustomerList> {
     super.dispose();
   }
 
+  void _filterCustomer(String value ){
+    value = value.trim();
+    setState(() {
+      customers = customers.where((c)=>c.firstName.contains(value) || c.lastName.contains(value) || c.homeAddress.contains(value)).toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent(""));
+    context.read<CustomerBloc>().add(LoadedCustomerScreenEvent());
   }
 
   @override
@@ -59,12 +66,38 @@ class _CustomerListState extends State<CustomerList> {
           appBar: AppBar(
               toolbarHeight: 100,
               title: Row(
+<<<<<<< HEAD
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  AppLocalizations.of(context).translate("customer").toUpperCase(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Search(onSearch: (value) {
+                  _filterCustomer(value);
+                }),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.refresh),
+                      onPressed: () {
+                        context.read<CustomerBloc>().add(LoadedCustomerScreenEvent());
+                      },
+=======
                 children: [
                   Expanded(
                     flex: 2,
                     child: Text(
                       AppLocalizations.of(context).translate("CUSTOMER"),
                       style: Theme.of(context).textTheme.titleMedium,
+>>>>>>> main
                     ),
                   ),
                   Expanded(
@@ -163,11 +196,27 @@ class _CustomerListState extends State<CustomerList> {
       );
     }, listener: (context, state) {
       if (state is CustomerErrorState) {
+<<<<<<< HEAD
+        AppDialog.showErrorEvent(context, state.mess,
+        onPress:()=> {
+          context.read<CustomerBloc>().add(LoadedCustomerScreenEvent()),
+          Navigator.pop(context)
+        },
+        );
+      } else if (state is CustomerSuccessState) {
+        AppDialog.showSuccessEvent(context, state.mess,onPress:()=> {
+          context.read<CustomerBloc>().add(LoadedCustomerScreenEvent()),
+          Navigator.pop(context)
+        },
+        
+        );
+=======
         AppDialog.showErrorEvent(context, state.mess);
       } else if (state is CustomerErrorState) {
         AppDialog.showErrorEvent(context, state.mess);
       } else if (state is OwnerSuccessState) {
         AppDialog.showSuccessEvent(context, state.mess);
+>>>>>>> main
       }
     });
   }

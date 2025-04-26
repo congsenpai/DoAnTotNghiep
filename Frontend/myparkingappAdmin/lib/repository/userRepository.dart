@@ -7,36 +7,29 @@ import 'package:myparkingappadmin/data/dto/response/user_response.dart';
 import 'package:myparkingappadmin/data/network/api_client.dart';
 import 'package:myparkingappadmin/data/network/api_result.dart';
 
-class UserByPage{
-  List<UserResponse> users;
-  int page;
-  int pageTotal;
-  UserByPage(this.users,this.page,this.pageTotal);
 
-    // Chuyển từ JSON sang UserByPage
-  factory UserByPage.fromJson(Map<String, dynamic> json) {
-    return UserByPage(
-      (json['users'] as List<dynamic>)
-          .map((user) => UserResponse.fromJson(user))
-          .toList(),
-      json['page'] as int,
-      json['pageTotal'] as int,
-    );
-  }
-}
 
 class UserRepository {
-  Future<ApiResult> getAllOwnerUser(String search) async {
+  Future<ApiResult> getAllOwnerUser() async {
     try {
 
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.getAllOwnerUser(search);
+      final response = await apiClient.getAllUser();
       int code = response.data["code"];
-      String mess = response.data["mess"];
+      String mess = response.data["message"];
       if(response.statusCode == 200){
-        UserByPage userByPage = UserByPage.fromJson(response.data["result"]);
+        List<UserResponse> users = (response.data["result"] as List)
+            .map((item) => UserResponse.fromJson(item))
+            .toList();
+        List<UserResponse> ownerUsers = users.where((e)=>e.roles.contains("PARKING_OWNER") && !e.roles.contains("ADMIN")).toList();
+        print("\n");
+        print(ownerUsers.toString());
+
+        print("\n");
+
+
         ApiResult apiResult = ApiResult(
-           code, mess, userByPage
+           code, mess, ownerUsers
         );
         return apiResult;
       }
@@ -50,17 +43,20 @@ class UserRepository {
       throw Exception("UserRepository_getAllOwnerUser: $e");
     }
   }
-  Future<ApiResult> getAllCustomerUser(String search) async {
+  Future<ApiResult> getAllCustomerUser() async {
     try {
 
       ApiClient apiClient = ApiClient();
-      final response = await apiClient.getAllCustomerUser(search);
+      final response = await apiClient.getAllUser();
       int code = response.data["code"];
-      String mess = response.data["mess"];
-      if(response.statusCode == 200){
-        UserByPage userByPage = UserByPage.fromJson(response.data["result"]);
+      String mess = response.data["message"];
+      if(code == 200){
+        List<UserResponse> users = (response.data["result"] as List)
+            .map((item) => UserResponse.fromJson(item))
+            .toList();
+        List<UserResponse> customerUsers = users.where((e)=>e.roles.contains("USER") && !e.roles.contains("ADMIN")).toList();
         ApiResult apiResult = ApiResult(
-           code, mess, userByPage
+           code, mess, customerUsers
         );
         return apiResult;
       }
@@ -74,13 +70,13 @@ class UserRepository {
       throw Exception("UserRepository_getAllCustomerUser: $e");
     }
   }
-  Future<ApiResult> updatedUser(UpdateInfoResquest user, String userId) async{
+  Future<ApiResult> updatedUser(UpdateInfoRequest user, String userId) async{
     try {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.updateUser(user, userId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      String mess = response.data["message"];
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -104,8 +100,8 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.updateStatusUser(newStatus, userId);
       int code = response.data["code"];
-      String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      String mess = response.data["message"];
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );
@@ -147,7 +143,7 @@ class UserRepository {
       int code = response.data["code"];
       String mess = response.data["message"];
       UserResponse userResponse = UserResponse.fromJson(response.data["result"]);
-      if(response.statusCode == 200){
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, userResponse
         );
@@ -170,8 +166,8 @@ class UserRepository {
       ApiClient apiClient = ApiClient();
       final response = await apiClient.changePassWord(userId, oldPass, newPass);
       int code = response.data["code"];
-      String mess = response.data["mess"];
-      if(response.statusCode == 200){
+      String mess = response.data["message"];
+      if(code == 200){
         ApiResult apiResult = ApiResult(
            code, mess, null
         );

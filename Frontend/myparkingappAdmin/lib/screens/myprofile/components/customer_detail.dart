@@ -68,7 +68,7 @@ class _UserDetailState extends State<UserDetail> {
     _emailController = TextEditingController(text: widget.user.email);
     _homeAddressController = TextEditingController(text: widget.user.homeAddress);
     _companyAddressController = TextEditingController(text: widget.user.companyAddress);
-    _numberPhoneController = TextEditingController(text: widget.user.phoneNumber);
+    _numberPhoneController = TextEditingController(text: widget.user.phone);
     _roleController = TextEditingController(text: widget.user.roles.join(", "));
     _statusController = TextEditingController(text: widget.user.status.name);
   }
@@ -119,9 +119,8 @@ void didUpdateWidget(covariant UserDetail oldWidget) {
                   icon: Icon(Icons.save),
                   onPressed: () {
                     Images image = Images(publicId, "", _imageBytes);
-                    final UpdateInfoResquest request = UpdateInfoResquest(
+                    final UpdateInfoRequest request = UpdateInfoRequest(
                       username: _userNameController.text,
-                      password: widget.user.password,
                       phoneNumber: _numberPhoneController.text,
                       homeAddress: _homeAddressController.text,
                       companyAddress: _companyAddressController.text,

@@ -7,6 +7,7 @@ import 'package:myparkingapp/data/repository/auth_repository.dart';
 
 class DioClient {
   final Dio dio = Dio();
+
   final AuthRepository authRepository = AuthRepository();
 
   DioClient() {

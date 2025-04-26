@@ -110,7 +110,7 @@ class AppDialog {
         context: context,
         builder: (context) => AlertDialog(
             title: SizedBox(
-                height: Get.height / 1.5,
+                height: Get.height / 1.2,
                 width: Get.width / 1.5,
                 child: QRScannerPage(
                   isEntry: isEntry,

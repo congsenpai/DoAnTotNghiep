@@ -26,7 +26,8 @@ class SectionTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            isMainSection ? title : title.toUpperCase(),
+            AppLocalizations.of(context).translate(
+            isMainSection ? title : title.toUpperCase()),
             style: isMainSection
                 ? Theme.of(context).textTheme.titleLarge
                 : Theme.of(context).textTheme.titleMedium,

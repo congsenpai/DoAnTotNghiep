@@ -23,18 +23,13 @@ class TransactionList extends StatefulWidget {
 
 class _TransactionListState extends State<TransactionList> {
   bool isDetail = false;
-  TransactionResponse transaction = TransactionResponse(
-    type: TransactionType.PAYMENT,
-    transactionId: '',
-    walletId: '',
-    description: '',
-    status: TransactionStatus.COMPLETED, currentBalance: 0, createAt: DateTime.now(), // Initialize with default values
-  );
+  TransactionResponse? transaction;
+  TransactionType type = TransactionType.TOP_UP;
 
   Set<String> objectColumnNameOfTransaction = HashSet.from([
     "TranId",
     "Date",
-    "Amount",
+    "CurrentDetail",
     "Detail",
   ]);
 
@@ -113,7 +108,7 @@ class _TransactionListState extends State<TransactionList> {
                 isDetail
                     ? Expanded(
                         flex: 1,
-                        child: TransactionDetail(object: transaction, onEdit: () { setState(() {
+                        child: TransactionDetail(object: transaction!, onEdit: () { setState(() {
                           isDetail = false;
                         }); },),
                       )
@@ -156,9 +151,9 @@ class _TransactionListState extends State<TransactionList> {
   DataRow _buildDataRow(TransactionResponse transaction, BuildContext context) {
     return DataRow(
       cells: [
-        DataCell(Text(transaction.status.name)),
         DataCell(Text(transaction.currentBalance.toString())),
         DataCell(Text(transaction.createAt.toString())),
+        DataCell(Text(transaction.currentBalance.toString())),
         DataCell(Row(
           children: [
             Expanded(

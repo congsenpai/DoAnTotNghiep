@@ -63,6 +63,17 @@ class InvociceDetailsScreen extends StatelessWidget {
                       press: () {
                         AppDialog.showDetailDiscount(context, invoice.discount);
                       },
+<<<<<<< HEAD
+                    ):
+                SizedBox(height: 10),
+
+                SizedBox(height: 10),
+                PrimaryButton(
+                  text: "${AppLocalizations.of(context).translate("Vehicle")} : ${invoice.vehicle.licensePlate}",
+                  press: () {
+                    AppDialog.showDetailVehicle(context, invoice.vehicle);
+                  },
+=======
                     ),
                 SizedBox(height: Get.width/30),
                 Row(
@@ -97,6 +108,7 @@ class InvociceDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+>>>>>>> main
                 ),
                 
                 SizedBox(height: 10),
@@ -110,7 +122,11 @@ class InvociceDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
+<<<<<<< HEAD
+                TotalPrice(price: invoice.totalAmount, current: 'USD',),
+=======
                 TotalPrice(price: invoice.totalAmount),
+>>>>>>> main
                 SizedBox(height: Get.width/10),
               ],
             ),

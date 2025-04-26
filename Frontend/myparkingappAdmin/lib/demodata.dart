@@ -13,8 +13,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     UserResponse(
       userId: 'user123',
       username: 'john_doe',
-      password: 'hashed_password',
-      phoneNumber: '0123456789',
+      phone: '0123456789',
       homeAddress: '123 Đường A',
       companyAddress: '456 Đường B',
       lastName: 'Doe',
@@ -27,8 +26,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     UserResponse(
       userId: 'user124',
       username: 'jane_doe',
-      password: 'hashed_password',
-      phoneNumber: '0987654321',
+      phone: '0987654321',
       homeAddress: '789 Đường X',
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
@@ -45,8 +43,8 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
           UserResponse(
       userId: 'user124',
       username: 'jane_doe',
-      password: 'hashed_password',
-      phoneNumber: '0987654321',
+
+      phone: '0987654321',
       homeAddress: '789 Đường X',
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
@@ -59,8 +57,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
     UserResponse(
       userId: 'user124',
       username: 'jane_doe',
-      password: 'hashed_password',
-      phoneNumber: '0987654321',
+      phone: '0987654321',
       homeAddress: '789 Đường X',
       companyAddress: '101 Đường Y',
       lastName: 'Doe',
@@ -118,7 +115,7 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       rate: 3.5,
       description: 'Bãi đỗ xe ngoài trời',
       userId: 'user124',
-      images: [ ],
+      images: [],
     ),
   ];
 
@@ -295,25 +292,25 @@ import 'package:myparkingappadmin/data/dto/response/wallet_response.dart';
       type: TransactionType.PAYMENT,
       walletId: 'wallet123',
       description: 'Thanh toán hóa đơn',
-      status: TransactionStatus.COMPLETED, currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
+ currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
     ),
     TransactionResponse(
       type: TransactionType.PAYMENT,
       walletId: 'wallet123',
       description: 'Thanh toán hóa đơn',
-      status: TransactionStatus.COMPLETED, currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
+ currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
     ),
     TransactionResponse(
       type: TransactionType.PAYMENT,
       walletId: 'wallet123',
       description: 'Thanh toán hóa đơn',
-      status: TransactionStatus.COMPLETED, currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
+currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
     ),
     TransactionResponse(
       type: TransactionType.PAYMENT,
       walletId: 'wallet123',
       description: 'Thanh toán hóa đơn',
-      status: TransactionStatus.COMPLETED, currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
+ currentBalance: 10000, createAt: DateTime.now(), transactionId: '',
     ),
   ];
 

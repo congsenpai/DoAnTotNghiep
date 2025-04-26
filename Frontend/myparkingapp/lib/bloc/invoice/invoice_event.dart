@@ -15,4 +15,22 @@ class CreatedInvoiceEvent extends InvoiceEvent{
   InvoiceCreatedDailyRequest? invoiceD;
   InvoiceCreatedMonthlyRequest? invoiceM;
   CreatedInvoiceEvent(this.invoiceD,this.invoiceM);
+<<<<<<< HEAD
+}
+
+class CreatedPaymentInvoiceEvent extends InvoiceEvent{
+  PaymentDailyRequest invoice;
+  CreatedPaymentInvoiceEvent(this.invoice);
+}
+
+class GetCurrentInvoiceEvent extends InvoiceEvent{
+  String userID;
+  GetCurrentInvoiceEvent(this.userID);
+}
+
+class GetInvoiceByIDEvent extends InvoiceEvent{
+  String invoiceID;
+  GetInvoiceByIDEvent(this.invoiceID);
+=======
+>>>>>>> main
 }
