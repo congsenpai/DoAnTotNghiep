@@ -37,23 +37,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationSevice {
-<<<<<<< HEAD
     final UserRepository userRepository;
     final PasswordEncoder passwordEncoder;
     final JwtTokenProvider jwtTokenProvider;
     final InvalidatedRepository invalidatedRepository;
     // final EmailService emailService;
-=======
-	final UserRepository userRepository;
-	final PasswordEncoder passwordEncoder;
-	final JwtTokenProvider jwtTokenProvider;
-	final InvalidatedRepository invalidatedRepository;
-<<<<<<< Updated upstream
-	final EmailService emailService;
->>>>>>> main
-=======
-	// final EmailService emailService;
->>>>>>> Stashed changes
 
 	@Value("${jwt.signerKey}")
 	protected String SECRET_KEY;
@@ -149,28 +137,6 @@ public class AuthenticationSevice {
 
 	}
 
-<<<<<<< HEAD
-    public ChangePasswordResponse forgotPassword(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND));
-        try {
-            String objectEncrypt = AESEncryption.encryptObject(user, SECRET_KEY);
-            // send mail for password reset
-            Map<String, Object> variables = new HashMap<>();
-            variables.put("name", user.getFirstName());
-            String newPassword = UUID.randomUUID().toString();
-            variables.put("newPassword", newPassword);
-            // emailService.sendResetPasswordEmail(user.getEmail(), variables);
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userRepository.save(user);
-            return ChangePasswordResponse.builder()
-                    .userToken(objectEncrypt)
-                    .build();
-        } catch (Exception e) {
-            throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when send email");
-        }
-    }
-=======
 	public ChangePasswordResponse forgotPassword(String email) {
 		User user = userRepository.findByEmail(email)
 				.orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND));
@@ -191,7 +157,6 @@ public class AuthenticationSevice {
 			throw new AppException(ErrorCode.ERROR_NOT_FOUND, "Error occur when send email");
 		}
 	}
->>>>>>> main
 
 	public void resetPassword(ResetPassRequest request) {
 		if (invalidatedRepository.existsById(request.getResetToken())) {
