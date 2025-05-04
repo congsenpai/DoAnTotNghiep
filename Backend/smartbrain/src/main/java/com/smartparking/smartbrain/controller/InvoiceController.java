@@ -2,7 +2,6 @@ package com.smartparking.smartbrain.controller;
 
 import java.util.List;
 
-import com.smartparking.smartbrain.model.Invoice;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 

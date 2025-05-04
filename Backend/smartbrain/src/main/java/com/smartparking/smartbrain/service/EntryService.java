@@ -10,7 +10,6 @@ import com.smartparking.smartbrain.enums.SlotStatus;
 import com.smartparking.smartbrain.exception.AppException;
 import com.smartparking.smartbrain.exception.ErrorCode;
 import com.smartparking.smartbrain.model.Invoice;
-import com.smartparking.smartbrain.repository.InvoiceQRRepository;
 import com.smartparking.smartbrain.repository.InvoiceRepository;
 
 import lombok.AccessLevel;
